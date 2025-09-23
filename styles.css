@@ -1,0 +1,55 @@
+/* Reset */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial, sans-serif;line-height:1.6}
+img{max-width:100%;display:block}
+
+/* Colors */
+:root{
+  --black:#0b0b0b;
+  --white:#fff;
+  --cream:#f5f0e6;
+  --accent:#c9b87a;
+}
+
+/* Navbar */
+.site-header{background:var(--white);position:fixed;width:100%;top:0;left:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+.nav-bar{display:flex;justify-content:space-between;align-items:center;padding:15px 40px}
+.logo{font-size:20px;font-weight:700}
+.nav-links{list-style:none;display:flex;gap:20px}
+.nav-links a{text-decoration:none;color:var(--black);font-weight:600}
+.nav-links a:hover{color:var(--accent)}
+
+/* Sections */
+.section{min-height:100vh;padding:80px 20px;display:flex;align-items:center;justify-content:center;text-align:center}
+.container{max-width:1100px;margin:auto}
+.section h2{margin-bottom:20px;font-size:28px}
+.section p{color:#444}
+
+/* Home */
+.home{background:var(--cream)}
+.home h1{font-size:36px;margin-bottom:10px}
+.home span{color:var(--accent)}
+
+/* About */
+.about{background:var(--white)}
+
+/* Projects */
+.projects{background:var(--black);color:var(--white)}
+.projects .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:20px}
+.projects .card{background:#222;padding:10px;border-radius:8px}
+.projects .card img{border-radius:6px;margin-bottom:10px}
+
+/* Services */
+.services{background:var(--cream)}
+.services .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:20px}
+.services .service{background:var(--white);padding:20px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+
+/* Contact */
+.contact{background:var(--white)}
+form{display:flex;flex-direction:column;gap:15px;max-width:500px;margin:auto}
+form input,form textarea{padding:12px;border:1px solid #ccc;border-radius:6px;font-size:14px}
+form button{padding:12px;border:none;background:var(--accent);color:var(--black);font-weight:700;border-radius:6px;cursor:pointer}
+form button:hover{background:#b8a768}
+
+/* Footer */
+.site-footer{background:var(--black);color:#aaa;text-align:center;padding:20px}

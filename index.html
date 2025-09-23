@@ -1,65 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tushpendra | My Website</title>
-  <link rel="stylesheet" href="/index.css">
-  <script src="/index.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Code by Tushu</title>
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <header>
-	<nav>
-		<ul>
-			<li><a href="#section1">Home</a></li>
-			<li><a href="#section2">About</a></li>
-			<li><a href="#section3">Services</a></li>
-			<li><a href="#section4">Contact</a></li>
-		</ul>
-	</nav>
-</header>
-<section class="container" id="section1">
-	<img src="https://images.unsplash.com/photo-1505238680356-667803448bb6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-</section>
-<section class="container" id="section2">
-	<img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-</section>
-<section class="container" id="section3">
-	<img src="https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-</section>
-<section class="container" id="section4">
-	<img src="https://images.unsplash.com/photo-1624696941338-934bf86c28b4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-</section>
 
-<svg style="display: none">
-	<defs>
-		<filter id="wave-distort" x="0%" y="0%" width="100%" height="100%">
-			<feTurbulence
-										type="fractalNoise"
-										baseFrequency="0.0038 0.0038"
-										numOctaves="1"
-										seed="2"
-										result="roughNoise"
-										/>
-			<feGaussianBlur in="roughNoise" stdDeviation="8.5" result="softNoise" />
-			<feComposite
-									 operator="arithmetic"
-									 k1="0"
-									 k2="1"
-									 k3="2"
-									 k4="0"
-									 in="softNoise"
-									 result="mergedMap"
-									 />
-			<feDisplacementMap
-												 in="SourceGraphic"
-												 in2="mergedMap"
-												 scale="-42"
-												 xChannelSelector="G"
-												 yChannelSelector="G"
-												 />
-		</filter>
-	</defs>
-</svg>
+  <!-- Navbar -->
+  <header class="site-header">
+    <div class="container nav-bar">
+      <div class="logo">Code by Tushu</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Home -->
+  <section id="home" class="section home">
+    <div class="container">
+      <h1>Welcome to <span>Code by Tushu</span></h1>
+      <p>Hi, I’m <strong>Tushpendra Kumar</strong>. This is my professional photography & portfolio website.</p>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section about">
+    <div class="container">
+      <h2>About Me</h2>
+      <p>I’m Tushpendra Kumar, a passionate photographer and developer. I love capturing portraits, landscapes, and special moments. This website showcases my work and skills.</p>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section projects">
+    <div class="container">
+      <h2>My Projects</h2>
+      <div class="grid">
+        <div class="card"><img src="https://source.unsplash.com/400x250/?nature" alt=""><p>Nature Photography</p></div>
+        <div class="card"><img src="https://source.unsplash.com/400x250/?portrait" alt=""><p>Portrait Collection</p></div>
+        <div class="card"><img src="https://source.unsplash.com/400x250/?wedding" alt=""><p>Wedding Shoots</p></div>
+        <div class="card"><img src="https://source.unsplash.com/400x250/?city" alt=""><p>City Life</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section services">
+    <div class="container">
+      <h2>Services</h2>
+      <div class="grid">
+        <div class="service">
+          <h3>📸 Portraits</h3>
+          <p>High-quality personal and professional portraits.</p>
+        </div>
+        <div class="service">
+          <h3>🌄 Landscapes</h3>
+          <p>Beautiful nature and city landscapes photography.</p>
+        </div>
+        <div class="service">
+          <h3>💍 Weddings</h3>
+          <p>Memorable wedding shoots with cinematic style.</p>
+        </div>
+        <div class="service">
+          <h3>🏢 Commercial</h3>
+          <p>Branding, events, and product photography.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section contact">
+    <div class="container">
+      <h2>Contact Me</h2>
+      <form id="contactForm">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <p id="form-status"></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Code by Tushu — Tushpendra Kumar</p>
+  </footer>
+
+  <script src="/main.js"></script>
 </body>
 </html>
