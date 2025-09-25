@@ -1,34 +1,127 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>codebytushu</title>
-  <link rel="stylesheet" href="/index.css">
-  <script src="/index.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Code by Tushu</title>
+  <link rel="stylesheet" href="/delete/index.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,fill,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
+
 <body>
-  <header>
-	<nav>
-		<ul>
-			<li><a href="#section1">Home</a></li>
-			<li><a href="#section2">About</a></li>
-			<li><a href="#section3">Services</a></li>
-			<li><a href="#section4">Contact</a></li>
-		</ul>
-	</nav>
-</header>
-<section class="container" id="section1">
-	<img src="https://images.unsplash.com/photo-1505238680356-667803448bb6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-</section>
-<section class="container" id="section2">
-	<img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-</section>
-<section class="container" id="section3">
-	<img src="https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-</section>
-<section class="container" id="section4">
-	<img src="https://images.unsplash.com/photo-1624696941338-934bf86c28b4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-</section>
+
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="logo">Code by Tushu</div>
+      <nav>
+        <ul class="main-nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="home" class="section hero">
+    <div class="hero-content">
+      <h1>Welcome to <span class="text-accent">Code by Tushu</span></h1>
+      <p>Hi, I’m Tushpendra Kumar. This is my professional video editing & portfolio website.</p>
+      <a href="#contact" class="btn">Get in Touch</a>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container about">
+      <h2 class="text-center">About Me</h2>
+      <p>I’m Tushpendra Kumar, a passionate photographer and developer. I love capturing portraits, landscapes, and special moments. This website showcases my work and skills, combining my creative eye with a strong foundation in clean, efficient code.</p>
+    </div>
+  </section>
+
+  <section id="projects" class="section projects">
+    <div class="section-content">
+      <h2 class="text-center">My Projects</h2>
+      <div class="projects-container">
+        <div class="project-card">
+          <img src="https://via.placeholder.com/350x200?text=My-Portfolio" alt="My Portfolio Project">
+          <div class="project-info">
+            <h3>My-Portfolio</h3>
+            <p>A modern and unique portfolio to showcase my work. Built with custom CSS and vanilla JS.</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="https://via.placeholder.com/350x200?text=E-Commerce-Clone" alt="E-Commerce Clone Project">
+          <div class="project-info">
+            <h3>E-Commerce-Foot-Shoes-Clone</h3>
+            <p>A functional clone of a shoe e-commerce site, featuring product grids and checkout flow.</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="https://via.placeholder.com/350x200?text=Insta-Clone" alt="Insta-Clone Project">
+          <div class="project-info">
+            <h3>Insta-Clone</h3>
+            <p>A social media clone with a focus on clean UI, user profiles, and image uploads.</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <img src="https://via.placeholder.com/350x200?text=Spotify-Clone" alt="Spotify-Clone Project">
+          <div class="project-info">
+            <h3>Spotify-Clone</h3>
+            <p>A music player interface clone with dynamic playlists and smooth playback controls.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="section-content">
+      <h2 class="text-center">Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3><span class="material-symbols-outlined">movie</span>Video Editing</h3>
+          <p>Cinematic edits, smooth transitions, color grading, and motion graphics for professional videos.</p>
+        </div>
+        <div class="service-card">
+          <h3><span class="material-symbols-outlined">landscape</span>Landscapes</h3>
+          <p>Beautiful nature and cityscapes photography, capturing breathtaking moments in high resolution.</p>
+        </div>
+        <div class="service-card">
+          <h3><span class="material-symbols-outlined">code</span>Code & Scripts</h3>
+          <p>Clean, efficient, and well-documented code projects and scripts for web development.</p>
+        </div>
+        <div class="service-card">
+          <h3><span class="material-symbols-outlined">apartment</span>Commercial</h3>
+          <p>Branding, event coverage, and product photography to elevate your business's visual identity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="contact-form-card">
+      <h2 class="text-center">Contact Me</h2>
+      <form id="contactForm">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+      <p id="form-status" class="text-center"></p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Code by Tushu — Tushpendra Kumar</p>
+  </footer>
+
+  <script src="/delete/index.js"></script>
 </body>
+
 </html>
