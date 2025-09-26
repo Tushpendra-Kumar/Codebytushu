@@ -651,6 +651,9 @@ section .title::after {
     text-align: center;
     overflow: hidden;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    transform: translateZ(0);
 }
 
 .teams .carousel .card .box {
@@ -703,7 +706,7 @@ section .title::after {
 .owl-dot.active,
 .owl-dot:hover {
     background: crimson !important;
-    margin border: 0;
+    margin-bottom: 0;
 }
 
 .teams .carousel .card .box .project {
@@ -721,6 +724,8 @@ section .title::after {
 .teams .carousel .card .box .project:hover {
     color: white;
     background: crimson;
+    transform: translateY(0);
+    margin-bottom: 0px;
 }
 
 /* contact section styling */
