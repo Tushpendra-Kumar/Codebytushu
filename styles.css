@@ -548,7 +548,7 @@ section .title::after {
     width: 100px;
     height: 100px;
     opacity: 1;
-    background: url("/image2/4.jpg") no-repeat;
+    background: url("/image2/7.webp") no-repeat;
     background-size: 100px;
     background-position: center;
     filter: invert(100%);
@@ -561,30 +561,6 @@ section .title::after {
     height: 100px;
     opacity: 1;
     background: url("/image2/5.webp") no-repeat;
-    background-size: 100px;
-    background-position: center;
-    filter: invert(100%);
-}
-
-.container .box:hover #fifth::before {
-    top: -50px;
-    left: 50px;
-    width: 100px;
-    height: 100px;
-    opacity: 1;
-    background: url("/image2/6.webp") no-repeat;
-    background-size: 100px;
-    background-position: center;
-    filter: invert(100%);
-}
-
-.container .box:hover #sixth::before {
-    top: -50px;
-    left: 50px;
-    width: 100px;
-    height: 100px;
-    opacity: 1;
-    background: url("/image2/7.webp") no-repeat;
     background-size: 100px;
     background-position: center;
     filter: invert(100%);
@@ -607,28 +583,6 @@ section .title::after {
     animation-delay: -1s;
 }
 
-.container .box:hover #sixth::after {
-    bottom: -50px;
-    right: 50px;
-    width: 100px;
-    height: 100px;
-    opacity: 1;
-    background: url("/image2/8.webp") no-repeat;
-    background-size: 100px;
-    background-position: center;
-}
-
-.container .box:hover #fifth::after {
-    bottom: -50px;
-    right: 50px;
-    width: 100px;
-    height: 100px;
-    opacity: 1;
-    background: url("/image2/9.webp") no-repeat;
-    background-size: 100px;
-    background-position: center;
-}
-
 .container .box:hover #fourth::after {
     bottom: -50px;
     right: 50px;
@@ -646,7 +600,7 @@ section .title::after {
     width: 100px;
     height: 100px;
     opacity: 1;
-    background: url("/image2/11.png") no-repeat;
+    background: url("/image2/7.webp") no-repeat;
     background-size: 100px;
     background-position: center;
 }
@@ -657,7 +611,7 @@ section .title::after {
     width: 100px;
     height: 100px;
     opacity: 1;
-    background: url("/image2/12.webp") no-repeat;
+    background: url("/image2/3.webp") no-repeat;
     background-size: 100px;
     background-position: center;
 }
@@ -668,7 +622,7 @@ section .title::after {
     width: 100px;
     height: 100px;
     opacity: 1;
-    background: url("/image2/13.webp") no-repeat;
+    background: url("/image2/2.webp") no-repeat;
     background-size: 100px;
     background-position: center;
 }
@@ -749,6 +703,7 @@ section .title::after {
 .owl-dot.active,
 .owl-dot:hover {
     background: crimson !important;
+    margin border: 0;
 }
 
 .teams .carousel .card .box .project {
@@ -766,7 +721,6 @@ section .title::after {
 .teams .carousel .card .box .project:hover {
     color: white;
     background: crimson;
-    margin-bottom: 0px;
 }
 
 /* contact section styling */
@@ -993,7 +947,7 @@ footer .wave {
     left: 0;
     width: 100%;
     height: 100px;
-    background: url("https://ftl.deekshith.eu.org/354310/None?hash=AgADY7");
+    /* background: url("https://ftl.deekshith.eu.org/354310/None?hash=AgADY7"); */
     background-size: 1000px 100px;
 }
 
