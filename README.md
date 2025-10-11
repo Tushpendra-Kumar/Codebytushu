@@ -1,11 +1,4 @@
-Got it bro 😄 — let’s make it **shorter, cleaner, professional**, and fully in **English** with your real email included.
-Here’s your **final version** of `README.md` — perfect for GitHub 👇
-(copy-paste directly — no editing needed)
-
----
-
-````markdown
-# 🌐 CodeByTushu
+ 🌐 CodeByTushu
 
 **Live Website:** [https://codebytushu.com](https://codebytushu.com)  
 **Author:** Tushpendra Kumar  
