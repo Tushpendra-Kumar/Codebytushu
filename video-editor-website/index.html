@@ -628,14 +628,13 @@
           <form class="contact-form reveal" id="contactForm">
 
             <div class="input-row">
-              <input type="text" placeholder="Full Name" required />
-              <input type="email" placeholder="Email Address" required />
+              <input type="text" name="name" placeholder="Full Name" required />
+              <input type="email" name="email" placeholder="Email Address" required />
             </div>
 
-            <input type="text" placeholder="Project / Subject" required />
+            <input type="text" name="subject" placeholder="Project / Subject" required />
 
-            <textarea placeholder="Tell me about your project..." rows="6" required></textarea>
-
+            <textarea name="message" placeholder="Tell me about your project..." rows="6" required></textarea>
             <button type="submit" class="btn-contact">
               🚀 Send Message
             </button>
@@ -803,6 +802,10 @@
       });
     });
   </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="app.js"></script>
 
 </body>
 

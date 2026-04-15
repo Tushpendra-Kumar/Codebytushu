@@ -39,16 +39,39 @@ scrollTopBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-// ====================== CONTACT FORM (DEMO) ======================
-const form = document.getElementById("contactForm");
-const note = document.getElementById("formNote");
+// ====================== SAFE CONTACT FORM ======================
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  note.textContent = "✅ Message sent successfully! (Demo)";
-  form.reset();
+document.addEventListener("DOMContentLoaded", function () {
 
-  setTimeout(() => {
-    note.textContent = "";
-  }, 3000);
+  emailjs.init("UtmoyVGBgxwM4qves");
+
+  const form = document.getElementById("contactForm");
+  const note = document.getElementById("formNote");
+
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      note.textContent = "⏳ Sending message...";
+
+      emailjs.sendForm(
+        "service_2n2zsep",
+        "template_c15b3pa",
+        this
+      )
+      .then(() => {
+        note.textContent = "✅ Message sent successfully!!";
+        form.reset();
+
+        setTimeout(() => {
+          note.textContent = "";
+        }, 4000);
+      })
+      .catch((error) => {
+        note.textContent = "❌ Failed to send message!";
+        console.error("EmailJS Error:", error);
+      });
+    });
+  }
+
 });
