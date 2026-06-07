@@ -1,0 +1,22 @@
+.donate-page {
+    width: 100%;
+    height: 80vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.donate-box {
+    width: 500px;
+
+    background: #17171d;
+
+    padding: 50px;
+
+    border-radius: 25px;
+
+    text-align: center;
+}
+
+.
