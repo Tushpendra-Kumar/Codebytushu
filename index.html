@@ -4,13 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CodeByTushu — Web Development, DevOps, LeetCode DSA & Video Editing by Tushpendra Kumar.">
     <title>CodeByTushu</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon logo/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon logo/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/favicon logo/apple-touch-icon.png">
+    <link rel="manifest" href="/favicon logo/site.webmanifest">
+
+    <!-- Theme init (must be first to avoid flash) -->
+    <script src="/theme.js"></script>
+
     <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- Dark Mode Toggle Button -->
+    <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle dark/light mode" aria-label="Toggle theme">
+        <span class="toggle-icon">🌙</span>
+    </button>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
@@ -167,7 +184,7 @@
                         preparation, and coding consistency with CodeByTushu.
                     </p>
 
-                    <a href="/Leetcode/" target="_blank">
+                    <a href="/Leetcode/">
                         Explore LeetCode
                     </a>
 
@@ -353,7 +370,6 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="script.js"></script>
     <!-- scroll bar js  -->
     <script type="text/javascript">
         var preogressbar = document.getElementById("preogressbar")
@@ -369,13 +385,83 @@
     <!-- pre loader js  -->
     <script>
         var loader = document.getElementById("preloader");
-
         window.addEventListener("load", function () {
             loader.style.display = "none";
         })
     </script>
 
+    <!-- Dark Mode Toggle Logic -->
+    <script>
+        (function () {
+            var btn = document.getElementById('themeToggleBtn');
+            var icon = btn.querySelector('.toggle-icon');
+
+            function applyTheme(theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('cbt-theme', theme);
+                icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+            }
+
+            // Apply saved theme on load
+            var saved = localStorage.getItem('cbt-theme') || 'dark';
+            applyTheme(saved);
+
+            btn.addEventListener('click', function () {
+                var current = document.documentElement.getAttribute('data-theme');
+                applyTheme(current === 'dark' ? 'light' : 'dark');
+            });
+        })();
+    </script>
+
     <script src="/main.js"></script>
+
+    <!-- Back to Top circle (main page) -->
+    <script>
+        (function(){
+            var style = document.createElement('style');
+            style.textContent = `
+                .main-top-btn {
+                    position: fixed; bottom: 24px; right: 24px; z-index: 99999;
+                    width: 46px; height: 46px; border-radius: 50%;
+                    background: #111; border: 2px solid #ffc400; color: #ffc400;
+                    font-size: 22px; cursor: pointer;
+                    display: flex; align-items: center; justify-content: center;
+                    box-shadow: 0 4px 18px rgba(255,196,0,0.3);
+                    transition: all 0.3s ease;
+                    opacity: 0; transform: translateY(20px); pointer-events: none;
+                }
+                .main-top-btn.show {
+                    opacity: 1; transform: translateY(0); pointer-events: auto;
+                }
+                .main-top-btn:hover {
+                    background: #ffc400; color: #000;
+                    transform: translateY(-4px);
+                    box-shadow: 0 8px 24px rgba(255,196,0,0.55);
+                }
+                [data-theme="light"] .main-top-btn {
+                    background: #fff; border-color: #d4900a; color: #d4900a;
+                }
+                [data-theme="light"] .main-top-btn:hover {
+                    background: #d4900a; color: #fff;
+                }
+                @media(max-width:480px){
+                    .main-top-btn { bottom:14px; right:14px; width:40px; height:40px; font-size:18px; }
+                }
+            `;
+            document.head.appendChild(style);
+
+            var btn = document.createElement('button');
+            btn.className = 'main-top-btn';
+            btn.setAttribute('aria-label', 'Back to top');
+            btn.innerHTML = '↑';
+            document.body.appendChild(btn);
+
+            btn.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+            window.addEventListener('scroll', function(){
+                btn.classList.toggle('show', window.scrollY > 400);
+            });
+        })();
+    </script>
 </body>
 
 </html>

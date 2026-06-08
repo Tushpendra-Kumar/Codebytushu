@@ -1,19 +1,83 @@
 /*  import google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    /*     font-family: consolas; */
+/* ============================================
+   THEME VARIABLES — Dark (default) / Light
+   ============================================ */
+:root,
+[data-theme="dark"] {
+    --bg-primary:   #000000;
+    --bg-secondary: #050505;
+    --bg-card:      #111111;
+    --text-primary: #ffffff;
+    --text-muted:   #aaaaaa;
+    --accent:       #ffc400;
+    --border:       rgba(255,196,0,0.25);
+    --navbar-bg:    rgba(0,0,0,0.35);
+    --navbar-sticky:#000000;
+    --footer-bg:    #010101;
+    --scrollbar-track: #111;
+    --scrollbar-thumb: #444;
+}
 
+[data-theme="light"] {
+    --bg-primary:   #f5f5f0;
+    --bg-secondary: #ebebE5;
+    --bg-card:      #ffffff;
+    --text-primary: #111111;
+    --text-muted:   #555555;
+    --accent:       #d4900a;
+    --border:       rgba(212,144,10,0.35);
+    --navbar-bg:    rgba(255,255,255,0.75);
+    --navbar-sticky:rgba(255,255,255,0.95);
+    --footer-bg:    #1a1a1a;
+    --scrollbar-track: #ddd;
+    --scrollbar-thumb: #aaa;
+}
+
+/* Apply theme variables site-wide */
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   DARK MODE TOGGLE BUTTON
+   ============================================ */
+.theme-toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    color: var(--accent);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 12px rgba(255,196,0,0.2);
+    line-height: 1;
+    padding: 0;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.12) rotate(15deg);
+    box-shadow: 0 0 20px rgba(255,196,0,0.5);
+    background: var(--accent);
 }
 
 html {
     scroll-behavior: smooth;
 }
+
 
 /* custom scroll bar */
 ::-webkit-scrollbar {
@@ -2218,3 +2282,164 @@ footer .wave#wave4 {
     border-color:#ffd54f;
 }
 
+
+/* ============================================
+   GLOBAL RESET (moved here so theme vars apply)
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ============================================
+   SCROLLBAR — themed
+   ============================================ */
+::-webkit-scrollbar-track { background: var(--scrollbar-track, #111); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb, #444); }
+
+/* ============================================
+   LIGHT MODE OVERRIDES
+   ============================================ */
+[data-theme="light"] .navbar {
+    background: rgba(255,255,255,0.85);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+[data-theme="light"] .navbar.sticky {
+    background: rgba(255,255,255,0.97);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+[data-theme="light"] .navbar .logo a { color: #111; }
+[data-theme="light"] .navbar .menu li a { color: #222; }
+[data-theme="light"] .navbar .menu li a:hover { color: var(--accent, #d4900a); }
+[data-theme="light"] .home {
+    background: linear-gradient(to right, #f0f0e8, #e8e8e0) !important;
+    color: #111;
+}
+[data-theme="light"] .home .home-content .text-2,
+[data-theme="light"] .home .home-content .text-1 { color: #111; }
+[data-theme="light"] .home .home-content .text-3 { color: #333; }
+[data-theme="light"] .about { background: #f5f5f0 !important; color: #111; }
+[data-theme="light"] .about .title { color: #111; }
+[data-theme="light"] .about .title::after { background: #f5f5f0; }
+[data-theme="light"] .about .about-content .right p { color: #333; }
+[data-theme="light"] .services,
+[data-theme="light"] .teams { background: #ebebE5 !important; color: #111; }
+[data-theme="light"] .container { background: #ebebE5 !important; }
+[data-theme="light"] .leetcode { background: #f0f0e8 !important; }
+[data-theme="light"] .leetcode-card {
+    background: #fff !important;
+    border-color: rgba(212,144,10,0.3) !important;
+}
+[data-theme="light"] .leetcode-card h4 { color: #111; }
+[data-theme="light"] .leetcode-card span { color: #444; }
+[data-theme="light"] .contact { background: #f5f5f0 !important; }
+[data-theme="light"] .contact .title { color: #111; }
+[data-theme="light"] .map-card { background: #fff; }
+[data-theme="light"] .map-card h2 { color: #111; }
+[data-theme="light"] .navbar .menu { background: rgba(245,245,240,0.98); }
+[data-theme="light"] .menu-btn i { color: #111; }
+[data-theme="light"] .contact-content .info .sub-title { color: #333; }
+
+/* ============================================
+   MOBILE RESPONSIVE — COMPREHENSIVE
+   ============================================ */
+
+/* --- 900px --- */
+@media (max-width: 900px) {
+    .home .max-width {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 100px;
+        gap: 30px;
+    }
+    .home-preview {
+        width: 100%;
+        justify-content: center;
+        margin: 0;
+        padding: 0 20px 40px;
+    }
+    .preview-card { width: 100%; max-width: 480px; }
+
+    .leetcode .leetcode-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .leetcode-left, .leetcode-right { width: 100% !important; }
+}
+
+/* --- 768px --- */
+@media (max-width: 768px) {
+    .max-width { padding: 0 20px; }
+
+    /* Home */
+    .home .home-content { width: 100%; padding: 0 10px; }
+    .home .home-content .text-2 { font-size: 48px; }
+    .home .home-content .text-3 { font-size: 26px; }
+
+    /* About */
+    .about .about-content { flex-direction: column; }
+    .about .about-content .left,
+    .about .about-content .right { width: 100%; }
+    .about .about-content .left {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+    .about .about-content .left img {
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+    }
+
+    /* Services */
+    .container { padding: 20px 10px; }
+    .container .box { width: 90%; max-width: 340px; margin: 20px auto; }
+
+    /* Contact */
+    .contact-content { flex-direction: column !important; }
+    .contact-content .column { width: 100% !important; }
+    .map-card { width: 100% !important; margin-top: 30px; }
+
+    /* Theme toggle */
+    .theme-toggle-btn {
+        top: 14px;
+        right: 14px;
+        width: 38px;
+        height: 38px;
+        font-size: 17px;
+    }
+
+    /* Footer */
+    #media { gap: 16px; }
+    #media li { width: 50px; height: 50px; }
+}
+
+/* --- 480px --- */
+@media (max-width: 480px) {
+    .home .home-content .text-1 { font-size: 15px; }
+    .home .home-content .text-2 { font-size: 38px; }
+    .home .home-content .text-3 { font-size: 22px; }
+    section .title { font-size: 28px; }
+    .about .about-content .left img { max-width: 260px; }
+    .about .about-content .right p { font-size: 15px; }
+    .classbox { width: 160px; height: 70px; }
+    .classbox a { font-size: 1.4em; }
+    .preview-card { width: 100%; }
+    #media { gap: 10px; flex-wrap: wrap; justify-content: center; }
+    #media li { width: 44px; height: 44px; }
+    footer h2 { font-size: 1.3em; }
+    footer p { font-size: 0.9em; }
+    .theme-toggle-btn { top: 10px; right: 10px; width: 34px; height: 34px; font-size: 15px; }
+}
+
+/* --- 360px --- */
+@media (max-width: 360px) {
+    .home .home-content .text-2 { font-size: 30px; }
+    .home .home-content .text-3 { font-size: 18px; }
+    .navbar .logo a { font-size: 26px; }
+    .container .box { width: 95%; }
+}
