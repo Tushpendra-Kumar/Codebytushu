@@ -68,23 +68,10 @@
        SHOW MODAL
        ══════════════════════════════════════════════ */
     function _showModal() {
-        // Blur the page content behind the overlay
-        document.body.classList.add('cbt-content-locked');
-
-        // Inject modal into DOM
+        // Inject modal into DOM (no blur — overlay blocks content)
         var wrapper = document.createElement('div');
         wrapper.innerHTML = _buildModalHTML();
         document.body.appendChild(wrapper.firstChild);
-
-        // ── Force-remove blur (overrides any cached CSS) ─────────
-        document.body.style.filter = 'none';
-        document.body.style.webkitFilter = 'none';
-        var overlay = document.getElementById('cbt-auth-overlay');
-        if (overlay) {
-            overlay.style.backdropFilter = 'none';
-            overlay.style.webkitBackdropFilter = 'none';
-            overlay.style.background = 'rgba(0,0,0,0.85)';
-        }
 
         // ── Google Sign-In ───────────────────────────────────────
         document.getElementById('cbt-google-btn').addEventListener('click', function () {
@@ -112,7 +99,6 @@
             overlay.style.animation = 'cbt-fade-in 0.3s ease reverse';
             setTimeout(function () { overlay.remove(); }, 280);
         }
-        document.body.classList.remove('cbt-content-locked');
     }
 
     /* ══════════════════════════════════════════════
