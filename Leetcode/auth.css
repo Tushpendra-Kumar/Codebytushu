@@ -3,12 +3,10 @@
    Dark gold theme matching the LeetCode sub-site
    ============================================================ */
 
-/* ─── Page Blur when not logged in ─────────────────────────── */
+/* ─── Page lock when not logged in ─────────────────────────── */
 .cbt-content-locked {
-    filter: blur(6px);
     pointer-events: none;
     user-select: none;
-    transition: filter 0.4s ease;
 }
 
 /* ─── Backdrop ──────────────────────────────────────────────── */
