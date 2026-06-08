@@ -1,6 +1,6 @@
 /* ============================================================
-   auth.css — CodeByTushu LeetCode Auth Modal
-   Dark gold theme matching the LeetCode sub-site
+   auth.css — CodeByTushu LeetCode Auth Modal & Nav User Widget
+   Gold: #ffc400 | Black + White design system
    ============================================================ */
 
 /* ─── Page lock when not logged in ─────────────────────────── */
@@ -30,7 +30,7 @@
 /* ─── Modal Card ────────────────────────────────────────────── */
 .cbt-auth-modal {
     background: linear-gradient(145deg, #16161c, #0d0d10);
-    border: 1px solid rgba(245, 166, 35, 0.25);
+    border: 1px solid rgba(255, 196, 0, 0.25);
     border-radius: 24px;
     padding: 48px 44px;
     width: 100%;
@@ -38,9 +38,9 @@
     text-align: center;
     position: relative;
     box-shadow:
-        0 0 0 1px rgba(245,166,35,0.08),
+        0 0 0 1px rgba(255,196,0,0.08),
         0 30px 80px rgba(0,0,0,0.6),
-        0 0 60px rgba(245,166,35,0.05);
+        0 0 60px rgba(255,196,0,0.05);
     animation: cbt-slide-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -54,8 +54,8 @@
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    background: rgba(245, 166, 35, 0.1);
-    border: 2px solid rgba(245, 166, 35, 0.4);
+    background: rgba(255, 196, 0, 0.1);
+    border: 2px solid rgba(255, 196, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,8 +65,8 @@
 }
 
 @keyframes cbt-pulse-ring {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(245,166,35,0.3); }
-    50%       { box-shadow: 0 0 0 12px rgba(245,166,35,0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,196,0,0.3); }
+    50%       { box-shadow: 0 0 0 12px rgba(255,196,0,0); }
 }
 
 /* ─── Headings ──────────────────────────────────────────────── */
@@ -81,8 +81,8 @@
 }
 
 .cbt-auth-modal h2 span {
-    color: #f5a623;
-    text-shadow: 0 0 20px rgba(245,166,35,0.35);
+    color: #ffc400;
+    text-shadow: 0 0 20px rgba(255,196,0,0.35);
 }
 
 .cbt-auth-modal .cbt-subtext {
@@ -166,7 +166,7 @@
     margin-top: 6px;
     transition: color 0.2s;
 }
-.cbt-email-toggle:hover { color: #f5a623; }
+.cbt-email-toggle:hover { color: #ffc400; }
 
 /* ─── Email Form ────────────────────────────────────────────── */
 #cbt-email-form {
@@ -193,7 +193,7 @@
 }
 
 #cbt-email-form input:focus {
-    border-color: rgba(245,166,35,0.5);
+    border-color: rgba(255,196,0,0.5);
 }
 
 #cbt-email-form input::placeholder { color: #555; }
@@ -217,23 +217,23 @@
 }
 
 #cbt-signin-btn {
-    background: #f5a623;
+    background: #ffc400;
     color: #000;
 }
 #cbt-signin-btn:hover {
-    background: #ffc04a;
+    background: #ffd04a;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245,166,35,0.4);
+    box-shadow: 0 6px 20px rgba(255,196,0,0.4);
 }
 
 #cbt-signup-btn {
     background: transparent;
-    color: #f5a623;
-    border: 1.5px solid rgba(245,166,35,0.4) !important;
+    color: #ffc400;
+    border: 1.5px solid rgba(255,196,0,0.4) !important;
 }
 #cbt-signup-btn:hover {
-    background: rgba(245,166,35,0.08);
-    border-color: rgba(245,166,35,0.7) !important;
+    background: rgba(255,196,0,0.08);
+    border-color: rgba(255,196,0,0.7) !important;
     transform: translateY(-2px);
 }
 
@@ -259,72 +259,170 @@
     line-height: 1.6;
 }
 
-/* ─── Navbar Auth Button ─────────────────────────────────────── */
-.cbt-nav-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+/* ══════════════════════════════════════════════════════════════
+   NAVBAR AUTH WIDGET — Login button & Username dropdown
+   ══════════════════════════════════════════════════════════════ */
 
-.cbt-nav-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #f5a623;
-}
-
-.cbt-nav-avatar-placeholder {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(245,166,35,0.2);
-    border: 2px solid #f5a623;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #f5a623;
+/* ─── LOGIN CTA BUTTON (guest state) ────────────────────────── */
+#cbt-nav-login-btn {
+    background: #ffc400;
+    color: #000;
+    border: none;
+    padding: 9px 22px;
+    border-radius: 10px;
     font-size: 14px;
     font-weight: 700;
     font-family: 'Poppins', sans-serif;
-}
-
-#cbt-logout-btn {
-    background: transparent;
-    border: 1.5px solid rgba(245,166,35,0.4);
-    color: #f5a623;
-    padding: 6px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    font-family: 'Poppins', sans-serif;
     cursor: pointer;
     transition: all 0.25s ease;
-}
-
-#cbt-logout-btn:hover {
-    background: rgba(245,166,35,0.1);
-    border-color: #f5a623;
-}
-
-#cbt-nav-login-btn {
-    background: #f5a623;
-    color: #000;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 700;
-    font-family: 'Poppins', sans-serif;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 2px 12px rgba(245,166,35,0.3);
+    box-shadow: 0 2px 14px rgba(255,196,0,0.3);
+    white-space: nowrap;
 }
 
 #cbt-nav-login-btn:hover {
-    background: #ffc04a;
+    background: #ffd04a;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245,166,35,0.45);
+    box-shadow: 0 6px 22px rgba(255,196,0,0.5);
+}
+
+/* ─── LOGGED-IN USER WIDGET ──────────────────────────────────── */
+.cbt-nav-user {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Username button */
+.cbt-username-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 196, 0, 0.08);
+    border: 1.5px solid rgba(255, 196, 0, 0.3);
+    border-radius: 10px;
+    padding: 7px 14px 7px 8px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.cbt-username-btn:hover {
+    background: rgba(255, 196, 0, 0.15);
+    border-color: rgba(255, 196, 0, 0.55);
+    box-shadow: 0 4px 18px rgba(255,196,0,0.18);
+}
+
+/* User avatar photo */
+.cbt-nav-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 196, 0, 0.6);
+    flex-shrink: 0;
+}
+
+/* Placeholder initial when no photo */
+.cbt-nav-avatar-placeholder {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,196,0,0.15);
+    border: 2px solid rgba(255,196,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffc400;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    flex-shrink: 0;
+}
+
+/* Chevron down arrow */
+.cbt-chevron {
+    font-size: 11px;
+    color: rgba(255,196,0,0.7);
+    transition: transform 0.25s ease;
+    margin-left: 2px;
+}
+
+.cbt-nav-user.open .cbt-chevron {
+    transform: rotate(180deg);
+}
+
+/* ─── DROPDOWN PANEL ────────────────────────────────────────── */
+.cbt-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 170px;
+    background: linear-gradient(145deg, #111116, #0c0c10);
+    border: 1px solid rgba(255, 196, 0, 0.2);
+    border-radius: 14px;
+    padding: 6px;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.7),
+        0 0 30px rgba(255,196,0,0.06);
+    z-index: 99999;
+
+    /* Hidden by default */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px) scale(0.97);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    pointer-events: none;
+}
+
+/* Show dropdown */
+.cbt-nav-user.open .cbt-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+/* ─── DROPDOWN ITEMS ────────────────────────────────────────── */
+.cbt-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #cccccc;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.18s ease;
+    text-align: left;
+}
+
+.cbt-dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+}
+
+/* Logout — red tint on hover */
+.cbt-dropdown-logout {
+    color: #ff7c7c;
+    margin-top: 2px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0 0 10px 10px;
+    padding-top: 12px;
+}
+
+.cbt-dropdown-logout:hover {
+    background: rgba(255, 80, 80, 0.1);
+    color: #ff6b6b;
 }
 
 /* ─── Responsive ────────────────────────────────────────────── */
@@ -335,4 +433,8 @@
     }
     .cbt-auth-modal h2 { font-size: 20px; }
     .cbt-email-btns { flex-direction: column; }
+
+    .cbt-username-btn .cbt-username-text {
+        display: none; /* on tiny screens show only avatar */
+    }
 }

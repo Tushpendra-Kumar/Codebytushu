@@ -1,3 +1,21 @@
+/* CodeByTushu — LeetCode Design System */
+/* Gold: #ffc400 | BG: #000000 | Text: #ffffff */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+
+/* ============================================
+   CBT DESIGN TOKENS (matches main site exactly)
+   ============================================ */
+:root {
+    --accent:      #ffc400;
+    --bg-primary:  #000000;
+    --bg-card:     #111111;
+    --text:        #ffffff;
+    --text-muted:  #aaaaaa;
+    --glow:        rgba(255, 196, 0, 0.25);
+    --glow-strong: rgba(255, 196, 0, 0.45);
+    --border:      rgba(255, 196, 0, 0.25);
+}
+
 /* Global Reset */
 
 * {
@@ -13,9 +31,10 @@
 /* Body */
 
 body {
-    background: #0c0c0f;
+    background: #000000;
 
     color: white;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 
 
@@ -32,29 +51,30 @@ body {
 
     width: 92%;
 
-    padding: 22px 45px;
+    padding: 18px 40px;
 
     display: flex;
 
     justify-content: space-between;
 
-    align-items: flex-start;
+    align-items: center;
 
     z-index: 1000;
 
-    background: rgba(15, 15, 18, 0.55);
+    background: rgba(0, 0, 0, 0.7);
 
     backdrop-filter: blur(18px);
 
     -webkit-backdrop-filter: blur(18px);
 
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 196, 0, 0.15);
 
     border-radius: 26px;
 
     box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(255, 196, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
 
     transition: all 0.4s ease;
 }
@@ -70,7 +90,7 @@ body {
 
     box-shadow:
         0 10px 40px rgba(0, 0, 0, 0.45),
-        0 0 25px rgba(245, 166, 35, 0.08);
+        0 0 25px rgba(255, 196, 0, 0.08);
 
     border: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -122,7 +142,7 @@ body {
 
     transform: scale(1.02);
 
-    filter: drop-shadow(0 0 12px rgba(245, 166, 35, 0.35));
+    filter: drop-shadow(0 0 12px rgba(255, 196, 0, 0.35));
 }
 
 
@@ -137,9 +157,9 @@ body {
 
 .gold-text {
 
-    color: #f5a623;
+    color: #ffc400;
 
-    text-shadow: 0 0 18px rgba(245, 166, 35, 0.35);
+    text-shadow: 0 0 18px rgba(255, 196, 0, 0.35);
 }
 
 
@@ -173,7 +193,7 @@ body {
 
 .sub-logo span {
 
-    color: #f5a623;
+    color: #ffc400;
 }
 
 
@@ -197,11 +217,18 @@ body {
 
     transform: rotate(-8deg) scale(1.12);
 
-    filter: drop-shadow(0 0 12px rgba(245, 166, 35, 0.45));
+    filter: drop-shadow(0 0 12px rgba(255, 196, 0, 0.45));
 }
 
 
 /* Navigation Menu */
+
+/* nav element wraps both ul + auth slot — makes Login appear on right */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
 nav ul {
 
@@ -250,7 +277,7 @@ nav ul li a:hover {
     transform: translateY(-2px) scale(1.03);
 
     box-shadow:
-        0 4px 18px rgba(245, 166, 35, 0.15),
+        0 4px 18px rgba(255, 196, 0, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
@@ -259,12 +286,12 @@ nav ul li a:hover {
 
 .active {
 
-    color: #f5a623 !important;
+    color: #ffc400 !important;
 
-    background: rgba(245, 166, 35, 0.10);
+    background: rgba(255, 196, 0, 0.10);
 
     box-shadow:
-        0 0 18px rgba(245, 166, 35, 0.12);
+        0 0 18px rgba(255, 196, 0, 0.12);
 }
 
 
@@ -282,7 +309,7 @@ nav ul li a::after {
     width: 0%;
     height: 2px;
 
-    background: #f5a623;
+    background: #ffc400;
 
     border-radius: 20px;
 
@@ -358,13 +385,13 @@ nav ul li a:hover::after {
 
     padding: 16px 34px;
 
-    background: rgba(245, 166, 35, 0.12);
+    background: rgba(255, 196, 0, 0.12);
 
-    border: 1px solid rgba(245, 166, 35, 0.45);
+    border: 1px solid rgba(255, 196, 0, 0.45);
 
     border-radius: 16px;
 
-    color: #f5a623;
+    color: #ffc400;
 
     text-decoration: none;
 
@@ -377,7 +404,7 @@ nav ul li a:hover::after {
     backdrop-filter: blur(10px);
 
     box-shadow:
-        0 0 20px rgba(245, 166, 35, 0.08);
+        0 0 20px rgba(255, 196, 0, 0.08);
 
     transition: all 0.35s ease;
 }
@@ -389,12 +416,12 @@ nav ul li a:hover::after {
 
     transform: translateY(-4px) scale(1.03);
 
-    background: #f5a623;
+    background: #ffc400;
 
-    color: #0c0c0f;
+    color: #000000;
 
     box-shadow:
-        0 10px 30px rgba(245, 166, 35, 0.35);
+        0 10px 30px rgba(255, 196, 0, 0.35);
 }
 
 /* Bottom Logo */
@@ -430,7 +457,7 @@ nav ul li a:hover::after {
 
     max-width: 1280px;
 
-    margin: 240px auto 90px;
+    margin: 160px auto 90px;
 
     padding: 75px 65px;
 
@@ -464,13 +491,13 @@ nav ul li a:hover::after {
 
     background: rgba(0, 0, 0, 0.4);
 
-    color: #f5a623;
+    color: #ffc400;
 
     padding: 12px 24px;
 
     border-radius: 40px;
 
-    border: 1px solid #f5a623;
+    border: 1px solid #ffc400;
 
     font-size: 15px;
 
@@ -655,7 +682,7 @@ nav ul li a:hover::after {
 
     height: 180px;
 
-    background: rgba(245, 166, 35, 0.08);
+    background: rgba(255, 196, 0, 0.08);
 
     border-radius: 50%;
 
@@ -675,9 +702,9 @@ nav ul li a:hover::after {
 
     transform: translateY(-10px);
 
-    border-color: #f5a623;
+    border-color: #ffc400;
 
-    box-shadow: 0 0 30px rgba(245, 166, 35, 0.12);
+    box-shadow: 0 0 30px rgba(255, 196, 0, 0.12);
 }
 
 
@@ -695,9 +722,9 @@ nav ul li a:hover::after {
 
     display: inline-block;
 
-    background: rgba(245, 166, 35, 0.15);
+    background: rgba(255, 196, 0, 0.15);
 
-    color: #f5a623;
+    color: #ffc400;
 
     padding: 7px 16px;
 
@@ -757,7 +784,7 @@ nav ul li a:hover::after {
 
     gap: 8px;
 
-    background: #f5a623;
+    background: #ffc400;
 
     color: black;
 
@@ -783,7 +810,7 @@ nav ul li a:hover::after {
 
     transform: translateY(-4px);
 
-    box-shadow: 0 10px 20px rgba(245, 166, 35, 0.25);
+    box-shadow: 0 10px 20px rgba(255, 196, 0, 0.25);
 }
 
 html {
@@ -839,7 +866,7 @@ html {
 .contact-box button {
     width: fit-content;
     padding: 16px 35px;
-    background: #f5a623;
+    background: #ffc400;
     border: none;
     border-radius: 12px;
     color: black;
@@ -864,7 +891,7 @@ html {
 }
 
 #home {
-    scroll-margin-top: 140px;
+    scroll-margin-top: 160px;
 }
 
 #problems {
@@ -919,9 +946,9 @@ section {
 
     display: inline-block;
 
-    background: rgba(245, 166, 35, 0.12);
+    background: rgba(255, 196, 0, 0.12);
 
-    color: #f5a623;
+    color: #ffc400;
 
     padding: 10px 22px;
 
@@ -979,7 +1006,7 @@ section {
 
     justify-content: center;
 
-    background: #f5a623;
+    background: #ffc400;
 
     color: black;
 
@@ -1005,7 +1032,7 @@ section {
 
     transform: translateY(-4px);
 
-    box-shadow: 0 10px 25px rgba(245, 166, 35, 0.25);
+    box-shadow: 0 10px 25px rgba(255, 196, 0, 0.25);
 }
 
 /* =========================
@@ -1058,15 +1085,15 @@ section {
 
 .back-btn:hover {
 
-    background: #f5a623;
+    background: #ffc400;
 
     color: black;
 
-    border-color: #f5a623;
+    border-color: #ffc400;
 
     transform: translateX(-5px);
 
-    box-shadow: 0 10px 25px rgba(245, 166, 35, 0.2);
+    box-shadow: 0 10px 25px rgba(255, 196, 0, 0.2);
 }
 
 /* =========================
@@ -1192,7 +1219,7 @@ section {
 
     height: 180px;
 
-    background: rgba(245, 166, 35, 0.07);
+    background: rgba(255, 196, 0, 0.07);
 
     border-radius: 50%;
 
@@ -1208,9 +1235,9 @@ section {
 
     transform: translateY(-10px);
 
-    border-color: #f5a623;
+    border-color: #ffc400;
 
-    box-shadow: 0 0 30px rgba(245, 166, 35, 0.15);
+    box-shadow: 0 0 30px rgba(255, 196, 0, 0.15);
 }
 
 
@@ -1220,7 +1247,7 @@ section {
 
     display: inline-block;
 
-    color: #f5a623;
+    color: #ffc400;
 
     font-size: 14px;
 
@@ -1341,7 +1368,7 @@ section {
 
     height: 140px;
 
-    background: rgba(245, 166, 35, 0.08);
+    background: rgba(255, 196, 0, 0.08);
 
     border-radius: 50%;
 
@@ -1357,15 +1384,15 @@ section {
 
     transform: translateY(-10px);
 
-    border-color: #f5a623;
+    border-color: #ffc400;
 
-    box-shadow: 0 0 30px rgba(245, 166, 35, 0.15);
+    box-shadow: 0 0 30px rgba(255, 196, 0, 0.15);
 }
 
 
 .day-card span {
 
-    color: #f5a623;
+    color: #ffc400;
 
     font-size: 20px;
 
@@ -1436,7 +1463,7 @@ section {
     position: absolute;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(245,166,35,0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,196,0,0.1) 0%, transparent 70%);
     top: -80px;
     right: -80px;
     border-radius: 50%;
@@ -1444,8 +1471,8 @@ section {
 }
 
 .donate-section-inner:hover {
-    border-color: rgba(245,166,35,0.35);
-    box-shadow: 0 0 40px rgba(245,166,35,0.08);
+    border-color: rgba(255,196,0,0.35);
+    box-shadow: 0 0 40px rgba(255,196,0,0.08);
 }
 
 /* ---- Left Text Block ---- */
@@ -1456,8 +1483,8 @@ section {
 
 .donate-badge {
     display: inline-block;
-    background: rgba(245, 166, 35, 0.15);
-    color: #f5a623;
+    background: rgba(255, 196, 0, 0.15);
+    color: #ffc400;
     padding: 7px 18px;
     border-radius: 50px;
     font-size: 11px;
@@ -1476,8 +1503,8 @@ section {
 }
 
 .gold-highlight {
-    color: #f5a623;
-    text-shadow: 0 0 20px rgba(245,166,35,0.35);
+    color: #ffc400;
+    text-shadow: 0 0 20px rgba(255,196,0,0.35);
 }
 
 .donate-text-block > p {
@@ -1509,7 +1536,7 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #f5a623;
+    background: #ffc400;
     color: #000;
     text-decoration: none;
     padding: 15px 34px;
@@ -1518,13 +1545,13 @@ section {
     font-size: 16px;
     letter-spacing: 0.3px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(245,166,35,0.25);
+    box-shadow: 0 4px 20px rgba(255,196,0,0.25);
 }
 
 .donate-go-btn:hover {
     transform: translateY(-4px);
     background: #ffc04a;
-    box-shadow: 0 10px 32px rgba(245,166,35,0.4);
+    box-shadow: 0 10px 32px rgba(255,196,0,0.4);
 }
 
 /* ---- Right Visual Card (mini preview) ---- */
@@ -1556,13 +1583,13 @@ section {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 2.5px solid #f5a623;
+    border: 2.5px solid #ffc400;
     background: #1a1a1a;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2px;
-    box-shadow: 0 0 20px rgba(245,166,35,0.15);
+    box-shadow: 0 0 20px rgba(255,196,0,0.15);
     margin-bottom: 4px;
 }
 
@@ -1573,7 +1600,7 @@ section {
 }
 
 .dp-d {
-    color: #f5a623;
+    color: #ffc400;
     font-size: 26px;
     font-weight: 900;
 }
@@ -1635,8 +1662,8 @@ section {
 }
 
 .dp-qty.active {
-    background: #f5a623;
-    border-color: #f5a623;
+    background: #ffc400;
+    border-color: #ffc400;
     color: #000;
 }
 
@@ -1644,7 +1671,7 @@ section {
 .dp-support-btn {
     width: 100%;
     padding: 12px;
-    background: #f5a623;
+    background: #ffc400;
     color: #000;
     border-radius: 10px;
     font-size: 14px;

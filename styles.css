@@ -171,7 +171,8 @@ section .title::after {
 
 .navbar.sticky {
     padding: 15px 0;
-    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.92);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.5);
 }
 
 .navbar .max-width {
@@ -219,9 +220,30 @@ section .title::after {
         0 0 50px rgba(255,213,79,.45),
         0 0 80px rgba(255,213,79,.25);
 }
-.navbar.sticky .logo a span {
-    color: #fff;
+/* Gold logo stays gold always — no color override on sticky */
+
+/* ─── Theme-aware Image Logo (About section) ─────────────────
+   .logo-for-dark  → white/gold logo, shown on dark backgrounds
+   .logo-for-light → black logo, shown on light backgrounds
+   data-theme on <html> drives visibility — no JS needed.
+   ─────────────────────────────────────────────────────────── */
+.site-logo {
+    height: auto;
+    width: 100%;
+    max-width: 400px;
+    object-fit: contain;
+    display: block;
+    border-radius: 20px;
+    transition: opacity 0.3s ease, transform 0.4s ease;
 }
+
+/* Dark Theme (default): show White/gold logo */
+.logo-for-dark  { display: block; }
+.logo-for-light { display: none;  }
+
+/* Light Theme: show Black logo */
+[data-theme="light"] .logo-for-dark  { display: none;  }
+[data-theme="light"] .logo-for-light { display: block; }
 
 .navbar .menu li {
     list-style: none;
@@ -237,13 +259,9 @@ section .title::after {
     transition: color 0.3s ease;
 }
 
-.navbar .menu li a:hover {
-    color: #ffc400;
-    cursor: pointer;
-}
-
+.navbar .menu li a:hover,
 .navbar.sticky .menu li a:hover {
-    color: #fff;
+    color: #ffc400;
     cursor: pointer;
     text-shadow: 0 0 8px rgba(255, 196, 0, 0.35);
 }
@@ -2304,48 +2322,147 @@ footer .wave#wave4 {
 ::-webkit-scrollbar-track { background: var(--scrollbar-track, #111); }
 ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb, #444); }
 
-/* ============================================
+/* ============================================================
    LIGHT MODE OVERRIDES
-   ============================================ */
+   All rules prefixed [data-theme="light"] — Dark Theme untouched.
+   ============================================================ */
+
+/* ─── Navbar ───────────────────────────────────────────────── */
 [data-theme="light"] .navbar {
-    background: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.88);
     border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 [data-theme="light"] .navbar.sticky {
     background: rgba(255,255,255,0.97);
     box-shadow: 0 2px 20px rgba(0,0,0,0.1);
 }
-[data-theme="light"] .navbar .logo a { color: #111; }
-[data-theme="light"] .navbar .menu li a { color: #222; }
-[data-theme="light"] .navbar .menu li a:hover { color: var(--accent, #d4900a); }
+/* Navbar logo text: CodeBy = dark in light mode, Tushu span stays gold naturally */
+[data-theme="light"] .navbar .logo a        { color: #111111; text-shadow: none; }
+[data-theme="light"] .navbar .menu li a      { color: #222; }
+[data-theme="light"] .navbar .menu li a:hover{ color: #d4900a; text-shadow: none; }
+/* Desktop: transparent so no background block behind nav links */
+[data-theme="light"] .navbar .menu           { background: transparent; }
+[data-theme="light"] .menu-btn i             { color: #111; }
+
+/* ─── Section titles: global ───────────────────────────────── */
+/* Hide the horizontal bar (::before) — not needed in light theme */
+[data-theme="light"] section .title::before {
+    display: none;
+}
+
+/* Subtitle (::after): change from absolute-positioned badge to a
+   clean block element showing  — text —  (matches LeetCode reference) */
+[data-theme="light"] section .title {
+    padding-bottom: 0;         /* no space needed for the old absolute bar */
+    margin-bottom: 55px;
+}
+[data-theme="light"] section .title::after {
+    /* Layout — block below the heading, not absolute */
+    position: relative;
+    display: block;
+    bottom: auto;
+    left: auto;
+    transform: none;
+
+    /* Typography */
+    color: #d4900a;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+
+    /* Remove all old artefacts */
+    background: transparent;
+    border: none;
+    padding: 10px 0 0;
+    text-align: center;
+}
+
+/* ─── Home section ─────────────────────────────────────────── */
 [data-theme="light"] .home {
     background: linear-gradient(to right, #f0f0e8, #e8e8e0) !important;
     color: #111;
 }
 [data-theme="light"] .home .home-content .text-2,
 [data-theme="light"] .home .home-content .text-1 { color: #111; }
-[data-theme="light"] .home .home-content .text-3 { color: #333; }
-[data-theme="light"] .about { background: #f5f5f0 !important; color: #111; }
-[data-theme="light"] .about .title { color: #111; }
-[data-theme="light"] .about .title::after { background: #f5f5f0; }
+[data-theme="light"] .home .home-content .text-3  { color: #333; }
+
+/* ─── About section ────────────────────────────────────────── */
+[data-theme="light"] .about                        { background: #f5f5f0 !important; color: #111; }
+[data-theme="light"] .about .title                 { color: #111; text-shadow: none; }
+[data-theme="light"] .about .title::after          {
+    content: "— Who We Are —";
+    background: transparent;
+    color: #d4900a;
+    border: none;
+}
 [data-theme="light"] .about .about-content .right p { color: #333; }
-[data-theme="light"] .services,
-[data-theme="light"] .teams { background: #ebebE5 !important; color: #111; }
-[data-theme="light"] .container { background: #ebebE5 !important; }
-[data-theme="light"] .leetcode { background: #f0f0e8 !important; }
+
+/* ─── Services section ─────────────────────────────────────── */
+[data-theme="light"] .services                     { background: #ebebE5 !important; color: #111; }
+[data-theme="light"] .container                    { background: #ebebE5 !important; }
+[data-theme="light"] .services .title              { color: #111; text-shadow: none; }
+[data-theme="light"] .services .title::after       {
+    content: "— Our Expertise —";
+    background: transparent;
+    color: #d4900a;
+    border: none;
+}
+
+/* ─── LeetCode section ─────────────────────────────────────── */
+[data-theme="light"] .leetcode                     { background: #f0f0e8 !important; }
+[data-theme="light"] .leetcode .title              { color: #111; text-shadow: none; }
+/* LeetCode title has no ::after label — keep both hidden */
+[data-theme="light"] .leetcode .title::before      { display: none; }
+[data-theme="light"] .leetcode .title::after       { display: none; }
+/* Subtitle "Daily DSA Journey" — change decorative lines from white to gold */
+[data-theme="light"] .leetcode-subtitle::before,
+[data-theme="light"] .leetcode-subtitle::after     { background: #d4900a; }
+[data-theme="light"] .leetcode-subtitle            { color: #d4900a; }
+/* Paragraph text — was #ccc (invisible on light bg) */
+[data-theme="light"] .leetcode-left p              { color: #333; }
+[data-theme="light"] .leetcode-left h3             { color: #d4900a; }
+/* Cards */
 [data-theme="light"] .leetcode-card {
     background: #fff !important;
     border-color: rgba(212,144,10,0.3) !important;
 }
-[data-theme="light"] .leetcode-card h4 { color: #111; }
-[data-theme="light"] .leetcode-card span { color: #444; }
-[data-theme="light"] .contact { background: #f5f5f0 !important; }
-[data-theme="light"] .contact .title { color: #111; }
-[data-theme="light"] .map-card { background: #fff; }
-[data-theme="light"] .map-card h2 { color: #111; }
-[data-theme="light"] .navbar .menu { background: rgba(245,245,240,0.98); }
-[data-theme="light"] .menu-btn i { color: #111; }
-[data-theme="light"] .contact-content .info .sub-title { color: #333; }
+[data-theme="light"] .leetcode-card:hover          { background: #fffff8 !important; }
+[data-theme="light"] .leetcode-card h4             { color: #111; }
+[data-theme="light"] .leetcode-card span           { color: #444; }
+
+/* ─── Projects (teams) section ────────────────────────────── */
+[data-theme="light"] .teams                        { background: #ebebE5 !important; color: #111; }
+[data-theme="light"] .teams .title                 { color: #111; text-shadow: none; }
+[data-theme="light"] .teams .title::after          {
+    content: "— Projects Done —";
+    background: transparent;
+    color: #d4900a;
+    border: none;
+}
+
+/* ─── Contact section ──────────────────────────────────────── */
+[data-theme="light"] .contact                      { background: #f5f5f0 !important; }
+[data-theme="light"] .contact .title               { color: #111; text-shadow: none; }
+[data-theme="light"] .contact .title::after        {
+    content: "— Get In Touch —";
+    background: transparent;
+    color: #d4900a;
+    border: none;
+}
+/* Contact body text — was hardcoded white for dark theme */
+[data-theme="light"] .contact .contact-content .text          { color: #111; }
+[data-theme="light"] .contact .contact-content .left p        { color: #444; }
+[data-theme="light"] .contact .contact-content .info .head    { color: #111; }
+[data-theme="light"] .contact-content .info .sub-title        { color: #555; }
+/* Map card */
+[data-theme="light"] .map-card                     { background: #fff; }
+[data-theme="light"] .map-card h2                  { color: #111; }
+/* Google map — show natural colors, remove dark-theme invert filter */
+[data-theme="light"] .contact .column.right iframe {
+    filter: none;
+    border-color: rgba(212,144,10,0.25) !important;
+}
 
 /* ============================================
    MOBILE RESPONSIVE — COMPREHENSIVE
@@ -2446,4 +2563,17 @@ footer .wave#wave4 {
     .home .home-content .text-3 { font-size: 18px; }
     .navbar .logo a { font-size: 26px; }
     .container .box { width: 95%; }
+}
+
+/* ─── Light theme: mobile nav overlay bg (inside hamburger breakpoint) ─── */
+@media (max-width: 991px) {
+    [data-theme="light"] .navbar .menu {
+        background: rgba(245,245,240,0.98) !important;
+    }
+    [data-theme="light"] .navbar .menu li a {
+        color: #111 !important;
+    }
+    [data-theme="light"] .navbar .menu li a:hover {
+        color: #d4900a !important;
+    }
 }

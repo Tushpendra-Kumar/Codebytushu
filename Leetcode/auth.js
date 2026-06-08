@@ -30,7 +30,7 @@
 
                 // Lock icon
                 '<div class="cbt-lock-ring">' +
-                    '<span class="material-symbols-rounded" style="font-size:34px;color:#f5a623;font-variation-settings:\'FILL\' 1,\'wght\' 400,\'GRAD\' 0,\'opsz\' 24">lock</span>' +
+                    '<span class="material-symbols-rounded" style="font-size:34px;color:#ffc400;font-variation-settings:\'FILL\' 1,\'wght\' 400,\'GRAD\' 0,\'opsz\' 24">lock</span>' +
                 '</div>' +
 
                 // Heading
@@ -120,32 +120,66 @@
         if (!slot) return;
 
         if (user) {
-            // Logged in state
-            var initial = user.displayName
-                ? user.displayName[0].toUpperCase()
-                : user.email[0].toUpperCase();
+            /* ── Logged-in state ── */
+            var displayName = user.displayName || user.email || 'User';
+            // Show only first name for clean display
+            var firstName = displayName.split(' ')[0];
 
             var avatarHTML = user.photoURL
-                ? '<img class="cbt-nav-avatar" src="' + user.photoURL + '" alt="avatar">'
-                : '<div class="cbt-nav-avatar-placeholder">' + initial + '</div>';
+                ? '<img class="cbt-nav-avatar" src="' + user.photoURL + '" alt="' + firstName + '">'
+                : '<div class="cbt-nav-avatar-placeholder">' + firstName[0].toUpperCase() + '</div>';
 
             slot.innerHTML =
-                '<div class="cbt-nav-user">' +
-                    avatarHTML +
-                    '<button id="cbt-logout-btn">Logout</button>' +
+                '<div class="cbt-nav-user" id="cbt-nav-user-widget">' +
+                    '<button class="cbt-username-btn" id="cbt-user-menu-btn" aria-haspopup="true" aria-expanded="false">' +
+                        avatarHTML +
+                        '<span class="cbt-username-text">' + firstName + '</span>' +
+                        '<span class="cbt-chevron">&#9660;</span>' +
+                    '</button>' +
+                    '<div class="cbt-dropdown" id="cbt-user-dropdown" role="menu">' +
+                        '<a class="cbt-dropdown-item" href="https://myaccount.google.com/" target="_blank" rel="noopener" role="menuitem">' +
+                            '<span>&#9998;</span> Edit Profile' +
+                        '</a>' +
+                        '<button class="cbt-dropdown-item cbt-dropdown-logout" id="cbt-logout-btn" role="menuitem">' +
+                            '<span>&#10148;</span> Logout' +
+                        '</button>' +
+                    '</div>' +
                 '</div>';
 
+            /* Toggle dropdown on button click */
+            var widget  = document.getElementById('cbt-nav-user-widget');
+            var menuBtn = document.getElementById('cbt-user-menu-btn');
+            var dropdown = document.getElementById('cbt-user-dropdown');
+
+            menuBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var isOpen = widget.classList.toggle('open');
+                menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+
+            /* Close dropdown when clicking anywhere outside */
+            document.addEventListener('click', function _outside(e) {
+                if (!widget.contains(e.target)) {
+                    widget.classList.remove('open');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            /* Logout */
             document.getElementById('cbt-logout-btn').addEventListener('click', function () {
                 firebase.auth().signOut();
+                widget.classList.remove('open');
             });
+
         } else {
-            // Logged out state
-            slot.innerHTML = '<button id="cbt-nav-login-btn">Login</button>';
+            /* ── Logged-out state ── */
+            slot.innerHTML = '<button id="cbt-nav-login-btn" aria-label="Login to CodeByTushu">Login</button>';
             document.getElementById('cbt-nav-login-btn').addEventListener('click', function () {
                 if (!document.getElementById('cbt-auth-overlay')) _showModal();
             });
         }
     }
+
 
     /* ══════════════════════════════════════════════
        PUBLIC API — AUTH GUARD
