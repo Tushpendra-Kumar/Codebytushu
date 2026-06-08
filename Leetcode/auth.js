@@ -76,7 +76,17 @@
         wrapper.innerHTML = _buildModalHTML();
         document.body.appendChild(wrapper.firstChild);
 
-        // ── Google Sign-In ───────────────────────
+        // ── Force-remove blur (overrides any cached CSS) ─────────
+        document.body.style.filter = 'none';
+        document.body.style.webkitFilter = 'none';
+        var overlay = document.getElementById('cbt-auth-overlay');
+        if (overlay) {
+            overlay.style.backdropFilter = 'none';
+            overlay.style.webkitBackdropFilter = 'none';
+            overlay.style.background = 'rgba(0,0,0,0.85)';
+        }
+
+        // ── Google Sign-In ───────────────────────────────────────
         document.getElementById('cbt-google-btn').addEventListener('click', function () {
             var btn = this;
             btn.classList.add('loading');
