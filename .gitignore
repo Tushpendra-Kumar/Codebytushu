@@ -2,10 +2,11 @@
 #   CodeByTushu — .gitignore
 # ─────────────────────────────────────────────
 
-# Firebase private config — upload manually via FTP, never commit
-firebase-config.js
+# NOTE: firebase-config.js is SAFE to commit.
+# Firebase API keys are public project identifiers — not secrets.
+# Real security = Firebase Auth rules (server-side).
 
-# Environment secrets
+# Environment secrets (if ever added)
 .env
 .env.local
 .env.*.local
