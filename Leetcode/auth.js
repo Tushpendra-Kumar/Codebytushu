@@ -156,23 +156,35 @@
        Use on protected pages (problems, day lists, solutions)
        ══════════════════════════════════════════════ */
     window.cbtAuthGuard = function () {
-        // Immediately hide body to prevent flash of content
+        // Hide body immediately to prevent content flash
         document.body.style.visibility = 'hidden';
 
-        firebase.auth().onAuthStateChanged(function (user) {
-            // Always reveal body
+        // ── Safety net: if Firebase fails to init, don't leave page blank ──
+        var fallback = setTimeout(function () {
             document.body.style.visibility = 'visible';
+            if (!document.getElementById('cbt-auth-overlay')) _showModal();
+        }, 3000);
 
-            if (user) {
-                // ✅ Authenticated — dismiss any existing modal
-                _hideModal();
-                _renderNavUser(user);
-            } else {
-                // ❌ Not authenticated — show modal
-                _showModal();
-                _renderNavUser(null);
-            }
-        });
+        try {
+            firebase.auth().onAuthStateChanged(function (user) {
+                clearTimeout(fallback);
+                document.body.style.visibility = 'visible';
+
+                if (user) {
+                    _hideModal();
+                    _renderNavUser(user);
+                } else {
+                    _showModal();
+                    _renderNavUser(null);
+                }
+            });
+        } catch (e) {
+            // Firebase not initialized (firebase-config.js missing / 404)
+            clearTimeout(fallback);
+            document.body.style.visibility = 'visible';
+            console.error('[CBT Auth] Firebase not initialized. Check firebase-config.js is at /public_html/firebase-config.js on your server.', e);
+            if (!document.getElementById('cbt-auth-overlay')) _showModal();
+        }
     };
 
     /* ══════════════════════════════════════════════
@@ -180,9 +192,15 @@
        Use on index.html (the public LeetCode landing page)
        ══════════════════════════════════════════════ */
     window.cbtNavAuth = function () {
-        firebase.auth().onAuthStateChanged(function (user) {
-            _renderNavUser(user);
-        });
+        try {
+            firebase.auth().onAuthStateChanged(function (user) {
+                _renderNavUser(user);
+            });
+        } catch (e) {
+            // Firebase not initialized — still show the Login button
+            console.error('[CBT Auth] Firebase not initialized. Check firebase-config.js path.', e);
+            _renderNavUser(null);
+        }
     };
 
 })();
