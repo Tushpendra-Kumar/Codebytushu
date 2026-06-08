@@ -16,6 +16,14 @@
     <script src="/theme.js"></script>
 
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="auth.css">
+
+    <!-- Firebase Compat CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+    <!-- Firebase Config (upload via FTP — gitignored) -->
+    <script src="/firebase-config.js"></script>
 </head>
 
 <body>
@@ -53,6 +61,8 @@
                 <li><a href="donate.html">Donate</a></li>
                 <li><a href="#contact">Contact Me</a></li>
             </ul>
+            <!-- Auth button slot — filled dynamically by auth.js -->
+            <div id="cbt-nav-auth-slot" style="display:flex;align-items:center;"></div>
         </nav>
 
     </header>
@@ -287,6 +297,9 @@
 
     <script src="js/main.js"></script>
     <script src="/back-home.js"></script>
+    <!-- Auth engine — public page: show login/logout in navbar only -->
+    <script src="auth.js"></script>
+    <script>cbtNavAuth();</script>
 </body>
 
 </html>

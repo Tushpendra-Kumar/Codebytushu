@@ -18,13 +18,22 @@
     <script src="/theme.js"></script>
 
     <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+    <style>
+        .material-symbols-rounded {
+            font-size: inherit;
+            vertical-align: middle;
+            line-height: 1;
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
 </head>
 
 <body>
 
     <!-- Dark Mode Toggle Button -->
     <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle dark/light mode" aria-label="Toggle theme">
-        <span class="toggle-icon">🌙</span>
+        <span class="toggle-icon"><span class="material-symbols-rounded">dark_mode</span></span>
     </button>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -399,7 +408,7 @@
             function applyTheme(theme) {
                 document.documentElement.setAttribute('data-theme', theme);
                 localStorage.setItem('cbt-theme', theme);
-                icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+                icon.innerHTML = theme === 'dark' ? '<span class="material-symbols-rounded">dark_mode</span>' : '<span class="material-symbols-rounded">light_mode</span>';
             }
 
             // Apply saved theme on load
@@ -453,7 +462,7 @@
             var btn = document.createElement('button');
             btn.className = 'main-top-btn';
             btn.setAttribute('aria-label', 'Back to top');
-            btn.innerHTML = '↑';
+            btn.innerHTML = '<span class="material-symbols-rounded">arrow_upward</span>';
             document.body.appendChild(btn);
 
             btn.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });

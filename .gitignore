@@ -1,0 +1,31 @@
+# ─────────────────────────────────────────────
+#   CodeByTushu — .gitignore
+# ─────────────────────────────────────────────
+
+# Firebase private config — upload manually via FTP, never commit
+firebase-config.js
+
+# Environment secrets
+.env
+.env.local
+.env.*.local
+
+# Node / npm (if ever used)
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor artifacts
+.vscode/settings.json
+.idea/
+*.suo
+*.user
+
+# Build output (if added later)
+/dist/
+/build/

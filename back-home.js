@@ -101,6 +101,13 @@
             .bth-top-btn  { bottom: 14px; right: 14px; width: 40px; height: 40px; font-size: 17px; }
         }
     `;
+    // Load Material Symbols font if not already loaded
+    if (!document.querySelector('link[href*="Material+Symbols"]')) {
+        var fontLink = document.createElement('link');
+        fontLink.rel = 'stylesheet';
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0';
+        document.head.appendChild(fontLink);
+    }
     document.head.appendChild(style);
 
     /* ---------- BACK TO HOME BUTTON ---------- */
@@ -108,14 +115,14 @@
     homeBtn.href = '/';
     homeBtn.className = 'bth-home-btn';
     homeBtn.setAttribute('aria-label', 'Back to Home');
-    homeBtn.innerHTML = '<span class="bth-arrow">🏠</span> Back to Home';
+    homeBtn.innerHTML = '<span class="bth-arrow"><span class="material-symbols-rounded" style="font-size:16px">home</span></span> Back to Home';
     document.body.appendChild(homeBtn);
 
     /* ---------- BACK TO TOP BUTTON ---------- */
     const topBtn = document.createElement('button');
     topBtn.className = 'bth-top-btn';
     topBtn.setAttribute('aria-label', 'Back to top');
-    topBtn.innerHTML = '↑';
+    topBtn.innerHTML = '<span class="material-symbols-rounded">arrow_upward</span>';
     document.body.appendChild(topBtn);
 
     topBtn.addEventListener('click', function () {

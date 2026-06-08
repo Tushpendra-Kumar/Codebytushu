@@ -6,9 +6,22 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon logo/favicon.ico">
+
+    <!-- Theme init -->
+    <script src="/theme.js"></script>
+
     <title>January 2026 Problems</title>
 
     <link rel="stylesheet" href="/Leetcode/CSS/style.css">
+    <link rel="stylesheet" href="/Leetcode/auth.css">
+
+    <!-- Firebase Compat CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+    <script src="/firebase-config.js"></script>
 
 </head>
 
@@ -394,9 +407,12 @@
         </a>
 
 
-    </div>
 </section>
 
+    <script src="/back-home.js"></script>
+    <!-- Auth guard: blocks day grid until user is logged in -->
+    <script src="/Leetcode/auth.js"></script>
+    <script>cbtAuthGuard();</script>
 
 </body>
 </html>

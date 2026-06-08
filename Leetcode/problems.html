@@ -18,6 +18,14 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="/Leetcode/auth.css">
+
+    <!-- Firebase Compat CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
+    <!-- Firebase Config (upload via FTP — gitignored) -->
+    <script src="/firebase-config.js"></script>
 
 </head>
 
@@ -297,6 +305,9 @@
 
 
     <script src="/back-home.js"></script>
+    <!-- Auth guard: blocks this page until user logs in -->
+    <script src="/Leetcode/auth.js"></script>
+    <script>cbtAuthGuard();</script>
 </body>
 
 </html>
