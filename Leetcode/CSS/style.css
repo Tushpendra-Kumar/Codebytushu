@@ -1407,3 +1407,272 @@ section {
     }
 
 }
+
+
+/* ==============================================
+   DONATE SECTION (between Archive & Contact)
+   ============================================== */
+
+.donate-section {
+    width: 85%;
+    margin: 0 auto 100px;
+}
+
+.donate-section-inner {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    background: linear-gradient(145deg, #17171d, #101014);
+    border: 1px solid #24242c;
+    border-radius: 30px;
+    padding: 60px 55px;
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s ease;
+}
+
+.donate-section-inner::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(245,166,35,0.1) 0%, transparent 70%);
+    top: -80px;
+    right: -80px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.donate-section-inner:hover {
+    border-color: rgba(245,166,35,0.35);
+    box-shadow: 0 0 40px rgba(245,166,35,0.08);
+}
+
+/* ---- Left Text Block ---- */
+.donate-text-block {
+    flex: 1;
+    min-width: 0;
+}
+
+.donate-badge {
+    display: inline-block;
+    background: rgba(245, 166, 35, 0.15);
+    color: #f5a623;
+    padding: 7px 18px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+}
+
+.donate-text-block h2 {
+    font-size: 38px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 18px;
+    letter-spacing: -0.5px;
+}
+
+.gold-highlight {
+    color: #f5a623;
+    text-shadow: 0 0 20px rgba(245,166,35,0.35);
+}
+
+.donate-text-block > p {
+    color: #9b9b9b;
+    font-size: 15px;
+    line-height: 1.9;
+    margin-bottom: 28px;
+    max-width: 440px;
+}
+
+.donate-perks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 36px;
+}
+
+.donate-perks li {
+    color: #c0c0c0;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Go to Donate Page Button */
+.donate-go-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5a623;
+    color: #000;
+    text-decoration: none;
+    padding: 15px 34px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(245,166,35,0.25);
+}
+
+.donate-go-btn:hover {
+    transform: translateY(-4px);
+    background: #ffc04a;
+    box-shadow: 0 10px 32px rgba(245,166,35,0.4);
+}
+
+/* ---- Right Visual Card (mini preview) ---- */
+.donate-visual {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.donate-card-preview {
+    background: #0f0f0f;
+    border: 1px solid #2a2a2a;
+    border-radius: 24px;
+    padding: 36px 40px;
+    text-align: center;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 1;
+}
+
+/* Mini logo ring */
+.dp-logo-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2.5px solid #f5a623;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    box-shadow: 0 0 20px rgba(245,166,35,0.15);
+    margin-bottom: 4px;
+}
+
+.dp-arrow {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.dp-d {
+    color: #f5a623;
+    font-size: 26px;
+    font-weight: 900;
+}
+
+.donate-card-preview h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0;
+}
+
+.donate-card-preview > p {
+    font-size: 13px;
+    color: #777;
+    margin: 0;
+}
+
+/* Mini boba row */
+.dp-boba-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 12px 18px;
+    width: 100%;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.dp-boba-icon {
+    font-size: 28px;
+    line-height: 1;
+}
+
+.dp-x {
+    color: #555;
+    font-size: 16px;
+}
+
+.dp-qty-wrap {
+    display: flex;
+    gap: 6px;
+}
+
+.dp-qty {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #111;
+    border: 1.5px solid #333;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dp-qty.active {
+    background: #f5a623;
+    border-color: #f5a623;
+    color: #000;
+}
+
+/* Mini support button */
+.dp-support-btn {
+    width: 100%;
+    padding: 12px;
+    background: #f5a623;
+    color: #000;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 800;
+    margin-top: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+/* ---- Responsive ---- */
+@media(max-width: 900px) {
+    .donate-section-inner {
+        flex-direction: column;
+        padding: 40px 28px;
+        gap: 40px;
+        text-align: center;
+    }
+    .donate-text-block > p {
+        max-width: 100%;
+    }
+    .donate-perks {
+        align-items: center;
+    }
+    .donate-text-block h2 {
+        font-size: 28px;
+    }
+    .donate-card-preview {
+        width: 100%;
+        max-width: 300px;
+    }
+}
