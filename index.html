@@ -86,7 +86,21 @@
 
                     <div class="preview-image">
 
-                        <img src="/image2/home page thumbnail.png" alt="CodeByTushu YouTube Channel">
+                        <picture>
+                            <!-- Mobile: screens smaller than 768px -->
+                            <source
+                                media="(max-width: 767px)"
+                                srcset="/image2/Hero%20Mobile.png">
+                            <!-- Desktop / Tablet / Laptop: 768px and above -->
+                            <source
+                                media="(min-width: 768px)"
+                                srcset="/image2/Hero%20Desktop.png">
+                            <!-- Fallback img (also used by all browsers for alt + styles) -->
+                            <img
+                                src="/image2/Hero%20Desktop.png"
+                                alt="CodeByTushu YouTube Channel"
+                                loading="lazy">
+                        </picture>
 
                     </div>
 

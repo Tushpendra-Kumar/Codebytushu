@@ -2179,20 +2179,24 @@ footer .wave#wave4 {
 
 .preview-image {
     width: 100%;
-    height: 300px;
     overflow: hidden;
     border-radius: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #111;
+    display: block;
+    line-height: 0; /* removes inline gap below picture element */
+}
+
+/* picture element must be block to avoid inline spacing */
+.preview-image picture {
+    display: block;
+    width: 100%;
+    line-height: 0;
 }
 
 .preview-image img {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    height: auto;
     display: block;
+    object-fit: cover;
     transition: all 0.4s ease;
 }
 
@@ -2215,17 +2219,17 @@ footer .wave#wave4 {
         0 0 60px rgba(255,196,0,.12);
 }
 
-.preview-image {
-    width: 100%;
-    display: block;
+/* ── picture / img inside preview-card (second block — canonical) ── */
+.preview-card .preview-image {
+    border-radius: 0; /* card already has border-radius + overflow:hidden */
 }
 
-.preview-image img {
+.preview-card .preview-image img {
     width: 100%;
+    height: auto;
     display: block;
-
-    border-radius: 18px;
-
+    object-fit: cover;
+    border-radius: 0;
     transition: 0.4s ease;
 }
 
