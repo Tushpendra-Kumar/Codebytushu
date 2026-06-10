@@ -1,7 +1,7 @@
 /**
  * generate-favicons.js
- * Generates all required favicon sizes from the CodeByTushu White Logo.
- * Source: /image1/White Logo.png  (gold+white logo on black background)
+ * Generates all required favicon sizes from the CodeByTushu Black Logo.
+ * Source: /image1/Black Logo.PNG  (gold+black logo on WHITE background)
  * Output: all files placed at project root — clean paths, no subfolder spaces.
  */
 const sharp = require('sharp');
@@ -9,7 +9,7 @@ const path  = require('path');
 const fs    = require('fs');
 
 const ROOT   = path.resolve(__dirname);
-const SOURCE = path.join(ROOT, 'image1', 'White Logo.png');
+const SOURCE = path.join(ROOT, 'image1', 'Black Logo.PNG');
 
 async function generate() {
     console.log('Source image:', SOURCE);
@@ -30,8 +30,8 @@ async function generate() {
         const dest = path.join(ROOT, file);
         await sharp(SOURCE)
             .resize(size, size, {
-                fit: 'contain',           // keep aspect ratio, pad remaining area
-                background: { r:0, g:0, b:0, alpha:1 }   // black background (matches logo)
+                fit: 'contain',
+                background: { r:255, g:255, b:255, alpha:1 }  // white bg matches Black Logo
             })
             .png({ quality: 95, compressionLevel: 9 })
             .toFile(dest);
@@ -39,56 +39,46 @@ async function generate() {
         console.log(`✅  ${file}  (${size}×${size})  →  ${bytes} bytes`);
     }
 
-    // Create favicon.ico from the 32x32 PNG
-    // Modern browsers accept a PNG wrapped as .ico
-    // For a true multi-size ICO we write the raw ICO binary ourselves.
+    // Create favicon.ico (multi-size: 16+32)
     const ico32 = await sharp(SOURCE)
-        .resize(32, 32, { fit:'contain', background:{r:0,g:0,b:0,alpha:1} })
+        .resize(32, 32, { fit:'contain', background:{r:255,g:255,b:255,alpha:1} })
         .png()
         .toBuffer();
 
     const ico16 = await sharp(SOURCE)
-        .resize(16, 16, { fit:'contain', background:{r:0,g:0,b:0,alpha:1} })
+        .resize(16, 16, { fit:'contain', background:{r:255,g:255,b:255,alpha:1} })
         .png()
         .toBuffer();
 
-    // Build a simple ICO (ICONDIR + ICONDIRENTRY×2 + image data)
+    // Build proper multi-size ICO binary
     function icoBuffer(images) {
-        // images = [{width, height, buffer}]
         const headerSize = 6;
         const entrySize  = 16;
         const entries    = images.length;
         let offset = headerSize + entrySize * entries;
-
         const parts = [];
 
-        // ICONDIR
         const header = Buffer.alloc(6);
-        header.writeUInt16LE(0, 0);      // reserved
-        header.writeUInt16LE(1, 2);      // type = ICO
+        header.writeUInt16LE(0, 0);
+        header.writeUInt16LE(1, 2);
         header.writeUInt16LE(entries, 4);
         parts.push(header);
 
-        // ICONDIRENTRY for each image
         for (const img of images) {
             const entry = Buffer.alloc(16);
             entry.writeUInt8(img.width  > 255 ? 0 : img.width,  0);
             entry.writeUInt8(img.height > 255 ? 0 : img.height, 1);
-            entry.writeUInt8(0, 2);  // color count (0 = more than 256)
-            entry.writeUInt8(0, 3);  // reserved
-            entry.writeUInt16LE(1, 4); // planes
-            entry.writeUInt16LE(32, 6); // bit count
+            entry.writeUInt8(0, 2);
+            entry.writeUInt8(0, 3);
+            entry.writeUInt16LE(1, 4);
+            entry.writeUInt16LE(32, 6);
             entry.writeUInt32LE(img.buffer.length, 8);
             entry.writeUInt32LE(offset, 12);
             offset += img.buffer.length;
             parts.push(entry);
         }
 
-        // Image data
-        for (const img of images) {
-            parts.push(img.buffer);
-        }
-
+        for (const img of images) parts.push(img.buffer);
         return Buffer.concat(parts);
     }
 
@@ -101,14 +91,14 @@ async function generate() {
     fs.writeFileSync(icoDest, icoData);
     console.log(`✅  favicon.ico  (16+32 multi-size ICO)  →  ${icoData.length} bytes`);
 
-    // Also copy into the 'favicon logo' folder to keep it in sync
+    // Sync copies to 'favicon logo' folder
     const favDir = path.join(ROOT, 'favicon logo');
     for (const { file } of [...jobs, {file:'favicon.ico'}]) {
         fs.copyFileSync(path.join(ROOT, file), path.join(favDir, file));
     }
     console.log('✅  Synced copies to "favicon logo/" folder');
 
-    console.log('\n✅  All favicon files generated from White Logo.png!');
+    console.log('\n✅  All favicon files generated from Black Logo.PNG!');
 }
 
 generate().catch(err => { console.error('FAILED:', err); process.exit(1); });
