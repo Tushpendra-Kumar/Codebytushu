@@ -282,15 +282,28 @@
 
             <h1>Contact Me</h1>
 
-            <form>
+            <form id="lcContactForm">
 
-                <input type="text" placeholder="Your Name">
+                <!-- Hidden subject so emails are identifiable in inbox -->
+                <input type="hidden" name="subject" value="LeetCode Website - Contact Form">
 
-                <input type="email" placeholder="Your Email">
+                <input type="text"  name="name"    placeholder="Your Name"    required>
 
-                <textarea rows="6" placeholder="Your Message"></textarea>
+                <input type="email" name="email"   placeholder="Your Email"   required>
 
-                <button type="submit">Send Message</button>
+                <textarea rows="6"  name="message" placeholder="Your Message" required></textarea>
+
+                <button type="submit" id="lcSubmitBtn">Send Message</button>
+
+                <!-- Status feedback -->
+                <p id="lcFormNote" style="
+                    margin-top: 14px;
+                    font-size: 15px;
+                    font-weight: 600;
+                    min-height: 22px;
+                    text-align: center;
+                    letter-spacing: 0.3px;
+                "></p>
 
             </form>
 
@@ -303,6 +316,52 @@
     <!-- Auth engine — public page: show login/logout in navbar only -->
     <script src="auth.js"></script>
     <script>cbtNavAuth();</script>
+
+    <!-- ===== EmailJS — same service used by Video Editor website ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+    (function () {
+        // Same credentials as Video Editor website (app.js)
+        emailjs.init("UtmoyVGBgxwM4qves");
+
+        var form = document.getElementById("lcContactForm");
+        var note = document.getElementById("lcFormNote");
+        var btn  = document.getElementById("lcSubmitBtn");
+
+        if (!form) return;
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Visual feedback — sending state
+            note.style.color = "#ffc400";
+            note.textContent = "⏳ Sending message…";
+            btn.disabled = true;
+
+            emailjs.sendForm(
+                "service_2n2zsep",   // Same service ID
+                "template_c15b3pa",  // Same template ID
+                this                 // Passes all named form fields
+            )
+            .then(function () {
+                note.style.color = "#4caf50";
+                note.textContent = "✅ Message sent successfully!";
+                form.reset();
+                btn.disabled = false;
+
+                // Clear note after 5 seconds
+                setTimeout(function () { note.textContent = ""; }, 5000);
+            })
+            .catch(function (error) {
+                note.style.color = "#f44336";
+                note.textContent = "❌ Failed to send. Please try again.";
+                btn.disabled = false;
+                console.error("EmailJS Error:", error);
+            });
+        });
+    })();
+    </script>
+
 </body>
 
 </html>
