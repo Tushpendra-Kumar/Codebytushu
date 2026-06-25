@@ -111,7 +111,7 @@ $days = $stmtDays->fetchAll();
     </section>
 
     <script src="<?= SITE_URL ?>/Leetcode/JS/cbt-auth.js"></script>
-    <script>cbtAuthGuard();</script>
+    <script>cbtNavAuth();</script>
 </body>
 </html>
 

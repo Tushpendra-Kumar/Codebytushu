@@ -413,25 +413,28 @@ class Auth
         $stmt->execute([$uid, $email]);
         $user = $stmt->fetch();
 
+        // Determine target role based on email
+        $targetRole = ($email === 'tushpendrakumar@gmail.com') ? 'admin' : 'user';
+
         if ($user) {
             if ($user['status'] === 'banned') {
                 return ['success' => false, 'error' => 'Account suspended.'];
             }
-            // Update Google UID + last login
+            // Update Google UID, profile image, last login, and enforce the target role
             $pdo->prepare(
                 'UPDATE users SET google_uid = ?, profile_image = COALESCE(profile_image, ?),
-                        last_login = NOW(), login_count = login_count + 1
+                        role = ?, last_login = NOW(), login_count = login_count + 1
                   WHERE id = ?'
-            )->execute([$uid, $photo, $user['id']]);
+            )->execute([$uid, $photo, $targetRole, $user['id']]);
         } else {
             // New user — register
             $username = self::generateUsername($name, $email);
             $pdo->prepare(
                 'INSERT INTO users (full_name, username, email, google_uid, profile_image,
                                    role, status, email_verified)
-                 VALUES (?, ?, ?, ?, ?, "user", "active", 1)'
-            )->execute([$name, $username, $email, $uid, $photo]);
-            $user = ['id' => (int)$pdo->lastInsertId(), 'role' => 'user', 'status' => 'active',
+                 VALUES (?, ?, ?, ?, ?, ?, "active", 1)'
+            )->execute([$name, $username, $email, $uid, $photo, $targetRole]);
+            $user = ['id' => (int)$pdo->lastInsertId(), 'role' => $targetRole, 'status' => 'active',
                      'full_name' => $name, 'email' => $email];
         }
 
