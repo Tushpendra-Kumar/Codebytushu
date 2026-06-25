@@ -34,6 +34,8 @@ $(document).ready(function(){
     });
 
     // typing text animation script
+    // PHP MIGRATION NOTE: These strings can be fetched from a `site_config`
+    // MySQL table (key: 'hero_typing_strings', value: JSON array).
     var typed = new Typed(".typing", {
         strings: ["Learn Coding", "Watch Tutorials", "Explore Projects", "Code for Free"],
         typeSpeed: 100,
@@ -41,7 +43,10 @@ $(document).ready(function(){
         loop: true
     });
 
-    // owl carousel script
+    // owl carousel script — initialized once inside document.ready (correct placement)
+    // PHP MIGRATION NOTE: The project cards rendered in the carousel (index.html)
+    // should be generated via a PHP loop from a `projects` MySQL table.
+    // Each card will then be a PHP echo instead of hardcoded HTML.
     $('.carousel').owlCarousel({
         margin: 20,
         loop: true,
@@ -65,16 +70,9 @@ $(document).ready(function(){
     });
 });
 
-// JS file me
-$('.carousel').owlCarousel({
-    margin: 15,  // pehle 20 tha, ab 15 kar de
-    loop: true,
-    autoplay: true,
-    autoplayTimeout: 2000,
-    autoplayHoverPause: true,
-    responsive: {
-        0: { items: 1, nav: false },
-        600: { items: 2, nav: false },
-        1000: { items: 3, nav: false }
-    }
-});
+// =============================================================================
+// PHP MIGRATION NOTE (main.js):
+// This file handles all jQuery-based interactions for the main portfolio page
+// (index.html → future index.php). No server-side changes needed in this file.
+// Only the HTML data source changes — this JS stays identical.
+// =============================================================================

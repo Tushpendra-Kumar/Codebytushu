@@ -1,0 +1,55 @@
+# ─────────────────────────────────────────────────────────────
+# CodeByTushu — Admin Directory Protection
+# Second layer of security: restricts access by IP (optional),
+# blocks direct access to PHP sub-includes, and adds headers.
+# ─────────────────────────────────────────────────────────────
+
+Options -Indexes
+
+# ── Protect the /admin/includes/ subfolder ───────────────────
+# These are PHP partials (sidebar, etc.) — should never be
+# accessed directly via browser.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /Codebytushu/admin/
+
+  # Block direct access to includes directory
+  RewriteRule ^includes/ - [F,L]
+</IfModule>
+
+# ── Security Headers (admin-specific additions) ───────────────
+<IfModule mod_headers.c>
+  # Stricter CSP for admin panel
+  Header always set Content-Security-Policy \
+    "default-src 'self'; \
+     script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; \
+     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+     font-src 'self' https://fonts.gstatic.com; \
+     img-src 'self' data: https: blob:; \
+     connect-src 'self'; \
+     frame-ancestors 'none';"
+
+  # Prevent clickjacking on admin
+  Header always set X-Frame-Options "DENY"
+
+  # No caching of admin pages
+  Header always set Cache-Control "no-store, no-cache, must-revalidate, private"
+  Header always set Pragma "no-cache"
+</IfModule>
+
+# ── Optional: Restrict admin to specific IP(s) ───────────────
+# Uncomment and add your IP when ready for production:
+# <RequireAll>
+#   Require ip 203.0.113.0/24
+#   Require ip 192.168.1.0/24
+# </RequireAll>
+
+# ── Block common attack patterns ─────────────────────────────
+<IfModule mod_rewrite.c>
+  # Block requests with suspicious query strings
+  RewriteCond %{QUERY_STRING} (union|select|insert|drop|alter|exec|script) [NC]
+  RewriteRule ^ - [F,L]
+
+  # Block requests trying to access sensitive file extensions
+  RewriteRule \.(sql|log|env|bak|sh|py)$ - [F,L]
+</IfModule>

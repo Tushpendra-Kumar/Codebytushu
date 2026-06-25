@@ -1,0 +1,26 @@
+{
+  "name": "codebytushu/codebytushu",
+  "description": "CodeByTushu — PHP + MySQL powered portfolio and LeetCode CMS",
+  "type": "project",
+  "require": {
+    "php": ">=8.1",
+    "phpmailer/phpmailer": "^6.9",
+    "vlucas/phpdotenv": "^5.6"
+  },
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "Cbt\\": "classes/"
+    }
+  },
+  "scripts": {},
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "platform": {
+      "php": "8.1"
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}

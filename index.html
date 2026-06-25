@@ -12,14 +12,14 @@
          All files live at ROOT (/favicon.ico etc.) — clean paths,
          no subfolder, no spaces.  v=2 = cache-bust.
          ══════════════════════════════════════════════════════════ -->
-    <link rel="icon"            href="/favicon.ico?v=6"                  sizes="any">
-    <link rel="icon"            href="/favicon-32x32.png?v=6"            type="image/png" sizes="32x32">
-    <link rel="icon"            href="/favicon-48x48.png?v=6"            type="image/png" sizes="48x48">
-    <link rel="icon"            href="/favicon-16x16.png?v=6"            type="image/png" sizes="16x16">
-    <link rel="icon"            href="/android-chrome-192x192.png?v=6"   type="image/png" sizes="192x192">
-    <link rel="icon"            href="/android-chrome-512x512.png?v=6"   type="image/png" sizes="512x512">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=6"        sizes="180x180">
-    <link rel="manifest"        href="/site.webmanifest?v=6">
+    <link rel="icon"            href="./favicon.ico?v=6"                  sizes="any">
+    <link rel="icon"            href="./favicon-32x32.png?v=6"            type="image/png" sizes="32x32">
+    <link rel="icon"            href="./favicon-48x48.png?v=6"            type="image/png" sizes="48x48">
+    <link rel="icon"            href="./favicon-16x16.png?v=6"            type="image/png" sizes="16x16">
+    <link rel="icon"            href="./android-chrome-192x192.png?v=6"   type="image/png" sizes="192x192">
+    <link rel="icon"            href="./android-chrome-512x512.png?v=6"   type="image/png" sizes="512x512">
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png?v=6"        sizes="180x180">
+    <link rel="manifest"        href="./site.webmanifest?v=6">
     <meta name="theme-color"    content="#ffc400">
     <!-- Open Graph / Google rich results -->
     <meta property="og:image"       content="https://codebytushu.com/android-chrome-512x512.png">
@@ -28,10 +28,12 @@
     <meta property="og:type"        content="website">
     <meta property="og:url"         content="https://codebytushu.com/">
 
-    <!-- Theme init (must be first to avoid flash) -->
-    <script src="/theme.js"></script>
+    <!-- Theme init (must be first to avoid flash) —
+         PHP MIGRATION NOTE: /theme.js is a shared static file, stays as-is. -->
+    <script src="./theme.js"></script>
 
-    <link rel="stylesheet" href="/styles.css">
+    <!-- PHP MIGRATION NOTE: /styles.css is a static asset, stays as-is. -->
+    <link rel="stylesheet" href="./styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
     <style>
         .material-symbols-rounded {
@@ -104,14 +106,14 @@
                             <!-- Mobile: screens smaller than 768px -->
                             <source
                                 media="(max-width: 767px)"
-                                srcset="/image2/Hero%20Mobile.png">
+                                srcset="./image2/Hero%20Mobile.png">
                             <!-- Desktop / Tablet / Laptop: 768px and above -->
                             <source
                                 media="(min-width: 768px)"
-                                srcset="/image2/Hero%20Desktop.png">
+                                srcset="./image2/Hero%20Desktop.png">
                             <!-- Fallback img (also used by all browsers for alt + styles) -->
                             <img
-                                src="/image2/Hero%20Desktop.png"
+                                src="./image2/Hero%20Desktop.png"
                                 alt="CodeByTushu YouTube Channel"
                                 loading="lazy">
                         </picture>
@@ -132,9 +134,9 @@
             <div class="about-content">
                 <div class="column left">
                     <!-- Dark Theme: white/gold logo -->
-                    <img src="/image1/White Logo.png" alt="CodeByTushu" class="site-logo logo-for-dark">
+                    <img src="./image1/White Logo.png" alt="CodeByTushu" class="site-logo logo-for-dark">
                     <!-- Light Theme: black logo -->
-                    <img src="/image1/Black Logo.PNG" alt="CodeByTushu" class="site-logo logo-for-light">
+                    <img src="./image1/Black Logo.PNG" alt="CodeByTushu" class="site-logo logo-for-light">
                 </div>
                 <div class="column right">
                     <p>
@@ -150,13 +152,16 @@
                         My goal is to create scalable digital solutions, share practical knowledge, and continuously
                         explore new technologies that help developers and businesses grow.
                     </p>
-                    <a href="/Explore Our Work/Explore Our Work.pdf" download="Explore Work">Explore My Projects</a>
+                    <a href="./Explore Our Work/Explore Our Work.pdf" download="Explore Work">Explore My Projects</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- services section start -->
+    <!-- PHP MIGRATION NOTE: The 4 service cards below (Web Dev, UI/UX, App Dev, Video Editing)
+         are currently hardcoded in HTML. In the PHP version, these will be fetched from
+         a `services` MySQL table and rendered with a PHP foreach loop. -->
     <section class="services" id="services">
         <div class="max-width">
             <h2 class="title">Our services</h2>
@@ -224,7 +229,7 @@
                         preparation, and coding consistency with CodeByTushu.
                     </p>
 
-                    <a href="/Leetcode/">
+                    <a href="./Leetcode/">
                         Explore LeetCode
                     </a>
 
@@ -258,13 +263,16 @@
     <!-- LEETCODE SECTION END -->
 
     <!-- project section start -->
+    <!-- PHP MIGRATION NOTE: The project cards in this carousel are hardcoded.
+         In the PHP version, they will be dynamically generated from a `projects`
+         MySQL table (id, title, description, image, url, created_at). -->
     <section class="teams" id="teams">
         <div class="max-width">
             <h2 class="title">My Projects</h2>
             <div class="carousel owl-carousel">
                 <div class="card">
                     <div class="box">
-                        <img src="/image1/Google Antigravity.png" alt="img">
+                        <img src="./image1/Google Antigravity.png" alt="img">
                         <div class="text">Google Antigravity</div>
                         <p>"Inspired by modern experimental web interactions, redesigned and crafted by CodeByTushu."
                         </p>
@@ -274,7 +282,7 @@
                 </div>
                 <div class="card">
                     <div class="box">
-                        <img src="/image1/Cyber Protfolio.png" alt="img">
+                        <img src="./image1/Cyber Protfolio.png" alt="img">
                         <div class="text">Cybersecurity Portfolio</div>
                         <p>"Cybersecurity portfolio for penetration testing and threat detection."</p>
                         <a href="https://cyber-protfolio-tushu.netlify.app/" class="project" target="_blank">View
@@ -283,7 +291,7 @@
                 </div>
                 <div class="card">
                     <div class="box">
-                        <img src="/image1/Escape Road.png" alt="img">
+                        <img src="./image1/Escape Road.png" alt="img">
                         <div class="text">Escape Road</div>
                         <p>"High-speed escape game with intense road chases."</p>
                         <a href="https://escape-road-by-tushu.netlify.app/" class="project" target="_blank">View
@@ -292,7 +300,7 @@
                 </div>
                 <div class="card">
                     <div class="box">
-                        <img src="/image1/Premium ScrollTrigger Panels.png" alt="img">
+                        <img src="./image1/Premium ScrollTrigger Panels.png" alt="img">
                         <div class="text">Premium ScrollTrigger Panels</div>
                         <p>"Smooth scroll-driven UI with GSAP ScrollTrigger animations."</p>
                         <a href="https://scroll-trigger-by-tushu.netlify.app/" class="project" target="_blank">View
@@ -304,6 +312,10 @@
     </section>
 
     <!-- contact section start -->
+    <!-- PHP MIGRATION NOTE: The contact form currently links to an external Google Form.
+         In the PHP version, this will be replaced by an inline HTML form that POSTs
+         to /contact.php which uses PHPMailer to send emails to codebytushu@gmail.com.
+         A `contact_messages` MySQL table will store all submissions for audit. -->
     <section class="contact" id="contact">
         <div class="max-width">
             <h2 class="title">Contact me</h2>
@@ -319,9 +331,9 @@
                         below and I'll get back to you as soon as possible.
                     </p>
                     <!-- Button for Google Form -->
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdn2t1fbpmQ0Ml3TphZOEi3hpYVLjxnGjWclS_LUlqU6FawAg/viewform?usp=dialog"
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScnuP0WYqDS1aaNjXgGh3SuPWHgL6BLwpzi0OQrFs5kH2rWog/viewform?usp=preview"
                         target="_blank" class="contact-form-btn">
-                        Fill Out Form
+                        Work With Me
                     </a>
                     <div class="icons">
                         <div class="row">
@@ -453,7 +465,7 @@
         })();
     </script>
 
-    <script src="/main.js"></script>
+    <script src="./main.js"></script>
 
     <!-- Back to Top circle (main page) -->
     <script>

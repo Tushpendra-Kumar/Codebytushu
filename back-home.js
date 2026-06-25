@@ -3,7 +3,15 @@
  * Injects a "Back to Home" pill + "Back to Top" circle button
  * on every sub-page that includes this script.
  *
+ * SHARED UTILITY: Used by all sub-pages under /Leetcode/ and /video-editor-website/
+ * Located at root (/back-home.js) so all sub-pages can load via absolute path.
+ *
  * Usage: <script src="/back-home.js"></script> before </body>
+ *
+ * PHP MIGRATION NOTE:
+ * This file stays at /back-home.js and is referenced in the shared PHP footer
+ * include (e.g., includes/footer.php). No changes to the script content needed.
+ * The "Back to Home" href='/' will work correctly in PHP routing as well.
  */
 (function () {
 

@@ -1,0 +1,30 @@
+# Block all access to /uploads/ PHP execution
+# Only images, PDFs, videos, and ZIPs are served — never PHP.
+
+<FilesMatch "\.php$">
+  Require all denied
+</FilesMatch>
+
+# Deny execution of common script extensions
+<FilesMatch "\.(php|php3|php4|php5|phtml|pl|py|js|cgi|sh|shtml)$">
+  Require all denied
+</FilesMatch>
+
+# Only allow specific safe file types to be served
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico|pdf|mp4|webm|ogg|zip|woff|woff2|ttf)$">
+  Require all granted
+</FilesMatch>
+
+# Caching for uploaded assets
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg  "access plus 1 year"
+  ExpiresByType image/png   "access plus 1 year"
+  ExpiresByType image/webp  "access plus 1 year"
+  ExpiresByType image/gif   "access plus 1 year"
+  ExpiresByType application/pdf "access plus 6 months"
+  ExpiresByType video/mp4   "access plus 1 year"
+</IfModule>
+
+# Disable directory listing
+Options -Indexes

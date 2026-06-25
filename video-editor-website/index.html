@@ -26,7 +26,7 @@
   <!-- Theme init -->
   <script src="/theme.js"></script>
 
-  <link rel="stylesheet" href="/video-editor-website/style.css">
+  <link rel="stylesheet" href="./style.css">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
   <style>.material-symbols-rounded{font-size:inherit;vertical-align:middle;line-height:1;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;}</style>
 </head>
@@ -40,7 +40,7 @@
       <!-- LOGO -->
       <a href="#home" class="brand">
         <span class="brand-img">
-          <img src="/video-editor-website/Image-logo/codebytushu-white-logo.png" alt="CodeByTushu Logo">
+          <img src="./Image-logo/codebytushu-white-logo.png" alt="CodeByTushu Logo">
         </span>
 
         <span class="brand-text">
@@ -161,11 +161,11 @@
         </div>
 
         <div class="featured-grid">
-          <a href="/video-editor-website/Youtube-video-image/Cinematic Travel Edits.mp4" target="_blank">
+          <a href="./Youtube-video-image/Cinematic Travel Edits.mp4" target="_blank">
             <article class="card reveal">
 
               <!-- Thumbnail -->
-              <img src="/video-editor-website/Youtube-video-image/avatar.jpg" alt="Cinematic Travel Edits">
+              <img src="./Youtube-video-image/avatar.jpg" alt="Cinematic Travel Edits">
 
               <div class="card-body">
                 <h3>Cinematic Travel Edits</h3>
@@ -175,11 +175,11 @@
             </article>
           </a>
 
-          <a href="/video-editor-website/Youtube-video-image/Reels  Shorts Viral Style.mp4" target="_blank">
+          <a href="./Youtube-video-image/Reels  Shorts Viral Style.mp4" target="_blank">
             <article class="card reveal">
 
               <!-- Thumbnail -->
-              <img src="/video-editor-website/Youtube-video-image/Short pic.jpg" alt="Reels and shorts">
+              <img src="./Youtube-video-image/Short pic.jpg" alt="Reels and shorts">
 
               <div class="card-body">
                 <h3>Reels / Shorts Viral Style</h3>
@@ -189,11 +189,11 @@
             </article>
           </a>
 
-          <a href="/video-editor-website/Youtube-video-image/YouTube Documentary Editing Video.mp4" target="_blank">
+          <a href="./Youtube-video-image/YouTube Documentary Editing Video.mp4" target="_blank">
             <article class="card reveal">
 
               <!-- Thumbnail -->
-              <img src="/video-editor-website/Youtube-video-image/YouTube Documentary Editing image.jpg"
+              <img src="./Youtube-video-image/YouTube Documentary Editing image.jpg"
                 alt="YouTube documentary editing">
 
               <div class="card-body">
@@ -450,7 +450,7 @@
             <img src="assets/Cinematic Travel Film Edit image.jpg" class="thumb" alt="Cinematic Travel Film Edit">
 
             <video class="preview-video" muted loop>
-              <source src="/video-editor-website/assets/Cinematic Travel Film Edit video.mp4" type="video/mp4">
+              <source src="./assets/Cinematic Travel Film Edit video.mp4" type="video/mp4">
             </video>
 
             <figcaption>🎬 Cinematic Travel Film Edit</figcaption>
@@ -746,7 +746,7 @@
     <script src="/back-home.js"></script>
   </main>
 
-  <script src="/video-editor-website/app.js"></script>
+  <script src="./app.js"></script>
   <script>
     function openVideo(src) {
       const modal = document.getElementById("videoModal");
@@ -795,19 +795,8 @@
       });
     });
 
-    /* Buttons fix (smooth scroll issue solve) */
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener("click", function (e) {
-        const target = document.querySelector(this.getAttribute("href"));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth" });
-        }
-      });
-    });
-  </script>
-
-  <script>
+    /* PHP MIGRATION NOTE: Smooth scroll handler for all "#" anchor links.
+       This stays unchanged when converting to index.php — pure client-side JS. */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener("click", function (e) {
         const targetId = this.getAttribute("href");

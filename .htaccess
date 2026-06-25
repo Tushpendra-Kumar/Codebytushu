@@ -1,0 +1,127 @@
+# ─────────────────────────────────────────────────────────────────────
+# CodeByTushu — Root Apache .htaccess
+# Security headers, clean URLs, 301 redirects, caching, maintenance.
+# ─────────────────────────────────────────────────────────────────────
+
+Options -Indexes
+ServerSignature Off
+
+# ── Module Requirements ────────────────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /Codebytushu/
+
+  # ── Maintenance mode ────────────────────────────────────────
+  # Create file /private/.maintenance to activate
+  RewriteCond %{DOCUMENT_ROOT}/private/.maintenance -f
+  RewriteCond %{REQUEST_URI} !^/maintenance\.html$
+  RewriteCond %{REQUEST_URI} !^/admin/
+  RewriteCond %{REQUEST_URI} !^/assets/
+  RewriteRule ^ /Codebytushu/maintenance.html [R=302,L]
+
+  # ── Force HTTPS ──────────────────────────────────────────────
+  # Uncomment in production:
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # ── Remove trailing slash (except root) ─────────────────────
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{THE_REQUEST} \s(.+?)/\s [NC]
+  RewriteRule ^(.*)/$ $1 [R=301,L]
+
+  # ── LeetCode HTML → PHP 301 redirects ───────────────────────
+  # New SEO route for single template
+  RewriteRule ^leetcode/problem/([a-zA-Z0-9-]+)$ Leetcode/solution.php?slug=$1 [L,NC]
+
+  # Old individual solution files → new solution.php
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^Leetcode/(\d{4})/(\d{2}-[A-Za-z]+-\d{4})/(\d{4}-\d{2}-\d{2})-Next\.html$ Leetcode/solution.php?date=$3 [R=301,L,NC]
+
+  # Old All-Days page → solutions.php
+  RewriteRule ^Leetcode/(\d{4})/(\d{2}-[A-Za-z]+-\d{4})/1-All-Days\.html$ Leetcode/solutions.php?year=$1&month_path=$2 [R=301,L,NC]
+
+  # Old problems/donate HTML → PHP
+  RewriteRule ^Leetcode/problems\.html$ Leetcode/problems.php [R=301,L]
+  RewriteRule ^Leetcode/donate\.html$   Leetcode/donate.php   [R=301,L]
+</IfModule>
+
+# ── Security Headers ───────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options     "nosniff"
+  Header always set X-Frame-Options            "SAMEORIGIN"
+  Header always set X-XSS-Protection           "1; mode=block"
+  Header always set Referrer-Policy            "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy         "geolocation=(), microphone=(), camera=()"
+
+  # Content-Security-Policy — adjust for your CDNs
+  Header always set Content-Security-Policy \
+    "default-src 'self'; \
+     script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://www.gstatic.com; \
+     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; \
+     font-src 'self' https://fonts.gstatic.com; \
+     img-src 'self' data: https: blob:; \
+     media-src 'self' https://www.youtube.com; \
+     connect-src 'self' https://accounts.google.com https://www.googleapis.com; \
+     frame-src https://www.youtube.com https://youtube.com https://www.google.com https://maps.google.com;"
+
+  # Remove PHP version header
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
+</IfModule>
+
+# ── Protect Sensitive Files ────────────────────────────────────
+<FilesMatch "^(\.env|composer\.(json|lock)|\.htpasswd|\.git|schema\.sql|README\.md)$">
+  Require all denied
+</FilesMatch>
+
+# Block dotfiles
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+# ── Browser Caching ────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images
+  ExpiresByType image/jpeg  "access plus 1 year"
+  ExpiresByType image/png   "access plus 1 year"
+  ExpiresByType image/gif   "access plus 1 year"
+  ExpiresByType image/webp  "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # CSS & JS
+  ExpiresByType text/css                  "access plus 1 month"
+  ExpiresByType application/javascript    "access plus 1 month"
+  ExpiresByType text/javascript           "access plus 1 month"
+
+  # Fonts
+  ExpiresByType font/woff2              "access plus 1 year"
+  ExpiresByType font/woff               "access plus 1 year"
+  ExpiresByType application/font-woff   "access plus 1 year"
+
+  # HTML / PHP (never cache)
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# ── GZIP Compression ──────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml font/woff2
+</IfModule>
+
+# ── Custom Error Pages ─────────────────────────────────────────
+ErrorDocument 404 /404.php
+ErrorDocument 403 /404.php
+ErrorDocument 500 /404.php
+
+# ── PHP Settings ───────────────────────────────────────────────
+<IfModule mod_php.c>
+  php_flag display_errors      Off
+  php_value max_execution_time 60
+  php_value upload_max_filesize 64M
+  php_value post_max_size      64M
+  php_value memory_limit       128M
+</IfModule>

@@ -30,3 +30,25 @@ desktop.ini
 # Build output (if added later)
 /dist/
 /build/
+
+# ─── PHP Migration additions ──────────────────
+# PHP Composer
+/vendor/
+composer.lock
+
+# Uploaded user files (never commit)
+/uploads/images/
+/uploads/pdfs/
+/uploads/videos/
+/uploads/zips/
+/uploads/misc/
+/uploads/blog/
+/uploads/courses/
+/uploads/avatars/
+
+# Maintenance flag
+/private/.maintenance
+
+# PHP error logs
+*.log
+error_log

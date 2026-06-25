@@ -1,4 +1,14 @@
 /*  import google fonts */
+/* ─────────────────────────────────────────────────────────────────────────────
+   styles.css — Global stylesheet for CodeByTushu main portfolio (index.html)
+   SHARED UTILITY: This CSS file is referenced ONLY by the root index.html.
+   Sub-sites (Leetcode, video-editor-website) have their own separate CSS files.
+
+   PHP MIGRATION NOTE:
+   This file stays completely unchanged during PHP migration.
+   CSS is a static asset — served directly by the web server.
+   In PHP version: <link rel="stylesheet" href="/styles.css"> in includes/head.php
+   ───────────────────────────────────────────────────────────────────────────── */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
 
 /* ============================================

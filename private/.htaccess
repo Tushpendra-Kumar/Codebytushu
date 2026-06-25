@@ -1,0 +1,6 @@
+# ─────────────────────────────────────────────────────────────
+# /private/ — Block ALL web access. Ever.
+# This folder stores logs, maintenance flag, internal configs.
+# ─────────────────────────────────────────────────────────────
+
+Require all denied

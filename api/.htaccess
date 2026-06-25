@@ -1,0 +1,12 @@
+# /api/ — only allow POST and GET, block everything else
+# No directory listing, no caching of API responses.
+
+Options -Indexes
+
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow"
+  Header always set Cache-Control "no-store, no-cache"
+</IfModule>
+
+# Block direct .php access to sub-files that aren't endpoints
+# (Only the documented endpoints are publicly accessible)

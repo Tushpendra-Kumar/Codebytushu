@@ -1,0 +1,15 @@
+# ─────────────────────────────────────────────────────────────
+# /auth/ directory protection
+# Prevent direct access to auth partials if any are added later.
+# ─────────────────────────────────────────────────────────────
+
+Options -Indexes
+
+<IfModule mod_headers.c>
+  # Auth pages must never be cached
+  Header always set Cache-Control "no-store, no-cache, must-revalidate, private"
+  Header always set Pragma "no-cache"
+
+  # Strict referrer on auth pages
+  Header always set Referrer-Policy "strict-origin"
+</IfModule>
