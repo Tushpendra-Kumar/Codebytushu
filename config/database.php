@@ -31,15 +31,20 @@ function db(): PDO {
     try {
         $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
     } catch (PDOException $e) {
-        // Never expose credentials or full error in production
         if (APP_DEBUG) {
             throw $e;
         }
         http_response_code(503);
-        die(json_encode([
-            'success' => false,
-            'error'   => 'Database connection unavailable. Please try again later.',
-        ]));
+        
+        $isApi = strpos($_SERVER['REQUEST_URI'] ?? '', '/api/') !== false;
+        if ($isApi) {
+            die(json_encode([
+                'success' => false,
+                'error'   => 'Database connection unavailable. Please try again later.',
+            ]));
+        } else {
+            die("<!DOCTYPE html><html><head><title>503 Service Unavailable</title><style>body{background:#111118;color:#fff;font-family:sans-serif;text-align:center;padding:50px;}h1{color:#ffc400;}p{color:#aaa;}</style></head><body><h1>Database Error</h1><p>The application could not connect to the database.</p><p>Please ensure the production <b>.env</b> file is created on your Hostinger server with the correct database credentials.</p></body></html>");
+        }
     }
 
     return $pdo;
