@@ -576,8 +576,9 @@ function copyCode() {
 </script>
 <?php endif; ?>
 
-<script src="<?= SITE_URL ?>/Leetcode/JS/cbt-auth.js"></script>`n<script>cbtAuthGuard();</script>`n</body>
+</body>
 </html>
+
 
 
 

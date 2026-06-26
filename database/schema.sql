@@ -712,9 +712,73 @@ VALUES
   (2027, 'UPCOMING', '2027 Daily Solutions',
    '2027 daily solutions — coming soon.',
    'upcoming', 1),
-  (2028, 'FUTURE', '2028 Daily Solutions',
-   '2028 — planned.',
-   'future', 0);
+  (2028, 'FUTURE ARCHIVE', '2028 Daily Solutions',
+   'Browse the complete 2028 coding archive containing daily LeetCode solutions.',
+   'future', 1);
+
+-- LeetCode 2026 months seed (all 12 months)
+INSERT IGNORE INTO `leetcode_months`
+  (`year_id`, `year`, `month_num`, `month_name`, `month_short`, `total_days`, `is_visible`)
+SELECT y.id, 2026, m.month_num, m.month_name, m.month_short, m.total_days, 1
+FROM `leetcode_years` y
+JOIN (
+  SELECT 1 AS month_num, 'January'   AS month_name, 'Jan' AS month_short, 31 AS total_days UNION ALL
+  SELECT 2,  'February',  'Feb', 28 UNION ALL
+  SELECT 3,  'March',     'Mar', 31 UNION ALL
+  SELECT 4,  'April',     'Apr', 30 UNION ALL
+  SELECT 5,  'May',       'May', 31 UNION ALL
+  SELECT 6,  'June',      'Jun', 30 UNION ALL
+  SELECT 7,  'July',      'Jul', 31 UNION ALL
+  SELECT 8,  'August',    'Aug', 31 UNION ALL
+  SELECT 9,  'September', 'Sep', 30 UNION ALL
+  SELECT 10, 'October',   'Oct', 31 UNION ALL
+  SELECT 11, 'November',  'Nov', 30 UNION ALL
+  SELECT 12, 'December',  'Dec', 31
+) m ON 1=1
+WHERE y.year = 2026;
+
+-- LeetCode 2027 months seed (all 12 months)
+INSERT IGNORE INTO `leetcode_months`
+  (`year_id`, `year`, `month_num`, `month_name`, `month_short`, `total_days`, `is_visible`)
+SELECT y.id, 2027, m.month_num, m.month_name, m.month_short, m.total_days, 1
+FROM `leetcode_years` y
+JOIN (
+  SELECT 1 AS month_num, 'January'   AS month_name, 'Jan' AS month_short, 31 AS total_days UNION ALL
+  SELECT 2,  'February',  'Feb', 28 UNION ALL
+  SELECT 3,  'March',     'Mar', 31 UNION ALL
+  SELECT 4,  'April',     'Apr', 30 UNION ALL
+  SELECT 5,  'May',       'May', 31 UNION ALL
+  SELECT 6,  'June',      'Jun', 30 UNION ALL
+  SELECT 7,  'July',      'Jul', 31 UNION ALL
+  SELECT 8,  'August',    'Aug', 31 UNION ALL
+  SELECT 9,  'September', 'Sep', 30 UNION ALL
+  SELECT 10, 'October',   'Oct', 31 UNION ALL
+  SELECT 11, 'November',  'Nov', 30 UNION ALL
+  SELECT 12, 'December',  'Dec', 31
+) m ON 1=1
+WHERE y.year = 2027;
+
+-- LeetCode 2028 months seed (all 12 months)
+INSERT IGNORE INTO `leetcode_months`
+  (`year_id`, `year`, `month_num`, `month_name`, `month_short`, `total_days`, `is_visible`)
+SELECT y.id, 2028, m.month_num, m.month_name, m.month_short, m.total_days, 1
+FROM `leetcode_years` y
+JOIN (
+  SELECT 1 AS month_num, 'January'   AS month_name, 'Jan' AS month_short, 31 AS total_days UNION ALL
+  SELECT 2,  'February',  'Feb', 29 UNION ALL
+  SELECT 3,  'March',     'Mar', 31 UNION ALL
+  SELECT 4,  'April',     'Apr', 30 UNION ALL
+  SELECT 5,  'May',       'May', 31 UNION ALL
+  SELECT 6,  'June',      'Jun', 30 UNION ALL
+  SELECT 7,  'July',      'Jul', 31 UNION ALL
+  SELECT 8,  'August',    'Aug', 31 UNION ALL
+  SELECT 9,  'September', 'Sep', 30 UNION ALL
+  SELECT 10, 'October',   'Oct', 31 UNION ALL
+  SELECT 11, 'November',  'Nov', 30 UNION ALL
+  SELECT 12, 'December',  'Dec', 31
+) m ON 1=1
+WHERE y.year = 2028;
+
 
 -- Blog categories
 INSERT IGNORE INTO `categories` (`name`, `slug`, `type`, `sort_order`) VALUES

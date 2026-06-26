@@ -131,7 +131,6 @@ $yearDescs = [
                 <li><a href="<?= SITE_URL ?>/Leetcode/problems.php" class="active">Problems</a></li>
                 <li><a href="<?= SITE_URL ?>/Leetcode/donate.php">Donate</a></li>
                 <li><a href="/#contact">Contact Me</a></li>
-                <li id="cbt-nav-auth-slot"></li>
             </ul>
         </nav>
     </header>
@@ -221,8 +220,6 @@ $yearDescs = [
         </div>
     </section>
 
-    <script src="<?= SITE_URL ?>/Leetcode/JS/cbt-auth.js"></script>
-    <script>cbtNavAuth();</script>
 </body>
 </html>
 
