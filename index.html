@@ -55,6 +55,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <!-- pre loader -->
+    <div id="preloader"></div>
     <nav class="navbar" id="mainNavbar">
         <div class="max-width">
             <!-- Logo -->
@@ -77,8 +79,8 @@
             </div>
         </div>
 
-        <!-- DESKTOP DROPDOWN PANEL (slides down from hamburger, desktop only) -->
-        <div class="desktop-dropdown" id="desktopDropdown">
+        <!-- DESKTOP DROPDOWN PANEL -->
+        <div class="desktop-dropdown" id="desktopDropdown" style="display:none">
             <div class="dd-inner">
                 <a href="#home"     class="dd-link">Home</a>
                 <a href="#about"    class="dd-link">About</a>
@@ -104,8 +106,8 @@
             </div>
         </div>
 
-        <!-- MOBILE FULL-SCREEN MENU (slides in from left, mobile only ≤947px) -->
-        <ul class="mobile-menu" id="mobileMenu">
+        <!-- MOBILE FULL-SCREEN MENU -->
+        <ul class="mobile-menu" id="mobileMenu" style="display:none">
             <li><a href="#home"     class="mob-link">Home</a></li>
             <li><a href="#about"    class="mob-link">About</a></li>
             <li><a href="#services" class="mob-link">Services</a></li>
@@ -494,7 +496,7 @@
 
     <!-- Appearance + Desktop Nav Logic -->
     <script>
-        /* ── Theme helpers ───────────────────────────────── */
+        /* ── Theme helpers ─────────────────────────────────── */
         function cbtSetTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('cbt-theme', theme);
@@ -502,14 +504,12 @@
         }
 
         function updateAppearanceChecks(theme) {
-            // Mobile checks
-            var cd = document.getElementById('checkDark');
-            var cl = document.getElementById('checkLight');
-            if (cd) cd.style.display  = (theme === 'dark')  ? 'inline' : 'none';
-            if (cl) cl.style.display  = (theme === 'light') ? 'inline' : 'none';
-            // Desktop dropdown checks
+            var cd  = document.getElementById('checkDark');
+            var cl  = document.getElementById('checkLight');
             var dcd = document.getElementById('ddCheckDark');
             var dcl = document.getElementById('ddCheckLight');
+            if (cd)  cd.style.display  = (theme === 'dark')  ? 'inline' : 'none';
+            if (cl)  cl.style.display  = (theme === 'light') ? 'inline' : 'none';
             if (dcd) dcd.style.display = (theme === 'dark')  ? 'inline' : 'none';
             if (dcl) dcl.style.display = (theme === 'light') ? 'inline' : 'none';
         }
@@ -525,82 +525,111 @@
 
         document.addEventListener('DOMContentLoaded', function () {
 
-            /* ── Desktop hamburger ───────────────────────── */
+            /* ── Desktop hamburger ─────────────────────────── */
             var deskBtn  = document.getElementById('desktopHamburger');
             var deskDD   = document.getElementById('desktopDropdown');
-            var ddArrow  = document.getElementById('ddArrow');
             var ddAppBtn = document.getElementById('ddAppearanceToggle');
             var ddAppSub = document.getElementById('ddAppearanceSub');
+            var ddIsOpen = false;
+
+            function openDesktopDD() {
+                deskDD.style.display = 'block';
+                ddIsOpen = true;
+                deskBtn.classList.add('is-open');
+                deskBtn.setAttribute('aria-expanded', 'true');
+            }
 
             function closeDesktopDD() {
-                if (deskDD) {
-                    deskDD.classList.remove('open');
-                    if (deskBtn) { deskBtn.classList.remove('is-open'); deskBtn.setAttribute('aria-expanded','false'); }
-                }
+                deskDD.style.display = 'none';
+                ddIsOpen = false;
+                deskBtn.classList.remove('is-open');
+                deskBtn.setAttribute('aria-expanded', 'false');
+                // also close the appearance sub
+                if (ddAppSub) ddAppSub.style.display = 'none';
+                var arr = document.getElementById('ddArrow');
+                if (arr) arr.style.transform = '';
             }
 
             if (deskBtn && deskDD) {
                 deskBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    var isOpen = deskDD.classList.toggle('open');
-                    deskBtn.classList.toggle('is-open', isOpen);
-                    deskBtn.setAttribute('aria-expanded', String(isOpen));
+                    ddIsOpen ? closeDesktopDD() : openDesktopDD();
                 });
             }
 
-            // Desktop Appearance sub-panel
+            // Desktop Appearance sub-panel toggle
             if (ddAppBtn && ddAppSub) {
+                ddAppSub.style.display = 'none'; // ensure hidden at start
                 ddAppBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    var isOpen = ddAppSub.classList.toggle('open');
+                    var showing = ddAppSub.style.display === 'block';
+                    ddAppSub.style.display = showing ? 'none' : 'block';
                     var arrow = document.getElementById('ddArrow');
-                    if (arrow) arrow.style.transform = isOpen ? 'rotate(90deg)' : '';
+                    if (arrow) arrow.style.transform = showing ? '' : 'rotate(90deg)';
                 });
             }
 
-            // Close desktop dropdown on outside click
+            // Close desktop dropdown when clicking outside
             document.addEventListener('click', function (e) {
-                if (deskDD && !deskDD.contains(e.target) && deskBtn && !deskBtn.contains(e.target)) {
+                if (ddIsOpen && deskDD && !deskDD.contains(e.target) && deskBtn && !deskBtn.contains(e.target)) {
                     closeDesktopDD();
                 }
             });
 
-            // Close desktop dropdown when a dd-link is clicked
-            document.querySelectorAll('.dd-link:not(.dd-appearance-btn)').forEach(function(link){
-                link.addEventListener('click', closeDesktopDD);
-            });
+            // Close desktop dropdown when a nav link inside it is clicked
+            if (deskDD) {
+                deskDD.querySelectorAll('.dd-link:not(.dd-appearance-btn)').forEach(function(link){
+                    link.addEventListener('click', closeDesktopDD);
+                });
+            }
 
-            /* ── Mobile hamburger (now targets #mobileMenu) ─ */
+            /* ── Mobile hamburger ──────────────────────────── */
             var mobileBurger = document.getElementById('mobileBurger');
             var mobileMenu   = document.getElementById('mobileMenu');
+            var mobIsOpen    = false;
+
+            function openMobileMenu() {
+                mobileMenu.style.display = 'block';
+                mobileMenu.style.left    = '0';
+                mobIsOpen = true;
+                var icon = mobileBurger.querySelector('i');
+                if (icon) icon.classList.add('active');
+            }
+
+            function closeMobileMenu() {
+                mobileMenu.style.left    = '-100%';
+                // Small delay so slide-out animation is visible before hiding
+                setTimeout(function() { mobileMenu.style.display = 'none'; }, 300);
+                mobIsOpen = false;
+                var icon = mobileBurger.querySelector('i');
+                if (icon) icon.classList.remove('active');
+            }
 
             if (mobileBurger && mobileMenu) {
                 mobileBurger.addEventListener('click', function () {
-                    mobileMenu.classList.toggle('active');
-                    var icon = mobileBurger.querySelector('i');
-                    if (icon) icon.classList.toggle('active');
+                    mobIsOpen ? closeMobileMenu() : openMobileMenu();
                 });
 
-                // Close mobile menu when any link is clicked
                 mobileMenu.querySelectorAll('a').forEach(function(a){
                     a.addEventListener('click', function(){
-                        mobileMenu.classList.remove('active');
-                        var icon = mobileBurger.querySelector('i');
-                        if (icon) icon.classList.remove('active');
+                        if (a.id !== 'appearanceToggle') closeMobileMenu();
                     });
                 });
             }
 
-            /* ── Mobile Appearance submenu toggle ─────────── */
+            /* ── Mobile Appearance submenu toggle ──────────── */
             var mAppToggle = document.getElementById('appearanceToggle');
             var mAppSub    = document.getElementById('appearanceSubmenu');
             var mAppArrow  = document.getElementById('appearanceArrow');
 
+            if (mAppSub) mAppSub.style.display = 'none'; // ensure hidden at start
+
             if (mAppToggle && mAppSub) {
                 mAppToggle.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    var isOpen = mAppSub.classList.toggle('open');
-                    if (mAppArrow) mAppArrow.style.transform = isOpen ? 'rotate(90deg)' : '';
+                    var showing = mAppSub.style.display === 'block';
+                    mAppSub.style.display = showing ? 'none' : 'block';
+                    if (mAppArrow) mAppArrow.style.transform = showing ? '' : 'rotate(90deg)';
                 });
             }
         });
