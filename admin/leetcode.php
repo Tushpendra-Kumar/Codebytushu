@@ -35,7 +35,7 @@ $where  = ['1=1'];
 $params = [];
 if ($search)   { $where[] = '(s.problem_title LIKE ? OR s.slug LIKE ? OR s.problem_number LIKE ?)'; $w="%$search%"; $params=array_merge($params,[$w,$w,$w]); }
 if ($diff)     { $where[] = 's.difficulty = ?';   $params[] = $diff; }
-if ($platform) { $where[] = 's.platform = ?';     $params[] = $platform; }
+
 if ($status === 'published')   { $where[] = 's.is_published = 1'; }
 if ($status === 'draft')       { $where[] = 's.is_published = 0'; }
 if ($tag > 0)  { $where[] = 'EXISTS (SELECT 1 FROM solution_tag_map tm WHERE tm.solution_id=s.id AND tm.tag_id=?)'; $params[] = $tag; }
@@ -65,9 +65,9 @@ $total = (int)$countStmt->fetchColumn();
 $pager = paginate($total, $perPage, $page);
 
 $stmt = $pdo->prepare(
-    "SELECT s.id, s.problem_number, s.problem_title, s.slug, s.difficulty, s.platform,
+    "SELECT s.id, s.problem_number, s.problem_title, s.slug, s.difficulty, 
             s.is_published, s.is_featured, s.view_count, s.solution_date,
-            s.time_complexity, s.space_complexity, s.youtube_url, s.thumbnail_path,
+            s.time_complexity, s.space_complexity, s.youtube_url, s.youtube_thumbnail AS thumbnail_path,
             (SELECT COUNT(*) FROM solution_code_blocks cb WHERE cb.solution_id=s.id) AS code_count,
             (SELECT GROUP_CONCAT(t.name ORDER BY t.name SEPARATOR ',')
                FROM solution_tag_map tm JOIN solution_tags t ON t.id=tm.tag_id
