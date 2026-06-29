@@ -55,22 +55,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer">
-    <!-- pre loader  -->
-    <div id="preloader"></div>
-    <nav class="navbar">
+    <nav class="navbar" id="mainNavbar">
         <div class="max-width">
             <!-- Logo -->
             <div class="logo"><a href="#home">CodeBy<span>Tushu</span></a></div>
 
-            <!-- ─── DESKTOP RIGHT SIDE ─────────────────────────── -->
+            <!-- DESKTOP RIGHT: LeetCode + Projects + Hamburger (visible ≥948px) -->
             <div class="desktop-nav-right">
                 <a href="#leetcode" class="desktop-nav-link">LeetCode</a>
                 <a href="#teams"    class="desktop-nav-link">Projects</a>
-
-                <!-- Desktop Hamburger -->
                 <button class="desktop-hamburger" id="desktopHamburger" aria-label="Open menu" aria-expanded="false">
                     <span class="dh-bar"></span>
                     <span class="dh-bar"></span>
@@ -78,21 +71,20 @@
                 </button>
             </div>
 
-            <!-- ─── MOBILE HAMBURGER (existing, untouched) ──────── -->
+            <!-- MOBILE BURGER: fa-bars icon (visible ≤947px) -->
             <div class="menu-btn" id="mobileBurger">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
 
-        <!-- ─── DESKTOP DROPDOWN PANEL ──────────────────────────── -->
-        <div class="desktop-dropdown" id="desktopDropdown" aria-hidden="true">
+        <!-- DESKTOP DROPDOWN PANEL (slides down from hamburger, desktop only) -->
+        <div class="desktop-dropdown" id="desktopDropdown">
             <div class="dd-inner">
-                <a href="#home"    class="dd-link">Home</a>
-                <a href="#about"   class="dd-link">About</a>
+                <a href="#home"     class="dd-link">Home</a>
+                <a href="#about"    class="dd-link">About</a>
                 <a href="#services" class="dd-link">Services</a>
                 <a href="#contact" class="dd-link">Contact</a>
                 <div class="dd-divider"></div>
-                <!-- Appearance inside dropdown -->
                 <div class="dd-appearance" id="ddAppearanceItem">
                     <button class="dd-link dd-appearance-btn" id="ddAppearanceToggle">
                         <span>&#9680; Appearance</span>
@@ -111,35 +103,34 @@
                 </div>
             </div>
         </div>
+
+        <!-- MOBILE FULL-SCREEN MENU (slides in from left, mobile only ≤947px) -->
+        <ul class="mobile-menu" id="mobileMenu">
+            <li><a href="#home"     class="mob-link">Home</a></li>
+            <li><a href="#about"    class="mob-link">About</a></li>
+            <li><a href="#services" class="mob-link">Services</a></li>
+            <li><a href="#leetcode" class="mob-link">LeetCode</a></li>
+            <li><a href="#teams"    class="mob-link">Projects</a></li>
+            <li><a href="#contact"  class="mob-link">Contact</a></li>
+            <!-- Appearance (mobile) -->
+            <li class="mob-appearance-item" id="mobAppearanceItem">
+                <a href="#" class="mob-link mob-appearance-toggle" id="appearanceToggle" onclick="return false;">
+                    <span>&#9680;</span> Appearance
+                    <span class="mob-arrow" id="appearanceArrow">&#8250;</span>
+                </a>
+                <div class="mob-appearance-sub" id="appearanceSubmenu">
+                    <button class="mob-sub-opt" id="optDark" onclick="cbtSetTheme('dark')">
+                        <span class="option-icon">&#9790;</span> Dark Mode
+                        <span class="option-check" id="checkDark">&#10003;</span>
+                    </button>
+                    <button class="mob-sub-opt" id="optLight" onclick="cbtSetTheme('light')">
+                        <span class="option-icon">&#9728;</span> Light Mode
+                        <span class="option-check" id="checkLight">&#10003;</span>
+                    </button>
+                </div>
+            </li>
+        </ul>
     </nav>
-
-    <!-- ─── FULL-SCREEN MOBILE MENU (existing, untouched) ──────── -->
-    <ul class="menu" id="mobileMenu">
-        <li><a href="#home"     class="menu-btn">Home</a></li>
-        <li><a href="#about"    class="menu-btn">About</a></li>
-        <li><a href="#services" class="menu-btn">Services</a></li>
-        <li><a href="#leetcode" class="menu-btn">LeetCode</a></li>
-        <li><a href="#teams"    class="menu-btn">Projects</a></li>
-        <li><a href="#contact"  class="menu-btn">Contact</a></li>
-
-        <!-- Appearance submenu (mobile) -->
-        <li class="appearance-menu-item" id="appearanceMenuItem">
-            <a href="#" class="menu-btn appearance-toggle" id="appearanceToggle" onclick="return false;">
-                <span class="appearance-icon">&#9680;</span> Appearance
-                <span class="appearance-arrow" id="appearanceArrow">&#8250;</span>
-            </a>
-            <div class="appearance-submenu" id="appearanceSubmenu">
-                <button class="appearance-option" id="optDark" onclick="cbtSetTheme('dark')">
-                    <span class="option-icon">&#9790;</span> Dark Mode
-                    <span class="option-check" id="checkDark">&#10003;</span>
-                </button>
-                <button class="appearance-option" id="optLight" onclick="cbtSetTheme('light')">
-                    <span class="option-icon">&#9728;</span> Light Mode
-                    <span class="option-check" id="checkLight">&#10003;</span>
-                </button>
-            </div>
-        </li>
-    </ul>
 
     <!-- home section start -->
     <section class="home" id="home">
