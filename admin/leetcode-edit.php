@@ -1047,8 +1047,15 @@ async function deleteSolution(id, title) {
 /* ══════════════════════════════════════════════════════════
    AUTOSAVE (edit mode only — every 45s)
    ════════════════════════════════════════════════════════ */
+let autosaveTimer = null;
+function startAutosave() {
+  if (typeof runAutosave === 'function') {
+    clearInterval(autosaveTimer);
+    autosaveTimer = setInterval(runAutosave, 45000);
+  }
+}
+
 <?php if ($mode === 'edit'): ?>
-let autosaveTimer;
 const asStatus = document.getElementById('autosaveStatus');
 const asText   = document.getElementById('autosaveText');
 
@@ -1083,10 +1090,6 @@ async function runAutosave() {
   }, 4000);
 }
 
-function startAutosave() {
-  clearInterval(autosaveTimer);
-  autosaveTimer = setInterval(runAutosave, 45000);
-}
 startAutosave();
 <?php endif; ?>
 
