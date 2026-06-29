@@ -284,13 +284,7 @@ if (isPost()) {
         </div>
       </div>
 
-      <div class="form-row">
-        <label class="checkbox-label">
-          <input type="checkbox" name="remember_me" id="rememberMe">
-          Remember me for 30 days
-        </label>
-        <a href="<?= SITE_URL ?>/auth/forgot-password.php" class="link-forgot">Forgot password?</a>
-      </div>
+      <br>
 
       <button type="submit" class="btn-submit" id="submitBtn">
         <span class="spinner" id="spinner"></span>
@@ -314,10 +308,7 @@ if (isPost()) {
     <?php endif; ?>
   </div>
 
-  <div class="auth-footer">
-    Don't have an account?
-    <a href="<?= SITE_URL ?>/auth/signup.php">Create one free</a>
-  </div>
+
 
   <div class="back-link">
     <a href="<?= SITE_URL ?>/">← Back to CodeByTushu</a>
