@@ -20,32 +20,63 @@ require_once __DIR__ . '/../includes/functions.php';
 $pdo = db();
 
 /* ─────────────────────────────────────────────────────────────
-   1. Resolve the solution from slug or date
+   1. Resolve the solution from month/day, slug, or date
    ───────────────────────────────────────────────────────────── */
-$slug = trim($_GET['slug'] ?? '');
-$date = trim($_GET['date'] ?? '');
+$monthId = isset($_GET['month']) ? (int)$_GET['month'] : 0;
+$day     = isset($_GET['day']) ? (int)$_GET['day'] : 0;
+$slug    = trim($_GET['slug'] ?? '');
+$date    = trim($_GET['date'] ?? '');
 
 $sol = null;
+$notFound = false;
+$isUpcoming = false;
 
-if ($slug !== '') {
-    $stmt = $pdo->prepare(
-        'SELECT * FROM leetcode_solutions WHERE slug = ? LIMIT 1'
-    );
+if ($monthId > 0 && $day > 0) {
+    // 1. Validate month and day
+    $stmtM = $pdo->prepare('SELECT id, year_id, year, month_num, month_name, total_days FROM leetcode_months WHERE id = ? LIMIT 1');
+    $stmtM->execute([$monthId]);
+    $monthRow = $stmtM->fetch();
+
+    if (!$monthRow || $day < 1 || $day > $monthRow['total_days']) {
+        $notFound = true;
+    } else {
+        $dateStr = sprintf("%04d-%02d-%02d", $monthRow['year'], $monthRow['month_num'], $day);
+
+        $stmt = $pdo->prepare('SELECT * FROM leetcode_solutions WHERE solution_date = ? LIMIT 1');
+        $stmt->execute([$dateStr]);
+        $sol = $stmt->fetch();
+
+        if (!$sol) {
+            // Generate placeholder for valid day without a published solution
+            $sol = [
+                'id' => 0,
+                'problem_title' => 'Problem Coming Soon',
+                'problem_number' => null,
+                'solution_date' => $dateStr,
+                'difficulty' => 'Medium',
+                'explanation' => '<p>This solution will be published soon.</p>',
+                'approach_summary' => 'This solution will be published soon.',
+                'meta_description' => 'Placeholder solution page for ' . $dateStr,
+                'slug' => 'coming-soon-' . $dateStr,
+                'is_published' => 0,
+                'youtube_url' => '',
+                'month_id' => $monthId
+            ];
+            $isUpcoming = true;
+        }
+    }
+} elseif ($slug !== '') {
+    $stmt = $pdo->prepare('SELECT * FROM leetcode_solutions WHERE slug = ? LIMIT 1');
     $stmt->execute([$slug]);
     $sol = $stmt->fetch();
-
 } elseif ($date !== '') {
-    // Legacy date-based URL — find and 301-redirect to slug
     if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
         http_response_code(400);
         $sol = null;
     } else {
-        $stmt = $pdo->prepare(
-            'SELECT * FROM leetcode_solutions WHERE solution_date = ? LIMIT 1'
-        );
+        $stmt = $pdo->prepare('SELECT * FROM leetcode_solutions WHERE solution_date = ? LIMIT 1');
         $stmt->execute([$date]);
         $sol = $stmt->fetch();
-
         if ($sol) {
             header('Location: ' . SITE_URL . '/leetcode/problem/' . $sol['slug'], true, 301);
             exit;
@@ -54,18 +85,20 @@ if ($slug !== '') {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   2. Handle not-found / no parameters
+   2. Handle not-found / upcoming state
    ───────────────────────────────────────────────────────────── */
-if (!$sol) {
+if (!$sol && !$notFound) {
     http_response_code(404);
     $notFound = true;
-} else {
-    $notFound = false;
+} elseif (!$notFound) {
 
     /* ─── Is this an upcoming / unpublished problem? ─── */
     $currentDate = new \DateTime('today');
     $problemDate = new \DateTime($sol['solution_date']);
-    $isUpcoming  = ($sol['is_published'] == 0 || $problemDate > $currentDate);
+    
+    if (!$isUpcoming) {
+        $isUpcoming = ($sol['is_published'] == 0 || $problemDate > $currentDate);
+    }
 
     $isComingSoon2026 = false;
     $isFutureYear = false;
@@ -76,10 +109,7 @@ if (!$sol) {
         $isUpcoming = true;
     } elseif ($year == 2026) {
         $cutoff = new \DateTime('2026-04-13');
-        if ($problemDate <= $cutoff) {
-            $isComingSoon2026 = true;
-            $isUpcoming = true;
-        }
+        // Removed custom cutoff for 2026 since we now dynamically show placeholders based on database absence.
     }
 
     /* ─── Track view count (only for published, real visits) ─── */
@@ -93,7 +123,7 @@ if (!$sol) {
 
     /* ─── Load code blocks ─── */
     $codeBlocks = [];
-    if (!$isUpcoming) {
+    if (!$isUpcoming && $sol['id'] > 0) {
         $stmtCode = $pdo->prepare(
             'SELECT language, language_slug, code
                FROM solution_code_blocks
@@ -105,6 +135,13 @@ if (!$sol) {
             $langKey = strtolower(trim($b['language']));
             $codeBlocks[$langKey] = $b['code'];
         }
+    } elseif ($sol['id'] == 0) {
+        $codeBlocks = [
+            'java'       => "// Java Solution\n// Code will be updated soon.\nclass Solution {\n    public void solve() {\n        \n    }\n}",
+            'python'     => "# Python Solution\n# Code will be updated soon.\nclass Solution:\n    def solve(self):\n        pass",
+            'c++'        => "// C++ Solution\n// Code will be updated soon.\nclass Solution {\npublic:\n    void solve() {\n        \n    }\n};",
+            'javascript' => "// JavaScript Solution\n// Code will be updated soon.\nvar solve = function() {\n    \n};"
+        ];
     }
 
     /* ─── Map language keys → display names & IDs ─── */
@@ -155,17 +192,21 @@ if (!$sol) {
 
     /* ─── Load tags ─── */
     $tags = [];
-    try {
-        $stmtTags = $pdo->prepare(
-            'SELECT t.name, t.color_hex
-               FROM solution_tag_map tm
-               JOIN solution_tags t ON t.id = tm.tag_id
-              WHERE tm.solution_id = ?
-              ORDER BY t.name ASC'
-        );
-        $stmtTags->execute([$sol['id']]);
-        $tags = $stmtTags->fetchAll();
-    } catch (\Throwable) { /* non-fatal */ }
+    if ($sol['id'] == 0) {
+        $tags = [['name' => 'Placeholder', 'color_hex' => '#ffc400']];
+    } else {
+        try {
+            $stmtTags = $pdo->prepare(
+                'SELECT t.name, t.color_hex
+                   FROM solution_tag_map tm
+                   JOIN solution_tags t ON t.id = tm.tag_id
+                  WHERE tm.solution_id = ?
+                  ORDER BY t.name ASC'
+            );
+            $stmtTags->execute([$sol['id']]);
+            $tags = $stmtTags->fetchAll();
+        } catch (\Throwable) { /* non-fatal */ }
+    }
 
     /* ─── Prev / Next solutions ─── */
     $prevSol = null;
@@ -320,7 +361,7 @@ if (!$sol) {
 
     <!-- Back button -->
     <div class="back-btn">
-        <a href="<?= SITE_URL ?>/Leetcode/problems.php">← Back to Problems</a>
+        <a href="<?= SITE_URL ?>/Leetcode/month.php?id=<?= $sol['month_id'] ?>">← Back to Month</a>
     </div>
 
     <!-- Problem meta row: category tag + difficulty + date -->
