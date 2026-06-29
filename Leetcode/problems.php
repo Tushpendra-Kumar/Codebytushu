@@ -32,29 +32,34 @@ if ($selectedYear) {
         exit;
     }
 
-    $stmtM = $pdo->prepare(
-        "SELECT id, month_num, month_name, total_days, published_solutions
-         FROM leetcode_months
-         WHERE year_id = ? AND is_visible = 1
-         ORDER BY month_num ASC"
-    );
-    $stmtM->execute([$yearRow['id']]);
-    $months = $stmtM->fetchAll();
-
-    // Auto-seed months if missing from database (e.g. migration failed on shared hosting)
-    if (empty($months)) {
-        $yearInt = (int)$yearRow['year'];
-        for ($m = 1; $m <= 12; $m++) {
-            $mName = date('F', mktime(0, 0, 0, $m, 10));
-            $mShort = date('M', mktime(0, 0, 0, $m, 10));
-            $days = cal_days_in_month(CAL_GREGORIAN, $m, $yearInt);
-            
-            $ins = $pdo->prepare("INSERT IGNORE INTO leetcode_months (year_id, year, month_num, month_name, month_short, total_days, is_visible) VALUES (?, ?, ?, ?, ?, ?, 1)");
-            $ins->execute([$yearRow['id'], $yearInt, $m, $mName, $mShort, $days]);
-        }
-        // Re-fetch after seeding
+    // Fetch months only if it's not 2028 (Future Archive)
+    if ((int)$yearRow['year'] !== 2028) {
+        $stmtM = $pdo->prepare(
+            "SELECT id, month_num, month_name, total_days, published_solutions
+             FROM leetcode_months
+             WHERE year_id = ? AND is_visible = 1
+             ORDER BY month_num ASC"
+        );
         $stmtM->execute([$yearRow['id']]);
         $months = $stmtM->fetchAll();
+
+        // Auto-seed months if missing from database (e.g. migration failed on shared hosting)
+        if (empty($months)) {
+            $yearInt = (int)$yearRow['year'];
+            for ($m = 1; $m <= 12; $m++) {
+                $mName = date('F', mktime(0, 0, 0, $m, 10));
+                $mShort = date('M', mktime(0, 0, 0, $m, 10));
+                $days = cal_days_in_month(CAL_GREGORIAN, $m, $yearInt);
+                
+                $ins = $pdo->prepare("INSERT IGNORE INTO leetcode_months (year_id, year, month_num, month_name, month_short, total_days, is_visible) VALUES (?, ?, ?, ?, ?, ?, 1)");
+                $ins->execute([$yearRow['id'], $yearInt, $m, $mName, $mShort, $days]);
+            }
+            // Re-fetch after seeding
+            $stmtM->execute([$yearRow['id']]);
+            $months = $stmtM->fetchAll();
+        }
+    } else {
+        $months = [];
     }
 
 } else {
@@ -161,6 +166,42 @@ $yearDescs = [
      MODE B — MONTHLY ARCHIVE FOR A SPECIFIC YEAR
 ═══════════════════════════════════════════════════ -->
 
+<?php if ((int)$yearRow['year'] === 2028): ?>
+<!-- ═══════════════════════════════════════════════════
+     COMING SOON — 2028 FUTURE ARCHIVE
+═══════════════════════════════════════════════════ -->
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="<?= SITE_URL ?>/Leetcode/problems.php">All Years</a>
+                <span>›</span>
+                <span>2028</span>
+            </nav>
+
+            <div style="text-align: center; margin-top: 60px; max-width: 600px; margin-left: auto; margin-right: auto; padding: 50px 30px; background: rgba(18, 18, 20, 0.7); border: 1px solid rgba(255, 196, 0, 0.15); border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
+                <span class="problem-badge" style="display:inline-block; margin-bottom: 25px; padding: 6px 16px; font-size: 13px; letter-spacing: 1px; color: #ffc400; background: rgba(255, 196, 0, 0.1); border: 1px solid rgba(255, 196, 0, 0.3); border-radius: 50px;">
+                    FUTURE ARCHIVE
+                </span>
+                
+                <h1 style="font-size: 34px; margin-bottom: 20px; font-weight: 700; color: #fff;">2028 Daily Problems</h1>
+                
+                <p style="color: #bbb; line-height: 1.6; margin-bottom: 35px; font-size: 16px;">
+                    The 2028 LeetCode Daily Archive is currently under preparation.<br>
+                    Daily problems and solutions will be published here once they become available.
+                </p>
+                
+                <div style="font-size: 55px; color: #ffc400; margin-bottom: 40px; opacity: 0.9;">
+                    <i class="fas fa-hourglass-half"></i>
+                </div>
+                
+                <a href="<?= SITE_URL ?>/Leetcode/problems.php" class="explore-btn" style="display: inline-block; padding: 14px 28px; border-radius: 10px; font-weight: 500; font-size: 15px; text-decoration: none;">
+                    &larr; Back to Daily Archive
+                </a>
+            </div>
+
+<?php else: ?>
+<!-- ═══════════════════════════════════════════════════
+     NORMAL MODE — MONTHLY ARCHIVE FOR ACTIVE YEARS
+═══════════════════════════════════════════════════ -->
             <!-- Breadcrumb -->
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="<?= SITE_URL ?>/Leetcode/problems.php">All Years</a>
@@ -200,6 +241,7 @@ $yearDescs = [
                     <?php endif; ?>
                 </div>
             </section>
+<?php endif; ?>
 
 <?php else: ?>
 <!-- ═══════════════════════════════════════════════════
