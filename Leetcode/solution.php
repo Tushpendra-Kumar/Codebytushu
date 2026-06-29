@@ -367,7 +367,7 @@ if (!$sol && !$notFound) {
     <!-- Problem meta row: category tag + difficulty + date -->
     <div class="problem-meta">
         <span class="tag">ALGORITHM</span>
-        <span class="<?= $diffClass ?>"><?= htmlspecialchars(strtoupper($sol['difficulty']), ENT_QUOTES, 'UTF-8') ?></span>
+        <span class="<?= $diffClass ?>"><?= htmlspecialchars(strtoupper($sol['difficulty'] ?? 'Medium'), ENT_QUOTES, 'UTF-8') ?></span>
         <span class="problem-date"><?= date('d M Y', strtotime($sol['solution_date'])) ?></span>
         <?php if (!empty($sol['leetcode_url'])): ?>
         <a href="<?= htmlspecialchars($sol['leetcode_url'], ENT_QUOTES, 'UTF-8') ?>"

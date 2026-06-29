@@ -220,7 +220,7 @@ $yearDescs = [
                         <?= e($yearRow['badge_label'] ?: $yearRow['year'].' ARCHIVE') ?>
                     </span>
                     <h2 style="margin-top:10px;"><?= (int)$yearRow['year'] ?> MONTHLY ARCHIVE</h2>
-                    <p><?= e($yearDesc[$yearRow['year']] ?? 'Choose a month below.') ?></p>
+                    <p><?= e($yearDescs[$yearRow['year']] ?? 'Choose a month below.') ?></p>
                 </div>
 
                 <div class="months-grid">

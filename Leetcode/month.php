@@ -50,6 +50,25 @@ $days = $stmtDays->fetchAll();
         #cbt-auth-overlay { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: rgba(0,0,0,0.9) !important; }
         #cbt-auth-overlay * { filter: none !important; -webkit-filter: none !important; }
         .cbt-auth-modal { filter: none !important; -webkit-filter: none !important; }
+
+        .day-card {
+            background: #111118;
+            border: 1px solid rgba(255,196,0,0.15);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .day-card:hover {
+            border-color: rgba(255,196,0,0.5);
+            transform: translateY(-5px);
+            background: rgba(255,196,0,0.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 
@@ -84,27 +103,6 @@ $days = $stmtDays->fetchAll();
     <div class="back-btn" style="margin-left: 5%; margin-top: 20px;">
         <a href="<?= SITE_URL ?>/Leetcode/problems.php" style="color: #ffc400; text-decoration: none; font-weight: 600;">← Back to All Months</a>
     </div>
-
-    <style>
-        .day-card {
-            background: #111118;
-            border: 1px solid rgba(255,196,0,0.15);
-            border-radius: 12px;
-            padding: 20px;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        .day-card:hover {
-            border-color: rgba(255,196,0,0.5);
-            transform: translateY(-5px);
-            background: rgba(255,196,0,0.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-    </style>
     <section class="problems-page">
         <div class="problems-content" style="text-align: center; max-width: 900px; margin: 0 auto;">
             <h1><?= e($month['month_name']) ?> <?= e($month['y_year']) ?> Problems</h1>
@@ -114,15 +112,16 @@ $days = $stmtDays->fetchAll();
         <div class="days-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 40px 5%; max-width: 1200px; margin: 0 auto;">
             <?php 
             $totalDays = (int)$month['total_days'];
+            
+            // Pre-process days for O(1) lookup
+            $mappedDays = [];
+            foreach ($days as $d) {
+                $mappedDays[(int)date('d', strtotime($d['solution_date']))] = $d;
+            }
+
             for ($day = 1; $day <= $totalDays; $day++): 
                 // Check if a solution exists for this day
-                $sol = null;
-                foreach ($days as $d) {
-                    if ((int)date('d', strtotime($d['solution_date'])) === $day) {
-                        $sol = $d;
-                        break;
-                    }
-                }
+                $sol = $mappedDays[$day] ?? null;
                 
                 $paddedDay = str_pad((string)$day, 2, '0', STR_PAD_LEFT);
             ?>
