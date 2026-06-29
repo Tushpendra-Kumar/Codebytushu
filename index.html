@@ -62,39 +62,84 @@
     <div id="preloader"></div>
     <nav class="navbar">
         <div class="max-width">
-            <div class="logo"><a href="#">CodeBy<span>Tushu</span></a></div>
-            <ul class="menu">
-                <li><a href="#home" class="menu-btn">Home</a></li>
-                <li><a href="#about" class="menu-btn">About</a></li>
-                <li><a href="#services" class="menu-btn">Services</a></li>
-                <li><a href="#leetcode" class="menu-btn">LeetCode</a></li>
-                <li><a href="#teams" class="menu-btn">Projects</a></li>
-                <li><a href="#contact" class="menu-btn">Contact</a></li>
+            <!-- Logo -->
+            <div class="logo"><a href="#home">CodeBy<span>Tushu</span></a></div>
 
-                <!-- Appearance submenu -->
-                <li class="appearance-menu-item" id="appearanceMenuItem">
-                    <a href="#" class="menu-btn appearance-toggle" id="appearanceToggle" onclick="return false;">
-                        <span class="appearance-icon">&#9680;</span> Appearance
-                        <span class="appearance-arrow" id="appearanceArrow">&#8250;</span>
-                    </a>
-                    <div class="appearance-submenu" id="appearanceSubmenu">
-                        <button class="appearance-option" id="optDark" onclick="cbtSetTheme('dark')">
-                            <span class="option-icon">&#9790;</span> Dark Mode
-                            <span class="option-check" id="checkDark">&#10003;</span>
-                        </button>
-                        <button class="appearance-option" id="optLight" onclick="cbtSetTheme('light')">
-                            <span class="option-icon">&#9728;</span> Light Mode
-                            <span class="option-check" id="checkLight">&#10003;</span>
-                        </button>
-                    </div>
-                </li>
+            <!-- ─── DESKTOP RIGHT SIDE ─────────────────────────── -->
+            <div class="desktop-nav-right">
+                <a href="#leetcode" class="desktop-nav-link">LeetCode</a>
+                <a href="#teams"    class="desktop-nav-link">Projects</a>
 
-            </ul>
-            <div class="menu-btn">
+                <!-- Desktop Hamburger -->
+                <button class="desktop-hamburger" id="desktopHamburger" aria-label="Open menu" aria-expanded="false">
+                    <span class="dh-bar"></span>
+                    <span class="dh-bar"></span>
+                    <span class="dh-bar"></span>
+                </button>
+            </div>
+
+            <!-- ─── MOBILE HAMBURGER (existing, untouched) ──────── -->
+            <div class="menu-btn" id="mobileBurger">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
+
+        <!-- ─── DESKTOP DROPDOWN PANEL ──────────────────────────── -->
+        <div class="desktop-dropdown" id="desktopDropdown" aria-hidden="true">
+            <div class="dd-inner">
+                <a href="#home"    class="dd-link">Home</a>
+                <a href="#about"   class="dd-link">About</a>
+                <a href="#services" class="dd-link">Services</a>
+                <a href="#contact" class="dd-link">Contact</a>
+                <div class="dd-divider"></div>
+                <!-- Appearance inside dropdown -->
+                <div class="dd-appearance" id="ddAppearanceItem">
+                    <button class="dd-link dd-appearance-btn" id="ddAppearanceToggle">
+                        <span>&#9680; Appearance</span>
+                        <span class="dd-arrow" id="ddArrow">&#8250;</span>
+                    </button>
+                    <div class="dd-appearance-sub" id="ddAppearanceSub">
+                        <button class="dd-sub-option" onclick="cbtSetTheme('dark')">
+                            <span>&#9790; Dark Mode</span>
+                            <span class="dd-check" id="ddCheckDark">&#10003;</span>
+                        </button>
+                        <button class="dd-sub-option" onclick="cbtSetTheme('light')">
+                            <span>&#9728; Light Mode</span>
+                            <span class="dd-check" id="ddCheckLight">&#10003;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav>
+
+    <!-- ─── FULL-SCREEN MOBILE MENU (existing, untouched) ──────── -->
+    <ul class="menu" id="mobileMenu">
+        <li><a href="#home"     class="menu-btn">Home</a></li>
+        <li><a href="#about"    class="menu-btn">About</a></li>
+        <li><a href="#services" class="menu-btn">Services</a></li>
+        <li><a href="#leetcode" class="menu-btn">LeetCode</a></li>
+        <li><a href="#teams"    class="menu-btn">Projects</a></li>
+        <li><a href="#contact"  class="menu-btn">Contact</a></li>
+
+        <!-- Appearance submenu (mobile) -->
+        <li class="appearance-menu-item" id="appearanceMenuItem">
+            <a href="#" class="menu-btn appearance-toggle" id="appearanceToggle" onclick="return false;">
+                <span class="appearance-icon">&#9680;</span> Appearance
+                <span class="appearance-arrow" id="appearanceArrow">&#8250;</span>
+            </a>
+            <div class="appearance-submenu" id="appearanceSubmenu">
+                <button class="appearance-option" id="optDark" onclick="cbtSetTheme('dark')">
+                    <span class="option-icon">&#9790;</span> Dark Mode
+                    <span class="option-check" id="checkDark">&#10003;</span>
+                </button>
+                <button class="appearance-option" id="optLight" onclick="cbtSetTheme('light')">
+                    <span class="option-icon">&#9728;</span> Light Mode
+                    <span class="option-check" id="checkLight">&#10003;</span>
+                </button>
+            </div>
+        </li>
+    </ul>
 
     <!-- home section start -->
     <section class="home" id="home">
@@ -456,8 +501,9 @@
         })
     </script>
 
-    <!-- Appearance Menu Theme Logic -->
+    <!-- Appearance + Desktop Nav Logic -->
     <script>
+        /* ── Theme helpers ───────────────────────────────── */
         function cbtSetTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('cbt-theme', theme);
@@ -465,42 +511,105 @@
         }
 
         function updateAppearanceChecks(theme) {
-            var checkDark  = document.getElementById('checkDark');
-            var checkLight = document.getElementById('checkLight');
-            if (!checkDark || !checkLight) return;
-            checkDark.style.display  = (theme === 'dark')  ? 'inline' : 'none';
-            checkLight.style.display = (theme === 'light') ? 'inline' : 'none';
+            // Mobile checks
+            var cd = document.getElementById('checkDark');
+            var cl = document.getElementById('checkLight');
+            if (cd) cd.style.display  = (theme === 'dark')  ? 'inline' : 'none';
+            if (cl) cl.style.display  = (theme === 'light') ? 'inline' : 'none';
+            // Desktop dropdown checks
+            var dcd = document.getElementById('ddCheckDark');
+            var dcl = document.getElementById('ddCheckLight');
+            if (dcd) dcd.style.display = (theme === 'dark')  ? 'inline' : 'none';
+            if (dcl) dcl.style.display = (theme === 'light') ? 'inline' : 'none';
         }
 
-        // Apply saved theme on load
+        // Apply saved theme immediately (no flash)
         (function () {
             var saved = localStorage.getItem('cbt-theme') || 'dark';
             document.documentElement.setAttribute('data-theme', saved);
-            // Run after DOM ready
             document.addEventListener('DOMContentLoaded', function () {
                 updateAppearanceChecks(saved);
             });
         })();
 
-        // Toggle submenu open/close
         document.addEventListener('DOMContentLoaded', function () {
-            var toggle   = document.getElementById('appearanceToggle');
-            var submenu  = document.getElementById('appearanceSubmenu');
-            var arrow    = document.getElementById('appearanceArrow');
 
-            if (toggle && submenu) {
-                toggle.addEventListener('click', function (e) {
+            /* ── Desktop hamburger ───────────────────────── */
+            var deskBtn  = document.getElementById('desktopHamburger');
+            var deskDD   = document.getElementById('desktopDropdown');
+            var ddArrow  = document.getElementById('ddArrow');
+            var ddAppBtn = document.getElementById('ddAppearanceToggle');
+            var ddAppSub = document.getElementById('ddAppearanceSub');
+
+            function closeDesktopDD() {
+                if (deskDD) {
+                    deskDD.classList.remove('open');
+                    if (deskBtn) { deskBtn.classList.remove('is-open'); deskBtn.setAttribute('aria-expanded','false'); }
+                }
+            }
+
+            if (deskBtn && deskDD) {
+                deskBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    var isOpen = submenu.classList.toggle('open');
-                    if (arrow) arrow.style.transform = isOpen ? 'rotate(90deg)' : 'rotate(0deg)';
+                    var isOpen = deskDD.classList.toggle('open');
+                    deskBtn.classList.toggle('is-open', isOpen);
+                    deskBtn.setAttribute('aria-expanded', String(isOpen));
+                });
+            }
+
+            // Desktop Appearance sub-panel
+            if (ddAppBtn && ddAppSub) {
+                ddAppBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var isOpen = ddAppSub.classList.toggle('open');
+                    var arrow = document.getElementById('ddArrow');
+                    if (arrow) arrow.style.transform = isOpen ? 'rotate(90deg)' : '';
+                });
+            }
+
+            // Close desktop dropdown on outside click
+            document.addEventListener('click', function (e) {
+                if (deskDD && !deskDD.contains(e.target) && deskBtn && !deskBtn.contains(e.target)) {
+                    closeDesktopDD();
+                }
+            });
+
+            // Close desktop dropdown when a dd-link is clicked
+            document.querySelectorAll('.dd-link:not(.dd-appearance-btn)').forEach(function(link){
+                link.addEventListener('click', closeDesktopDD);
+            });
+
+            /* ── Mobile hamburger (now targets #mobileMenu) ─ */
+            var mobileBurger = document.getElementById('mobileBurger');
+            var mobileMenu   = document.getElementById('mobileMenu');
+
+            if (mobileBurger && mobileMenu) {
+                mobileBurger.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('active');
+                    var icon = mobileBurger.querySelector('i');
+                    if (icon) icon.classList.toggle('active');
                 });
 
-                // Close if clicking elsewhere
-                document.addEventListener('click', function (e) {
-                    if (!document.getElementById('appearanceMenuItem').contains(e.target)) {
-                        submenu.classList.remove('open');
-                        if (arrow) arrow.style.transform = 'rotate(0deg)';
-                    }
+                // Close mobile menu when any link is clicked
+                mobileMenu.querySelectorAll('a').forEach(function(a){
+                    a.addEventListener('click', function(){
+                        mobileMenu.classList.remove('active');
+                        var icon = mobileBurger.querySelector('i');
+                        if (icon) icon.classList.remove('active');
+                    });
+                });
+            }
+
+            /* ── Mobile Appearance submenu toggle ─────────── */
+            var mAppToggle = document.getElementById('appearanceToggle');
+            var mAppSub    = document.getElementById('appearanceSubmenu');
+            var mAppArrow  = document.getElementById('appearanceArrow');
+
+            if (mAppToggle && mAppSub) {
+                mAppToggle.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var isOpen = mAppSub.classList.toggle('open');
+                    if (mAppArrow) mAppArrow.style.transform = isOpen ? 'rotate(90deg)' : '';
                 });
             }
         });

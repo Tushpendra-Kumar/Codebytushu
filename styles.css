@@ -358,13 +358,272 @@ section .title::after {
     text-shadow: 0 0 8px rgba(255, 196, 0, 0.35);
 }
 
-/* menu btn styling */
+/* menu btn styling — mobile only */
 .menu-btn {
     color: #fff;
     font-size: 23px;
     cursor: pointer;
     display: none;
 }
+
+/* ============================================================
+   DESKTOP NAVBAR — RIGHT SIDE
+   ============================================================ */
+.desktop-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.desktop-nav-link {
+    color: #e0e0e0;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+}
+
+.desktop-nav-link:hover {
+    color: #ffc400;
+    background: rgba(255, 196, 0, 0.08);
+}
+
+[data-theme="light"] .desktop-nav-link { color: #333; }
+[data-theme="light"] .desktop-nav-link:hover { color: #d4900a; background: rgba(212,144,10,0.07); }
+
+/* ── Desktop Hamburger button ─────────────────────────────── */
+.desktop-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+    padding: 0;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+}
+
+.desktop-hamburger:hover {
+    border-color: rgba(255, 196, 0, 0.5);
+    background: rgba(255, 196, 0, 0.07);
+}
+
+.dh-bar {
+    display: block;
+    width: 18px;
+    height: 1.8px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    transition: transform 0.28s ease, opacity 0.2s ease, width 0.25s ease;
+    transform-origin: center;
+}
+
+/* Animated X state */
+.desktop-hamburger.is-open .dh-bar:nth-child(1) { transform: translateY(6.8px) rotate(45deg); }
+.desktop-hamburger.is-open .dh-bar:nth-child(2) { opacity: 0; width: 0; }
+.desktop-hamburger.is-open .dh-bar:nth-child(3) { transform: translateY(-6.8px) rotate(-45deg); }
+
+[data-theme="light"] .desktop-hamburger {
+    border-color: rgba(0,0,0,0.12);
+    background: rgba(0,0,0,0.03);
+}
+[data-theme="light"] .dh-bar { background: #222; }
+[data-theme="light"] .desktop-hamburger:hover { border-color: rgba(212,144,10,0.4); background: rgba(212,144,10,0.05); }
+
+/* ── Desktop Dropdown Panel ───────────────────────────────── */
+.desktop-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 80px;            /* aligns with max-width right padding */
+    min-width: 220px;
+    background: rgba(18, 18, 20, 0.96);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 16px;
+    padding: 8px 0;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.6),
+        0 4px 16px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 99998;
+    animation: ddFadeSlide 0.2s cubic-bezier(0.22,1,0.36,1);
+}
+
+.desktop-dropdown.open {
+    display: block;
+}
+
+@keyframes ddFadeSlide {
+    from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)     scale(1); }
+}
+
+/* Make navbar position:relative so dropdown positions from it */
+.navbar { position: fixed; }  /* already fixed — dropdown uses absolute inside it */
+nav.navbar { overflow: visible; }
+
+/* Links inside the dropdown */
+.dd-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 11px 20px;
+    color: #d8d8d8;
+    font-size: 14.5px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    letter-spacing: 0.2px;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
+.dd-link:hover {
+    background: rgba(255,196,0,0.08);
+    color: #ffc400;
+}
+
+.dd-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.07);
+    margin: 6px 14px;
+}
+
+/* Appearance row inside desktop dropdown */
+.dd-appearance { position: relative; }
+
+.dd-appearance-btn {
+    width: 100%;
+    text-align: left;
+}
+
+.dd-arrow {
+    font-size: 18px;
+    font-weight: 700;
+    transition: transform 0.22s ease;
+    display: inline-block;
+    line-height: 1;
+    color: #888;
+}
+
+/* Appearance sub-panel inside desktop dropdown */
+.dd-appearance-sub {
+    display: none;
+    padding: 4px 0 4px 8px;
+}
+
+.dd-appearance-sub.open { display: block; }
+
+.dd-sub-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px 10px 28px;
+    background: transparent;
+    border: none;
+    color: #c0c0c0;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-family: inherit;
+    border-radius: 0;
+}
+
+.dd-sub-option:hover {
+    background: rgba(255,196,0,0.07);
+    color: #ffc400;
+}
+
+.dd-check {
+    color: #ffc400;
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+/* Light mode overrides for desktop dropdown */
+[data-theme="light"] .desktop-dropdown {
+    background: rgba(255,255,255,0.97);
+    border-color: rgba(0,0,0,0.1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06);
+}
+[data-theme="light"] .dd-link,
+[data-theme="light"] .dd-sub-option { color: #222; }
+[data-theme="light"] .dd-link:hover,
+[data-theme="light"] .dd-sub-option:hover { background: rgba(212,144,10,0.07); color: #d4900a; }
+[data-theme="light"] .dd-divider { background: rgba(0,0,0,0.08); }
+[data-theme="light"] .dd-check { color: #d4900a; }
+[data-theme="light"] .dd-arrow { color: #666; }
+
+/* ── Mobile full-screen menu (detached from navbar) ───────── */
+/* The .menu ul now lives outside .navbar — same visual behaviour */
+ul.menu {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    left: -100%;
+    top: 0;
+    background: #111;
+    text-align: center;
+    padding-top: 80px;
+    transition: all 0.3s ease;
+    z-index: 99997;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+ul.menu.active { left: 0; }
+
+ul.menu li { display: block; }
+
+ul.menu li a {
+    display: inline-block;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 20px 0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+ul.menu li a:hover { color: #ffc400; }
+
+[data-theme="light"] ul.menu { background: #fff; }
+[data-theme="light"] ul.menu li a { color: #222; }
+[data-theme="light"] ul.menu li a:hover { color: #d4900a; }
+
+/* Hide desktop nav on mobile, show mobile burger */
+@media (max-width: 947px) {
+    .desktop-nav-right { display: none; }
+    .menu-btn { display: block; z-index: 99999; }
+}
+
+/* Hide mobile burger on desktop */
+@media (min-width: 948px) {
+    .menu-btn { display: none !important; }
+    ul.menu { display: none !important; }  /* fully hidden on desktop — desktop uses dropdown */
+}
+
 
 .scroll-up-btn {
     position: fixed;
@@ -2144,39 +2403,8 @@ footer .wave#wave4 {
 }
 
 @media (max-width: 947px) {
-    .menu-btn {
-        display: block;
-        z-index: 999;
-    }
-
     .menu-btn i.active:before {
         content: "\f00d";
-    }
-
-    .navbar .menu {
-        position: fixed;
-        height: 100vh;
-        width: 100%;
-        left: -100%;
-        top: 0;
-        background: #111;
-        text-align: center;
-        padding-top: 80px;
-        transition: all 0.3s ease;
-    }
-
-    .navbar .menu.active {
-        left: 0;
-    }
-
-    .navbar .menu li {
-        display: block;
-    }
-
-    .navbar .menu li a {
-        display: inline-block;
-        margin: 20px 0;
-        font-size: 25px;
     }
 
     .home .home-content .text-2 {
