@@ -85,6 +85,26 @@ $days = $stmtDays->fetchAll();
         <a href="<?= SITE_URL ?>/Leetcode/problems.php" style="color: #ffc400; text-decoration: none; font-weight: 600;">← Back to All Months</a>
     </div>
 
+    <style>
+        .day-card {
+            background: #111118;
+            border: 1px solid rgba(255,196,0,0.15);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .day-card:hover {
+            border-color: rgba(255,196,0,0.5);
+            transform: translateY(-5px);
+            background: rgba(255,196,0,0.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+    </style>
     <section class="problems-page">
         <div class="problems-content" style="text-align: center; max-width: 900px; margin: 0 auto;">
             <h1><?= e($month['month_name']) ?> <?= e($month['y_year']) ?> Problems</h1>
@@ -92,20 +112,34 @@ $days = $stmtDays->fetchAll();
         </div>
 
         <div class="days-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 40px 5%; max-width: 1200px; margin: 0 auto;">
-            <?php if (empty($days)): ?>
-                <p style="color:#888; text-align:center; grid-column: 1 / -1;">No solutions published for this month yet.</p>
-            <?php else: ?>
-                <?php foreach ($days as $index => $d): ?>
-                <a href="<?= SITE_URL ?>/Leetcode/problem/<?= e($d['slug']) ?>" class="day-card" style="background: #111118; border: 1px solid rgba(255,196,0,0.1); border-radius: 12px; padding: 20px; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease;">
-                    <span style="font-size: 36px; font-weight: 800; color: rgba(255,196,0,0.2); line-height: 1;"><?= str_pad((string)($index + 1), 2, '0', STR_PAD_LEFT) ?></span>
-                    <h3 style="color: #fff; margin: 10px 0 5px; font-size: 16px;">Day <?= $index + 1 ?></h3>
-                    <div style="color: #888; font-size: 12px; text-align: center;"><?= e($d['problem_title']) ?></div>
-                    <?php if ($d['difficulty']): ?>
-                        <div style="margin-top: 8px; font-size: 11px; padding: 2px 8px; border-radius: 10px; <?= strtolower($d['difficulty']) === 'easy' ? 'background: rgba(44, 186, 126, 0.1); color: #2cba7e;' : (strtolower($d['difficulty']) === 'medium' ? 'background: rgba(255, 196, 0, 0.1); color: #ffc400;' : 'background: rgba(255, 55, 95, 0.1); color: #ff375f;') ?>"><?= e($d['difficulty']) ?></div>
+            <?php 
+            $totalDays = (int)$month['total_days'];
+            for ($day = 1; $day <= $totalDays; $day++): 
+                // Check if a solution exists for this day
+                $sol = null;
+                foreach ($days as $d) {
+                    if ((int)date('d', strtotime($d['solution_date'])) === $day) {
+                        $sol = $d;
+                        break;
+                    }
+                }
+                
+                $paddedDay = str_pad((string)$day, 2, '0', STR_PAD_LEFT);
+            ?>
+                <a href="<?= SITE_URL ?>/Leetcode/solution.php?month=<?= (int)$month['id'] ?>&day=<?= $day ?>" class="day-card">
+                    <span style="font-size: 36px; font-weight: 800; color: rgba(255,196,0,0.2); line-height: 1;"><?= $paddedDay ?></span>
+                    <h3 style="color: #fff; margin: 10px 0 5px; font-size: 16px;">Day <?= $paddedDay ?></h3>
+                    
+                    <?php if ($sol): ?>
+                        <div style="color: #888; font-size: 12px; text-align: center; margin-bottom: 8px;"><?= e($sol['problem_title']) ?></div>
+                        <?php if ($sol['difficulty']): ?>
+                            <div style="font-size: 11px; padding: 2px 8px; border-radius: 10px; <?= strtolower($sol['difficulty']) === 'easy' ? 'background: rgba(44, 186, 126, 0.1); color: #2cba7e;' : (strtolower($sol['difficulty']) === 'medium' ? 'background: rgba(255, 196, 0, 0.1); color: #ffc400;' : 'background: rgba(255, 55, 95, 0.1); color: #ff375f;') ?>"><?= e($sol['difficulty']) ?></div>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <div style="color: #666; font-size: 12px; text-align: center; font-style: italic; margin-bottom: 8px;">Upcoming Solution</div>
                     <?php endif; ?>
                 </a>
-                <?php endforeach; ?>
-            <?php endif; ?>
+            <?php endfor; ?>
         </div>
     </section>
 
