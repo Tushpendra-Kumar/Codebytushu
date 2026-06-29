@@ -178,7 +178,6 @@ $data = [
     'year'             => $year,
     'month'            => $month,
     'slug'             => $slug,
-    'platform'         => $platform,
     'problem_title'    => $title,
     'problem_number'   => post('problem_number') ?: null,
     'difficulty'       => $diff,
@@ -195,8 +194,7 @@ $data = [
 ];
 
 // Only set file paths if we have new uploads or existing ones
-if ($thumbnailPath !== null) $data['thumbnail_path'] = $thumbnailPath;
-if ($pdfPath !== null)       $data['pdf_path']       = $pdfPath;
+if ($thumbnailPath !== null) $data['youtube_thumbnail'] = $thumbnailPath;
 
 /* ── INSERT ── */
 if ($isNew) {
