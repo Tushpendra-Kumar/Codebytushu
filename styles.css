@@ -53,35 +53,117 @@ body {
 }
 
 /* ============================================
-   DARK MODE TOGGLE BUTTON
+   APPEARANCE SUBMENU (Replaces floating toggle)
    ============================================ */
-.theme-toggle-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 99999;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 2px solid var(--accent);
-    background: var(--navbar-bg);
-    backdrop-filter: blur(10px);
-    color: var(--accent);
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 12px rgba(255,196,0,0.2);
-    line-height: 1;
-    padding: 0;
+.appearance-menu-item {
+    position: relative;
+    list-style: none;
+    display: inline-block;
 }
 
-.theme-toggle-btn:hover {
-    transform: scale(1.12) rotate(15deg);
-    box-shadow: 0 0 20px rgba(255,196,0,0.5);
-    background: var(--accent);
+.appearance-toggle {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.appearance-icon {
+    font-size: 16px;
+    opacity: 0.85;
+}
+
+.appearance-arrow {
+    font-size: 18px;
+    font-weight: 700;
+    margin-left: 2px;
+    transition: transform 0.22s ease;
+    display: inline-block;
+    line-height: 1;
+}
+
+/* The flyout panel */
+.appearance-submenu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 0;
+    min-width: 180px;
+    background: #1c1c1e;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 12px;
+    padding: 6px 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3);
+    z-index: 100000;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    animation: submenuFadeIn 0.18s ease;
+}
+
+.appearance-submenu.open {
+    display: block;
+}
+
+@keyframes submenuFadeIn {
+    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* Submenu option buttons */
+.appearance-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 11px 18px;
+    background: transparent;
+    border: none;
+    color: #f0f0f0;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease, color 0.15s ease;
+    position: relative;
+    font-family: inherit;
+}
+
+.appearance-option:hover {
+    background: rgba(255,196,0,0.12);
+    color: #ffc400;
+}
+
+.option-icon {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.option-check {
+    margin-left: auto;
+    color: #ffc400;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Light mode overrides for the submenu */
+[data-theme="light"] .appearance-submenu {
+    background: #ffffff;
+    border-color: rgba(0,0,0,0.12);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+[data-theme="light"] .appearance-option {
+    color: #1c1c1e;
+}
+[data-theme="light"] .appearance-option:hover {
+    background: rgba(212,144,10,0.08);
+    color: #d4900a;
+}
+[data-theme="light"] .option-check {
+    color: #d4900a;
 }
 
 html {
@@ -2535,15 +2617,6 @@ footer .wave#wave4 {
     .contact-content .column { width: 100% !important; }
     .map-card { width: 100% !important; margin-top: 30px; }
 
-    /* Theme toggle */
-    .theme-toggle-btn {
-        top: 14px;
-        right: 14px;
-        width: 38px;
-        height: 38px;
-        font-size: 17px;
-    }
-
     /* Footer */
     #media { gap: 16px; }
     #media li { width: 50px; height: 50px; }
@@ -2564,7 +2637,41 @@ footer .wave#wave4 {
     #media li { width: 44px; height: 44px; }
     footer h2 { font-size: 1.3em; }
     footer p { font-size: 0.9em; }
-    .theme-toggle-btn { top: 10px; right: 10px; width: 34px; height: 34px; font-size: 15px; }
+    /* Appearance submenu in mobile full-screen menu */
+    .appearance-menu-item {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .appearance-toggle {
+        justify-content: center;
+    }
+
+    /* On mobile, submenu shows inline below the toggle */
+    .appearance-submenu {
+        position: static;
+        margin: 0 auto;
+        min-width: unset;
+        width: 220px;
+        border-radius: 10px;
+        top: unset;
+        right: unset;
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: none;
+    }
+
+    .appearance-option {
+        font-size: 18px;
+        padding: 14px 24px;
+        justify-content: flex-start;
+    }
+
+    [data-theme="light"] .appearance-submenu {
+        border-color: rgba(0,0,0,0.10);
+    }
+
+
 }
 
 /* --- 360px --- */

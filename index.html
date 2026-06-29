@@ -47,10 +47,6 @@
 
 <body>
 
-    <!-- Dark Mode Toggle Button -->
-    <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle dark/light mode" aria-label="Toggle theme">
-        <span class="toggle-icon"><span class="material-symbols-rounded">dark_mode</span></span>
-    </button>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -74,6 +70,24 @@
                 <li><a href="#leetcode" class="menu-btn">LeetCode</a></li>
                 <li><a href="#teams" class="menu-btn">Projects</a></li>
                 <li><a href="#contact" class="menu-btn">Contact</a></li>
+
+                <!-- Appearance submenu -->
+                <li class="appearance-menu-item" id="appearanceMenuItem">
+                    <a href="#" class="menu-btn appearance-toggle" id="appearanceToggle" onclick="return false;">
+                        <span class="appearance-icon">&#9680;</span> Appearance
+                        <span class="appearance-arrow" id="appearanceArrow">&#8250;</span>
+                    </a>
+                    <div class="appearance-submenu" id="appearanceSubmenu">
+                        <button class="appearance-option" id="optDark" onclick="cbtSetTheme('dark')">
+                            <span class="option-icon">&#9790;</span> Dark Mode
+                            <span class="option-check" id="checkDark">&#10003;</span>
+                        </button>
+                        <button class="appearance-option" id="optLight" onclick="cbtSetTheme('light')">
+                            <span class="option-icon">&#9728;</span> Light Mode
+                            <span class="option-check" id="checkLight">&#10003;</span>
+                        </button>
+                    </div>
+                </li>
 
             </ul>
             <div class="menu-btn">
@@ -442,27 +456,54 @@
         })
     </script>
 
-    <!-- Dark Mode Toggle Logic -->
+    <!-- Appearance Menu Theme Logic -->
     <script>
+        function cbtSetTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('cbt-theme', theme);
+            updateAppearanceChecks(theme);
+        }
+
+        function updateAppearanceChecks(theme) {
+            var checkDark  = document.getElementById('checkDark');
+            var checkLight = document.getElementById('checkLight');
+            if (!checkDark || !checkLight) return;
+            checkDark.style.display  = (theme === 'dark')  ? 'inline' : 'none';
+            checkLight.style.display = (theme === 'light') ? 'inline' : 'none';
+        }
+
+        // Apply saved theme on load
         (function () {
-            var btn = document.getElementById('themeToggleBtn');
-            var icon = btn.querySelector('.toggle-icon');
-
-            function applyTheme(theme) {
-                document.documentElement.setAttribute('data-theme', theme);
-                localStorage.setItem('cbt-theme', theme);
-                icon.innerHTML = theme === 'dark' ? '<span class="material-symbols-rounded">dark_mode</span>' : '<span class="material-symbols-rounded">light_mode</span>';
-            }
-
-            // Apply saved theme on load
             var saved = localStorage.getItem('cbt-theme') || 'dark';
-            applyTheme(saved);
-
-            btn.addEventListener('click', function () {
-                var current = document.documentElement.getAttribute('data-theme');
-                applyTheme(current === 'dark' ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', saved);
+            // Run after DOM ready
+            document.addEventListener('DOMContentLoaded', function () {
+                updateAppearanceChecks(saved);
             });
         })();
+
+        // Toggle submenu open/close
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggle   = document.getElementById('appearanceToggle');
+            var submenu  = document.getElementById('appearanceSubmenu');
+            var arrow    = document.getElementById('appearanceArrow');
+
+            if (toggle && submenu) {
+                toggle.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var isOpen = submenu.classList.toggle('open');
+                    if (arrow) arrow.style.transform = isOpen ? 'rotate(90deg)' : 'rotate(0deg)';
+                });
+
+                // Close if clicking elsewhere
+                document.addEventListener('click', function (e) {
+                    if (!document.getElementById('appearanceMenuItem').contains(e.target)) {
+                        submenu.classList.remove('open');
+                        if (arrow) arrow.style.transform = 'rotate(0deg)';
+                    }
+                });
+            }
+        });
     </script>
 
     <script src="./main.js"></script>
