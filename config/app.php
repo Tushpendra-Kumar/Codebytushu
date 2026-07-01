@@ -68,6 +68,10 @@ define('GOOGLE_CLIENT_ID',     env('GOOGLE_CLIENT_ID',     ''));
 define('GOOGLE_CLIENT_SECRET', env('GOOGLE_CLIENT_SECRET', ''));
 define('GOOGLE_REDIRECT_URI',  env('GOOGLE_REDIRECT_URI',  SITE_URL . '/api/auth/callback.php'));
 
+// ── Razorpay Payment ────────────────────────────────────────────────────
+define('RAZORPAY_KEY_ID',      env('RAZORPAY_KEY_ID',      ''));
+define('RAZORPAY_KEY_SECRET',  env('RAZORPAY_KEY_SECRET',  ''));
+
 // ── Email / SMTP ────────────────────────────────────────────────────────
 define('SMTP_HOST',       env('SMTP_HOST',       'smtp.gmail.com'));
 define('SMTP_PORT',       (int) env('SMTP_PORT', '587'));

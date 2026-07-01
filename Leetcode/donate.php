@@ -85,16 +85,13 @@
             <h1 class="donate-title">Leetcode Daily</h1>
             <p class="donate-subtitle">Support Leetcode Daily by buying them a boba!</p>
 
-            <!-- Boba Counter -->
-            <div class="boba-row">
-                <div class="boba-icon">🧋</div>
-                <span class="boba-x">×</span>
-                <div class="qty-buttons">
-                    <button class="qty-btn active" data-qty="1">1</button>
-                    <button class="qty-btn" data-qty="3">3</button>
-                    <button class="qty-btn" data-qty="5">5</button>
-                    <input class="qty-custom" type="number" id="customQty" min="1" max="999" placeholder="1">
+            <!-- Amount Selector -->
+            <div class="amount-row" style="display:flex;align-items:center;justify-content:center;gap:15px;margin:30px 0;">
+                <button id="btnMinus" class="qty-btn" style="width:40px;height:40px;font-size:20px;padding:0;display:flex;align-items:center;justify-content:center;">-</button>
+                <div style="font-size:24px;font-weight:700;color:var(--text);min-width:100px;text-align:center;">
+                    <span id="displayAmount">₹100</span>
                 </div>
+                <button id="btnPlus" class="qty-btn" style="width:40px;height:40px;font-size:20px;padding:0;display:flex;align-items:center;justify-content:center;">+</button>
             </div>
 
             <!-- Support Button -->
@@ -102,11 +99,33 @@
                 Support <span id="supportAmount">₹100</span>
             </button>
 
-            <p class="secure-note">🔒 Secure payment via UPI / Card</p>
+            <p class="secure-note">🔒 Secure payment via Razorpay</p>
         </div>
     </main>
 
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- Simple Toast Notification CSS for Payment Status -->
+    <style>
+        .toast {
+            position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px;
+            color: #fff; font-weight: 600; font-family: sans-serif; opacity: 0;
+            transform: translateY(-20px); transition: opacity 0.3s, transform 0.3s; z-index: 9999;
+        }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        .toast.success { background: #22c55e; }
+        .toast.error { background: #ef4444; }
+    </style>
+    <div id="toast" class="toast"></div>
+
     <script>
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        }
+
         // ---- State ----
         let currentCurrency = { symbol: '₹', rate: 1, base: 100, name: 'INR' };
         let currentQty = 1;
@@ -146,39 +165,100 @@
             });
         });
 
-        // ---- Qty buttons ----
-        document.querySelectorAll('.qty-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                document.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                document.getElementById('customQty').value = '';
-                currentQty = parseInt(this.dataset.qty);
-                updateAmount();
-            });
-        });
-
-        // ---- Custom qty input ----
-        document.getElementById('customQty').addEventListener('input', function () {
-            const val = parseInt(this.value);
-            if (val && val > 0) {
-                document.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('active'));
-                currentQty = val;
+        // ---- Qty buttons (Step Selector) ----
+        document.getElementById('btnMinus').addEventListener('click', function () {
+            if (currentQty > 1) {
+                currentQty--;
                 updateAmount();
             }
+        });
+
+        document.getElementById('btnPlus').addEventListener('click', function () {
+            currentQty++;
+            updateAmount();
         });
 
         // ---- Update support button amount ----
         function updateAmount() {
             const amount = (currentCurrency.base * currentQty).toFixed(currentCurrency.base < 10 ? 2 : 0);
-            document.getElementById('supportAmount').textContent = currentCurrency.symbol + amount;
+            const formatted = currentCurrency.symbol + amount;
+            document.getElementById('displayAmount').textContent = formatted;
+            document.getElementById('supportAmount').textContent = formatted;
         }
 
-        // ---- Support button click ----
-        document.getElementById('supportBtn').addEventListener('click', function () {
-            const amount = (currentCurrency.base * currentQty).toFixed(currentCurrency.base < 10 ? 2 : 0);
-            alert(`Thank you for supporting! 🎉\nAmount: ${currentCurrency.symbol}${amount}\n\nYou will be redirected to the payment page.`);
-            // Replace with your actual UPI / payment link:
-            // window.open('https://razorpay.com/your-link', '_blank');
+        // ---- Support button click (Razorpay Integration) ----
+        document.getElementById('supportBtn').addEventListener('click', async function () {
+            const supportBtn = this;
+            const originalText = supportBtn.innerHTML;
+            
+            // For Razorpay, we process the exact INR value regardless of the selected display currency.
+            // This ensures they pay the equivalent amount in INR.
+            const inrAmount = Math.round((currentCurrency.base * currentQty) / currentCurrency.rate);
+
+            supportBtn.disabled = true;
+            supportBtn.innerHTML = 'Processing...';
+
+            try {
+                // 1. Create Order on Backend
+                const response = await fetch('/api/create_order.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: inrAmount })
+                });
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to create order.');
+                }
+
+                // 2. Open Razorpay Checkout
+                const options = {
+                    "key": data.key_id,
+                    "amount": data.amount, // in paise
+                    "currency": data.currency,
+                    "name": "CodeByTushu",
+                    "description": "Support Leetcode Daily",
+                    "order_id": data.order_id,
+                    "theme": {
+                        "color": "#ffc400"
+                    },
+                    "handler": async function (response) {
+                        // 3. Verify Payment on Backend
+                        try {
+                            const verifyRes = await fetch('/api/verify_payment.php', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_signature: response.razorpay_signature
+                                })
+                            });
+                            const verifyData = await verifyRes.json();
+                            if (verifyData.success) {
+                                showToast('Payment successful! Thank you for your support. 🎉', 'success');
+                            } else {
+                                showToast('Payment verification failed.', 'error');
+                            }
+                        } catch (err) {
+                            showToast('Error verifying payment.', 'error');
+                        }
+                    }
+                };
+                
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', function (response){
+                    showToast('Payment failed or cancelled.', 'error');
+                });
+                rzp.open();
+                
+            } catch (err) {
+                showToast(err.message, 'error');
+            } finally {
+                supportBtn.disabled = false;
+                supportBtn.innerHTML = originalText;
+            }
         });
 
         // ---- Theme toggle ----
