@@ -81,8 +81,7 @@ define('GOOGLE_CLIENT_SECRET', env('GOOGLE_CLIENT_SECRET', ''));
 define('GOOGLE_REDIRECT_URI',  env('GOOGLE_REDIRECT_URI',  SITE_URL . '/api/auth/callback.php'));
 
 // ── Razorpay Payment ────────────────────────────────────────────────────
-define('RAZORPAY_KEY_ID',      env('RAZORPAY_KEY_ID',      ''));
-define('RAZORPAY_KEY_SECRET',  env('RAZORPAY_KEY_SECRET',  ''));
+// Removed in favor of UPI directly.
 
 // ── Email / SMTP ────────────────────────────────────────────────────────
 define('SMTP_HOST',       env('SMTP_HOST',       'smtp.gmail.com'));

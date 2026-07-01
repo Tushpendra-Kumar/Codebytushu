@@ -99,12 +99,29 @@
                 Support <span id="supportAmount">₹100</span>
             </button>
 
-            <p class="secure-note">🔒 Secure payment via Razorpay</p>
+            <p class="secure-note">🔒 Zero transaction fees via direct UPI</p>
         </div>
     </main>
 
-    <!-- Razorpay Checkout Script -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- ===== UPI QR MODAL ===== -->
+    <div id="upiModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2 style="margin-top:0; color:var(--text); font-size:24px;">Scan & Pay</h2>
+            <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Use any UPI App (GPay, PhonePe, Paytm) to scan the QR code below.</p>
+            
+            <div id="qrcode" style="display:flex; justify-content:center; padding:15px; background:#fff; border-radius:10px; width:max-content; margin:0 auto 20px auto;"></div>
+            
+            <p style="color:var(--text); font-weight:600; font-size:18px; margin-bottom:20px;">Amount: <span id="modalAmount">₹100</span></p>
+            
+            <!-- Deep link for Mobile Users -->
+            <a href="#" id="upiDeepLink" class="support-btn" style="text-decoration:none; display:inline-block;">Open UPI App</a>
+        </div>
+    </div>
+
+    <!-- qrcode.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
     <!-- Simple Toast Notification CSS for Payment Status -->
     <style>
         .toast {
@@ -115,6 +132,31 @@
         .toast.show { opacity: 1; transform: translateY(0); }
         .toast.success { background: #22c55e; }
         .toast.error { background: #ef4444; }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .modal-overlay.show { opacity: 1; pointer-events: all; }
+        
+        .modal-content {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 16px; padding: 30px; text-align: center;
+            max-width: 400px; width: 90%; position: relative;
+            transform: translateY(20px); transition: transform 0.3s;
+        }
+        .modal-overlay.show .modal-content { transform: translateY(0); }
+
+        .modal-close {
+            position: absolute; top: 15px; right: 15px;
+            background: transparent; border: none; color: var(--text-muted);
+            font-size: 28px; cursor: pointer; line-height: 1;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--accent); }
     </style>
     <div id="toast" class="toast"></div>
 
@@ -186,100 +228,50 @@
             document.getElementById('supportAmount').textContent = formatted;
         }
 
-        // ---- Load Razorpay SDK Dynamically ----
-        function loadRazorpayScript() {
-            return new Promise((resolve) => {
-                if (window.Razorpay) {
-                    return resolve(true);
-                }
-                const script = document.createElement('script');
-                script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-                script.onload = () => resolve(true);
-                script.onerror = () => resolve(false);
-                document.body.appendChild(script);
-            });
-        }
+        // ---- Modal Logic ----
+        const modal = document.getElementById('upiModal');
+        const closeModal = document.getElementById('closeModal');
+        let qrCodeInstance = null;
 
-        // ---- Support button click (Razorpay Integration) ----
-        document.getElementById('supportBtn').addEventListener('click', async function () {
-            const supportBtn = this;
-            const originalText = supportBtn.innerHTML;
-            
-            // For Razorpay, we process the exact INR value regardless of the selected display currency.
-            // This ensures they pay the equivalent amount in INR.
+        closeModal.addEventListener('click', () => modal.classList.remove('show'));
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('show');
+        });
+
+        // ---- Support button click (UPI QR Generation) ----
+        document.getElementById('supportBtn').addEventListener('click', function () {
+            // Calculate exact INR value
             const inrAmount = Math.round((currentCurrency.base * currentQty) / currentCurrency.rate);
+            
+            const upiId = 'tushpendrakumar@okicici';
+            const name = 'Tushpendra Kumar';
+            
+            // Construct standard UPI intent URL
+            const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${inrAmount}&cu=INR`;
 
-            supportBtn.disabled = true;
-            supportBtn.innerHTML = 'Processing...';
+            // Update Modal UI
+            document.getElementById('modalAmount').textContent = `₹${inrAmount}`;
+            document.getElementById('upiDeepLink').href = upiUrl;
 
-            try {
-                // 1. Create Order on Backend FIRST
-                // This ensures that if API keys are missing, the user sees THAT error immediately.
-                const response = await fetch('/api/create_order.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ amount: inrAmount })
-                });
-
-                const data = await response.json();
-
-                if (!data.success) {
-                    throw new Error(data.error || 'Failed to create order.');
-                }
-
-                // 2. Ensure SDK is loaded
-                const isSdkLoaded = await loadRazorpayScript();
-                if (!isSdkLoaded || typeof window.Razorpay === 'undefined') {
-                    throw new Error('Razorpay script blocked. Please disable your Ad-Blocker/Brave Shields to make a payment.');
-                }
-
-                // 2. Open Razorpay Checkout
-                const options = {
-                    "key": data.key_id,
-                    "amount": data.amount, // in paise
-                    "currency": data.currency,
-                    "name": "CodeByTushu",
-                    "description": "Support Leetcode Daily",
-                    "order_id": data.order_id,
-                    "theme": {
-                        "color": "#ffc400"
-                    },
-                    "handler": async function (response) {
-                        // 3. Verify Payment on Backend
-                        try {
-                            const verifyRes = await fetch('/api/verify_payment.php', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    razorpay_payment_id: response.razorpay_payment_id,
-                                    razorpay_order_id: response.razorpay_order_id,
-                                    razorpay_signature: response.razorpay_signature
-                                })
-                            });
-                            const verifyData = await verifyRes.json();
-                            if (verifyData.success) {
-                                showToast('Payment successful! Thank you for your support. 🎉', 'success');
-                            } else {
-                                showToast('Payment verification failed.', 'error');
-                            }
-                        } catch (err) {
-                            showToast('Error verifying payment.', 'error');
-                        }
-                    }
-                };
-                
-                const rzp = new window.Razorpay(options);
-                rzp.on('payment.failed', function (response){
-                    showToast('Payment failed or cancelled.', 'error');
-                });
-                rzp.open();
-                
-            } catch (err) {
-                showToast(err.message, 'error');
-            } finally {
-                supportBtn.disabled = false;
-                supportBtn.innerHTML = originalText;
+            // Generate QR Code
+            const qrContainer = document.getElementById('qrcode');
+            qrContainer.innerHTML = ''; // Clear previous
+            
+            if (qrCodeInstance) {
+                qrCodeInstance.clear();
             }
+            
+            qrCodeInstance = new QRCode(qrContainer, {
+                text: upiUrl,
+                width: 200,
+                height: 200,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+
+            // Show Modal
+            modal.classList.add('show');
         });
 
         // ---- Theme toggle ----
