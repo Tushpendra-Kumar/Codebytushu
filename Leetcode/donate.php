@@ -213,13 +213,8 @@
             supportBtn.innerHTML = 'Processing...';
 
             try {
-                // Ensure SDK is loaded
-                const isSdkLoaded = await loadRazorpayScript();
-                if (!isSdkLoaded || typeof window.Razorpay === 'undefined') {
-                    throw new Error('Razorpay SDK could not be loaded. Please disable ad-blockers and try again.');
-                }
-
-                // 1. Create Order on Backend
+                // 1. Create Order on Backend FIRST
+                // This ensures that if API keys are missing, the user sees THAT error immediately.
                 const response = await fetch('/api/create_order.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -230,6 +225,12 @@
 
                 if (!data.success) {
                     throw new Error(data.error || 'Failed to create order.');
+                }
+
+                // 2. Ensure SDK is loaded
+                const isSdkLoaded = await loadRazorpayScript();
+                if (!isSdkLoaded || typeof window.Razorpay === 'undefined') {
+                    throw new Error('Razorpay script blocked. Please disable your Ad-Blocker/Brave Shields to make a payment.');
                 }
 
                 // 2. Open Razorpay Checkout
