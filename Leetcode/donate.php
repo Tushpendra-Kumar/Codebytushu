@@ -186,6 +186,20 @@
             document.getElementById('supportAmount').textContent = formatted;
         }
 
+        // ---- Load Razorpay SDK Dynamically ----
+        function loadRazorpayScript() {
+            return new Promise((resolve) => {
+                if (window.Razorpay) {
+                    return resolve(true);
+                }
+                const script = document.createElement('script');
+                script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+                script.onload = () => resolve(true);
+                script.onerror = () => resolve(false);
+                document.body.appendChild(script);
+            });
+        }
+
         // ---- Support button click (Razorpay Integration) ----
         document.getElementById('supportBtn').addEventListener('click', async function () {
             const supportBtn = this;
@@ -199,6 +213,12 @@
             supportBtn.innerHTML = 'Processing...';
 
             try {
+                // Ensure SDK is loaded
+                const isSdkLoaded = await loadRazorpayScript();
+                if (!isSdkLoaded || typeof window.Razorpay === 'undefined') {
+                    throw new Error('Razorpay SDK could not be loaded. Please disable ad-blockers and try again.');
+                }
+
                 // 1. Create Order on Backend
                 const response = await fetch('/api/create_order.php', {
                     method: 'POST',
@@ -247,7 +267,7 @@
                     }
                 };
                 
-                const rzp = new Razorpay(options);
+                const rzp = new window.Razorpay(options);
                 rzp.on('payment.failed', function (response){
                     showToast('Payment failed or cancelled.', 'error');
                 });
