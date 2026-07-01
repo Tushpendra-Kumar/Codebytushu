@@ -46,15 +46,14 @@ if ($action === 'delete') {
     $id = (int)post('id');
     if (!$id) jsonError('ID required.', 400);
 
-    $stmt = $pdo->prepare('SELECT month_id, thumbnail_path, pdf_path FROM leetcode_solutions WHERE id=? LIMIT 1');
+    $stmt = $pdo->prepare('SELECT month_id, youtube_thumbnail FROM leetcode_solutions WHERE id=? LIMIT 1');
     $stmt->execute([$id]);
     $sol = $stmt->fetch();
 
     // Delete physical files
     if ($sol) {
         $root = rootPath();
-        if ($sol['thumbnail_path']) @unlink($root . DIRECTORY_SEPARATOR . ltrim($sol['thumbnail_path'], '/\\'));
-        if ($sol['pdf_path'])       @unlink($root . DIRECTORY_SEPARATOR . ltrim($sol['pdf_path'], '/\\'));
+        if ($sol['youtube_thumbnail']) @unlink($root . DIRECTORY_SEPARATOR . ltrim($sol['youtube_thumbnail'], '/\\'));
     }
 
     $pdo->prepare('DELETE FROM leetcode_solutions WHERE id=?')->execute([$id]);
@@ -128,11 +127,11 @@ $uploadRoot    = rtrim(realpath(__DIR__.'/../../'), DIRECTORY_SEPARATOR);
 
 if (!$isNew) {
     // Load existing paths for replacement
-    $existing = $pdo->prepare('SELECT thumbnail_path, pdf_path FROM leetcode_solutions WHERE id=? LIMIT 1');
+    $existing = $pdo->prepare('SELECT youtube_thumbnail FROM leetcode_solutions WHERE id=? LIMIT 1');
     $existing->execute([$id]);
     $existingRow = $existing->fetch() ?: [];
-    $thumbnailPath = $existingRow['thumbnail_path'] ?? null;
-    $pdfPath       = $existingRow['pdf_path']       ?? null;
+    $thumbnailPath = $existingRow['youtube_thumbnail'] ?? null;
+    $pdfPath       = null;
 }
 
 // Thumbnail
