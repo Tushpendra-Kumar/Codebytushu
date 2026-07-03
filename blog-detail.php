@@ -5,8 +5,8 @@
  */
 declare(strict_types=1);
 
-require_once __DIR__ . '/includes/config.php';
-require_once __DIR__ . '/includes/db.php';
+require_once __DIR__ . '/config/app.php';
+require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
 
 $slug = $_GET['slug'] ?? '';
