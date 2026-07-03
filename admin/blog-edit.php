@@ -59,8 +59,7 @@ $wordCount = $blog ? str_word_count(strip_tags($blog['content'] ?? '')) : 0;
 $readEst   = max(1, (int)round($wordCount / 200));
 ?>
 <?php require_once __DIR__ . '/includes/head.php'; ?>
-<!-- EasyMDE — hosted CDN (loaded from jsDelivr, no npm needed) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<!-- No external editor CDN needed — using built-in textarea editor -->
 <style>
 /* ── Layout ── */
 .blog-layout { display:grid; grid-template-columns:1fr 300px; gap:20px; align-items:start; }
@@ -79,33 +78,68 @@ $readEst   = max(1, (int)round($wordCount / 200));
 .tab-pane { display:none; padding:22px; }
 .tab-pane.active { display:block; }
 
-/* ── EasyMDE overrides ── */
-.EasyMDEContainer .CodeMirror {
-  background:var(--input-bg) !important;
-  color:var(--text) !important;
-  border:none !important;
-  font-family:'Fira Code',ui-monospace,monospace !important;
-  font-size:14px !important;
-  line-height:1.8 !important;
-  min-height:380px !important;
+/* ── Custom Markdown Editor ── */
+.md-editor-wrap {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--input-bg);
 }
-.EasyMDEContainer .editor-toolbar {
-  background:var(--bg-hover) !important;
-  border-color:var(--border) !important;
-  border-radius:var(--radius) var(--radius) 0 0 !important;
+.md-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 8px 10px;
+  background: var(--bg-hover);
+  border-bottom: 1px solid var(--border);
 }
-.EasyMDEContainer .editor-toolbar a {
-  color:var(--text-muted) !important;
+.md-toolbar button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: var(--font);
+  font-weight: 600;
+  line-height: 1;
+  transition: all 0.15s;
 }
-.EasyMDEContainer .editor-toolbar a:hover,
-.EasyMDEContainer .editor-toolbar a.active {
-  background:var(--accent-glow) !important;
-  color:var(--accent) !important;
-  border-color:var(--border) !important;
+.md-toolbar button:hover {
+  background: var(--accent-glow);
+  color: var(--accent);
 }
-.EasyMDEContainer .editor-toolbar i.separator { border-color:var(--border) !important; }
-.EasyMDEContainer .CodeMirror-scroll { min-height:380px !important; }
-.EasyMDEContainer { border:1px solid var(--border) !important; border-radius:var(--radius) !important; overflow:hidden; }
+.md-toolbar .md-sep {
+  width: 1px;
+  background: var(--border);
+  margin: 2px 4px;
+  align-self: stretch;
+}
+#blogContent {
+  width: 100%;
+  min-height: 400px;
+  background: var(--input-bg) !important;
+  color: var(--text) !important;
+  border: none !important;
+  outline: none !important;
+  font-family: 'Fira Code', ui-monospace, monospace !important;
+  font-size: 14px !important;
+  line-height: 1.8 !important;
+  padding: 16px !important;
+  resize: vertical;
+  display: block;
+  box-sizing: border-box;
+}
+.md-status-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: var(--bg-hover);
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text-dim);
+}
 
 /* ── Thumbnail ── */
 .thumb-zone { border:2px dashed var(--border); border-radius:var(--radius); aspect-ratio:16/9;
@@ -271,7 +305,32 @@ $readEst   = max(1, (int)round($wordCount / 200));
               <div class="tab-pane active" id="tab-content">
                 <div class="form-group">
                   <label class="form-label" style="margin-bottom:10px;">Post Content <span class="req">*</span></label>
-                  <textarea name="content" id="blogContent" required><?= htmlspecialchars($blog['content'] ?? '', ENT_QUOTES|ENT_SUBSTITUTE) ?></textarea>
+                  <div class="md-editor-wrap">
+                    <div class="md-toolbar">
+                      <button type="button" onclick="mdWrap('**','**')" title="Bold"><b>B</b></button>
+                      <button type="button" onclick="mdWrap('*','*')" title="Italic"><i>I</i></button>
+                      <button type="button" onclick="mdWrap('~~','~~')" title="Strikethrough"><s>S</s></button>
+                      <div class="md-sep"></div>
+                      <button type="button" onclick="mdLine('# ')" title="H1">H1</button>
+                      <button type="button" onclick="mdLine('## ')" title="H2">H2</button>
+                      <button type="button" onclick="mdLine('### ')" title="H3">H3</button>
+                      <div class="md-sep"></div>
+                      <button type="button" onclick="mdLine('- ')" title="Bullet List">• List</button>
+                      <button type="button" onclick="mdLine('1. ')" title="Numbered List">1. List</button>
+                      <button type="button" onclick="mdLine('> ')" title="Blockquote">&ldquo; Quote</button>
+                      <div class="md-sep"></div>
+                      <button type="button" onclick="mdInsertCode()" title="Code Block">&lt;/&gt; Code</button>
+                      <button type="button" onclick="mdInsertLink()" title="Link">🔗 Link</button>
+                      <button type="button" onclick="mdInsertImage()" title="Image">🖼 Image</button>
+                      <div class="md-sep"></div>
+                      <button type="button" onclick="mdLine('---')" title="Horizontal Rule">— HR</button>
+                    </div>
+                    <textarea name="content" id="blogContent" required placeholder="Write your blog post in Markdown..."><?= htmlspecialchars($blog['content'] ?? '', ENT_QUOTES|ENT_SUBSTITUTE) ?></textarea>
+                    <div class="md-status-bar">
+                      <span id="wordCountHint2"><?= $wordCount ? "{$wordCount} words · ~{$readEst} min read" : '0 words' ?></span>
+                      <span>Markdown supported</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -531,50 +590,84 @@ $readEst   = max(1, (int)round($wordCount / 200));
   </div>
 </div>
 
-<!-- EasyMDE JS -->
-<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
 <script src="<?= SITE_URL ?>/admin/assets/admin.js?v=2"></script>
 <script>
 /* ══════════════════════════════════════════════════════════
-   EASYMDE INIT
+   CUSTOM MARKDOWN EDITOR TOOLBAR HELPERS
    ════════════════════════════════════════════════════════ */
-const mde = new EasyMDE({
-  element: document.getElementById('blogContent'),
-  spellChecker: false,
-  autosave: { enabled: false },
-  minHeight: '400px',
-  placeholder: 'Write your blog post in Markdown...',
-  toolbar: [
-    'bold', 'italic', 'heading', '|',
-    'quote', 'code', 'unordered-list', 'ordered-list', '|',
-    'link', 'image', 'table', 'horizontal-rule', '|',
-    'preview', 'side-by-side', 'fullscreen', '|',
-    'guide'
-  ],
-  renderingConfig: { singleLineBreaks: false, codeSyntaxHighlighting: false },
-  autoDownloadFontAwesome: false,
-  status: [
-    'autosave',
-    'words',
-    'lines', 
-    'cursor'
-  ],
-});
+const blogContent = document.getElementById('blogContent');
 
-setTimeout(() => { if (mde) mde.codemirror.refresh(); }, 150);
+function mdWrap(before, after) {
+  const ta = blogContent;
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const sel = ta.value.substring(s, e) || 'text';
+  const newText = before + sel + after;
+  ta.setRangeText(newText, s, e, 'select');
+  ta.focus();
+  updateWordCount();
+}
+
+function mdLine(prefix) {
+  const ta = blogContent;
+  const s = ta.selectionStart;
+  const lineStart = ta.value.lastIndexOf('\n', s - 1) + 1;
+  ta.setRangeText(prefix, lineStart, lineStart, 'end');
+  ta.focus();
+  updateWordCount();
+}
+
+function mdInsertCode() {
+  const ta = blogContent;
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const sel = ta.value.substring(s, e) || 'code here';
+  const snippet = '```\n' + sel + '\n```';
+  ta.setRangeText(snippet, s, e, 'end');
+  ta.focus();
+  updateWordCount();
+}
+
+function mdInsertLink() {
+  const url = prompt('Enter URL:');
+  if (!url) return;
+  const ta = blogContent;
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const label = ta.value.substring(s, e) || 'link text';
+  ta.setRangeText('[' + label + '](' + url + ')', s, e, 'end');
+  ta.focus();
+}
+
+function mdInsertImage() {
+  const url = prompt('Enter image URL:');
+  if (!url) return;
+  const alt = prompt('Alt text:') || 'image';
+  const ta = blogContent;
+  const s = ta.selectionStart;
+  ta.setRangeText('![' + alt + '](' + url + ')', s, s, 'end');
+  ta.focus();
+}
 
 function countWords(str) { return str.trim() ? str.trim().split(/\s+/).length : 0; }
 
 function updateWordCount() {
-  if (!mde) return;
-  const wc = countWords(mde.value());
+  const wc = countWords(blogContent.value);
   const rt  = Math.max(1, Math.round(wc / 200));
-  document.getElementById('wordCountHint').textContent = `${wc} words · ~${rt} min read`;
+  const hint = document.getElementById('wordCountHint');
+  if (hint) hint.textContent = `${wc} words · ~${rt} min read`;
+  const hint2 = document.getElementById('wordCountHint2');
+  if (hint2) hint2.textContent = `${wc} words · ~${rt} min read`;
   const rtEl = document.getElementById('readTime');
-  if (!rtEl.dataset.manual && !rtEl.value) rtEl.placeholder = rt;
+  if (rtEl && !rtEl.dataset.manual && !rtEl.value) rtEl.placeholder = rt;
 }
 
-mde.codemirror.on("change", updateWordCount);
+blogContent.addEventListener('input', updateWordCount);
+blogContent.addEventListener('keydown', function(e) {
+  // Tab key inserts spaces instead of losing focus
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const s = this.selectionStart, end = this.selectionEnd;
+    this.setRangeText('  ', s, end, 'end');
+  }
+});
 
 /* ══════════════════════════════════════════════════════════
    TABS
@@ -585,7 +678,6 @@ document.querySelectorAll('.ed-tab').forEach(btn => {
     document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById('tab-' + btn.dataset.tab)?.classList.add('active');
-    if (btn.dataset.tab === 'content') mde.codemirror.refresh();
   });
 });
 
@@ -693,9 +785,7 @@ document.getElementById('blogForm').addEventListener('submit', async function(e)
   actBtn.innerHTML = `<span style="opacity:.6">${isPub ? 'Publishing…' : 'Saving…'}</span>`;
 
   clearInterval(asTimer);
-
-  // Sync EasyMDE content into the hidden textarea
-  mde.codemirror.save();
+  // blogContent textarea value is already live — no sync needed
 
   const fd = new FormData(this);
 
@@ -767,7 +857,6 @@ const asTxt = document.getElementById('asText');
 async function doAutosave() {
   if (document.hidden) return;
   asDot.className = 'as-dot saving'; asTxt.textContent = 'Saving…';
-  mde.codemirror.save();
   const fd = new FormData(document.getElementById('blogForm'));
   fd.set('action', 'update');
   try {
