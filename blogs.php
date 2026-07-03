@@ -100,20 +100,13 @@ try {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function blogUrl(string $slug): string {
-    return '/blog/' . htmlspecialchars($slug);
+    return '/blog/' . rawurlencode($slug);
 }
 function catUrl(string $slug): string {
     return '/blogs.php?cat=' . urlencode($slug);
 }
 function tagUrl(string $slug): string {
     return '/blogs.php?tag=' . urlencode($slug);
-}
-function timeAgo(string $date): string {
-    $diff = time() - strtotime($date);
-    if ($diff < 3600) return round($diff/60).'m ago';
-    if ($diff < 86400) return round($diff/3600).'h ago';
-    if ($diff < 2592000) return round($diff/86400).'d ago';
-    return date('M j, Y', strtotime($date));
 }
 
 $pageTitle = $search ? "Search: $search — Blog" : ($catSlug ? "Category — Blog" : 'Blog | CodeByTushu');
