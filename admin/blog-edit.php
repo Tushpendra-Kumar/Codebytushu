@@ -232,7 +232,7 @@ $readEst   = max(1, (int)round($wordCount / 200));
       <?= flashHtml() ?>
 
       <!-- ══ Form ══════════════════════════════════════════ -->
-      <form id="blogForm" enctype="multipart/form-data">
+      <form id="blogForm" method="post" enctype="multipart/form-data">
         <?= csrfField() ?>
         <input type="hidden" name="action"       id="formAction" value="<?= $mode==='edit'?'update':'create' ?>">
         <input type="hidden" name="is_published" id="isPub"      value="<?= !empty($blog['is_published'])?'1':'0' ?>">
@@ -753,7 +753,6 @@ function clearThumb() {
   document.getElementById('thumbInput').value = '';
 }
 
-// Drag & drop on thumb zone
 const tz = document.getElementById('thumbZone');
 tz.addEventListener('dragover', e => { e.preventDefault(); tz.classList.add('drag-over'); });
 tz.addEventListener('dragleave', () => tz.classList.remove('drag-over'));
@@ -770,24 +769,19 @@ tz.addEventListener('drop', e => {
 /* ══════════════════════════════════════════════════════════
    FORM SUBMIT
    ════════════════════════════════════════════════════════ */
-function submit(mode) {
-  document.getElementById('isPub').value = mode === 'publish' ? '1' : '0';
-  document.getElementById('blogForm').dispatchEvent(new Event('submit', {cancelable:true, bubbles:true}));
-}
+let asTimer; // global — safe in both add + edit mode
 
-document.getElementById('blogForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const isPub   = document.getElementById('isPub').value === '1';
+async function handleBlogSubmit(isPub) {
   const actBtn  = isPub ? document.getElementById('pubBtn') : document.getElementById('draftBtn');
   const origTxt = actBtn.innerHTML;
   actBtn.disabled = true;
   actBtn.innerHTML = `<span style="opacity:.6">${isPub ? 'Publishing…' : 'Saving…'}</span>`;
 
   clearInterval(asTimer);
-  // blogContent textarea value is already live — no sync needed
 
-  const fd = new FormData(this);
+  const fd = new FormData(document.getElementById('blogForm'));
+  fd.set('is_published', isPub ? '1' : '0');
+  fd.set('action', document.getElementById('formAction').value);
 
   try {
     const res  = await fetch('<?= SITE_URL ?>/api/admin/blogs.php', { method:'POST', body: fd });
@@ -806,13 +800,25 @@ document.getElementById('blogForm').addEventListener('submit', async function(e)
       Toast.error('Error', json.error || 'Save failed.');
       startAutosave();
     }
-  } catch {
+  } catch (err) {
+    console.error('Submit error:', err);
     Toast.error('Network Error', 'Could not reach the server.');
     startAutosave();
   } finally {
     actBtn.disabled = false;
     actBtn.innerHTML = origTxt;
   }
+}
+
+function submit(mode) {
+  document.getElementById('isPub').value = mode === 'publish' ? '1' : '0';
+  handleBlogSubmit(mode === 'publish');
+}
+
+document.getElementById('blogForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const isPub = document.getElementById('isPub').value === '1';
+  handleBlogSubmit(isPub);
 });
 
 /* ══════════════════════════════════════════════════════════
@@ -850,7 +856,6 @@ async function doDelete(id, title) {
    AUTOSAVE (edit mode only — every 60s)
    ════════════════════════════════════════════════════════ */
 <?php if ($mode === 'edit'): ?>
-let asTimer;
 const asDot = document.getElementById('asDot');
 const asTxt = document.getElementById('asText');
 
