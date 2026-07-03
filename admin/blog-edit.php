@@ -543,7 +543,7 @@ const mde = new EasyMDE({
   spellChecker: false,
   autosave: { enabled: false },
   minHeight: '400px',
-  placeholder: 'Write your blog post in Markdown…\n\n## Heading\n\nParagraph text here.\n\n```javascript\n// Code block\n```',
+  placeholder: 'Write your blog post in Markdown...',
   toolbar: [
     'bold', 'italic', 'heading', '|',
     'quote', 'code', 'unordered-list', 'ordered-list', '|',
@@ -554,7 +554,7 @@ const mde = new EasyMDE({
   renderingConfig: { singleLineBreaks: false, codeSyntaxHighlighting: false },
   status: [
     'autosave',
-    { className: 'words', defaultValue: el => { el.innerHTML = `${countWords(document.getElementById('blogContent').value)} words`; }, onUpdate: el => { el.innerHTML = `${countWords(mde.value())} words`; updateWordCount(); } },
+    { className: 'words', defaultValue: el => { el.innerHTML = '0 words'; }, onUpdate: el => { el.innerHTML = `${countWords(mde.value())} words`; updateWordCount(); } },
     'lines', 'cursor'
   ],
 });
