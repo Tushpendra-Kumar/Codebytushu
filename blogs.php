@@ -13,7 +13,7 @@ $pdo = db();
 
 // Fetch all published blogs
 $stmt = $pdo->prepare("
-    SELECT b.id, b.title, b.slug, b.card_title, b.icon_name, b.excerpt, b.thumbnail, 
+    SELECT b.id, b.title, b.slug, b.card_title, b.icon_name, b.excerpt, b.thumbnail_path, 
            b.published_at, b.read_time_mins, c.name as category_name
     FROM blog_articles b
     LEFT JOIN categories c ON b.category_id = c.id
@@ -195,8 +195,8 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php else: ?>
             <?php foreach ($blogs as $post): ?>
                 <a href="/blog/<?= htmlspecialchars($post['slug'] ?? '') ?>" class="blog-card">
-                    <?php if (!empty($post['thumbnail'])): ?>
-                        <img src="/uploads/blogs/<?= htmlspecialchars($post['thumbnail']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" class="blog-thumb">
+                    <?php if (!empty($post['thumbnail_path'])): ?>
+                        <img src="<?= htmlspecialchars($post['thumbnail_path']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" class="blog-thumb">
                     <?php else: ?>
                         <div class="blog-thumb"><?= htmlspecialchars($post['icon_name'] ?? '📝') ?></div>
                     <?php endif; ?>

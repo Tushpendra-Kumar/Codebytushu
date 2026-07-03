@@ -218,8 +218,11 @@ $pdo->prepare("UPDATE blog_articles SET views = views + 1 WHERE id = ?")->execut
         <h1 class="blog-title"><?= htmlspecialchars($blog['title']) ?></h1>
     </header>
 
-    <?php if (!empty($blog['thumbnail'])): ?>
-        <img src="/uploads/blogs/<?= htmlspecialchars($blog['thumbnail']) ?>" alt="Thumbnail" class="blog-hero-img">
+    <?php 
+        $hero_img = $blog['cover_image_path'] ?: $blog['thumbnail_path'];
+        if (!empty($hero_img)): 
+    ?>
+        <img src="<?= htmlspecialchars($hero_img) ?>" alt="Cover Image" class="blog-hero-img">
     <?php endif; ?>
 
     <main class="blog-content" id="markdown-container">
