@@ -554,20 +554,24 @@ const mde = new EasyMDE({
   renderingConfig: { singleLineBreaks: false, codeSyntaxHighlighting: false },
   status: [
     'autosave',
-    { className: 'words', defaultValue: el => { el.innerHTML = '0 words'; }, onUpdate: el => { el.innerHTML = `${countWords(mde.value())} words`; updateWordCount(); } },
-    'lines', 'cursor'
+    'words',
+    'lines', 
+    'cursor'
   ],
 });
 
 function countWords(str) { return str.trim() ? str.trim().split(/\s+/).length : 0; }
 
 function updateWordCount() {
+  if (!mde) return;
   const wc = countWords(mde.value());
   const rt  = Math.max(1, Math.round(wc / 200));
   document.getElementById('wordCountHint').textContent = `${wc} words · ~${rt} min read`;
   const rtEl = document.getElementById('readTime');
   if (!rtEl.dataset.manual && !rtEl.value) rtEl.placeholder = rt;
 }
+
+mde.codemirror.on("change", updateWordCount);
 
 /* ══════════════════════════════════════════════════════════
    TABS
