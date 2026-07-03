@@ -554,7 +554,7 @@ const mde = new EasyMDE({
   renderingConfig: { singleLineBreaks: false, codeSyntaxHighlighting: false },
   status: [
     'autosave',
-    { className: 'words', defaultValue: el => { el.innerHTML = `${countWords(mde.value())} words`; }, onUpdate: el => { el.innerHTML = `${countWords(mde.value())} words`; updateWordCount(); } },
+    { className: 'words', defaultValue: el => { el.innerHTML = `${countWords(document.getElementById('blogContent').value)} words`; }, onUpdate: el => { el.innerHTML = `${countWords(mde.value())} words`; updateWordCount(); } },
     'lines', 'cursor'
   ],
 });
