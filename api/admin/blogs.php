@@ -79,8 +79,12 @@ $content = $_POST['content'] ?? '';
 
 if (!$title)   jsonError('Title is required.', 422, 'title');
 if (!$slug)    jsonError('Slug is required.', 422, 'slug');
-if (!$excerpt) jsonError('Excerpt is required.', 422, 'excerpt');
-if (!$content) jsonError('Content is required.', 422, 'content');
+if (!$content) jsonError('Content is required. Please write something in the Content tab.', 422, 'content');
+// excerpt is optional - auto-generate from content if missing
+if (!$excerpt) {
+    $excerpt = mb_substr(strip_tags($content), 0, 300);
+    if (mb_strlen(strip_tags($content)) > 300) $excerpt .= '...';
+}
 
 $catId    = (int)post('category_id') ?: null;
 $authorId = (int)post('author_id') ?: Auth::id();

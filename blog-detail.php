@@ -36,7 +36,7 @@ if (!$blog) {
 }
 
 // Update view count
-$pdo->prepare("UPDATE blog_articles SET views = views + 1 WHERE id = ?")->execute([$blog['id']]);
+$pdo->prepare("UPDATE blog_articles SET view_count = view_count + 1 WHERE id = ?")->execute([$blog['id']]);
 
 ?>
 <!DOCTYPE html>
@@ -212,7 +212,7 @@ $pdo->prepare("UPDATE blog_articles SET views = views + 1 WHERE id = ?")->execut
             <span>•</span>
             <span><?= (int)($blog['read_time_mins'] ?? 3) ?> min read</span>
             <span>•</span>
-            <span><?= formatNumber($blog['views'] + 1) ?> views</span>
+            <span><?= number_format(($blog['view_count'] ?? 0) + 1) ?> views</span>
         </div>
         
         <h1 class="blog-title"><?= htmlspecialchars($blog['title']) ?></h1>
