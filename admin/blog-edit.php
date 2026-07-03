@@ -552,6 +552,7 @@ const mde = new EasyMDE({
     'guide'
   ],
   renderingConfig: { singleLineBreaks: false, codeSyntaxHighlighting: false },
+  autoDownloadFontAwesome: false,
   status: [
     'autosave',
     'words',
@@ -559,6 +560,8 @@ const mde = new EasyMDE({
     'cursor'
   ],
 });
+
+setTimeout(() => { if (mde) mde.codemirror.refresh(); }, 150);
 
 function countWords(str) { return str.trim() ? str.trim().split(/\s+/).length : 0; }
 
