@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | CodeByTushu</title>
+
+    <link rel="icon" href="../favicon.ico?v=6" sizes="any">
+    <link rel="icon" href="../favicon-32x32.png?v=6" type="image/png" sizes="32x32">
+    <meta name="theme-color" content="#ffc400">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <link rel="stylesheet" href="../styles.css?v=32">
+    <link rel="stylesheet" href="../courses/courses.css?v=1">
+
+    <style>
+        .material-symbols-rounded {
+            font-size: inherit;
+            vertical-align: middle;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <script src="../theme.js"></script>
+
+    <!-- NAVBAR -->
+    <nav class="cbt-navbar navbar" id="mainNavbar">
+        <div class="cbt-nav-inner">
+            <div class="cbt-logo" id="cbt-logo">
+                <a href="../index.html" id="cbt-logo-link">
+                    <img src="../image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
+                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                </a>
+            </div>
+            
+            <ul class="cbt-center-nav" id="cbt-center-nav">
+                <li><a href="../courses/index.html" class="cbt-nav-link">Home</a></li>
+                <li><a href="../courses/index.html#categories" class="cbt-nav-link">Categories</a></li>
+                <li><a href="../courses/index.html#all-courses" class="cbt-nav-link">All Courses</a></li>
+                <li><a href="index.html" class="cbt-nav-link active">My Cart</a></li>
+                <li><a href="../courses/index.html#faq" class="cbt-nav-link">FAQ</a></li>
+            </ul>
+
+            <div class="cbt-nav-right">
+                <a href="index.html" class="cbt-nav-cart-btn active" aria-label="Cart">
+                    <span class="material-symbols-rounded" style="color:var(--primary);">shopping_cart</span>
+                    <span class="cbt-cart-counter" style="display: none;">0</span>
+                </a>
+                <button class="cbt-hamburger-btn" id="cbt-hamburger-btn">
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Futuristic Animated Background -->
+    <div class="cbt-hero-bg" style="position: fixed; z-index: -1; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;">
+        <div class="cbt-glow-center"></div>
+        <div class="cbt-streak cbt-streak-1"></div>
+        <div class="cbt-streak cbt-streak-2"></div>
+        <div class="cbt-streak cbt-streak-3"></div>
+        <div class="cbt-streak cbt-streak-4"></div>
+        <div class="cbt-circle cbt-circle-left"></div>
+        <div class="cbt-circle cbt-circle-right"></div>
+        <div class="cbt-dots cbt-dots-top-left"></div>
+        <div class="cbt-dots cbt-dots-bottom-right"></div>
+        <div class="cbt-particles">
+            <span class="cbt-particle p-1"></span>
+            <span class="cbt-particle p-2"></span>
+            <span class="cbt-particle p-3"></span>
+            <span class="cbt-particle p-4"></span>
+            <span class="cbt-particle p-5"></span>
+            <span class="cbt-particle p-6"></span>
+            <span class="cbt-particle p-7"></span>
+            <span class="cbt-particle p-8"></span>
+            <span class="cbt-particle p-9"></span>
+            <span class="cbt-particle p-10"></span>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <main class="cbt-cart-container">
+        <h1 style="color:var(--text-heading); font-size:2.5rem; margin-bottom:10px;">Your Cart</h1>
+        <p style="color:var(--text-muted); margin-bottom:30px;">Review your selected courses before checkout.</p>
+        
+        <div id="cartContent">
+            <!-- Injected by JS -->
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../courses/js/data.js"></script>
+    <script src="../store/js/data.js"></script>
+    <script src="../courses/js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartContainer = document.getElementById('cartContent');
+
+            function renderCartPage() {
+                const cartItems = getCart();
+                
+                if (cartItems.length === 0) {
+                    cartContainer.innerHTML = `
+                        <div class="cbt-empty-cart">
+                            <i class="material-symbols-rounded">shopping_cart</i>
+                            <h2>Your cart is empty</h2>
+                            <p style="margin:15px 0;">Looks like you haven't added anything yet.</p>
+                            <div style="display:flex; justify-content:center; gap:10px;">
+                                <a href="../courses/index.html" class="cbt-btn cbt-btn-primary">Browse Courses</a>
+                                <a href="../store/index.html" class="cbt-btn cbt-btn-secondary" style="border: 1px solid var(--primary); color:var(--primary); padding:12px 24px; border-radius:6px; text-decoration:none;">Visit Store</a>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let listHTML = '<div class="cbt-cart-list">';
+                let total = 0;
+
+                cartItems.forEach(item => {
+                    const itemTotal = item.price * (item.quantity || 1);
+                    total += itemTotal;
+                    
+                    const priceDisplay = item.price === 0 ? 'Free' : `$${item.price}`;
+                    const categoryTag = item.isCourse ? 'Course' : item.category;
+
+                    let quantityControl = '';
+                    if (!item.isCourse) {
+                        quantityControl = `
+                            <div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+                                <button onclick="updateQtyAndRender('${item.id}', -1)" style="background:var(--bg-card); color:#fff; border:1px solid var(--border-color); border-radius:4px; width:30px; height:30px; cursor:pointer;">-</button>
+                                <span>${item.quantity || 1}</span>
+                                <button onclick="updateQtyAndRender('${item.id}', 1)" style="background:var(--bg-card); color:#fff; border:1px solid var(--border-color); border-radius:4px; width:30px; height:30px; cursor:pointer;">+</button>
+                            </div>
+                        `;
+                    }
+
+                    listHTML += `
+                        <div class="cbt-cart-item">
+                            <img src="${item.image}" alt="${item.title}" class="cbt-cart-item-img">
+                            <div class="cbt-cart-item-info">
+                                <span style="font-size:0.75rem; background:rgba(255,196,0,0.1); color:var(--primary); padding:2px 6px; border-radius:4px; margin-bottom:5px; display:inline-block;">${categoryTag}</span>
+                                <h3 class="cbt-cart-item-title">${item.title}</h3>
+                                ${quantityControl}
+                            </div>
+                            <div class="cbt-cart-item-price">$${itemTotal} <br><small style="font-size:0.8rem; color:var(--text-muted);">(${item.quantity || 1} x ${priceDisplay})</small></div>
+                            <button class="cbt-cart-remove" onclick="removeAndRender('${item.id}')" title="Remove">
+                                <span class="material-symbols-rounded">delete</span>
+                            </button>
+                        </div>
+                    `;
+                });
+
+                listHTML += '</div>';
+
+                const summaryHTML = `
+                    <div class="cbt-cart-summary">
+                        <div class="cbt-cart-total">Total: <span>$${total}</span></div>
+                        <button class="cbt-btn cbt-btn-primary" style="width:100%; padding:15px; font-size:1.1rem;" onclick="checkout()">Proceed to Checkout</button>
+                    </div>
+                `;
+
+                cartContainer.innerHTML = `
+                    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:30px;" class="cbt-cart-grid-mobile">
+                        ${listHTML}
+                        ${summaryHTML}
+                    </div>
+                `;
+            }
+
+            renderCartPage();
+
+            // Global functions for inline handlers
+            window.removeAndRender = function(id) {
+                removeFromCart(id);
+                renderCartPage();
+            };
+
+            window.updateQtyAndRender = function(id, change) {
+                updateCartQuantity(id, change);
+                renderCartPage();
+            };
+
+            window.checkout = function() {
+                alert("Coming Soon! Payment integration (Razorpay/Stripe) will be enabled after deployment.");
+            };
+
+            window.addEventListener('cartUpdated', renderCartPage);
+
+            const ham = document.getElementById('cbt-hamburger-btn');
+            const nav = document.getElementById('cbt-center-nav');
+            if(ham && nav) {
+                ham.addEventListener('click', () => {
+                    nav.classList.toggle('show');
+                });
+            }
+
+            // Newsletter Subscription
+            const subscribeForms = document.querySelectorAll('.cbt-course-subscribe-form');
+            subscribeForms.forEach(form => {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    const emailInput = form.querySelector('.newsletter-email');
+                    const btn = form.querySelector('button[type="submit"]');
+                    const btnText = form.querySelector('.newsletter-btn-text') || btn;
+                    const msgDiv = form.parentNode.querySelector('.newsletter-message');
+                    
+                    const originalText = btnText.innerHTML;
+                    btn.disabled = true;
+                    btnText.innerHTML = 'Subscribing...';
+                    msgDiv.style.display = 'none';
+                    
+                    try {
+                        const response = await fetch('../api/subscribe.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email: emailInput.value })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        msgDiv.style.display = 'block';
+                        msgDiv.textContent = data.message;
+                        
+                        if (data.success) {
+                            msgDiv.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+                            msgDiv.style.color = '#4CAF50';
+                            msgDiv.style.border = '1px solid #4CAF50';
+                            form.reset();
+                        } else {
+                            msgDiv.style.backgroundColor = 'rgba(244, 67, 54, 0.1)';
+                            msgDiv.style.color = '#f44336';
+                            msgDiv.style.border = '1px solid #f44336';
+                        }
+                    } catch (error) {
+                        msgDiv.style.display = 'block';
+                        msgDiv.textContent = 'Network error. Please try again later.';
+                        msgDiv.style.backgroundColor = 'rgba(244, 67, 54, 0.1)';
+                        msgDiv.style.color = '#f44336';
+                        msgDiv.style.border = '1px solid #f44336';
+                    } finally {
+                        btn.disabled = false;
+                        btnText.innerHTML = originalText;
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="cbt-footer">
+        <div class="cbt-footer-container">
+            <!-- Brand Column -->
+            <div class="cbt-ft-col cbt-ft-brand">
+                <a href="../index.html" class="cbt-logo">
+                    <span class="cbt-logo-bracket">&lt;/&gt;</span>
+                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                </a>
+                <p style="margin-top: 15px; color: var(--text-muted); line-height: 1.6;">Master in-demand skills through practical, real-world courses designed for beginners to advanced learners.</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="cbt-ft-col">
+                <h3><i class="fa-solid fa-link"></i> QUICK LINKS</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="../courses/index.html">Home</a></li>
+                    <li><a href="../courses/index.html#categories">Categories</a></li>
+                    <li><a href="../courses/index.html#all-courses">All Courses</a></li>
+                    <li><a href="index.html">My Cart</a></li>
+                    <li><a href="../courses/index.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+
+            <!-- Course Categories -->
+            <div class="cbt-ft-col">
+                <h3><i class="fa-solid fa-book-open"></i> COURSE CATEGORIES</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="../courses/index.html#all-courses">Java</a></li>
+                    <li><a href="../courses/index.html#all-courses">React</a></li>
+                    <li><a href="../courses/index.html#all-courses">DSA</a></li>
+                    <li><a href="../courses/index.html#all-courses">Web Development</a></li>
+                    <li><a href="../courses/index.html#all-courses">Free Courses</a></li>
+                    <li><a href="../courses/index.html#all-courses">Paid Courses</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="cbt-ft-col">
+                <h3><i class="fa-regular fa-folder-open"></i> RESOURCES</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="../privacy-policy/index.html">Privacy Policy</a></li>
+                    <li><a href="../terms/index.html">Terms &amp; Conditions</a></li>
+                    <li><a href="../#contact">Contact</a></li>
+                    <li><a href="../#support">Support</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="cbt-ft-col cbt-ft-newsletter">
+                <h3><i class="fa-regular fa-paper-plane"></i> STAY UPDATED</h3>
+                <p>Subscribe to get the latest updates on new courses, discount coupons, and free resources.</p>
+                <form class="cbt-ft-form cbt-course-subscribe-form">
+                    <div class="cbt-ft-input-group">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" class="newsletter-email" name="email" placeholder="Enter your email" required aria-label="Email Address">
+                    </div>
+                    <button type="submit" class="cbt-ft-btn">
+                        <span class="newsletter-btn-text">Subscribe Now</span> 
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+                <div class="newsletter-message" style="margin-top: 15px; font-size: 14px; display: none; padding: 10px; border-radius: 6px;"></div>
+                
+                <h3 style="margin-top: 25px;"><i class="fa-regular fa-user"></i> CONNECT</h3>
+                <ul class="cbt-ft-links" style="display: flex; gap: 15px; font-size: 1.3rem;">
+                    <li><a href="https://github.com/Tushpendra-Kumar" target="_blank"><i class="fa-brands fa-github"></i></a></li>
+                    <li><a href="https://linkedin.com/company/codebytushu" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                    <li><a href="https://youtube.com/@codebytushu" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href="https://instagram.com/codebytushu" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cbt-copyright-strip" style="text-align: center; border-top: 1px solid var(--border-color); padding: 20px 0; margin-top: 20px;">
+            <p>&copy; 2025 CodeByTushu. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

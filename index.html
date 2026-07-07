@@ -33,7 +33,7 @@
     <script src="./theme.js"></script>
 
     <!-- PHP MIGRATION NOTE: /styles.css is a static asset, stays as-is. -->
-    <link rel="stylesheet" href="./styles.css?v=7">
+    <link rel="stylesheet" href="./styles.css?v=32">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
     <style>
         .material-symbols-rounded {
@@ -57,207 +57,312 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
     <!-- pre loader -->
     <div id="preloader"></div>
-    <nav class="navbar" id="mainNavbar">
-        <div class="max-width">
-            <!-- Logo -->
-            <div class="logo"><a href="#home">CodeBy<span>Tushu</span></a></div>
+    <nav class="cbt-navbar navbar" id="mainNavbar" role="navigation" aria-label="Main navigation">
+        <div class="cbt-nav-inner">
 
-            <!-- DESKTOP RIGHT: LeetCode + Projects + Hamburger (visible ≥948px) -->
-            <div class="desktop-nav-right">
-                <a href="#leetcode" class="desktop-nav-link">LeetCode</a>
-                <a href="#teams"    class="desktop-nav-link">Projects</a>
-                <button class="desktop-hamburger" id="desktopHamburger" aria-label="Open menu" aria-expanded="false">
-                    <span class="dh-bar"></span>
-                    <span class="dh-bar"></span>
-                    <span class="dh-bar"></span>
+            <!-- ── Logo ───────────────────────────────────────────── -->
+            <div class="cbt-logo" id="cbt-logo">
+                <a href="#home" id="cbt-logo-link" aria-label="CodeByTushu Home">
+                    <img src="./image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
+                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                </a>
+            </div>
+
+            <!-- ── Center Navigation (Desktop ≥1024px only) ──────── -->
+            <ul class="cbt-center-nav" id="cbt-center-nav" role="menubar" aria-label="Primary navigation">
+                <li role="none"><a href="#home"                class="cbt-nav-link" id="nav-home"         role="menuitem" tabindex="0">Home</a></li>
+                <li role="none"><a href="#leetcode"            class="cbt-nav-link"        id="nav-leetcode"      role="menuitem" tabindex="0">LeetCode</a></li>
+                <li role="none"><a href="#blog"                class="cbt-nav-link"        id="nav-blogs"         role="menuitem" tabindex="0">Blogs</a></li>
+                <li role="none"><a href="#courses"             class="cbt-nav-link"        id="nav-courses"       role="menuitem" tabindex="0">Courses</a></li>
+                <li role="none"><a href="#video-editing"       class="cbt-nav-link"        id="nav-videoediting"  role="menuitem" tabindex="0">Video Editing</a></li>
+                <li role="none"><a href="#store"               class="cbt-nav-link"        id="nav-store"         role="menuitem" tabindex="0">Store</a></li>
+                <li role="none"><a href="#donate"              class="cbt-nav-link"        id="nav-donate"        role="menuitem" tabindex="0">Donate</a></li>
+            </ul>
+
+            <!-- ── Right Side: Login + Hamburger (Desktop ≥1024px) ── -->
+            <div class="cbt-nav-right" id="cbt-nav-right">
+                <a href="auth/login.php" class="cbt-login-btn" id="cbt-login-btn" aria-label="Login to your account">
+                    <span>Login</span>
+                </a>
+                <button class="cbt-hamburger-btn" id="cbt-hamburger-btn"
+                        aria-label="Open more links" aria-expanded="false" aria-controls="cbt-ham-panel">
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
                 </button>
             </div>
 
-            <!-- MOBILE BURGER: fa-bars icon (visible ≤947px) -->
-            <div class="menu-btn" id="mobileBurger">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-
-        <!-- DESKTOP DROPDOWN PANEL -->
-        <div class="desktop-dropdown" id="desktopDropdown" style="display:none">
-            <div class="dd-inner">
-                <a href="#home"     class="dd-link">Home</a>
-                <a href="#about"    class="dd-link">About</a>
-                <a href="#services" class="dd-link">Services</a>
-                <a href="#contact" class="dd-link">Contact</a>
-                <div class="dd-divider"></div>
-                <div class="dd-appearance" id="ddAppearanceItem">
-                    <button class="dd-link dd-appearance-btn" id="ddAppearanceToggle">
-                        <span>&#9680; Appearance</span>
-                        <span class="dd-arrow" id="ddArrow">&#8250;</span>
-                    </button>
-                    <div class="dd-appearance-sub" id="ddAppearanceSub">
-                        <button class="dd-sub-option" onclick="cbtSetTheme('dark')">
-                            <span>&#9790; Dark Mode</span>
-                            <span class="dd-check" id="ddCheckDark">&#10003;</span>
-                        </button>
-                        <button class="dd-sub-option" onclick="cbtSetTheme('light')">
-                            <span>&#9728; Light Mode</span>
-                            <span class="dd-check" id="ddCheckLight">&#10003;</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MOBILE FULL-SCREEN MENU -->
-        <ul class="mobile-menu" id="mobileMenu" style="display:none">
-            <li><a href="#home"     class="mob-link">Home</a></li>
-            <li><a href="#about"    class="mob-link">About</a></li>
-            <li><a href="#services" class="mob-link">Services</a></li>
-            <li><a href="#leetcode" class="mob-link">LeetCode</a></li>
-            <li><a href="#teams"    class="mob-link">Projects</a></li>
-            <li><a href="#contact"  class="mob-link">Contact</a></li>
-            <!-- Appearance (mobile) -->
-            <li class="mob-appearance-item" id="mobAppearanceItem">
-                <a href="#" class="mob-link mob-appearance-toggle" id="appearanceToggle" onclick="return false;">
-                    <span>&#9680;</span> Appearance
-                    <span class="mob-arrow" id="appearanceArrow">&#8250;</span>
+            <!-- ── Mobile Right: Login + Hamburger (<1024px) ─────── -->
+            <div class="cbt-mobile-right" id="cbt-mobile-right">
+                <a href="auth/login.php" class="cbt-login-btn" id="cbt-login-btn-mob" aria-label="Login">
+                    <span>Login</span>
                 </a>
-                <div class="mob-appearance-sub" id="appearanceSubmenu">
-                    <button class="mob-sub-opt" id="optDark" onclick="cbtSetTheme('dark')">
-                        <span class="option-icon">&#9790;</span> Dark Mode
-                        <span class="option-check" id="checkDark">&#10003;</span>
-                    </button>
-                    <button class="mob-sub-opt" id="optLight" onclick="cbtSetTheme('light')">
-                        <span class="option-icon">&#9728;</span> Light Mode
-                        <span class="option-check" id="checkLight">&#10003;</span>
-                    </button>
+                <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn"
+                        aria-label="Open mobile menu" aria-expanded="false" aria-controls="cbt-mobile-drawer">
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                </button>
+            </div>
+
+        </div><!-- /.cbt-nav-inner -->
+
+        <!-- ══ Desktop Hamburger Panel (right slide-in) ════════════ -->
+        <!-- Overlay -->
+        <div class="cbt-panel-overlay" id="cbt-panel-overlay" aria-hidden="true"></div>
+        <!-- Panel -->
+        <div class="cbt-ham-panel" id="cbt-ham-panel" role="dialog" aria-modal="true" aria-label="More links" aria-hidden="true">
+            <button class="cbt-panel-close" id="cbt-panel-close" aria-label="Close menu">&#x2715;</button>
+            <p class="cbt-panel-label">More</p>
+            <nav class="cbt-panel-nav" aria-label="Secondary navigation">
+                <a href="#about"           class="cbt-panel-link" id="panel-about">About</a>
+
+                <a href="privacy-policy"   class="cbt-panel-link" id="panel-privacy">Privacy Policy</a>
+                <a href="terms"            class="cbt-panel-link" id="panel-terms">Terms &amp; Conditions</a>
+                <a href="disclaimer"       class="cbt-panel-link" id="panel-disclaimer">Disclaimer</a>
+                <a href="#support"         class="cbt-panel-link" id="panel-support">Support</a>
+            </nav>
+        </div>
+
+        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- Overlay -->
+        <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
+        <!-- Drawer -->
+        <div class="cbt-mobile-drawer" id="cbt-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile menu" aria-hidden="true">
+            <!-- Drawer Header -->
+            <div class="cbt-drawer-header">
+                <div class="cbt-logo">
+                    <a href="#home" aria-label="CodeByTushu Home" tabindex="-1">
+                        <span class="cbt-logo-bracket">&lt;/&gt;</span>
+                        <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                    </a>
                 </div>
-            </li>
-        </ul>
-    </nav>
+                <button class="cbt-drawer-close" id="cbt-drawer-close" aria-label="Close menu">&#x2715;</button>
+            </div>
+            <!-- Drawer Body -->
+            <div class="cbt-drawer-body">
+                <!-- Primary Links -->
+                <ul class="cbt-drawer-primary" role="menu" aria-label="Main navigation">
+                    <li role="none"><a href="#home"                class="cbt-drawer-link"          id="drawer-home"        role="menuitem">Home</a></li>
+                    <li role="none"><a href="#leetcode"            class="cbt-drawer-link"          id="drawer-leetcode"    role="menuitem">LeetCode</a></li>
+                    <li role="none"><a href="#blog"                class="cbt-drawer-link"          id="drawer-blogs"       role="menuitem">Blogs</a></li>
+                    <li role="none"><a href="#courses"             class="cbt-drawer-link"          id="drawer-courses"     role="menuitem">Courses</a></li>
+                    <li role="none"><a href="#video-editing"       class="cbt-drawer-link"          id="drawer-videoediting" role="menuitem">Video Editing</a></li>
+                    <li role="none"><a href="#store"               class="cbt-drawer-link"          id="drawer-store"       role="menuitem">Store</a></li>
+                    <li role="none"><a href="#donate"              class="cbt-drawer-link"          id="drawer-donate"      role="menuitem">Donate</a></li>
+                    <li role="none"><a href="auth/login.php"       class="cbt-drawer-link"          id="drawer-login"       role="menuitem">Login</a></li>
+                </ul>
+                <!-- Divider -->
+                <div class="cbt-drawer-divider" role="separator"></div>
+                <p class="cbt-drawer-label">More</p>
+                <!-- Secondary Links -->
+                <ul class="cbt-drawer-secondary" role="menu" aria-label="Secondary navigation">
+                    <li role="none"><a href="#about"          class="cbt-drawer-link cbt-drawer-link-sm" id="drawer-about"      role="menuitem">About</a></li>
+
+                    <li role="none"><a href="privacy-policy"  class="cbt-drawer-link cbt-drawer-link-sm" id="drawer-privacy"    role="menuitem">Privacy Policy</a></li>
+                    <li role="none"><a href="terms"           class="cbt-drawer-link cbt-drawer-link-sm" id="drawer-terms"      role="menuitem">Terms &amp; Conditions</a></li>
+                    <li role="none"><a href="disclaimer"      class="cbt-drawer-link cbt-drawer-link-sm" id="drawer-disclaimer" role="menuitem">Disclaimer</a></li>
+                    <li role="none"><a href="#support"        class="cbt-drawer-link cbt-drawer-link-sm" id="drawer-support"    role="menuitem">Support</a></li>
+                </ul>
+            </div><!-- /.cbt-drawer-body -->
+        </div><!-- /.cbt-mobile-drawer -->
+
+    </nav><!-- /.cbt-navbar -->
+
 
     <!-- home section start -->
     <section class="home" id="home">
-        <div class="max-width">
-            <div class="home-content">
-                <div class="text-1">Welcome to CodeByTushu</div>
-                <div class="text-2">Code Hub</div>
-                <div class="text-3">Learn, Explore & Build <span class="typing"></span></div>
-                <div class="classbox">
-                    <a href="video-editor-website/">Explore Now</a>
-                </div>
+        <!-- Futuristic Animated Background -->
+        <div class="cbt-hero-bg">
+            <!-- Center Glow -->
+            <div class="cbt-glow-center"></div>
+            
+            <!-- Diagonal Streaks -->
+            <div class="cbt-streak cbt-streak-1"></div>
+            <div class="cbt-streak cbt-streak-2"></div>
+            <div class="cbt-streak cbt-streak-3"></div>
+            <div class="cbt-streak cbt-streak-4"></div>
+            
+            <!-- Abstract Circles -->
+            <div class="cbt-circle cbt-circle-left"></div>
+            <div class="cbt-circle cbt-circle-right"></div>
+            
+            <!-- Tech Pattern Dots -->
+            <div class="cbt-dots cbt-dots-top-left"></div>
+            <div class="cbt-dots cbt-dots-bottom-right"></div>
+            
+            <!-- Floating Particles -->
+            <div class="cbt-particles">
+                <span class="cbt-particle p-1"></span>
+                <span class="cbt-particle p-2"></span>
+                <span class="cbt-particle p-3"></span>
+                <span class="cbt-particle p-4"></span>
+                <span class="cbt-particle p-5"></span>
+                <span class="cbt-particle p-6"></span>
+                <span class="cbt-particle p-7"></span>
+                <span class="cbt-particle p-8"></span>
+                <span class="cbt-particle p-9"></span>
+                <span class="cbt-particle p-10"></span>
             </div>
         </div>
-        <div class="home-preview">
 
-            <div class="preview-card">
+        <!-- Foreground Content -->
+        <div class="max-width cbt-hero-content">
+            
+            <!-- Top Headline -->
+            <h1 class="cbt-hero-title-clean">INNOVATE <span class="cbt-hero-dot">•</span> <span class="cbt-gold">DEVELOP</span> <span class="cbt-hero-dot">•</span> SUCCEED</h1>
 
-                <a href="https://www.youtube.com/@codebytushu" target="_blank">
-
-                    <div class="preview-image">
-
-                        <picture>
-                            <!-- Mobile: screens smaller than 768px -->
-                            <source
-                                media="(max-width: 767px)"
-                                srcset="./image2/Hero%20Mobile.png">
-                            <!-- Desktop / Tablet / Laptop: 768px and above -->
-                            <source
-                                media="(min-width: 768px)"
-                                srcset="./image2/Hero%20Desktop.png">
-                            <!-- Fallback img (also used by all browsers for alt + styles) -->
-                            <img
-                                src="./image2/Hero%20Desktop.png"
-                                alt="CodeByTushu YouTube Channel"
-                                loading="lazy">
-                        </picture>
-
+            <!-- Center Ticker -->
+            <div class="cbt-premium-ticker">
+                <div class="cbt-ticker-track" id="cbtTickerTrack">
+                    <!-- Base content, will be duplicated by JS for seamless loop -->
+                    <div class="cbt-ticker-item">
+                        <a href="#leetcode" class="cbt-ticker-link">LeetCode</a> <span class="cbt-dot">•</span>
+                        <a href="#ai" class="cbt-ticker-link cbt-gold">AI</a> <span class="cbt-dot">•</span>
+                        <a href="#projects" class="cbt-ticker-link">Projects</a> <span class="cbt-dot">•</span>
+                        <a href="#blog" class="cbt-ticker-link cbt-gold">Blogs</a> <span class="cbt-dot">•</span>
+                        <a href="#courses" class="cbt-ticker-link">Courses</a> <span class="cbt-dot">•</span>
+                        <a href="#interview-prep" class="cbt-ticker-link cbt-gold">Interview Prep</a> <span class="cbt-dot">•</span>
+                        <a href="#roadmaps" class="cbt-ticker-link">Career Roadmaps</a> <span class="cbt-dot">•</span>
+                        <a href="#store" class="cbt-ticker-link cbt-gold">Store</a> <span class="cbt-dot">•</span>
                     </div>
-
-                </a>
-
+                </div>
             </div>
 
+            <!-- Bottom Subtitle -->
+            <p class="cbt-hero-subtitle-clean">Everything You Need To Become A Better Developer</p>
+
+            <script>
+                // JavaScript to duplicate ticker content for seamless infinite scroll
+                document.addEventListener('DOMContentLoaded', () => {
+                    const track = document.getElementById('cbtTickerTrack');
+                    if(track) {
+                        const content = track.innerHTML;
+                        // Duplicate multiple times to ensure the screen is always filled
+                        track.innerHTML = content + content + content;
+                    }
+                });
+            </script>
         </div>
     </section>
 
     <!-- about section start -->
-    <section class="about" id="about">
-        <div class="max-width">
-            <h2 class="title">About Us</h2>
-            <div class="about-content">
-                <div class="column left">
-                    <!-- Dark Theme: white/gold logo -->
-                    <img src="./image1/White Logo.png" alt="CodeByTushu" class="site-logo logo-for-dark">
-                    <!-- Light Theme: black logo -->
-                    <img src="./image1/Black Logo.PNG" alt="CodeByTushu" class="site-logo logo-for-light">
+    <section class="about cbt-about-section" id="about">
+        <!-- Futuristic Animated Background (Copied from Home) -->
+        <div class="cbt-hero-bg">
+            <!-- Center Glow -->
+            <div class="cbt-glow-center"></div>
+            
+            <!-- Diagonal Streaks -->
+            <div class="cbt-streak cbt-streak-1"></div>
+            <div class="cbt-streak cbt-streak-2"></div>
+            <div class="cbt-streak cbt-streak-3"></div>
+            <div class="cbt-streak cbt-streak-4"></div>
+            
+            <!-- Abstract Circles -->
+            <div class="cbt-circle cbt-circle-left"></div>
+            <div class="cbt-circle cbt-circle-right"></div>
+            
+            <!-- Tech Pattern Dots -->
+            <div class="cbt-dots cbt-dots-top-left"></div>
+            <div class="cbt-dots cbt-dots-bottom-right"></div>
+            
+            <!-- Floating Particles -->
+            <div class="cbt-particles">
+                <span class="cbt-particle p-1"></span>
+                <span class="cbt-particle p-2"></span>
+                <span class="cbt-particle p-3"></span>
+                <span class="cbt-particle p-4"></span>
+                <span class="cbt-particle p-5"></span>
+                <span class="cbt-particle p-6"></span>
+                <span class="cbt-particle p-7"></span>
+                <span class="cbt-particle p-8"></span>
+                <span class="cbt-particle p-9"></span>
+                <span class="cbt-particle p-10"></span>
+            </div>
+        </div>
+
+        <div class="max-width cbt-about-content-wrapper" style="position: relative; z-index: 10;">
+            
+            <div class="cbt-about-top">
+                <div class="cbt-about-left">
+                    <span class="cbt-badge static-badge">ABOUT PLATFORM</span>
+                    <h2 class="cbt-about-heading">Building Developers,<br><span class="cbt-gold">Not Just Courses.</span></h2>
+                    <p class="cbt-about-desc">
+                        CodeByTushu is more than a platform — it's a mission to help developers learn, build real-world projects, solve problems and grow together.
+                    </p>
+
+                    <div class="cbt-about-features">
+                        <div class="cbt-feature">
+                            <div class="cbt-feature-icon"><span class="material-symbols-rounded">code</span></div>
+                            <h4>Real Code</h4>
+                            <p>Practical solutions to real coding problems.</p>
+                        </div>
+                        <div class="cbt-feature">
+                            <div class="cbt-feature-icon"><span class="material-symbols-rounded">menu_book</span></div>
+                            <h4>Better Learning</h4>
+                            <p>Concepts explained in simple and clear way.</p>
+                        </div>
+                        <div class="cbt-feature">
+                            <div class="cbt-feature-icon"><span class="material-symbols-rounded">rocket_launch</span></div>
+                            <h4>Consistent Growth</h4>
+                            <p>Keep learning, keep building, keep evolving.</p>
+                        </div>
+                    </div>
+
+                    <a href="about-platform.html" class="cbt-btn-outline">
+                        Explore Platform <span class="material-symbols-rounded">arrow_right_alt</span>
+                    </a>
                 </div>
-                <div class="column right">
-                    <p>
-                        Developer • DevOps Enthusiast • Problem Solver
-                    </p>
 
-                    <p>
-                        CodeByTushu is my personal technology platform where I build modern web applications, DevOps
-                        solutions, Linux automation tools, and real-world development projects.
-
-                        <br><br>
-
-                        My goal is to create scalable digital solutions, share practical knowledge, and continuously
-                        explore new technologies that help developers and businesses grow.
-                    </p>
-                    <a href="./Explore Our Work/Explore Our Work.pdf" download="Explore Work">Explore My Projects</a>
+                <div class="cbt-about-right">
+                    <!-- Using Black Logo.PNG with mix-blend-mode: screen so the black background disappears -->
+                    <img src="./image1/Black Logo.PNG" alt="CodeByTushu 3D" class="cbt-about-image">
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- services section start -->
-    <!-- PHP MIGRATION NOTE: The 4 service cards below (Web Dev, UI/UX, App Dev, Video Editing)
-         are currently hardcoded in HTML. In the PHP version, these will be fetched from
-         a `services` MySQL table and rendered with a PHP foreach loop. -->
-    <section class="services" id="services">
-        <div class="max-width">
-            <h2 class="title">Our services</h2>
-            <div class="serv-content">
-            </div>
-        </div>
-        <div class="container">
-            <div class="box">
-                <span id="first"> </span>
-                <div class="content">
-                    <h2>Web Development</h2>
-                    <p>Building modern, responsive websites that help businesses grow online.</p>
-                </div>
-            </div>
-            <div class="box">
-                <span id="second"></span>
-                <div class="content">
-                    <h2>UI/UX Design</h2>
-                    <p>Creating user-friendly and modern interfaces to enhance user experience across websites and apps.
-                    </p>
-                </div>
-            </div>
-            <div class="box">
-                <span id="third"></span>
-                <div class="content">
-                    <h2>App Development</h2>
-                    <p>Designing mobile apps with smooth UI, better usability, and seamless user interaction.</p>
-                </div>
-            </div>
-            <div class="box">
-                <span id="fourth"></span>
-                <div class="content">
-                    <h2>video Editing</h2>
-                    <p>Producing engaging videos for digital platforms to attract and retain audience attention.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- LEETCODE SECTION START -->
 
-    <section class="leetcode" id="leetcode">
+    <section class="leetcode" id="leetcode" style="position: relative; overflow: hidden;">
+        <!-- Futuristic Animated Background (Copied from Home) -->
+        <div class="cbt-hero-bg">
+            <!-- Center Glow -->
+            <div class="cbt-glow-center"></div>
+            
+            <!-- Diagonal Streaks -->
+            <div class="cbt-streak cbt-streak-1"></div>
+            <div class="cbt-streak cbt-streak-2"></div>
+            <div class="cbt-streak cbt-streak-3"></div>
+            <div class="cbt-streak cbt-streak-4"></div>
+            
+            <!-- Abstract Circles -->
+            <div class="cbt-circle cbt-circle-left"></div>
+            <div class="cbt-circle cbt-circle-right"></div>
+            
+            <!-- Tech Pattern Dots -->
+            <div class="cbt-dots cbt-dots-top-left"></div>
+            <div class="cbt-dots cbt-dots-bottom-right"></div>
+            
+            <!-- Floating Particles -->
+            <div class="cbt-particles">
+                <span class="cbt-particle p-1"></span>
+                <span class="cbt-particle p-2"></span>
+                <span class="cbt-particle p-3"></span>
+                <span class="cbt-particle p-4"></span>
+                <span class="cbt-particle p-5"></span>
+                <span class="cbt-particle p-6"></span>
+                <span class="cbt-particle p-7"></span>
+                <span class="cbt-particle p-8"></span>
+                <span class="cbt-particle p-9"></span>
+                <span class="cbt-particle p-10"></span>
+            </div>
+        </div>
 
-        <div class="max-width">
+        <div class="max-width" style="position: relative; z-index: 10;">
 
             <h2 class="title">
                 LeetCode
@@ -313,167 +418,455 @@
     </section>
 
     <!-- LEETCODE SECTION END -->
+    <!-- BLOG SECTION START -->
+    <section class="blog-preview" id="blog">
+        <!-- Futuristic Animated Background (Copied from Home) -->
+        <div class="cbt-hero-bg">
+            <div class="cbt-glow-center"></div>
+            <div class="cbt-streak cbt-streak-1"></div>
+            <div class="cbt-streak cbt-streak-2"></div>
+            <div class="cbt-streak cbt-streak-3"></div>
+            <div class="cbt-streak cbt-streak-4"></div>
+            <div class="cbt-circle cbt-circle-left"></div>
+            <div class="cbt-circle cbt-circle-right"></div>
+            <div class="cbt-dots cbt-dots-top-left"></div>
+            <div class="cbt-dots cbt-dots-bottom-right"></div>
+            <div class="cbt-particles">
+                <span class="cbt-particle p-1"></span><span class="cbt-particle p-2"></span>
+                <span class="cbt-particle p-3"></span><span class="cbt-particle p-4"></span>
+                <span class="cbt-particle p-5"></span><span class="cbt-particle p-6"></span>
+                <span class="cbt-particle p-7"></span><span class="cbt-particle p-8"></span>
+                <span class="cbt-particle p-9"></span><span class="cbt-particle p-10"></span>
+            </div>
+        </div>
 
-    <!-- project section start -->
-    <!-- PHP MIGRATION NOTE: The project cards in this carousel are hardcoded.
-         In the PHP version, they will be dynamically generated from a `projects`
-         MySQL table (id, title, description, image, url, created_at). -->
-    <section class="teams" id="teams">
-        <div class="max-width">
-            <h2 class="title">My Projects</h2>
-            <div class="carousel owl-carousel">
-                <div class="card">
-                    <div class="box">
-                        <img src="./image1/Google Antigravity.png" alt="img">
-                        <div class="text">Google Antigravity</div>
-                        <p>"Inspired by modern experimental web interactions, redesigned and crafted by CodeByTushu."
-                        </p>
-                        <a href="https://google-antigravity-project-by-tushu.netlify.app/" class="project"
-                            target="_blank">View Project</a>
+        <div class="max-width blog-content-wrapper">
+            <h2 class="title">
+                Blogs
+                <span class="blog-subtitle">Learn Programming Through Easy &amp; Practical Articles</span>
+            </h2>
+            <div class="leetcode-content">
+                <div class="leetcode-left">
+                    <h3>Programming Blogs That Help You Learn Faster</h3>
+                    <p>
+                        Explore in-depth tutorials and practical guides tailored to help you understand complex concepts easily.
+                    </p>
+                    <p>
+                        Whether you are a beginner or preparing for tech interviews, our structured articles cover everything you need.
+                    </p>
+                    <div class="blog-highlights">
+                        <span><i class="fa-solid fa-check"></i> Java</span>
+                        <span><i class="fa-solid fa-check"></i> JavaScript</span>
+                        <span><i class="fa-solid fa-check"></i> React</span>
+                        <span><i class="fa-solid fa-check"></i> Node.js</span>
+                    </div>
+                    <a href="blogs/index.html" class="blog-explore-btn">
+                        Explore Blogs
+                    </a>
+                </div>
+
+                <div class="leetcode-right blog-cards-compact">
+                    <!-- Card 1 -->
+                    <div class="blog-card">
+                        <div class="blog-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=800&auto=format&fit=crop" alt="Java Blog" loading="lazy">
+                            <span class="blog-badge">Java</span>
+                        </div>
+                        <div class="blog-card-body">
+                            <h3 class="blog-card-title">Mastering Object-Oriented Programming in Java</h3>
+                            <div class="blog-card-meta">
+                                <span><i class="fa-regular fa-clock"></i> 8 Min Read</span>
+                                <a href="#" class="blog-read-btn">Read Article <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="blog-card">
+                        <div class="blog-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800&auto=format&fit=crop" alt="React Blog" loading="lazy">
+                            <span class="blog-badge">React</span>
+                        </div>
+                        <div class="blog-card-body">
+                            <h3 class="blog-card-title">Top 10 React Hooks Every Developer Should Know</h3>
+                            <div class="blog-card-meta">
+                                <span><i class="fa-regular fa-clock"></i> 6 Min Read</span>
+                                <a href="#" class="blog-read-btn">Read Article <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="blog-card">
+                        <div class="blog-img-wrap">
+                            <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=800&auto=format&fit=crop" alt="DSA Blog" loading="lazy">
+                            <span class="blog-badge">DSA</span>
+                        </div>
+                        <div class="blog-card-body">
+                            <h3 class="blog-card-title">Cracking the Coding Interview: Graph Algorithms</h3>
+                            <div class="blog-card-meta">
+                                <span><i class="fa-regular fa-clock"></i> 12 Min Read</span>
+                                <a href="#" class="blog-read-btn">Read Article <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="box">
-                        <img src="./image1/Cyber Protfolio.png" alt="img">
-                        <div class="text">Cybersecurity Portfolio</div>
-                        <p>"Cybersecurity portfolio for penetration testing and threat detection."</p>
-                        <a href="https://cyber-protfolio-tushu.netlify.app/" class="project" target="_blank">View
-                            project</a>
-                    </div>
+            </div>
+
+            <!-- Bottom Row Compact Stats/Info -->
+            <div class="blog-bottom-info">
+                <div class="blog-info-item">
+                    <span class="blog-info-num">500+</span>
+                    <span class="blog-info-text">Articles</span>
                 </div>
-                <div class="card">
-                    <div class="box">
-                        <img src="./image1/Escape Road.png" alt="img">
-                        <div class="text">Escape Road</div>
-                        <p>"High-speed escape game with intense road chases."</p>
-                        <a href="https://escape-road-by-tushu.netlify.app/" class="project" target="_blank">View
-                            Project</a>
-                    </div>
+                <div class="blog-info-item">
+                    <span class="blog-info-num">20+</span>
+                    <span class="blog-info-text">Categories</span>
                 </div>
-                <div class="card">
-                    <div class="box">
-                        <img src="./image1/Premium ScrollTrigger Panels.png" alt="img">
-                        <div class="text">Premium ScrollTrigger Panels</div>
-                        <p>"Smooth scroll-driven UI with GSAP ScrollTrigger animations."</p>
-                        <a href="https://scroll-trigger-by-tushu.netlify.app/" class="project" target="_blank">View
-                            Project</a>
+                <div class="blog-info-item">
+                    <span class="blog-info-num"><i class="fa-solid fa-rotate"></i></span>
+                    <span class="blog-info-text">Weekly Updates</span>
+                </div>
+                <div class="blog-info-item">
+                    <span class="blog-info-num"><i class="fa-solid fa-user-tie"></i></span>
+                    <span class="blog-info-text">Interview Focused</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- BLOG SECTION END -->
+
+    <!-- COURSES SECTION START -->
+    <section class="leetcode" id="courses" style="position: relative; overflow: hidden;">
+        <!-- Futuristic Animated Background (Copied from Home) -->
+        <div class="cbt-hero-bg">
+            <div class="cbt-glow-center"></div>
+            <div class="cbt-streak cbt-streak-1"></div>
+            <div class="cbt-streak cbt-streak-2"></div>
+            <div class="cbt-streak cbt-streak-3"></div>
+            <div class="cbt-streak cbt-streak-4"></div>
+            <div class="cbt-circle cbt-circle-left"></div>
+            <div class="cbt-circle cbt-circle-right"></div>
+            <div class="cbt-dots cbt-dots-top-left"></div>
+            <div class="cbt-dots cbt-dots-bottom-right"></div>
+            <div class="cbt-particles">
+                <span class="cbt-particle p-1"></span><span class="cbt-particle p-2"></span>
+                <span class="cbt-particle p-3"></span><span class="cbt-particle p-4"></span>
+                <span class="cbt-particle p-5"></span><span class="cbt-particle p-6"></span>
+                <span class="cbt-particle p-7"></span><span class="cbt-particle p-8"></span>
+                <span class="cbt-particle p-9"></span><span class="cbt-particle p-10"></span>
+            </div>
+        </div>
+
+        <div class="max-width" style="position: relative; z-index: 10;">
+            <h2 class="title">
+                Courses
+                <span class="leetcode-subtitle">Learn. Build. Grow.</span>
+            </h2>
+
+            <div class="leetcode-content">
+                <div class="leetcode-left">
+                    <h3>Master In-Demand Skills with Practical Courses</h3>
+                    <p>
+                        Learn industry-ready skills through step-by-step courses designed for beginners as well as advanced learners. Every course focuses on practical learning, real-world projects, interview preparation, and hands-on experience to help you build strong technical skills.
+                    </p>
+                    <p>
+                        Whether you want to become a Software Developer, AI Engineer, Web Developer, or Freelancer, these courses will guide you from fundamentals to professional-level development.
+                    </p>
+                    <a href="/courses">
+                        🚀 Explore Courses
+                    </a>
+                </div>
+
+                <div class="leetcode-right">
+                    <div class="leetcode-card">
+                        <h4>Technologies</h4>
+                        <span>Java • Python • C++ • JavaScript • React • Node.js • AI</span>
+                    </div>
+
+                    <div class="leetcode-card">
+                        <h4>Learning</h4>
+                        <span>Beginner to Advanced • Projects • Assignments • Practice</span>
+                    </div>
+
+                    <div class="leetcode-card">
+                        <h4>Focus</h4>
+                        <span>Interview Prep • Real Projects • Clean Code • Career Growth</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- COURSES SECTION END -->
 
-    <!-- contact section start -->
-    <!-- PHP MIGRATION NOTE: The contact form currently links to an external Google Form.
-         In the PHP version, this will be replaced by an inline HTML form that POSTs
-         to /contact.php which uses PHPMailer to send emails to codebytushu@gmail.com.
-         A `contact_messages` MySQL table will store all submissions for audit. -->
-    <section class="contact" id="contact">
-        <div class="max-width">
-            <h2 class="title">Contact me</h2>
-            <div class="contact-content">
-                <div class="column left">
-                    <div class="text">Get in Touch</div>
-                    <p>
-                        Have a project, idea, or collaboration in mind? Let's build something amazing together.
-                    </p>
+    <!-- VIDEO EDITING SECTION START -->
+    <section class="leetcode" id="video-editing" style="position: relative; overflow: hidden;">
+        <!-- Futuristic Animated Background (Copied from Home) -->
+        <div class="cbt-hero-bg">
+            <div class="cbt-glow-center"></div>
+            <div class="cbt-streak cbt-streak-1"></div>
+            <div class="cbt-streak cbt-streak-2"></div>
+            <div class="cbt-streak cbt-streak-3"></div>
+            <div class="cbt-streak cbt-streak-4"></div>
+            <div class="cbt-circle cbt-circle-left"></div>
+            <div class="cbt-circle cbt-circle-right"></div>
+            <div class="cbt-dots cbt-dots-top-left"></div>
+            <div class="cbt-dots cbt-dots-bottom-right"></div>
+            <div class="cbt-particles">
+                <span class="cbt-particle p-1"></span><span class="cbt-particle p-2"></span>
+                <span class="cbt-particle p-3"></span><span class="cbt-particle p-4"></span>
+                <span class="cbt-particle p-5"></span><span class="cbt-particle p-6"></span>
+                <span class="cbt-particle p-7"></span><span class="cbt-particle p-8"></span>
+                <span class="cbt-particle p-9"></span><span class="cbt-particle p-10"></span>
+            </div>
+        </div>
 
+        <div class="max-width" style="position: relative; z-index: 10;">
+            <h2 class="title">
+                Video Editing
+                <span class="leetcode-subtitle">Create Professional Videos &amp; Content</span>
+            </h2>
+
+            <div class="leetcode-content">
+                <div class="leetcode-left">
+                    <h3>Master Professional Video Editing</h3>
                     <p>
-                        I specialize in Web Development, DevOps, Linux, and Automation solutions. Fill out the form
-                        below and I'll get back to you as soon as possible.
+                        Learn professional video editing from beginner to advanced with practical projects, YouTube video editing, Shorts &amp; Reels editing, motion graphics, cinematic editing, color grading, transitions, and real-world editing workflows.
                     </p>
-                    <!-- Button for Google Form -->
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScnuP0WYqDS1aaNjXgGh3SuPWHgL6BLwpzi0OQrFs5kH2rWog/viewform?usp=preview"
-                        target="_blank" class="contact-form-btn">
-                        Work With Me
+                    <p>
+                        Agar aap professional editor banna chahte hain ya YouTube, Instagram aur Freelancing ke liye high-quality videos banana chahte hain, to ye section aapke liye hai.
+                    </p>
+                    <a href="video-editing/">
+                        🎬 Explore Video Editing
                     </a>
-                    <div class="icons">
-                        <div class="row">
-                            <i class="fas fa-user"></i>
-                            <div class="info">
-                                <div class="head">Name</div>
-                                <div class="sub-title">Tushpendra Kumar</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div class="info">
-                                <div class="head">Address</div>
-                                <div class="sub-title">Noida, Uttar Pradesh</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <i class="fas fa-envelope"></i>
-                            <div class="info">
-                                <div class="head">Email</div>
-                                <div class="sub-title">codebytushu@gmail.com</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div class="map-card">
-                    <h2>
-                        📍 Find Me in Noida
-                    </h2>
-                    <a href="https://maps.google.com/?q=Noida,Uttar Pradesh" target="_blank">
-                        <iframe
-                            src="https://maps.google.com/maps?q=Noida,Uttar%20Pradesh&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
-                        </iframe>
-                    </a>
+
+                <div class="leetcode-right">
+                    <div class="leetcode-card">
+                        <h4>Software</h4>
+                        <span>Premiere Pro • After Effects • DaVinci Resolve • CapCut</span>
+                    </div>
+
+                    <div class="leetcode-card">
+                        <h4>Content</h4>
+                        <span>YouTube Videos • Shorts • Reels • Motion Graphics</span>
+                    </div>
+
+                    <div class="leetcode-card">
+                        <h4>Focus</h4>
+                        <span>Editing • Color Grading • Transitions • Effects</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- VIDEO EDITING SECTION END -->
 
-    <!-- footer section start -->
-
-    <footer>
-        <div class="waves">
-            <div class="wave" id="wave1"></div>
-            <div class="wave" id="wave2"></div>
-            <div class="wave" id="wave3"></div>
-            <div class="wave" id="wave4"></div>
+    <!-- STORE SECTION START -->
+    <section class="leetcode" id="store" style="position: relative; overflow: hidden;">
+        <!-- Futuristic Animated Background (Copied from Home) -->
+        <div class="cbt-hero-bg">
+            <div class="cbt-glow-center"></div>
+            <div class="cbt-streak cbt-streak-1"></div>
+            <div class="cbt-streak cbt-streak-2"></div>
+            <div class="cbt-streak cbt-streak-3"></div>
+            <div class="cbt-streak cbt-streak-4"></div>
+            <div class="cbt-circle cbt-circle-left"></div>
+            <div class="cbt-circle cbt-circle-right"></div>
+            <div class="cbt-dots cbt-dots-top-left"></div>
+            <div class="cbt-dots cbt-dots-bottom-right"></div>
+            <div class="cbt-particles">
+                <span class="cbt-particle p-1"></span><span class="cbt-particle p-2"></span>
+                <span class="cbt-particle p-3"></span><span class="cbt-particle p-4"></span>
+                <span class="cbt-particle p-5"></span><span class="cbt-particle p-6"></span>
+                <span class="cbt-particle p-7"></span><span class="cbt-particle p-8"></span>
+                <span class="cbt-particle p-9"></span><span class="cbt-particle p-10"></span>
+            </div>
         </div>
 
-        <h2><span class="typing-3"></span></h2>
+        <div class="max-width" style="position: relative; z-index: 10;">
+            <h2 class="title">
+                CodeByTushu Store
+                <span class="leetcode-subtitle">Everything You Need to Level Up Your Coding Journey</span>
+            </h2>
 
-        <ul id="media">
-            <!-- LinkedIn -->
-            <li style="--clr:#0e76a8;">
-                <a href="https://linkedin.com/company/codebytushu" target="_blank">
-                    <i class="fa-brands fa-linkedin-in"></i>
+            <div class="leetcode-content">
+                <div class="leetcode-left">
+                    <span style="display:inline-block; padding: 5px 15px; background: rgba(255,196,0,0.1); color: #ffc400; border-radius: 50px; font-size: 13px; font-weight: 600; margin-bottom: 20px; border: 1px solid rgba(255,196,0,0.2);">🛍️ Store</span>
+                    <p style="margin-top: 0;">
+                        Yeh ek Store Preview section hai jahan user ko bataya jayega ki CodeByTushu Store me premium coding merchandise, digital products, study resources, templates, creator assets aur future products available honge. Is section ka purpose sirf user ko Store ke baare me introduce karna hai aur usse Store page visit karne ke liye encourage karna hai.
+                    </p>
+                    <div class="leetcode-buttons" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 30px;">
+                        <a href="/store" class="btn-primary">Explore Store →</a>
+                        <a href="/store" class="btn-secondary">View Collection</a>
+                    </div>
+                </div>
+
+                <div class="leetcode-right">
+                    <div class="leetcode-card">
+                        <h4>Merchandise</h4>
+                        <span>T-Shirts • Hoodies • Mugs • Stickers</span>
+                    </div>
+
+                    <div class="leetcode-card">
+                        <h4>Digital Products</h4>
+                        <span>Study Notes • Templates • E-books • Resources</span>
+                    </div>
+
+                    <div class="leetcode-card">
+                        <h4>Creator Assets</h4>
+                        <span>Editing Presets • Thumbnail Packs • Design Assets</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- STORE SECTION END -->
+
+    <!-- ═══════════════════════════════════════════════════════
+         CBT FOOTER — Premium Black + Gold
+         ═══════════════════════════════════════════════════════ -->
+    <footer class="cbt-footer">
+        <div class="cbt-footer-container">
+            <!-- Brand Column -->
+            <div class="cbt-ft-col cbt-ft-brand">
+                <a href="#home" class="cbt-logo" aria-label="CodeByTushu Home">
+                    <span class="cbt-logo-bracket">&lt;/&gt;</span>
+                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
                 </a>
-            </li>
+                <div class="cbt-tagline">
+                    Learn <span>•</span> Build <span>•</span> Share <span>•</span> Grow
+                </div>
+                <p>Empowering developers with quality content, tutorials, and projects. Let's grow together.</p>
+            </div>
 
-            <!-- YouTube -->
-            <li style="--clr:#ff0000;">
-                <a href="https://youtube.com/@codebytushu" target="_blank">
-                    <i class="fa-brands fa-youtube"></i>
-                </a>
-            </li>
+            <!-- Quick Links -->
+            <div class="cbt-ft-col">
+                <h3><i class="fa-solid fa-link"></i> QUICK LINKS</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#leetcode">LeetCode</a></li>
+                    <li><a href="#blog">Blogs</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#video-editing">Video Editing</a></li>
+                    <li><a href="#store">Store</a></li>
+                    <li><a href="#donate">Donate</a></li>
+                </ul>
+            </div>
 
-            <!-- Instagram -->
-            <li style="--clr:#e73f0c;">
-                <a href="https://instagram.com/codebytushu" target="_blank">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-            </li>
+            <!-- Resources -->
+            <div class="cbt-ft-col">
+                <h3><i class="fa-regular fa-folder-open"></i> RESOURCES</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="privacy-policy/">Privacy Policy</a></li>
+                    <li><a href="terms/">Terms &amp; Conditions</a></li>
+                    <li><a href="disclaimer/">Disclaimer</a></li>
+                    <li><a href="#support">Support</a></li>
+                </ul>
+            </div>
 
-            <!-- WhatsApp -->
-            <li style="--clr:#25D366;">
-                <a href="https://wa.me/917055072196" target="_blank">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
-            </li>
-        </ul>
+            <!-- Connect -->
+            <div class="cbt-ft-col cbt-ft-connect-col">
+                <h3><i class="fa-regular fa-envelope"></i> CONNECT</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="https://youtube.com/@codebytushu" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
+                    <li><a href="https://linkedin.com/company/codebytushu" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a></li>
+                    <li><a href="https://instagram.com/codebytushu" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+                    <li><a href="https://github.com/Tushpendra-Kumar" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a></li>
+                </ul>
+            </div>
 
-        <p>&copy; 2025 <a href="https://codebytushu.com" target="_blank">by CodeByTushu</a></p>
-    </footer>
+            <!-- Newsletter -->
+            <div class="cbt-ft-col cbt-ft-newsletter">
+                <h3><i class="fa-regular fa-paper-plane"></i> STAY UPDATED</h3>
+                <p>Subscribe to get the latest LeetCode solutions, blogs, courses and exclusive updates.</p>
+                <form id="newsletter-form" class="cbt-ft-form">
+                    <div class="cbt-ft-input-group">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" id="newsletter-email" name="email" placeholder="Enter your email" required aria-label="Email Address">
+                    </div>
+                    <button type="submit" id="newsletter-btn" class="cbt-ft-btn">
+                        <span id="newsletter-btn-text">Subscribe Now</span> 
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+                <div id="newsletter-message" style="margin-top: 15px; font-size: 14px; display: none; padding: 10px; border-radius: 6px;"></div>
+            </div>
+        </div>
 
-
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <!-- Centered Copyright Strip -->
+        <div class="cbt-copyright-strip">
+            &copy; 2025 <span>CodeByTushu</span>. All rights reserved.
+        </div>
+    </footer>    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+    <!-- Newsletter Subscription AJAX -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('newsletter-form');
+            const emailInput = document.getElementById('newsletter-email');
+            const messageDiv = document.getElementById('newsletter-message');
+            const submitBtn = document.getElementById('newsletter-btn');
+            const btnText = document.getElementById('newsletter-btn-text');
+            const btnIcon = submitBtn ? submitBtn.querySelector('i') : null;
+
+            if(form) {
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const email = emailInput.value.trim();
+                    if(!email) return;
+
+                    // Loading State
+                    submitBtn.disabled = true;
+                    btnText.innerText = 'Subscribing...';
+                    if(btnIcon) btnIcon.className = 'fa-solid fa-circle-notch fa-spin';
+                    messageDiv.style.display = 'none';
+
+                    try {
+                        const response = await fetch('api/subscribe.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({ email: email })
+                        });
+
+                        const result = await response.json();
+
+                        messageDiv.style.display = 'block';
+                        if(result.success) {
+                            messageDiv.style.backgroundColor = 'rgba(46, 213, 115, 0.1)';
+                            messageDiv.style.color = '#2ed573';
+                            messageDiv.style.border = '1px solid rgba(46, 213, 115, 0.3)';
+                            messageDiv.innerText = result.message;
+                            form.reset();
+                        } else {
+                            messageDiv.style.backgroundColor = 'rgba(255, 71, 87, 0.1)';
+                            messageDiv.style.color = '#ff4757';
+                            messageDiv.style.border = '1px solid rgba(255, 71, 87, 0.3)';
+                            messageDiv.innerText = result.message;
+                        }
+                    } catch (error) {
+                        messageDiv.style.display = 'block';
+                        messageDiv.style.backgroundColor = 'rgba(255, 71, 87, 0.1)';
+                        messageDiv.style.color = '#ff4757';
+                        messageDiv.style.border = '1px solid rgba(255, 71, 87, 0.3)';
+                        messageDiv.innerText = 'A network error occurred. Please try again.';
+                    } finally {
+                        // Reset Button State
+                        submitBtn.disabled = false;
+                        btnText.innerText = 'Subscribe Now';
+                        if(btnIcon) btnIcon.className = 'fa-solid fa-arrow-right';
+                    }
+                });
+            }
+        });
+    </script>
     <!-- scroll bar js  -->
     <script type="text/javascript">
         var preogressbar = document.getElementById("preogressbar")
@@ -494,146 +887,223 @@
         })
     </script>
 
-    <!-- Appearance + Desktop Nav Logic -->
+    <!-- ═══════════════════════════════════════════════════════
+         CBT NAVBAR JS — Theme + Hamburger Panel + Mobile Drawer
+         ═══════════════════════════════════════════════════════ -->
     <script>
-        /* ── Theme helpers ─────────────────────────────────── */
+        /* ── Theme helpers (preserved for compatibility) ──────── */
         function cbtSetTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('cbt-theme', theme);
-            updateAppearanceChecks(theme);
-        }
-
-        function updateAppearanceChecks(theme) {
-            var cd  = document.getElementById('checkDark');
-            var cl  = document.getElementById('checkLight');
-            var dcd = document.getElementById('ddCheckDark');
-            var dcl = document.getElementById('ddCheckLight');
-            if (cd)  cd.style.display  = (theme === 'dark')  ? 'inline' : 'none';
-            if (cl)  cl.style.display  = (theme === 'light') ? 'inline' : 'none';
-            if (dcd) dcd.style.display = (theme === 'dark')  ? 'inline' : 'none';
-            if (dcl) dcl.style.display = (theme === 'light') ? 'inline' : 'none';
         }
 
         // Apply saved theme immediately (no flash)
         (function () {
             var saved = localStorage.getItem('cbt-theme') || 'dark';
             document.documentElement.setAttribute('data-theme', saved);
-            document.addEventListener('DOMContentLoaded', function () {
-                updateAppearanceChecks(saved);
-            });
         })();
 
+        /* ── Navbar interactions ──────────────────────────────── */
         document.addEventListener('DOMContentLoaded', function () {
 
-            /* ── Desktop hamburger ─────────────────────────── */
-            var deskBtn  = document.getElementById('desktopHamburger');
-            var deskDD   = document.getElementById('desktopDropdown');
-            var ddAppBtn = document.getElementById('ddAppearanceToggle');
-            var ddAppSub = document.getElementById('ddAppearanceSub');
-            var ddIsOpen = false;
+            /* ── Sticky navbar (also handled by main.js jQuery,
+               but this vanilla fallback ensures it works)       */
+            var cbtNav = document.getElementById('mainNavbar');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 20) {
+                    cbtNav.classList.add('sticky');
+                } else {
+                    cbtNav.classList.remove('sticky');
+                }
+            }, { passive: true });
 
-            function openDesktopDD() {
-                deskDD.style.display = 'block';
-                ddIsOpen = true;
-                deskBtn.classList.add('is-open');
-                deskBtn.setAttribute('aria-expanded', 'true');
+            /* ── Desktop Hamburger Panel ──────────────────────── */
+            var deskHamBtn    = document.getElementById('cbt-hamburger-btn');
+            var hamPanel      = document.getElementById('cbt-ham-panel');
+            var panelOverlay  = document.getElementById('cbt-panel-overlay');
+            var panelClose    = document.getElementById('cbt-panel-close');
+            var panelIsOpen   = false;
+
+            function openPanel() {
+                if (!hamPanel) return;
+                panelIsOpen = true;
+                panelOverlay.style.display = 'block';
+                hamPanel.style.display     = 'flex';
+                requestAnimationFrame(function () {
+                    panelOverlay.classList.add('active');
+                    hamPanel.classList.add('is-open');
+                });
+                deskHamBtn.classList.add('is-open');
+                deskHamBtn.setAttribute('aria-expanded', 'true');
+                hamPanel.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                // Focus first link for accessibility
+                var firstLink = hamPanel.querySelector('.cbt-panel-link');
+                if (firstLink) firstLink.focus();
             }
 
-            function closeDesktopDD() {
-                deskDD.style.display = 'none';
-                ddIsOpen = false;
-                deskBtn.classList.remove('is-open');
-                deskBtn.setAttribute('aria-expanded', 'false');
-                // also close the appearance sub
-                if (ddAppSub) ddAppSub.style.display = 'none';
-                var arr = document.getElementById('ddArrow');
-                if (arr) arr.style.transform = '';
+            function closePanel() {
+                if (!hamPanel) return;
+                panelIsOpen = false;
+                panelOverlay.classList.remove('active');
+                hamPanel.classList.remove('is-open');
+                deskHamBtn.classList.remove('is-open');
+                deskHamBtn.setAttribute('aria-expanded', 'false');
+                hamPanel.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                setTimeout(function () {
+                    if (!panelIsOpen) {
+                        panelOverlay.style.display = 'none';
+                        hamPanel.style.display     = 'none';
+                    }
+                }, 350);
             }
 
-            if (deskBtn && deskDD) {
-                deskBtn.addEventListener('click', function (e) {
+            if (deskHamBtn && hamPanel) {
+                // Hide panel at start
+                hamPanel.style.display    = 'none';
+                panelOverlay.style.display = 'none';
+
+                deskHamBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    ddIsOpen ? closeDesktopDD() : openDesktopDD();
+                    panelIsOpen ? closePanel() : openPanel();
+                });
+                if (panelClose)   panelClose.addEventListener('click', closePanel);
+                if (panelOverlay) panelOverlay.addEventListener('click', closePanel);
+
+                // Close on panel link click
+                hamPanel.querySelectorAll('.cbt-panel-link').forEach(function (link) {
+                    link.addEventListener('click', closePanel);
                 });
             }
 
-            // Desktop Appearance sub-panel toggle
-            if (ddAppBtn && ddAppSub) {
-                ddAppSub.style.display = 'none'; // ensure hidden at start
-                ddAppBtn.addEventListener('click', function (e) {
+            /* ── Mobile Drawer ─────────────────────────────────── */
+            var mobHamBtn     = document.getElementById('cbt-mobile-ham-btn');
+            var mobDrawer     = document.getElementById('cbt-mobile-drawer');
+            var mobOverlay    = document.getElementById('cbt-mobile-overlay');
+            var drawerClose   = document.getElementById('cbt-drawer-close');
+            var drawerIsOpen  = false;
+
+            function openDrawer() {
+                if (!mobDrawer) return;
+                drawerIsOpen = true;
+                mobOverlay.style.display = 'block';
+                requestAnimationFrame(function () {
+                    mobOverlay.classList.add('active');
+                    mobDrawer.classList.add('is-open');
+                });
+                mobHamBtn.classList.add('is-open');
+                mobHamBtn.setAttribute('aria-expanded', 'true');
+                mobDrawer.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                // Focus first link
+                var firstLink = mobDrawer.querySelector('.cbt-drawer-link');
+                if (firstLink) firstLink.focus();
+            }
+
+            function closeDrawer() {
+                if (!mobDrawer) return;
+                drawerIsOpen = false;
+                mobOverlay.classList.remove('active');
+                mobDrawer.classList.remove('is-open');
+                mobHamBtn.classList.remove('is-open');
+                mobHamBtn.setAttribute('aria-expanded', 'false');
+                mobDrawer.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                setTimeout(function () {
+                    if (!drawerIsOpen) {
+                        mobOverlay.style.display = 'none';
+                    }
+                }, 350);
+            }
+
+            if (mobHamBtn && mobDrawer) {
+                mobOverlay.style.display = 'none';
+
+                mobHamBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    var showing = ddAppSub.style.display === 'block';
-                    ddAppSub.style.display = showing ? 'none' : 'block';
-                    var arrow = document.getElementById('ddArrow');
-                    if (arrow) arrow.style.transform = showing ? '' : 'rotate(90deg)';
+                    drawerIsOpen ? closeDrawer() : openDrawer();
+                });
+                if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+                if (mobOverlay)  mobOverlay.addEventListener('click', closeDrawer);
+
+                // Close drawer when any link is clicked (non-login links navigate)
+                mobDrawer.querySelectorAll('.cbt-drawer-link').forEach(function (link) {
+                    link.addEventListener('click', closeDrawer);
                 });
             }
 
-            // Close desktop dropdown when clicking outside
-            document.addEventListener('click', function (e) {
-                if (ddIsOpen && deskDD && !deskDD.contains(e.target) && deskBtn && !deskBtn.contains(e.target)) {
-                    closeDesktopDD();
+            /* ── Escape key closes both panel and drawer ──────── */
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' || e.keyCode === 27) {
+                    if (panelIsOpen) closePanel();
+                    if (drawerIsOpen) closeDrawer();
                 }
             });
 
-            // Close desktop dropdown when a nav link inside it is clicked
-            if (deskDD) {
-                deskDD.querySelectorAll('.dd-link:not(.dd-appearance-btn)').forEach(function(link){
-                    link.addEventListener('click', closeDesktopDD);
-                });
-            }
+            /* ── Active nav link highlight & Scrollspy ────────────── */
+            (function () {
+                var currentPath = window.location.pathname.replace(/\/$/, '');
+                var navLinks    = document.querySelectorAll('.cbt-nav-link, .cbt-drawer-link');
+                var sections    = [];
 
-            /* ── Mobile hamburger ──────────────────────────── */
-            var mobileBurger = document.getElementById('mobileBurger');
-            var mobileMenu   = document.getElementById('mobileMenu');
-            var mobIsOpen    = false;
-
-            function openMobileMenu() {
-                mobileMenu.style.display = 'block';
-                mobileMenu.style.left    = '0';
-                mobIsOpen = true;
-                var icon = mobileBurger.querySelector('i');
-                if (icon) icon.classList.add('active');
-            }
-
-            function closeMobileMenu() {
-                mobileMenu.style.left    = '-100%';
-                // Small delay so slide-out animation is visible before hiding
-                setTimeout(function() { mobileMenu.style.display = 'none'; }, 300);
-                mobIsOpen = false;
-                var icon = mobileBurger.querySelector('i');
-                if (icon) icon.classList.remove('active');
-            }
-
-            if (mobileBurger && mobileMenu) {
-                mobileBurger.addEventListener('click', function () {
-                    mobIsOpen ? closeMobileMenu() : openMobileMenu();
+                // 1. Highlight non-hash links (e.g., blogs.php)
+                navLinks.forEach(function (link) {
+                    var href = link.getAttribute('href') || '';
+                    if (href && !href.startsWith('#') && href !== '#') {
+                        var cleanHref = href.replace(/\/$/, '');
+                        if (currentPath.endsWith(cleanHref) || currentPath === cleanHref) {
+                            link.classList.add('active');
+                        }
+                    } else if (href.startsWith('#') && href !== '#') {
+                        var section = document.querySelector(href);
+                        if (section) {
+                            sections.push({ id: href, link: link, section: section });
+                        }
+                    }
                 });
 
-                mobileMenu.querySelectorAll('a').forEach(function(a){
-                    a.addEventListener('click', function(){
-                        if (a.id !== 'appearanceToggle') closeMobileMenu();
+                // Check if we are on the homepage
+                var isHomePage = (currentPath === '' || currentPath === '/' || currentPath.endsWith('index.html') || (!currentPath.includes('.') && currentPath === ''));
+
+                if (isHomePage && sections.length > 0) {
+                    // 2. Intersection Observer for Scrollspy
+                    var observerOptions = {
+                        root: null,
+                        rootMargin: '-100px 0px -60% 0px',
+                        threshold: 0
+                    };
+
+                    var observer = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                // Remove active class from all hash links
+                                sections.forEach(function(s) {
+                                    s.link.classList.remove('active');
+                                });
+                                // Add active class to the currently visible section's links
+                                var activeLinks = sections.filter(function(s) { return s.section.id === entry.target.id; });
+                                activeLinks.forEach(function(s) {
+                                    s.link.classList.add('active');
+                                });
+                            }
+                        });
+                    }, observerOptions);
+
+                    // Observe unique sections
+                    var observedIds = new Set();
+                    sections.forEach(function(s) {
+                        if (!observedIds.has(s.section.id)) {
+                            observer.observe(s.section);
+                            observedIds.add(s.section.id);
+                        }
                     });
-                });
-            }
+                }
+            })();
 
-            /* ── Mobile Appearance submenu toggle ──────────── */
-            var mAppToggle = document.getElementById('appearanceToggle');
-            var mAppSub    = document.getElementById('appearanceSubmenu');
-            var mAppArrow  = document.getElementById('appearanceArrow');
-
-            if (mAppSub) mAppSub.style.display = 'none'; // ensure hidden at start
-
-            if (mAppToggle && mAppSub) {
-                mAppToggle.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    var showing = mAppSub.style.display === 'block';
-                    mAppSub.style.display = showing ? 'none' : 'block';
-                    if (mAppArrow) mAppArrow.style.transform = showing ? '' : 'rotate(90deg)';
-                });
-            }
-        });
+        }); /* end DOMContentLoaded */
     </script>
+
 
     <script src="./main.js"></script>
 
@@ -667,7 +1137,7 @@
                     background: #d4900a; color: #fff;
                 }
                 @media(max-width:480px){
-                    .main-top-btn { bottom:14px; right:14px; width:40px; height:40px; font-size:18px; }
+                    .main-top-btn { bottom:24px; right:20px; width:36px; height:36px; font-size:16px; }
                 }
             `;
             document.head.appendChild(style);

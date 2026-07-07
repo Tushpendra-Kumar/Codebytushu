@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Details | CodeByTushu</title>
+
+    <link rel="icon" href="../../favicon.ico?v=6" sizes="any">
+    <link rel="icon" href="../../favicon-32x32.png?v=6" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png?v=6" sizes="180x180">
+    <meta name="theme-color" content="#ffc400">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <link rel="stylesheet" href="../../styles.css?v=32">
+    <link rel="stylesheet" href="../blogs.css?v=1">
+</head>
+<body>
+    <!-- Futuristic Animated Background (Global for Blogs) -->
+    <div class="cbt-hero-bg" style="position: fixed; z-index: -1; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;">
+        <div class="cbt-glow-center"></div>
+        <div class="cbt-streak cbt-streak-1"></div>
+        <div class="cbt-streak cbt-streak-2"></div>
+        <div class="cbt-streak cbt-streak-3"></div>
+        <div class="cbt-circle cbt-circle-left"></div>
+        <div class="cbt-circle cbt-circle-right"></div>
+        <div class="cbt-dots cbt-dots-top-left"></div>
+        <div class="cbt-particles">
+            <span class="cbt-particle p-1"></span><span class="cbt-particle p-2"></span>
+            <span class="cbt-particle p-3"></span><span class="cbt-particle p-4"></span>
+            <span class="cbt-particle p-5"></span><span class="cbt-particle p-6"></span>
+        </div>
+    </div>
+
+    <script src="../../theme.js"></script>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <nav class="cbt-navbar navbar" id="mainNavbar">
+        <div class="cbt-nav-inner">
+            <div class="cbt-logo" id="cbt-logo">
+                <a href="../../index.html" id="cbt-logo-link">
+                    <img src="../../image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
+                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                </a>
+            </div>
+            
+            <style>
+                @media (max-width: 768px) {
+                    #cbt-center-nav {
+                        display: none !important;
+                    }
+                }
+            </style>
+            <ul class="cbt-center-nav" id="cbt-center-nav">
+                <li><a href="../index.html#home" class="cbt-nav-link active">Home</a></li>
+                <li><a href="../index.html#categories" class="cbt-nav-link">Categories</a></li>
+                <li><a href="../index.html#tags" class="cbt-nav-link">Tags</a></li>
+                <li><a href="../index.html#all-blogs" class="cbt-nav-link">All Blogs</a></li>
+                <li><a href="../index.html#faq" class="cbt-nav-link">FAQ</a></li>
+            </ul>
+
+            <div class="cbt-nav-right">
+                <button class="cbt-nav-cart-btn" aria-label="Search" style="background:none; border:none; color:#fff; cursor:pointer;" onclick="window.location.href='../index.html';">
+                    <span class="material-symbols-rounded">search</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===================== BLOG DETAILS ===================== -->
+    <main class="cbt-blog-container cbt-blog-layout">
+        <!-- Main Content Area -->
+        <article class="cbt-article">
+            <header class="cbt-article-header">
+                <h1 class="cbt-article-title" id="b-title" style="color: #FFFFFF;">Loading...</h1>
+                <div class="cbt-article-meta" id="b-meta">
+                    <!-- Meta info injected here -->
+                </div>
+            </header>
+
+            <img src="" alt="Blog Banner" id="b-banner" class="cbt-article-banner" style="display:none;" onload="this.style.display='block'">
+
+            <div class="cbt-article-content" id="b-content">
+                <p>Loading content...</p>
+            </div>
+
+            <!-- Tags -->
+            <div class="cbt-article-tags" id="b-tags">
+                <!-- Tags injected here -->
+            </div>
+
+            <!-- Share Buttons -->
+            <div class="cbt-article-share">
+                <span style="font-weight:600; color:#fff;">Share this article:</span>
+                <button class="cbt-share-btn" title="Copy Link" onclick="navigator.clipboard.writeText(window.location.href); alert('Link copied!');"><i class="fa-solid fa-link"></i></button>
+                <button class="cbt-share-btn" title="WhatsApp" onclick="window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(window.location.href))"><i class="fa-brands fa-whatsapp"></i></button>
+                <button class="cbt-share-btn" title="LinkedIn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href))"><i class="fa-brands fa-linkedin-in"></i></button>
+                <button class="cbt-share-btn" title="Twitter" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href))"><i class="fa-brands fa-twitter"></i></button>
+                <button class="cbt-share-btn" title="Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href))"><i class="fa-brands fa-facebook-f"></i></button>
+            </div>
+
+            <!-- Comments Section (Frontend) -->
+            <div class="cbt-comments-section" id="comments">
+                <h3 style="color:#fff; font-size:1.8rem; margin-bottom:20px;">Leave a Comment</h3>
+                
+                <form id="commentForm" class="cbt-comment-form">
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                        <div class="cbt-form-group">
+                            <label for="cName">Name *</label>
+                            <input type="text" id="cName" class="cbt-form-control" required placeholder="John Doe">
+                        </div>
+                        <div class="cbt-form-group">
+                            <label for="cEmail">Email *</label>
+                            <input type="email" id="cEmail" class="cbt-form-control" required placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div class="cbt-form-group">
+                        <label for="cMessage">Comment *</label>
+                        <textarea id="cMessage" class="cbt-form-control" rows="5" required placeholder="Write your thoughts here..."></textarea>
+                    </div>
+                    <button type="submit" class="cbt-btn-primary" style="padding:12px 30px; font-size:1rem;">Post Comment</button>
+                </form>
+
+                <h3 style="color:#fff; font-size:1.5rem; margin-bottom:20px;">Comments (<span id="cCount">2</span>)</h3>
+                <div class="cbt-comment-list" id="commentList">
+                    <!-- Dummy Default Comments -->
+                    <div class="cbt-comment">
+                        <div class="cbt-comment-avatar">A</div>
+                        <div class="cbt-comment-body">
+                            <h4>Amit Sharma</h4>
+                            <span>Oct 14, 2025</span>
+                            <p>This article completely cleared my doubts regarding the core concepts. The code examples were spot on. Great job Tushu!</p>
+                        </div>
+                    </div>
+                    <div class="cbt-comment">
+                        <div class="cbt-comment-avatar" style="background:#4CAF50;">S</div>
+                        <div class="cbt-comment-body">
+                            <h4>Sara Khan</h4>
+                            <span>Oct 15, 2025</span>
+                            <p>Can we expect a follow-up article on Design Patterns using these principles? Would love to read that.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="cbt-sidebar">
+            <!-- Search -->
+            <div class="cbt-sidebar-widget" style="padding: 15px;">
+                <div class="cbt-blog-search" style="margin-bottom:0;">
+                    <i class="fa-solid fa-search search-icon" style="top:50%; left:15px; font-size:1rem;"></i>
+                    <input type="text" placeholder="Search blogs..." style="padding: 12px 15px 12px 40px; font-size: 0.95rem; border-radius: 8px;" onclick="window.location.href='../index.html';">
+                </div>
+            </div>
+
+            <!-- Recent Posts -->
+            <div class="cbt-sidebar-widget">
+                <h3>Recent Posts</h3>
+                <div id="b-recent-posts">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+
+            <!-- Popular Categories -->
+            <div class="cbt-sidebar-widget">
+                <h3>Categories</h3>
+                <ul class="cbt-ft-links" style="padding-left:0; list-style:none;">
+                    <li><a href="../index.html" style="display:flex; justify-content:space-between;">Java <span>(14)</span></a></li>
+                    <li><a href="../index.html" style="display:flex; justify-content:space-between;">React <span>(8)</span></a></li>
+                    <li><a href="../index.html" style="display:flex; justify-content:space-between;">Node.js <span>(6)</span></a></li>
+                    <li><a href="../index.html" style="display:flex; justify-content:space-between;">DSA <span>(11)</span></a></li>
+                    <li><a href="../index.html" style="display:flex; justify-content:space-between;">AI Tools <span>(4)</span></a></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="cbt-footer" style="margin-top: 50px;">
+        <div class="cbt-footer-container">
+            <div class="cbt-ft-col cbt-ft-brand">
+                <a href="../../index.html" class="cbt-logo">
+                    <span class="cbt-logo-bracket">&lt;/&gt;</span>
+                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                </a>
+                <p style="margin-top: 15px; color: var(--text-muted); line-height: 1.6;">Your ultimate destination for in-depth programming tutorials, career advice, and interview preparation.</p>
+            </div>
+            <div class="cbt-ft-col cbt-ft-newsletter">
+                <h3 style="margin-top: 0px;"><i class="fa-regular fa-paper-plane"></i> STAY UPDATED</h3>
+                <form class="cbt-ft-form cbt-course-subscribe-form">
+                    <div class="cbt-ft-input-group">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" class="newsletter-email" name="email" placeholder="Enter your email" required aria-label="Email Address">
+                    </div>
+                    <button type="submit" class="cbt-ft-btn">
+                        <span class="newsletter-btn-text">Subscribe Now</span> 
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+                <div class="newsletter-message" style="margin-top: 15px; font-size: 14px; display: none; padding: 10px; border-radius: 6px;"></div>
+            </div>
+        </div>
+        <div class="cbt-copyright-strip" style="text-align: center; border-top: 1px solid var(--border-color); padding: 20px 0; margin-top: 20px; background: transparent !important;">
+            <p>&copy; 2025 CodeByTushu. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JS files -->
+    <script src="../js/data.js"></script>
+    <script src="../js/blogs.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const subscribeForms = document.querySelectorAll('.cbt-course-subscribe-form');
+            subscribeForms.forEach(form => {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const emailInput = form.querySelector('.newsletter-email');
+                    const btn = form.querySelector('button[type="submit"]');
+                    const btnText = form.querySelector('.newsletter-btn-text') || btn;
+                    const msgDiv = form.parentNode.querySelector('.newsletter-message');
+                    const originalText = btnText.innerHTML;
+                    btn.disabled = true;
+                    btnText.innerHTML = 'Subscribing...';
+                    msgDiv.style.display = 'none';
+                    try {
+                        const response = await fetch('../../api/subscribe.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email: emailInput.value })
+                        });
+                        const data = await response.json();
+                        msgDiv.style.display = 'block';
+                        msgDiv.textContent = data.message;
+                        if (data.success) {
+                            msgDiv.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+                            msgDiv.style.color = '#4CAF50';
+                            msgDiv.style.border = '1px solid #4CAF50';
+                            form.reset();
+                        } else {
+                            msgDiv.style.backgroundColor = 'rgba(244, 67, 54, 0.1)';
+                            msgDiv.style.color = '#f44336';
+                            msgDiv.style.border = '1px solid #f44336';
+                        }
+                    } catch (error) {
+                        msgDiv.style.display = 'block';
+                        msgDiv.textContent = 'Network error. Please try again later.';
+                        msgDiv.style.backgroundColor = 'rgba(244, 67, 54, 0.1)';
+                        msgDiv.style.color = '#f44336';
+                        msgDiv.style.border = '1px solid #f44336';
+                    } finally {
+                        btn.disabled = false;
+                        btnText.innerHTML = originalText;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

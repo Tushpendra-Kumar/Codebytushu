@@ -118,6 +118,14 @@ function navActive(string ...$pages): string {
           <span class="nav-badge"><?= $unreadCount > 99 ? '99+' : $unreadCount ?></span>
         <?php endif; ?>
       </a>
+      <a href="<?= SITE_URL ?>/admin/newsletter.php"
+         class="nav-item<?= navActive('newsletter') ?>"
+         data-label="Newsletter">
+        <span class="nav-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 17v1c0 .5-.5 1-1 1H3c-.5 0-1-.5-1-1v-1"/><path d="M2 9a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v6H2V9z"/><path d="M12 12V3"/><path d="M8 7l4-4 4 4"/></svg>
+        </span>
+        <span class="nav-label">Newsletter</span>
+      </a>
     </div>
 
     <!-- System -->

@@ -1,5 +1,5 @@
 // =============================================================================
-// app.js — Video Editor Website (video-editor-website/)
+// app.js — Video Editor Website (video-editing/)
 // PHP MIGRATION NOTE: This file handles all client-side interactions.
 // When converting to PHP, this file stays 100% identical — only the
 // HTML data source (index.html → index.php) changes.
@@ -12,9 +12,11 @@
 const hamburger = document.getElementById("hamburger");
 const nav = document.getElementById("nav");
 
-hamburger.addEventListener("click", () => {
-  nav.classList.toggle("show");
-});
+if (hamburger && nav) {
+  hamburger.addEventListener("click", () => {
+    nav.classList.toggle("show");
+  });
+}
 
 // Close menu on link click (mobile)
 document.querySelectorAll(".nav-link").forEach((link) => {
@@ -65,7 +67,9 @@ if (scrollTopBtn) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  emailjs.init("UtmoyVGBgxwM4qves");
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init("UtmoyVGBgxwM4qves");
+  }
 
   const form = document.getElementById("contactForm");
   const note = document.getElementById("formNote");
@@ -96,4 +100,37 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+});
+
+// ====================== PORTFOLIO FILTERING ======================
+document.addEventListener("DOMContentLoaded", function () {
+  const filterPills = document.querySelectorAll(".cbt-ve-cat-pill");
+  const projectCards = document.querySelectorAll(".cbt-ve-project-card");
+
+  filterPills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      // Remove active class from all pills
+      filterPills.forEach((p) => p.classList.remove("active"));
+      // Add active class to clicked pill
+      pill.classList.add("active");
+
+      const filterValue = pill.textContent.trim().toLowerCase();
+
+      projectCards.forEach((card) => {
+        const categorySpan = card.querySelector(".cbt-ve-project-category");
+        const categoryText = categorySpan ? categorySpan.textContent.trim().toLowerCase() : "";
+
+        // Filter logic
+        if (filterValue === "all work" || categoryText.includes(filterValue) || filterValue.includes(categoryText)) {
+          card.classList.remove("hide-card");
+          // Trigger reflow for animation
+          void card.offsetWidth;
+          card.classList.add("show-card");
+        } else {
+          card.classList.remove("show-card");
+          card.classList.add("hide-card");
+        }
+      });
+    });
+  });
 });

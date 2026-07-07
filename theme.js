@@ -2,7 +2,7 @@
  * theme.js — Global dark/light mode that persists across ALL pages
  * Include this script in every page's <head> to prevent flash.
  *
- * SHARED UTILITY: Used by index.html, all Leetcode pages, video-editor-website.
+ * SHARED UTILITY: Used by index.html, all Leetcode pages, video-editing.
  * Located at root (/theme.js) so all sub-pages can load it via absolute path.
  *
  * PHP MIGRATION NOTE:

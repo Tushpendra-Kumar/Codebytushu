@@ -3,7 +3,7 @@
  * Injects a "Back to Home" pill + "Back to Top" circle button
  * on every sub-page that includes this script.
  *
- * SHARED UTILITY: Used by all sub-pages under /Leetcode/ and /video-editor-website/
+ * SHARED UTILITY: Used by all sub-pages under /Leetcode/ and /video-editing/
  * Located at root (/back-home.js) so all sub-pages can load via absolute path.
  *
  * Usage: <script src="/back-home.js"></script> before </body>

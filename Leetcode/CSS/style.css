@@ -31,397 +31,39 @@
 /* Body */
 
 body {
-    background: #000000;
+    background: transparent;
 
     color: white;
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 
 
-/* Navbar */
-
-.navbar {
-
-    position: fixed;
-
-    top: 20px;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    width: 92%;
-
-    padding: 18px 40px;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    z-index: 1000;
-
-    background: rgba(0, 0, 0, 0.7);
-
-    backdrop-filter: blur(18px);
-
-    -webkit-backdrop-filter: blur(18px);
-
-    border: 1px solid rgba(255, 196, 0, 0.15);
-
-    border-radius: 26px;
-
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.5),
-        0 0 40px rgba(255, 196, 0, 0.04),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-
-    transition: all 0.4s ease;
-}
-
-
-/* Sticky Navbar */
-
-.sticky {
-
-    background: rgba(10, 10, 12, 0.82);
-
-    backdrop-filter: blur(22px);
-
-    box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.45),
-        0 0 25px rgba(255, 196, 0, 0.08);
-
-    border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-
-/* Logo Area */
-
-.logo-area {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 8px;
-}
-
-
-/* Top Logo */
-
-.top-logo {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-}
-
-
-/* Main Logo */
-
-.main-logo {
-
-    font-size: 44px;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-
-    cursor: pointer;
-
-    transition: 0.4s ease;
-}
-
-
-/* Logo Hover */
-
-.main-logo:hover {
-
-    transform: scale(1.02);
-
-    filter: drop-shadow(0 0 12px rgba(255, 196, 0, 0.35));
-}
-
-
-/* White Text */
-
-.white-text {
-    color: white;
-}
-
-
-/* Golden Text */
-
-.gold-text {
-
-    color: #ffc400;
-
-    text-shadow: 0 0 18px rgba(255, 196, 0, 0.35);
-}
-
-
-/* Bottom Logo */
-
-.bottom-logo {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-}
-
-
-/* Sub Logo */
-
-.sub-logo {
-
-    font-size: 18px;
-
-    font-weight: 700;
-
-    letter-spacing: 4px;
-
-    color: #9f9f9f;
-}
-
-
-/* Orange Text */
-
-.sub-logo span {
-
-    color: #ffc400;
-}
-
-
-/* Unlock Icon */
-
-.unlock-icon {
-
-    width: 28px;
-
-    height: 28px;
-
-    object-fit: contain;
-
-    transition: 0.4s ease;
-}
-
-
-/* Unlock Hover */
-
-.unlock-icon:hover {
-
-    transform: rotate(-8deg) scale(1.12);
-
-    filter: drop-shadow(0 0 12px rgba(255, 196, 0, 0.45));
-}
-
-
-/* Navigation Menu */
-
-/* nav element wraps both ul + auth slot — makes Login appear on right */
-nav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-nav ul {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 18px;
-
-    list-style: none;
-}
-
-
-/* Navigation Links */
-
-nav ul li a {
-
-    position: relative;
-
-    color: rgba(255, 255, 255, 0.88);
-
-    text-decoration: none;
-
-    font-size: 17px;
-
-    font-weight: 500;
-
-    padding: 14px 22px;
-
-    border-radius: 14px;
-
-    transition: all 0.35s ease;
-
-    overflow: hidden;
-}
-
-
-/* Hover Effect */
-
-nav ul li a:hover {
-
-    color: #ffffff;
-
-    background: rgba(255, 255, 255, 0.06);
-
-    transform: translateY(-2px) scale(1.03);
-
-    box-shadow:
-        0 4px 18px rgba(255, 196, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-
-/* Active Link */
-
-.active {
-
-    color: #ffc400 !important;
-
-    background: rgba(255, 196, 0, 0.10);
-
-    box-shadow:
-        0 0 18px rgba(255, 196, 0, 0.12);
-}
-
-
-/* Animated Glow Line */
-
-nav ul li a::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 50%;
-    bottom: 6px;
-
-    width: 0%;
-    height: 2px;
-
-    background: #ffc400;
-
-    border-radius: 20px;
-
-    transform: translateX(-50%);
-
-    transition: 0.35s ease;
-}
-
-
-/* Hover Underline */
-
-nav ul li a:hover::after {
-
-    width: 60%;
-}
-
-
-/* Mobile Responsive */
-
-@media(max-width: 950px) {
-
-    .navbar {
-
-        width: 95%;
-
-        padding: 18px 24px;
-
-        flex-direction: column;
-
-        gap: 22px;
-    }
-
-    .main-logo {
-
-        font-size: 34px;
-    }
-
-    .sub-logo {
-
-        font-size: 15px;
-
-        letter-spacing: 2px;
-    }
-
-    nav ul {
-
-        gap: 10px;
-
-        flex-wrap: wrap;
-
-        justify-content: center;
-    }
-
-    nav ul li a {
-
-        padding: 12px 16px;
-
-        font-size: 15px;
-    }
-}
+/* Old LeetCode Navbar styles removed to inherit premium cbt-navbar from main styles.css */
 
 /* Hero Button */
 
 .hero-btn {
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     margin-top: 35px;
-
-    padding: 16px 34px;
-
+    padding: 12px 28px;
     background: rgba(255, 196, 0, 0.12);
-
-    border: 1px solid rgba(255, 196, 0, 0.45);
-
-    border-radius: 16px;
-
+    border: 1px solid rgba(255, 196, 0, 0.6);
+    border-radius: 30px;
     color: #ffc400;
-
     text-decoration: none;
-
-    font-size: 16px;
-
+    font-size: 15px;
     font-weight: 600;
-
-    letter-spacing: 0.5px;
-
     backdrop-filter: blur(10px);
-
-    box-shadow:
-        0 0 20px rgba(255, 196, 0, 0.08);
-
-    transition: all 0.35s ease;
+    transition: all 0.3s ease;
 }
-
 
 /* Hero Button Hover */
 
 .hero-btn:hover {
-
-    transform: translateY(-4px) scale(1.03);
-
-    background: #ffc400;
-
-    color: #000000;
-
-    box-shadow:
-        0 10px 30px rgba(255, 196, 0, 0.35);
+    background: rgba(255, 196, 0, 0.1);
+    transform: translateX(5px);
 }
 
 /* Bottom Logo */
@@ -457,7 +99,7 @@ nav ul li a:hover::after {
 
     max-width: 1280px;
 
-    margin: 160px auto 90px;
+    margin: 160px auto 20px;
 
     padding: 75px 65px;
 
@@ -471,7 +113,7 @@ nav ul li a:hover::after {
 
     box-sizing: border-box;
 
-    background: linear-gradient(to right, #15151b, #1d1d24);
+    background: transparent;
 
     border-radius: 30px;
 
@@ -582,7 +224,7 @@ nav ul li a:hover::after {
 
     width: 85%;
 
-    margin: 100px auto;
+    margin: 0 auto 100px auto;
 }
 
 
@@ -647,64 +289,42 @@ nav ul li a:hover::after {
 ========================= */
 
 .year-card {
-
     width: 340px;
-
-    background: linear-gradient(145deg,
-            #17171d,
-            #101014);
-
-    padding: 35px;
-
-    border-radius: 24px;
-
-    border: 1px solid #24242c;
-
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 35px 25px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
     position: relative;
-
     overflow: hidden;
-
-    transition: 0.4s ease;
+    transition: all 0.3s ease;
 }
-
 
 /* =========================
    GLOW EFFECT
 ========================= */
 
 .year-card::before {
-
     content: "";
-
     position: absolute;
-
     width: 180px;
-
     height: 180px;
-
     background: rgba(255, 196, 0, 0.08);
-
     border-radius: 50%;
-
     top: -70px;
-
     right: -70px;
-
     transition: 0.5s;
 }
-
 
 /* =========================
    CARD HOVER
 ========================= */
 
 .year-card:hover {
-
-    transform: translateY(-10px);
-
-    border-color: #ffc400;
-
-    box-shadow: 0 0 30px rgba(255, 196, 0, 0.12);
+    transform: translateY(-5px);
+    border-color: rgba(255, 196, 0, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 20px rgba(255, 196, 0, 0.1);
 }
 
 
@@ -775,29 +395,17 @@ nav ul li a:hover::after {
 ========================= */
 
 .explore-btn {
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 8px;
-
     background: #ffc400;
-
     color: black;
-
     text-decoration: none;
-
-    padding: 14px 28px;
-
-    border-radius: 12px;
-
+    padding: 12px 28px;
+    border-radius: 30px;
     font-weight: 700;
-
     font-size: 15px;
-
     transition: 0.3s ease;
 }
 
@@ -1449,13 +1057,21 @@ section {
     display: flex;
     align-items: center;
     gap: 60px;
-    background: linear-gradient(145deg, #17171d, #101014);
-    border: 1px solid #24242c;
-    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
     padding: 60px 55px;
     position: relative;
     overflow: hidden;
-    transition: 0.4s ease;
+    transition: all 0.3s ease;
+}
+
+.donate-section-inner:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 196, 0, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 20px rgba(255, 196, 0, 0.1);
 }
 
 .donate-section-inner::before {
@@ -1540,7 +1156,7 @@ section {
     color: #000;
     text-decoration: none;
     padding: 15px 34px;
-    border-radius: 14px;
+    border-radius: 30px;
     font-weight: 800;
     font-size: 16px;
     letter-spacing: 0.3px;
@@ -1673,7 +1289,7 @@ section {
     padding: 12px;
     background: #ffc400;
     color: #000;
-    border-radius: 10px;
+    border-radius: 30px;
     font-size: 14px;
     font-weight: 800;
     margin-top: 4px;
@@ -1701,5 +1317,12 @@ section {
     .donate-card-preview {
         width: 100%;
         max-width: 300px;
+    }
+}
+
+/* LeetCode Footer 4-Column Layout (Desktop Only) */
+@media (min-width: 1025px) {
+    .cbt-footer-container.cbt-footer-4col {
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
     }
 }

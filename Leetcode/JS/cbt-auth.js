@@ -18,13 +18,9 @@
         var h = window.location.hostname;
         var p = window.location.pathname;
 
-        // If we are on localhost and the path starts with /Codebytushu/, use that as base
-        if (h === 'localhost' || h === '127.0.0.1') {
-            // Extract the first path segment (e.g. "Codebytushu")
-            var seg = p.match(/^\/([^/]+)\//);
-            if (seg) {
-                return '/' + seg[1]; // → "/Codebytushu"
-            }
+        // Check if the project is being served from the /Codebytushu/ folder (e.g., XAMPP)
+        if (p.indexOf('/Codebytushu/') === 0 || p === '/Codebytushu') {
+            return '/Codebytushu';
         }
         return ''; // production: site is at root
     })();

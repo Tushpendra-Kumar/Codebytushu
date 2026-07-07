@@ -1,0 +1,404 @@
+/* =========================================================
+   courses.css - Styles for Courses and Cart pages
+   Premium Black & Gold Theme (CodeByTushu)
+========================================================= */
+
+:root {
+    --primary: var(--accent);
+    --bg-main: #0a0a0a;
+    --bg-card: #111;
+    --bg-card-hover: #1a1a1a;
+    --text-main: #f5f5f5;
+    --text-muted: #a0a0a0;
+    --border-color: rgba(255, 196, 0, 0.2);
+}
+
+/* -------- Hero Section -------- */
+.cbt-courses-hero {
+    padding: 120px 20px 60px;
+    background: transparent !important;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.cbt-courses-hero h1 {
+    font-size: 3rem;
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.cbt-courses-hero h1 .highlight {
+    color: var(--primary);
+}
+
+.cbt-courses-hero p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+/* -------- Search & Filters -------- */
+.cbt-courses-search {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.cbt-courses-search input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: var(--bg-card-hover);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.cbt-courses-search input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(255, 196, 0, 0.2);
+}
+
+.cbt-courses-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.cbt-filter-btn {
+    background: rgba(22, 22, 22, 0.5); /* Semi-transparent */
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.cbt-filter-btn:hover,
+.cbt-filter-btn.active {
+    background: var(--primary);
+    color: #111;
+    border-color: var(--primary);
+    font-weight: 600;
+}
+
+/* -------- Course Grid -------- */
+.cbt-courses-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+}
+
+.cbt-section-title {
+    font-size: 2rem;
+    color: var(--text-heading);
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+.cbt-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60%;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 2px;
+}
+
+.cbt-course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* -------- Miscellaneous -------- */
+.cbt-course-details-sidebar {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    position: sticky;
+    top: 100px;
+}
+
+/* Make footer translucent to show global fixed background */
+.cbt-footer {
+    background: rgba(8, 8, 8, 0.4) !important;
+    backdrop-filter: blur(8px);
+}
+.cbt-copyright-strip {
+    background: transparent !important;
+}
+
+/* -------- Course Card -------- */
+.cbt-course-card {
+    background: rgba(22, 22, 22, 0.5); /* Semi-transparent */
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.cbt-course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    border-color: rgba(255, 196, 0, 0.4);
+}
+
+.cbt-course-thumb {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cbt-course-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.cbt-course-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+.cbt-course-category {
+    background: rgba(255,196,0,0.1);
+    color: var(--primary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.cbt-course-title {
+    font-size: 1.25rem;
+    color: var(--text-heading);
+    margin-bottom: 10px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.cbt-course-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.cbt-course-details-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.cbt-course-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.cbt-course-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+.cbt-course-price.free {
+    color: #4CAF50;
+}
+
+.cbt-course-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.cbt-btn {
+    padding: 10px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.cbt-btn-primary {
+    background: var(--primary);
+    color: #111;
+}
+.cbt-btn-primary:hover {
+    background: #e6b000;
+    box-shadow: 0 4px 12px rgba(255,196,0,0.3);
+}
+
+.cbt-btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+.cbt-btn-outline:hover {
+    background: rgba(255,196,0,0.1);
+}
+
+/* -------- Cart Page -------- */
+.cbt-cart-container {
+    max-width: 900px;
+    margin: 120px auto 80px;
+    padding: 20px;
+    min-height: 60vh;
+}
+
+.cbt-cart-list {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.cbt-cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.cbt-cart-item:last-child {
+    border-bottom: none;
+}
+
+.cbt-cart-item-img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cbt-cart-item-info {
+    flex-grow: 1;
+}
+
+.cbt-cart-item-title {
+    font-size: 1.1rem;
+    color: var(--text-heading);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.cbt-cart-item-price {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.cbt-cart-remove {
+    background: rgba(255,50,50,0.1);
+    color: #ff5555;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.cbt-cart-remove:hover {
+    background: rgba(255,50,50,0.2);
+}
+
+.cbt-cart-summary {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    text-align: right;
+}
+
+.cbt-cart-total {
+    font-size: 1.5rem;
+    color: var(--text-heading);
+    margin-bottom: 20px;
+}
+.cbt-cart-total span {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.cbt-empty-cart {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-muted);
+}
+.cbt-empty-cart i {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    color: var(--border-color);
+}
+
+/* Nav Cart Counter */
+.cbt-nav-cart-btn {
+    position: relative;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 15px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+.cbt-nav-cart-btn:hover {
+    color: var(--primary);
+}
+.cbt-cart-counter {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: var(--primary);
+    color: #111;
+    font-size: 0.7rem;
+    font-weight: bold;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cbt-nav-right {
+    display: flex;
+    align-items: center;
+}
