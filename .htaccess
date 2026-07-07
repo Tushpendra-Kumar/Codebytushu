@@ -9,7 +9,7 @@ ServerSignature Off
 # ── Module Requirements ────────────────────────────────────────
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /Codebytushu/
+  RewriteBase /
 
   # ── Maintenance mode ────────────────────────────────────────
   # Create file /private/.maintenance to activate
@@ -17,7 +17,7 @@ ServerSignature Off
   RewriteCond %{REQUEST_URI} !^/maintenance\.html$
   RewriteCond %{REQUEST_URI} !^/admin/
   RewriteCond %{REQUEST_URI} !^/assets/
-  RewriteRule ^ /Codebytushu/maintenance.html [R=302,L]
+  RewriteRule ^ /maintenance.html [R=302,L]
 
   # ── Force HTTPS ──────────────────────────────────────────────
   # Uncomment in production:
