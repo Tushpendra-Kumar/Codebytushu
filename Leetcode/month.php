@@ -59,23 +59,132 @@ $days = $stmtDays->fetchAll();
         #cbt-auth-overlay * { filter: none !important; -webkit-filter: none !important; }
         .cbt-auth-modal { filter: none !important; -webkit-filter: none !important; }
 
+        /* ── Day Grid ── */
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+            padding: 32px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* ── Day Card ── */
         .day-card {
             background: #111118;
             border: 1px solid rgba(255,196,0,0.15);
             border-radius: 12px;
-            padding: 20px;
+            padding: 20px 12px;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
+            min-height: 140px;
             transition: all 0.3s ease;
+            overflow: hidden;
+            word-break: break-word;
         }
         .day-card:hover {
             border-color: rgba(255,196,0,0.5);
-            transform: translateY(-5px);
-            background: rgba(255,196,0,0.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transform: translateY(-4px);
+            background: rgba(255,196,0,0.04);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+        }
+        .day-card .day-num {
+            font-size: 34px;
+            font-weight: 800;
+            color: rgba(255,196,0,0.2);
+            line-height: 1;
+            display: block;
+        }
+        .day-card h3 {
+            color: #fff;
+            margin: 8px 0 4px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .day-card .day-title {
+            color: #888;
+            font-size: 12px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            max-width: 100%;
+        }
+        .day-card .diff-badge {
+            font-size: 11px;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        .diff-easy   { background: rgba(44,186,126,0.12); color: #2cba7e; }
+        .diff-medium { background: rgba(255,196,0,0.12);  color: #ffc400; }
+        .diff-hard   { background: rgba(255,55,95,0.12);  color: #ff375f; }
+
+        /* ── Back btn ── */
+        .month-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 24px 5% 0;
+            padding: 10px 20px;
+            background: rgba(255,196,0,0.08);
+            border: 1px solid rgba(255,196,0,0.3);
+            border-radius: 30px;
+            color: #ffc400;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+        .month-back-btn:hover {
+            background: rgba(255,196,0,0.15);
+            transform: translateX(-3px);
+        }
+
+        /* ── Section heading ── */
+        .month-section-head {
+            text-align: center;
+            max-width: 900px;
+            margin: 20px auto 0;
+            padding: 0 5%;
+        }
+        .month-section-head h1 {
+            font-size: clamp(22px, 5vw, 36px);
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .month-section-head p {
+            color: #888;
+            font-size: 15px;
+        }
+
+        /* ── Mobile: 2-col → 1-col ── */
+        @media (max-width: 640px) {
+            .days-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 20px 4%;
+            }
+            .day-card { min-height: 120px; padding: 14px 8px; }
+            .day-card .day-num { font-size: 26px; }
+            .day-card h3 { font-size: 13px; }
+            .day-card .day-title { font-size: 11px; }
+        }
+        @media (max-width: 360px) {
+            .days-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                padding: 16px 3%;
+            }
+        }
+
+        /* ── Prevent horizontal overflow ── */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
         }
     </style>
 </head>
@@ -153,16 +262,15 @@ $days = $stmtDays->fetchAll();
 
     <br><br><br><br>
 
-    <div class="back-btn" style="margin-left: 5%; margin-top: 20px;">
-        <a href="<?= SITE_URL ?>/Leetcode/problems.php" style="color: #ffc400; text-decoration: none; font-weight: 600;">← Back to All Months</a>
-    </div>
+    <a href="/Leetcode/problems.php?year=<?= (int)$month['y_year'] ?>" class="month-back-btn">← Back to All Months</a>
+
     <section class="problems-page">
-        <div class="problems-content" style="text-align: center; max-width: 900px; margin: 0 auto;">
+        <div class="month-section-head">
             <h1><?= e($month['month_name']) ?> <?= e($month['y_year']) ?> Problems</h1>
             <p>Select any day to explore the LeetCode daily coding challenge solution.</p>
         </div>
 
-        <div class="days-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 40px 5%; max-width: 1200px; margin: 0 auto;">
+        <div class="days-grid">
             <?php 
             $totalDays = (int)$month['total_days'];
             
@@ -179,16 +287,16 @@ $days = $stmtDays->fetchAll();
                 $paddedDay = str_pad((string)$day, 2, '0', STR_PAD_LEFT);
             ?>
                 <a href="<?= SITE_URL ?>/Leetcode/solution.php?month=<?= (int)$month['id'] ?>&day=<?= $day ?>" class="day-card">
-                    <span style="font-size: 36px; font-weight: 800; color: rgba(255,196,0,0.2); line-height: 1;"><?= $paddedDay ?></span>
-                    <h3 style="color: #fff; margin: 10px 0 5px; font-size: 16px;">Day <?= $paddedDay ?></h3>
-                    
+                    <span class="day-num"><?= $paddedDay ?></span>
+                    <h3>Day <?= $paddedDay ?></h3>
+
                     <?php if ($sol): ?>
-                        <div style="color: #888; font-size: 12px; text-align: center; margin-bottom: 8px;"><?= e($sol['problem_title']) ?></div>
+                        <div class="day-title"><?= e($sol['problem_title']) ?></div>
                         <?php if ($sol['difficulty']): ?>
-                            <div style="font-size: 11px; padding: 2px 8px; border-radius: 10px; <?= strtolower($sol['difficulty']) === 'easy' ? 'background: rgba(44, 186, 126, 0.1); color: #2cba7e;' : (strtolower($sol['difficulty']) === 'medium' ? 'background: rgba(255, 196, 0, 0.1); color: #ffc400;' : 'background: rgba(255, 55, 95, 0.1); color: #ff375f;') ?>"><?= e($sol['difficulty']) ?></div>
+                            <span class="diff-badge diff-<?= strtolower($sol['difficulty']) ?>"><?= e($sol['difficulty']) ?></span>
                         <?php endif; ?>
                     <?php else: ?>
-                        <div style="color: #666; font-size: 12px; text-align: center; font-style: italic; margin-bottom: 8px;">Upcoming Solution</div>
+                        <div class="day-title" style="font-style:italic;color:#555;">Upcoming Solution</div>
                     <?php endif; ?>
                 </a>
             <?php endfor; ?>

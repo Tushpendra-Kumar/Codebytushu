@@ -31,42 +31,22 @@ body {
 
 /* =========================
    MAIN WRAPPER
+   Padding-top is overridden in solution.php <style> block
+   to use 120px (matching cbt-navbar height)
 ========================= */
 
 .problem-wrapper {
-    width: 88%;
-    margin: auto;
-    padding-top: 220px;
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding-top: 120px;
     padding-bottom: 80px;
 }
 
 
 
-/* =========================
-   PREMIUM NAVBAR
-========================= */
+/* Old .navbar styles removed — page now uses .cbt-navbar from styles.css */
 
-.navbar {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 92%;
-    padding: 22px 45px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    z-index: 1000;
-    background: rgba(15, 15, 18, 0.55);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 26px;
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    transition: all 0.4s ease;
-}
 
 
 
