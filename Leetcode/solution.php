@@ -405,8 +405,7 @@ if (!$sol && !$notFound) {
 
     <?php else: ?>
 
-    <div class="problem-wrapper">
-        <!-- Back button -->
+    <!-- Back button -->
     <div class="back-btn">
         <a href="/Leetcode/month.php?id=<?= $sol['month_id'] ?>">← Back to Month</a>
     </div>
@@ -700,7 +699,6 @@ function copyCode() {
         }
     });
 </script>
-    </div> <!-- /.problem-wrapper -->
 
 </body>
 </html>

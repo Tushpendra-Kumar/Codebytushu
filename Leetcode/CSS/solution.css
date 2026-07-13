@@ -227,10 +227,6 @@ nav ul li a:hover::after {
 
 .back-btn {
     margin-bottom: 28px;
-    position: sticky;
-    top: 100px;
-    z-index: 90;
-    display: inline-block;
 }
 
 .back-btn a {
@@ -841,11 +837,6 @@ nav ul li a:hover::after {
     .tags-card   { flex: 1 1 calc(50% - 8px); min-width: 140px; }
 
     .problem-wrapper { padding-top: 100px; }
-    
-    .back-btn {
-        position: static;
-        margin-bottom: 24px;
-    }
 }
 
 
