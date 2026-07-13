@@ -264,18 +264,7 @@ nav ul li a:hover::after {
     flex-wrap: wrap;
 }
 
-/* TAG / CATEGORY BADGE */
 
-.tag {
-    display: inline-block;
-    background: rgba(245, 166, 35, 0.15);
-    color: #f5a623;
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-}
 
 /* DIFFICULTY BADGES */
 

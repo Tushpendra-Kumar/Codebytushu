@@ -410,9 +410,8 @@ if (!$sol && !$notFound) {
         <a href="/Leetcode/month.php?id=<?= $sol['month_id'] ?>">← Back to Month</a>
     </div>
 
-    <!-- Problem meta row: category tag + difficulty + date -->
+    <!-- Problem meta row: difficulty + date -->
     <div class="problem-meta">
-        <span class="tag">ALGORITHM</span>
         <span class="<?= $diffClass ?>"><?= htmlspecialchars(strtoupper($sol['difficulty'] ?? 'Medium'), ENT_QUOTES, 'UTF-8') ?></span>
         <span class="problem-date"><?= date('d M Y', strtotime($sol['solution_date'])) ?></span>
         <?php if (!empty($sol['leetcode_url'])): ?>
