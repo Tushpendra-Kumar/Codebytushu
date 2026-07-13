@@ -227,6 +227,19 @@ nav ul li a:hover::after {
 
 .back-btn {
     margin-bottom: 28px;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* Reset global hover effect on the wrapper div */
+.back-btn:hover {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    transform: none !important;
 }
 
 .back-btn a {
@@ -241,13 +254,16 @@ nav ul li a:hover::after {
     border-radius: 14px;
     font-size: 15px;
     font-weight: 600;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
 .back-btn a:hover {
-    background: rgba(245, 166, 35, 0.16);
-    transform: translateY(-2px);
-    box-shadow: 0 0 18px rgba(245, 166, 35, 0.18);
+    background: rgba(245, 166, 35, 0.15);
+    color: #ffc400;
+    border-color: rgba(245, 166, 35, 0.5);
+    box-shadow: 0 4px 15px rgba(245, 166, 35, 0.15);
+    transform: none; /* Prevent layout shift or scale overflow */
 }
 
 
