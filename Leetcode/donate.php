@@ -43,28 +43,28 @@
         <div class="currency-option active" data-currency="INR" data-symbol="₹" data-rate="1" data-base="10">
             <span class="c-symbol">₹</span><span class="c-name">INR</span>
         </div>
-        <div class="currency-option" data-currency="USD" data-symbol="$" data-rate="0.012" data-base="2">
+        <div class="currency-option" data-currency="USD" data-symbol="$" data-rate="0.012" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">USD</span>
         </div>
-        <div class="currency-option" data-currency="AUD" data-symbol="$" data-rate="0.018" data-base="2">
+        <div class="currency-option" data-currency="AUD" data-symbol="$" data-rate="0.018" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">AUD</span>
         </div>
         <div class="currency-option" data-currency="GBP" data-symbol="£" data-rate="0.0095" data-base="1">
             <span class="c-symbol">£</span><span class="c-name">GBP</span>
         </div>
-        <div class="currency-option" data-currency="CAD" data-symbol="$" data-rate="0.016" data-base="2">
+        <div class="currency-option" data-currency="CAD" data-symbol="$" data-rate="0.016" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">CAD</span>
         </div>
-        <div class="currency-option" data-currency="MYR" data-symbol="RM" data-rate="0.056" data-base="5">
+        <div class="currency-option" data-currency="MYR" data-symbol="RM" data-rate="0.056" data-base="1">
             <span class="c-symbol">RM</span><span class="c-name">MYR</span>
         </div>
-        <div class="currency-option" data-currency="MXN" data-symbol="$" data-rate="0.2" data-base="20">
+        <div class="currency-option" data-currency="MXN" data-symbol="$" data-rate="0.2" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">MXN</span>
         </div>
-        <div class="currency-option" data-currency="SGD" data-symbol="$" data-rate="0.016" data-base="2">
+        <div class="currency-option" data-currency="SGD" data-symbol="$" data-rate="0.016" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">SGD</span>
         </div>
-        <div class="currency-option" data-currency="PLN" data-symbol="zł" data-rate="0.048" data-base="5">
+        <div class="currency-option" data-currency="PLN" data-symbol="zł" data-rate="0.048" data-base="1">
             <span class="c-symbol">zł</span><span class="c-name">PLN</span>
         </div>
     </div>
@@ -234,18 +234,22 @@
         const amountInput = document.getElementById('amountInput');
         
         amountInput.addEventListener('input', function() {
-            let val = parseFloat(this.value);
-            if (isNaN(val) || val < 0) val = 0;
-            currentAmount = val;
-            updateAmount();
+            let val = parseInt(this.value, 10);
+            if (!isNaN(val)) {
+                currentAmount = val;
+                updateAmount();
+            }
         });
 
         amountInput.addEventListener('blur', function() {
-            if (currentAmount < currentCurrency.base) {
+            let val = parseInt(this.value, 10);
+            if (isNaN(val) || val < currentCurrency.base) {
                 currentAmount = currentCurrency.base;
-                this.value = currentAmount;
-                updateAmount();
+            } else {
+                currentAmount = val;
             }
+            this.value = currentAmount;
+            updateAmount();
         });
 
         // ---- Qty buttons (Step Selector) ----
@@ -282,6 +286,13 @@
 
         // ---- Support button click (UPI QR Generation) ----
         document.getElementById('supportBtn').addEventListener('click', function () {
+            // Strict validation before proceeding
+            if (isNaN(currentAmount) || currentAmount < currentCurrency.base) {
+                currentAmount = currentCurrency.base;
+                amountInput.value = currentAmount;
+                updateAmount();
+            }
+            
             // Calculate exact INR value
             const inrAmount = (currentAmount / currentCurrency.rate).toFixed(2);
             
