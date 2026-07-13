@@ -149,6 +149,11 @@ $days = $stmtDays->fetchAll();
             transform: translateX(-3px);
         }
 
+        /* ── Problems Page Wrapper ── */
+        .problems-page {
+            flex-direction: column;
+        }
+
         /* ── Section heading ── */
         .month-section-head {
             text-align: center;
@@ -169,7 +174,6 @@ $days = $stmtDays->fetchAll();
         /* ── Mobile: Stack header & 1-col grid ── */
         @media (max-width: 640px) {
             .problems-page {
-                flex-direction: column;
                 margin-top: 40px;
             }
             .month-section-head {
