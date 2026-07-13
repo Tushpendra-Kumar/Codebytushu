@@ -46,12 +46,12 @@ $days = $stmtDays->fetchAll();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Main Website Styling System -->
+    <!-- Main Website Styling System (root-relative) -->
     <link rel="stylesheet" href="/styles.css?v=33">
 
-    <!-- LeetCode Specific Overrides -->
-    <link rel="stylesheet" href="CSS/style.css">
-    <link rel="stylesheet" href="<?= SITE_URL ?>/Leetcode/auth.css">
+    <!-- LeetCode Specific Overrides (root-relative) -->
+    <link rel="stylesheet" href="/Leetcode/CSS/style.css">
+    <link rel="stylesheet" href="/Leetcode/auth.css">
     
     <style>
         .cbt-content-locked { filter: none !important; -webkit-filter: none !important; }
@@ -81,30 +81,75 @@ $days = $stmtDays->fetchAll();
 </head>
 
 <body>
-    <header class="navbar">
-        <div class="logo-area">
-            <div class="top-logo">
-                <h1 class="main-logo">
-                    <a href="<?= SITE_URL ?>/Leetcode/index.html" style="text-decoration:none;">
-                        <span class="white-text">CODEBY</span><span class="gold-text">TUSHU</span>
-                    </a>
-                </h1>
+
+    <!-- PREMIUM NAVBAR -->
+    <nav class="cbt-navbar navbar" id="mainNavbar" role="navigation" aria-label="Main navigation">
+        <div class="cbt-nav-inner">
+            <div class="cbt-logo" id="cbt-logo">
+                <a href="/Leetcode/index.html" id="cbt-logo-link" aria-label="CodeByTushu Home" style="display:flex;align-items:center;gap:7px;text-decoration:none;">
+                    <img src="/image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
+                    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0;">
+                        <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                        <span style="display:flex;align-items:center;gap:4px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:#aaa;margin-top:-2px;line-height:1;">
+                            LEETCODE <span style="color:#ffc400;">UNLOCKED</span>
+                            <img src="/Leetcode/assets/logo.png/unlocked.png" alt="" style="width:13px;">
+                        </span>
+                    </div>
+                </a>
             </div>
-            <div class="bottom-logo">
-                <h2 class="sub-logo">LEETCODE <span>UNLOCKED</span></h2>
-                <img src="<?= SITE_URL ?>/Leetcode/assets/logo.png/unlocked.png" alt="unlock icon" class="unlock-icon">
+            <ul class="cbt-center-nav" id="cbt-center-nav" role="menubar">
+                <li role="none"><a href="/Leetcode/index.html"   class="cbt-nav-link" id="nav-home"    role="menuitem" tabindex="0">Home</a></li>
+                <li role="none"><a href="/Leetcode/problems.php" class="cbt-nav-link active" id="nav-problems" role="menuitem" tabindex="0">Problems</a></li>
+                <li role="none"><a href="/Leetcode/donate.php"  class="cbt-nav-link" id="nav-donate"  role="menuitem" tabindex="0">Donate</a></li>
+            </ul>
+            <div class="cbt-nav-right" id="cbt-nav-right">
+                <button class="cbt-hamburger-btn" id="cbt-hamburger-btn" aria-label="Open more links" aria-expanded="false">
+                    <span class="cbt-ham-bar"></span><span class="cbt-ham-bar"></span><span class="cbt-ham-bar"></span>
+                </button>
+            </div>
+            <div class="cbt-mobile-right" id="cbt-mobile-right">
+                <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn" aria-label="Open mobile menu" aria-expanded="false">
+                    <span class="cbt-ham-bar"></span><span class="cbt-ham-bar"></span><span class="cbt-ham-bar"></span>
+                </button>
             </div>
         </div>
+        <div class="cbt-panel-overlay" id="cbt-panel-overlay" aria-hidden="true"></div>
+        <div class="cbt-ham-panel" id="cbt-ham-panel" role="dialog" aria-modal="true" aria-hidden="true" style="display:none;">
+            <button class="cbt-panel-close" id="cbt-panel-close" aria-label="Close">&#x2715;</button>
+            <p class="cbt-panel-label">CodeByTushu</p>
+            <nav class="cbt-panel-nav">
+                <a href="/privacy-policy/" class="cbt-panel-link">Privacy Policy</a>
+                <a href="/terms/"          class="cbt-panel-link">Terms &amp; Conditions</a>
+                <a href="/disclaimer/"     class="cbt-panel-link">Disclaimer</a>
+            </nav>
+        </div>
+        <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true" style="display:none;"></div>
+        <div class="cbt-mobile-drawer" id="cbt-mobile-drawer" role="dialog" aria-modal="true" aria-hidden="true">
+            <div class="cbt-drawer-header">
+                <div class="cbt-logo">
+                    <a href="/Leetcode/index.html" tabindex="-1" style="display:flex;align-items:center;gap:7px;text-decoration:none;">
+                        <img src="/image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img" style="height:35px;">
+                        <span class="cbt-logo-text" style="font-size:18px;">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                    </a>
+                </div>
+                <button class="cbt-drawer-close" id="cbt-drawer-close" aria-label="Close">&#x2715;</button>
+            </div>
+            <div class="cbt-drawer-body">
+                <ul class="cbt-drawer-primary" role="menu">
+                    <li><a href="/Leetcode/index.html"   class="cbt-drawer-link" role="menuitem">Home</a></li>
+                    <li><a href="/Leetcode/problems.php" class="cbt-drawer-link" role="menuitem">Problems</a></li>
+                    <li><a href="/Leetcode/donate.php"   class="cbt-drawer-link" role="menuitem">Donate</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <nav>
-            <ul>
-                <li><a href="<?= SITE_URL ?>/Leetcode/index.html">Home</a></li>
-                <li><a href="<?= SITE_URL ?>/Leetcode/problems.php" class="active">Problems</a></li>
-                <li><a href="<?= SITE_URL ?>/Leetcode/donate.php">Donate</a></li>
-                <li><a href="/#contact">Contact Me</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- BACKGROUND -->
+    <div class="cbt-hero-bg" style="position:fixed;width:100vw;height:100vh;z-index:-1;">
+        <div class="cbt-glow-center"></div>
+        <div class="cbt-streak cbt-streak-1"></div><div class="cbt-streak cbt-streak-2"></div>
+        <div class="cbt-circle cbt-circle-left"></div><div class="cbt-circle cbt-circle-right"></div>
+    </div>
 
     <br><br><br><br>
 
@@ -149,6 +194,41 @@ $days = $stmtDays->fetchAll();
             <?php endfor; ?>
         </div>
     </section>
+
+    <script src="/back-home.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var cbtNav = document.getElementById('mainNavbar');
+            if (cbtNav) window.addEventListener('scroll', function () {
+                cbtNav.classList.toggle('sticky', window.scrollY > 20);
+            }, { passive: true });
+            var deskHam = document.getElementById('cbt-hamburger-btn');
+            var panel = document.getElementById('cbt-ham-panel');
+            var pOver = document.getElementById('cbt-panel-overlay');
+            var pClose = document.getElementById('cbt-panel-close');
+            var pOpen = false;
+            if (deskHam && panel) {
+                function openP() { pOpen=true; pOver.style.display='block'; panel.style.display='flex'; requestAnimationFrame(function(){pOver.classList.add('active');panel.classList.add('is-open');}); deskHam.setAttribute('aria-expanded','true'); }
+                function closeP() { pOpen=false; pOver.classList.remove('active'); panel.classList.remove('is-open'); deskHam.setAttribute('aria-expanded','false'); setTimeout(function(){if(!pOpen){pOver.style.display='none';panel.style.display='none';}},350); }
+                deskHam.addEventListener('click', function(e){e.stopPropagation(); pOpen?closeP():openP();});
+                if(pClose) pClose.addEventListener('click', closeP);
+                if(pOver) pOver.addEventListener('click', closeP);
+            }
+            var mobHam = document.getElementById('cbt-mobile-ham-btn');
+            var drawer = document.getElementById('cbt-mobile-drawer');
+            var dOver = document.getElementById('cbt-mobile-overlay');
+            var dClose = document.getElementById('cbt-drawer-close');
+            var dOpen = false;
+            if (mobHam && drawer) {
+                function openD() { dOpen=true; dOver.style.display='block'; requestAnimationFrame(function(){dOver.classList.add('active');drawer.classList.add('is-open');}); mobHam.setAttribute('aria-expanded','true'); }
+                function closeD() { dOpen=false; dOver.classList.remove('active'); drawer.classList.remove('is-open'); mobHam.setAttribute('aria-expanded','false'); setTimeout(function(){if(!dOpen)dOver.style.display='none';},350); }
+                mobHam.addEventListener('click', function(e){e.stopPropagation(); dOpen?closeD():openD();});
+                if(dClose) dClose.addEventListener('click', closeD);
+                if(dOver) dOver.addEventListener('click', closeD);
+                drawer.querySelectorAll('.cbt-drawer-link').forEach(function(l){l.addEventListener('click',closeD);});
+            }
+        });
+    </script>
 
 </body>
 </html>
