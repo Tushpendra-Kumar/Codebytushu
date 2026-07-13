@@ -166,21 +166,32 @@ $days = $stmtDays->fetchAll();
             font-size: 15px;
         }
 
-        /* ── Mobile: strict 2-col grid ── */
+        /* ── Mobile: Stack header & 1-col grid ── */
         @media (max-width: 640px) {
+            .problems-page {
+                flex-direction: column;
+                margin-top: 40px;
+            }
+            .month-section-head {
+                max-width: 100%;
+                margin-bottom: 25px;
+                padding: 0 4%;
+            }
             .days-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-                padding: 16px 3%;
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 10px 4%;
+                width: 100%;
             }
             .day-card {
-                padding: 14px 8px;
-                border-radius: 12px;
+                padding: 18px 12px;
+                border-radius: 14px;
+                min-height: auto;
             }
-            .day-card .day-num { font-size: 24px; }
-            .day-card h3 { font-size: 13px; margin: 6px 0 3px; }
-            .day-card .day-title { font-size: 11px; }
-            .day-card .diff-badge { font-size: 10px; padding: 2px 8px; }
+            .day-card .day-num { font-size: 26px; margin-bottom: 4px; }
+            .day-card h3 { font-size: 16px; margin: 4px 0 6px; }
+            .day-card .day-title { font-size: 13px; margin-bottom: 8px; }
+            .day-card .diff-badge { font-size: 11px; padding: 4px 12px; margin-top: 4px; }
         }
         @media (max-width: 380px) {
             .days-grid { gap: 8px; padding: 12px 3%; }
