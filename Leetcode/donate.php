@@ -24,6 +24,15 @@
          inline dark/light toggle (body class) which is separate from
          the global data-theme system. Both coexist safely. -->
     <script src="/theme.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Main Website Styling System -->
+    <link rel="stylesheet" href="/styles.css?v=33">
+
+    <!-- LeetCode Specific Overrides -->
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/donate.css">
 </head>
