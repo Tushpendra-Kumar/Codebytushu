@@ -225,11 +225,11 @@ nav ul li a:hover::after {
    BACK BUTTON
 ========================= */
 
-.back-btn {
+.solution-back-wrapper {
     margin-bottom: 28px;
 }
 
-.back-btn a {
+.sol-back-btn {
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -244,7 +244,7 @@ nav ul li a:hover::after {
     transition: 0.3s ease;
 }
 
-.back-btn a:hover {
+.sol-back-btn:hover {
     background: rgba(245, 166, 35, 0.16);
     transform: translateY(-2px);
     box-shadow: 0 0 18px rgba(245, 166, 35, 0.18);
@@ -864,6 +864,9 @@ nav ul li a:hover::after {
     }
 
     /* Problem meta badges — prevent spilling into navbar area */
+    .solution-back-wrapper {
+        margin-bottom: 24px;
+    }
     .problem-meta {
         margin-top: 4px;
         flex-wrap: wrap;
