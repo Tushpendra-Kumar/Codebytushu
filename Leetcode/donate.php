@@ -40,7 +40,7 @@
 
     <!-- ===== CURRENCY SIDEBAR ===== -->
     <div class="currency-sidebar" id="currencySidebar">
-        <div class="currency-option active" data-currency="INR" data-symbol="₹" data-rate="1" data-base="100">
+        <div class="currency-option active" data-currency="INR" data-symbol="₹" data-rate="1" data-base="10">
             <span class="c-symbol">₹</span><span class="c-name">INR</span>
         </div>
         <div class="currency-option" data-currency="USD" data-symbol="$" data-rate="0.012" data-base="2">
@@ -97,8 +97,9 @@
             <!-- Amount Selector -->
             <div class="amount-row" style="display:flex;align-items:center;justify-content:center;gap:15px;margin:30px 0;">
                 <button id="btnMinus" class="qty-btn" style="width:40px;height:40px;font-size:20px;padding:0;display:flex;align-items:center;justify-content:center;">-</button>
-                <div style="font-size:24px;font-weight:700;color:var(--text);min-width:100px;text-align:center;">
-                    <span id="displayAmount">₹100</span>
+                <div style="display:flex; align-items:center; font-size:24px; font-weight:700; color:var(--text); justify-content:center; gap:2px;">
+                    <span id="currencySymbolPrefix">₹</span>
+                    <input type="number" id="amountInput" value="10" min="10" style="background:transparent; border:none; color:var(--text); font-size:24px; font-weight:700; width:100px; outline:none; -moz-appearance:textfield; padding:0;">
                 </div>
                 <button id="btnPlus" class="qty-btn" style="width:40px;height:40px;font-size:20px;padding:0;display:flex;align-items:center;justify-content:center;">+</button>
             </div>
@@ -166,6 +167,13 @@
             transition: color 0.2s;
         }
         .modal-close:hover { color: var(--accent); }
+        
+        /* Hide spin buttons for number input */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
     </style>
     <div id="toast" class="toast"></div>
 
@@ -178,8 +186,8 @@
         }
 
         // ---- State ----
-        let currentCurrency = { symbol: '₹', rate: 1, base: 100, name: 'INR' };
-        let currentQty = 1;
+        let currentCurrency = { symbol: '₹', rate: 1, base: 10, name: 'INR' };
+        let currentAmount = 10;
 
         // ---- Sidebar toggle ----
         function toggleSidebar() {
@@ -210,30 +218,55 @@
 
                 document.getElementById('badgeSymbol').textContent = currentCurrency.symbol;
                 document.getElementById('badgeName').textContent   = currentCurrency.name;
+                document.getElementById('currencySymbolPrefix').textContent = currentCurrency.symbol;
 
                 document.getElementById('currencySidebar').classList.remove('open');
+                
+                // Reset amount to the new currency's base
+                currentAmount = currentCurrency.base;
+                document.getElementById('amountInput').value = currentAmount;
+                document.getElementById('amountInput').min = currentCurrency.base;
                 updateAmount();
             });
         });
 
+        // ---- Amount Input Handling ----
+        const amountInput = document.getElementById('amountInput');
+        
+        amountInput.addEventListener('input', function() {
+            let val = parseFloat(this.value);
+            if (isNaN(val) || val < 0) val = 0;
+            currentAmount = val;
+            updateAmount();
+        });
+
+        amountInput.addEventListener('blur', function() {
+            if (currentAmount < currentCurrency.base) {
+                currentAmount = currentCurrency.base;
+                this.value = currentAmount;
+                updateAmount();
+            }
+        });
+
         // ---- Qty buttons (Step Selector) ----
         document.getElementById('btnMinus').addEventListener('click', function () {
-            if (currentQty > 1) {
-                currentQty--;
+            if (currentAmount > currentCurrency.base) {
+                currentAmount = Math.max(currentCurrency.base, currentAmount - currentCurrency.base);
+                amountInput.value = currentAmount;
                 updateAmount();
             }
         });
 
         document.getElementById('btnPlus').addEventListener('click', function () {
-            currentQty++;
+            currentAmount += currentCurrency.base;
+            amountInput.value = currentAmount;
             updateAmount();
         });
 
         // ---- Update support button amount ----
         function updateAmount() {
-            const amount = (currentCurrency.base * currentQty).toFixed(currentCurrency.base < 10 ? 2 : 0);
-            const formatted = currentCurrency.symbol + amount;
-            document.getElementById('displayAmount').textContent = formatted;
+            const finalAmount = currentAmount.toFixed(currentCurrency.base < 10 ? 2 : 0);
+            const formatted = currentCurrency.symbol + finalAmount;
             document.getElementById('supportAmount').textContent = formatted;
         }
 
@@ -250,7 +283,7 @@
         // ---- Support button click (UPI QR Generation) ----
         document.getElementById('supportBtn').addEventListener('click', function () {
             // Calculate exact INR value
-            const inrAmount = Math.round((currentCurrency.base * currentQty) / currentCurrency.rate);
+            const inrAmount = (currentAmount / currentCurrency.rate).toFixed(2);
             
             const upiId = 'tushpendrakumar@okicici';
             const name = 'Tushpendra Kumar';
