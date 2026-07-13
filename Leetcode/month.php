@@ -62,27 +62,30 @@ $days = $stmtDays->fetchAll();
         /* ── Day Grid ── */
         .days-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 16px;
-            padding: 32px 5%;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 14px;
+            padding: 28px 4%;
             max-width: 1200px;
             margin: 0 auto;
             box-sizing: border-box;
+            /* Equal-height cards via stretch */
+            align-items: stretch;
         }
 
         /* ── Day Card ── */
         .day-card {
             background: #111118;
             border: 1px solid rgba(255,196,0,0.15);
-            border-radius: 12px;
-            padding: 20px 12px;
+            border-radius: 14px;
+            padding: 18px 10px;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;  /* always top-align so heights stay equal */
             text-align: center;
-            min-height: 140px;
+            height: 100%;                 /* fill entire grid cell → equal heights */
+            box-sizing: border-box;
             transition: all 0.3s ease;
             overflow: hidden;
             word-break: break-word;
@@ -115,9 +118,11 @@ $days = $stmtDays->fetchAll();
         }
         .day-card .diff-badge {
             font-size: 11px;
-            padding: 2px 10px;
+            padding: 3px 10px;
             border-radius: 10px;
-            font-weight: 600;
+            font-weight: 700;
+            white-space: nowrap;    /* prevent 'Medi\num' word-break */
+            margin-top: auto;       /* push badge to bottom of card */
         }
         .diff-easy   { background: rgba(44,186,126,0.12); color: #2cba7e; }
         .diff-medium { background: rgba(255,196,0,0.12);  color: #ffc400; }
@@ -161,24 +166,24 @@ $days = $stmtDays->fetchAll();
             font-size: 15px;
         }
 
-        /* ── Mobile: 2-col → 1-col ── */
+        /* ── Mobile: strict 2-col grid ── */
         @media (max-width: 640px) {
             .days-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-                padding: 20px 4%;
-            }
-            .day-card { min-height: 120px; padding: 14px 8px; }
-            .day-card .day-num { font-size: 26px; }
-            .day-card h3 { font-size: 13px; }
-            .day-card .day-title { font-size: 11px; }
-        }
-        @media (max-width: 360px) {
-            .days-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
+                gap: 10px;
                 padding: 16px 3%;
             }
+            .day-card {
+                padding: 14px 8px;
+                border-radius: 12px;
+            }
+            .day-card .day-num { font-size: 24px; }
+            .day-card h3 { font-size: 13px; margin: 6px 0 3px; }
+            .day-card .day-title { font-size: 11px; }
+            .day-card .diff-badge { font-size: 10px; padding: 2px 8px; }
+        }
+        @media (max-width: 380px) {
+            .days-grid { gap: 8px; padding: 12px 3%; }
         }
 
         /* ── Prevent horizontal overflow ── */

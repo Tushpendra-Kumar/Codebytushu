@@ -318,63 +318,8 @@ if (!$sol && !$notFound) {
     <link rel="stylesheet" href="/Leetcode/CSS/solution.css">
 
     <style>
-        /* ── Prevent horizontal overflow ── */
+        /* Prevent horizontal overflow site-wide */
         html, body { max-width: 100%; overflow-x: hidden; }
-
-        /* ── Wrapper: respect navbar height ── */
-        .problem-wrapper {
-            width: 90%;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding-top: 120px;
-            padding-bottom: 80px;
-        }
-
-        /* ── Back button ── */
-        .back-btn a {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            background: rgba(255,196,0,0.08);
-            border: 1px solid rgba(255,196,0,0.3);
-            border-radius: 30px;
-            color: #ffc400;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.25s ease;
-        }
-        .back-btn a:hover {
-            background: rgba(255,196,0,0.15);
-            transform: translateX(-3px);
-        }
-        .back-btn { margin-bottom: 24px; }
-
-        /* ── Problem section 2-col layout ── */
-        .problem-section {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 32px;
-            margin-top: 20px;
-        }
-        @media (max-width: 900px) {
-            .problem-section { grid-template-columns: 1fr; }
-            .right-content { order: -1; } /* video first on mobile */
-        }
-        @media (max-width: 640px) {
-            .problem-wrapper { width: 95%; padding-top: 100px; }
-        }
-
-        /* ── Problem title ── */
-        .problem-wrapper h1 {
-            font-size: clamp(22px, 4vw, 38px);
-            color: #fff;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            word-break: break-word;
-        }
     </style>
 </head>
 
