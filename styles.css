@@ -59,7 +59,9 @@ body {
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
+    /* Fixed navbar is 68px height + 20px padding-top = 88px.
+       Add 10px breathing room → 90px total scroll offset. */
+    scroll-padding-top: 90px;
 }
 
 
@@ -78,6 +80,11 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+/* Scroll offset for all anchor-targeted sections — accounts for fixed navbar */
+[id] {
+    scroll-margin-top: 90px;
 }
 
 /* all similar content styling codes */
