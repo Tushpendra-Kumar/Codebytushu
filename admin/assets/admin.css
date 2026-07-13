@@ -26,36 +26,36 @@ ul, ol { list-style: none; }
 :root,
 [data-theme="dark"] {
   /* Core surfaces */
-  --bg:             #09090e;
-  --bg-2:           #0d0d16;
-  --sidebar-bg:     #0a0a12;
-  --sidebar-hover:  rgba(255,196,0,.07);
-  --header-bg:      rgba(10,10,18,.92);
-  --card-bg:        #111120;
-  --card-hover:     #161628;
-  --input-bg:       #13131e;
-  --modal-bg:       #12121e;
-  --dropdown-bg:    #13131e;
+  --bg:             #000000;
+  --bg-2:           #050505;
+  --sidebar-bg:     #050505;
+  --sidebar-hover:  rgba(255,196,0,.10);
+  --header-bg:      rgba(0,0,0,.92);
+  --card-bg:        #111111;
+  --card-hover:     #1a1a1a;
+  --input-bg:       #161616;
+  --modal-bg:       #111111;
+  --dropdown-bg:    #111111;
   --table-alt:      rgba(255,255,255,.025);
-  --tooltip-bg:     #1e1e30;
+  --tooltip-bg:     #000000;
 
   /* Borders */
-  --border:         rgba(255,196,0,.10);
-  --border-mid:     rgba(255,196,0,.20);
+  --border:         rgba(255,196,0,.25);
+  --border-mid:     rgba(255,196,0,.40);
   --border-light:   rgba(255,255,255,.06);
 
   /* Accent — gold */
   --accent:         #ffc400;
   --accent-dark:    #cc9d00;
   --accent-light:   #ffd84d;
-  --accent-glow:    rgba(255,196,0,.14);
+  --accent-glow:    rgba(255,196,0,.25);
   --accent-text:    #000000;
 
   /* Typography */
-  --text:           #eeeef5;
-  --text-muted:     #8888aa;
-  --text-dim:       #50506a;
-  --text-inverse:   #09090e;
+  --text:           #ffffff;
+  --text-muted:     #aaaaaa;
+  --text-dim:       #666666;
+  --text-inverse:   #000000;
 
   /* Semantic */
   --success:        #22c55e;
@@ -71,15 +71,15 @@ ul, ol { list-style: none; }
   --shadow-sm:      0 2px 8px rgba(0,0,0,.4);
   --shadow:         0 8px 32px rgba(0,0,0,.5);
   --shadow-lg:      0 20px 60px rgba(0,0,0,.6);
-  --shadow-accent:  0 8px 24px rgba(255,196,0,.15);
+  --shadow-accent:  0 8px 24px rgba(255,196,0,.25);
 
   /* Sidebar icon badge */
   --badge-bg:       var(--accent);
   --badge-text:     #000;
 
   /* Scrollbar */
-  --scroll-track:   #0d0d16;
-  --scroll-thumb:   rgba(255,196,0,.2);
+  --scroll-track:   #111111;
+  --scroll-thumb:   #444444;
 }
 
 /* ── Light Theme ──────────────────────────────────────────── */

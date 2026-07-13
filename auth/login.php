@@ -84,14 +84,14 @@ if (isPost()) {
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #0a0a0c;
-      --card:     #111118;
-      --border:   rgba(255,196,0,.14);
+      --bg:       #000000;
+      --card:     #111111;
+      --border:   rgba(255,196,0,.25);
       --accent:   #ffc400;
-      --text:     #f0f0f0;
-      --muted:    #888898;
+      --text:     #ffffff;
+      --muted:    #aaaaaa;
       --danger:   #ff4d4d;
-      --input-bg: #16161e;
+      --input-bg: #161616;
       --radius:   12px;
     }
 
