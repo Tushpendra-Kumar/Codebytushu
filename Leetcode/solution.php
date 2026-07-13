@@ -406,9 +406,9 @@ if (!$sol && !$notFound) {
     <?php else: ?>
 
     <!-- Back button -->
-    <div class="back-btn">
-        <a href="/Leetcode/month.php?id=<?= $sol['month_id'] ?>">← Back to Month</a>
-    </div>
+    <a href="/Leetcode/month.php?id=<?= $sol['month_id'] ?>" class="back-btn sol-specific">
+        <span style="margin-right: 6px;">←</span> Back to Month
+    </a>
 
     <!-- Problem meta row: difficulty + date -->
     <div class="problem-meta">

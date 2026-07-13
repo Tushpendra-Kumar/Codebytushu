@@ -225,45 +225,8 @@ nav ul li a:hover::after {
    BACK BUTTON
 ========================= */
 
-.back-btn {
+.back-btn.sol-specific {
     margin-bottom: 28px;
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    transform: none !important;
-}
-
-/* Reset global hover effect on the wrapper div */
-.back-btn:hover {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    transform: none !important;
-}
-
-.back-btn a {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: #f5a623;
-    background: rgba(245, 166, 35, 0.08);
-    border: 1px solid rgba(245, 166, 35, 0.25);
-    padding: 12px 22px;
-    border-radius: 14px;
-    font-size: 15px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
-
-.back-btn a:hover {
-    background: rgba(245, 166, 35, 0.15);
-    color: #ffc400;
-    border-color: rgba(245, 166, 35, 0.5);
-    box-shadow: 0 4px 15px rgba(245, 166, 35, 0.15);
-    transform: none; /* Prevent layout shift or scale overflow */
 }
 
 
