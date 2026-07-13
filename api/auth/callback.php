@@ -96,7 +96,7 @@ if (empty($profile['email_verified']) || !$profile['email_verified']) {
 }
 
 // ── 5. Login or create user ───────────────────────────────────────────────
-$result = Auth::loginOrCreateGoogleUser([
+$result = Auth::loginWithGoogle([
     'id'             => $profile['sub'],
     'email'          => $profile['email'],
     'name'           => $profile['name'] ?? 'Google User',

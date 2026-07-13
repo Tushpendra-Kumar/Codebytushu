@@ -50,109 +50,69 @@ class Auth
     // ─────────────────────────────────────────────────────────────────────
 
     /**
-     * Attempt login with email + password.
+     * Authenticate or register a user via Google OAuth data.
      * Returns ['success' => bool, 'error' => string|null, 'user' => array|null]
      */
-    public static function attempt(string $email, string $password, bool $remember = false): array
+    public static function loginWithGoogle(array $googleUser, bool $remember = true): array
     {
-        $ip    = clientIp();
-        $email = strtolower(trim($email));
-        $pdo   = db();
-
-        // DB-backed rate limit: max 5 failures per IP per 15 minutes
-        if (self::isRateLimited($ip)) {
-            self::recordAttempt($email, $ip, false, 'rate_limited');
-            return ['success' => false, 'error' => 'Too many failed login attempts. Please wait 15 minutes before trying again.'];
-        }
-
-        $stmt = $pdo->prepare(
-            'SELECT id, full_name, email, password_hash, role, status, email_verified
-               FROM users
-              WHERE email = ? AND password_hash IS NOT NULL
-              LIMIT 1'
-        );
+        $pdo = db();
+        $email = strtolower(trim($googleUser['email']));
+        $googleUid = $googleUser['id'];
+        $fullName = sanitize($googleUser['name'] ?? 'Google User');
+        $profileImage = $googleUser['picture'] ?? null;
+        
+        $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? LIMIT 1');
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
-        if (!$user) {
-            self::recordAttempt($email, $ip, false, 'not_found');
-            // Deliberate constant-time delay to prevent user enumeration
-            password_verify('dummy', '$2y$12$invalidhashpadding000000000000000000000000000000000000000');
-            return ['success' => false, 'error' => 'Invalid email or password.'];
+        if ($user) {
+            if ($user['status'] === 'banned') {
+                return ['success' => false, 'error' => 'Your account has been suspended. Please contact support.'];
+            }
+            if ($user['status'] === 'pending') {
+                return ['success' => false, 'error' => 'Your account is pending approval.'];
+            }
+            // Update existing user
+            $pdo->prepare(
+                'UPDATE users SET google_uid = ?, profile_image = ?, full_name = ?, last_login = NOW(), login_count = login_count + 1 WHERE id = ?'
+            )->execute([$googleUid, $profileImage, $fullName, $user['id']]);
+            $user['profile_image'] = $profileImage;
+            $user['full_name'] = $fullName;
+        } else {
+            // Create new user (SSO Registration)
+            $username = explode('@', $email)[0] . rand(100, 999);
+            // Ensure unique username
+            $checkStmt = $pdo->prepare('SELECT id FROM users WHERE username = ?');
+            $checkStmt->execute([$username]);
+            if ($checkStmt->fetch()) {
+                $username .= rand(1000, 9999);
+            }
+
+            $stmt = $pdo->prepare(
+                'INSERT INTO users (full_name, username, email, google_uid, profile_image, role, status, email_verified, last_login, login_count)
+                 VALUES (?, ?, ?, ?, ?, "user", "active", 1, NOW(), 1)'
+            );
+            $stmt->execute([
+                $fullName,
+                $username,
+                $email,
+                $googleUid,
+                $profileImage
+            ]);
+            $userId = (int) $pdo->lastInsertId();
+            
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+            $stmt->execute([$userId]);
+            $user = $stmt->fetch();
         }
 
-        if (!verifyPassword($password, $user['password_hash'])) {
-            self::recordAttempt($email, $ip, false, 'invalid_password');
-            return ['success' => false, 'error' => 'Invalid email or password.'];
-        }
-
-        if ($user['status'] === 'banned') {
-            self::recordAttempt($email, $ip, false, 'banned');
-            return ['success' => false, 'error' => 'Your account has been suspended. Please contact support.'];
-        }
-
-        if ($user['status'] === 'pending') {
-            self::recordAttempt($email, $ip, false, 'pending');
-            return ['success' => false, 'error' => 'Your account is pending approval.'];
-        }
-
-        // ── Success ──
         self::createSession($user);
-
-        $pdo->prepare(
-            'UPDATE users SET last_login = NOW(), login_count = login_count + 1 WHERE id = ?'
-        )->execute([$user['id']]);
-
+        
         if ($remember) {
             self::setRememberToken($user['id']);
         }
-
-        self::recordAttempt($email, $ip, true, null);
-        self::registerSession($user['id']);
-
+        
         return ['success' => true, 'user' => $user];
-    }
-
-    // ─────────────────────────────────────────────────────────────────────
-    // REGISTER
-    // ─────────────────────────────────────────────────────────────────────
-
-    /**
-     * Create a new user account.
-     * Returns ['success' => bool, 'error' => string|null, 'user_id' => int|null]
-     */
-    public static function register(
-        string $fullName,
-        string $username,
-        string $email,
-        string $password,
-        string $role = 'user'
-    ): array {
-        $pdo = db();
-
-        // Check duplicates
-        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = ? OR username = ? LIMIT 1');
-        $stmt->execute([strtolower($email), strtolower($username)]);
-        if ($stmt->fetch()) {
-            return ['success' => false, 'error' => 'Email or username already registered.'];
-        }
-
-        $hash = hashPassword($password);
-
-        $stmt = $pdo->prepare(
-            'INSERT INTO users (full_name, username, email, password_hash, role, status, email_verified)
-             VALUES (?, ?, ?, ?, ?, "active", 0)'
-        );
-        $stmt->execute([
-            sanitize($fullName),
-            strtolower(sanitize($username)),
-            strtolower($email),
-            $hash,
-            $role,
-        ]);
-
-        $userId = (int) $pdo->lastInsertId();
-        return ['success' => true, 'user_id' => $userId];
     }
 
     // ─────────────────────────────────────────────────────────────────────

@@ -1,15 +1,20 @@
+<?php
+require_once __DIR__ . '/../classes/Auth.php';
+Auth::boot();
+Auth::requireLogin();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Support Leetcode Daily by CodeByTushu — Buy a boba!">
+    <meta name="description" content="Support Leetcode Daily by CodeByTushu â€” Buy a boba!">
     <title>Support Leetcode Daily | CodeByTushu</title>
 
-    <!-- ══════════════════════════════════════════════════════════
-         FAVICON — root-level, cache-busted (consistent with all pages)
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+         FAVICON â€” root-level, cache-busted (consistent with all pages)
          PHP MIGRATION NOTE: In PHP, these will move into includes/head.php
-         ══════════════════════════════════════════════════════════ -->
+         â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <link rel="icon"             href="/favicon.ico?v=6"                 sizes="any">
     <link rel="icon"             href="/favicon-32x32.png?v=6"           type="image/png" sizes="32x32">
     <link rel="icon"             href="/favicon-48x48.png?v=6"           type="image/png" sizes="48x48">
@@ -20,7 +25,7 @@
     <link rel="manifest"         href="/site.webmanifest?v=6">
     <meta name="theme-color"     content="#ffc400">
 
-    <!-- Theme init — prevents flash. NOTE: donate.html uses its own
+    <!-- Theme init â€” prevents flash. NOTE: donate.html uses its own
          inline dark/light toggle (body class) which is separate from
          the global data-theme system. Both coexist safely. -->
     <script src="/theme.js"></script>
@@ -40,8 +45,8 @@
 
     <!-- ===== CURRENCY SIDEBAR ===== -->
     <div class="currency-sidebar" id="currencySidebar">
-        <div class="currency-option active" data-currency="INR" data-symbol="₹" data-rate="1" data-base="10">
-            <span class="c-symbol">₹</span><span class="c-name">INR</span>
+        <div class="currency-option active" data-currency="INR" data-symbol="â‚¹" data-rate="1" data-base="10">
+            <span class="c-symbol">â‚¹</span><span class="c-name">INR</span>
         </div>
         <div class="currency-option" data-currency="USD" data-symbol="$" data-rate="0.012" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">USD</span>
@@ -49,8 +54,8 @@
         <div class="currency-option" data-currency="AUD" data-symbol="$" data-rate="0.018" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">AUD</span>
         </div>
-        <div class="currency-option" data-currency="GBP" data-symbol="£" data-rate="0.0095" data-base="1">
-            <span class="c-symbol">£</span><span class="c-name">GBP</span>
+        <div class="currency-option" data-currency="GBP" data-symbol="Â£" data-rate="0.0095" data-base="1">
+            <span class="c-symbol">Â£</span><span class="c-name">GBP</span>
         </div>
         <div class="currency-option" data-currency="CAD" data-symbol="$" data-rate="0.016" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">CAD</span>
@@ -64,18 +69,18 @@
         <div class="currency-option" data-currency="SGD" data-symbol="$" data-rate="0.016" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">SGD</span>
         </div>
-        <div class="currency-option" data-currency="PLN" data-symbol="zł" data-rate="0.048" data-base="1">
-            <span class="c-symbol">zł</span><span class="c-name">PLN</span>
+        <div class="currency-option" data-currency="PLN" data-symbol="zÅ‚" data-rate="0.048" data-base="1">
+            <span class="c-symbol">zÅ‚</span><span class="c-name">PLN</span>
         </div>
     </div>
 
     <!-- ===== TOP LEFT CURRENCY BADGE ===== -->
     <button class="currency-badge" id="currencyBadge" onclick="toggleSidebar()">
-        <span id="badgeSymbol">₹</span> <span id="badgeName">INR</span>
+        <span id="badgeSymbol">â‚¹</span> <span id="badgeName">INR</span>
     </button>
 
     <!-- ===== TOP RIGHT THEME TOGGLE ===== -->
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">ðŸŒ™</button>
 
     <!-- ===== MAIN CARD ===== -->
     <main class="donate-page">
@@ -85,7 +90,7 @@
             <div class="brand-logo">
                 <div class="logo-ring">
                     <div class="logo-inner">
-                        <span class="logo-arrow">←</span><span class="logo-d">D</span>
+                        <span class="logo-arrow">â†</span><span class="logo-d">D</span>
                     </div>
                 </div>
             </div>
@@ -98,7 +103,7 @@
             <div class="amount-row" style="display:flex;align-items:center;justify-content:center;gap:15px;margin:30px 0;">
                 <button id="btnMinus" class="qty-btn" style="width:40px;height:40px;font-size:20px;padding:0;display:flex;align-items:center;justify-content:center;">-</button>
                 <div style="display:flex; align-items:center; font-size:24px; font-weight:700; color:var(--text); justify-content:center; gap:2px;">
-                    <span id="currencySymbolPrefix">₹</span>
+                    <span id="currencySymbolPrefix">â‚¹</span>
                     <input type="number" id="amountInput" value="10" min="10" style="background:transparent; border:none; color:var(--text); font-size:24px; font-weight:700; width:100px; outline:none; -moz-appearance:textfield; padding:0;">
                 </div>
                 <button id="btnPlus" class="qty-btn" style="width:40px;height:40px;font-size:20px;padding:0;display:flex;align-items:center;justify-content:center;">+</button>
@@ -106,10 +111,10 @@
 
             <!-- Support Button -->
             <button class="support-btn" id="supportBtn">
-                Support <span id="supportAmount">₹100</span>
+                Support <span id="supportAmount">â‚¹100</span>
             </button>
 
-            <p class="secure-note">🔒 Zero transaction fees via direct UPI</p>
+            <p class="secure-note">ðŸ”’ Zero transaction fees via direct UPI</p>
         </div>
     </main>
 
@@ -122,7 +127,7 @@
             
             <div id="qrcode" style="display:flex; justify-content:center; padding:15px; background:#fff; border-radius:10px; width:max-content; margin:0 auto 20px auto;"></div>
             
-            <p style="color:var(--text); font-weight:600; font-size:18px; margin-bottom:20px;">Amount: <span id="modalAmount">₹100</span></p>
+            <p style="color:var(--text); font-weight:600; font-size:18px; margin-bottom:20px;">Amount: <span id="modalAmount">â‚¹100</span></p>
             
             <!-- Deep link for Mobile Users -->
             <a href="#" id="upiDeepLink" class="support-btn" style="text-decoration:none; display:inline-block;">Open UPI App</a>
@@ -186,7 +191,7 @@
         }
 
         // ---- State ----
-        let currentCurrency = { symbol: '₹', rate: 1, base: 10, name: 'INR' };
+        let currentCurrency = { symbol: 'â‚¹', rate: 1, base: 10, name: 'INR' };
         let currentAmount = 10;
 
         // ---- Sidebar toggle ----
@@ -303,7 +308,7 @@
             const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${inrAmount}&cu=INR`;
 
             // Update Modal UI
-            document.getElementById('modalAmount').textContent = `₹${inrAmount}`;
+            document.getElementById('modalAmount').textContent = `â‚¹${inrAmount}`;
             document.getElementById('upiDeepLink').href = upiUrl;
 
             // Generate QR Code
@@ -332,7 +337,7 @@
             document.body.classList.toggle('dark-mode');
             document.body.classList.toggle('light-mode');
             document.getElementById('themeToggle').textContent =
-                document.body.classList.contains('dark-mode') ? '🌙' : '☀️';
+                document.body.classList.contains('dark-mode') ? 'ðŸŒ™' : 'â˜€ï¸';
         }
     </script>
     <script src="/back-home.js"></script>

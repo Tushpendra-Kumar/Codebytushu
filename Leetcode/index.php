@@ -1,14 +1,19 @@
+<?php
+require_once __DIR__ . '/../classes/Auth.php';
+Auth::boot();
+Auth::requireLogin();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="LeetCode Unlocked — Daily DSA solutions by CodeByTushu.">
+    <meta name="description" content="LeetCode Unlocked â€” Daily DSA solutions by CodeByTushu.">
 
     <title>LeetCode Unlocked | CodeByTushu</title>
 
-    <!-- FAVICON — generated from Black Logo.PNG (root-level, cache-busted) -->
+    <!-- FAVICON â€” generated from Black Logo.PNG (root-level, cache-busted) -->
     <link rel="icon"             href="/favicon.ico?v=6"                 sizes="any">
     <link rel="icon"             href="/favicon-32x32.png?v=6"           type="image/png" sizes="32x32">
     <link rel="icon"             href="/favicon-48x48.png?v=6"           type="image/png" sizes="48x48">
@@ -32,7 +37,7 @@
     <!-- LeetCode Specific Overrides -->
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="auth.css">
-    <!-- Fonts — Material Symbols (auth modal icon) + Poppins (typography) -->
+    <!-- Fonts â€” Material Symbols (auth modal icon) + Poppins (typography) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -41,7 +46,7 @@
     
     
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
-    <!-- Firebase Config (upload via FTP — gitignored) -->
+    <!-- Firebase Config (upload via FTP â€” gitignored) -->
     <script src="/firebase-config.js"></script>
 </head>
 
@@ -51,7 +56,7 @@
     <nav class="cbt-navbar navbar" id="mainNavbar" role="navigation" aria-label="Main navigation">
         <div class="cbt-nav-inner">
 
-            <!-- ── Logo ───────────────────────────────────────────── -->
+            <!-- â”€â”€ Logo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
             <div class="cbt-logo" id="cbt-logo">
                 <a href="#home" id="cbt-logo-link" aria-label="CodeByTushu Home" style="display: flex; align-items: center; gap: 7px; text-decoration: none;">
                     <img src="../image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
@@ -65,14 +70,14 @@
                 </a>
             </div>
 
-            <!-- ── Center Navigation (Desktop ≥1024px only) ──────── -->
+            <!-- â”€â”€ Center Navigation (Desktop â‰¥1024px only) â”€â”€â”€â”€â”€â”€â”€â”€ -->
             <ul class="cbt-center-nav" id="cbt-center-nav" role="menubar" aria-label="Primary navigation">
                 <li role="none"><a href="#home"                class="cbt-nav-link active" id="nav-home"         role="menuitem" tabindex="0">Home</a></li>
                 <li role="none"><a href="#explore"            class="cbt-nav-link"        id="nav-explore"      role="menuitem" tabindex="0">Problems</a></li>
                 <li role="none"><a href="#donate"              class="cbt-nav-link"        id="nav-donate"        role="menuitem" tabindex="0">Donate</a></li>
             </ul>
 
-            <!-- ── Right Side: Hamburger (Desktop ≥1024px) ── -->
+            <!-- â”€â”€ Right Side: Hamburger (Desktop â‰¥1024px) â”€â”€ -->
             <div class="cbt-nav-right" id="cbt-nav-right">
                 <button class="cbt-hamburger-btn" id="cbt-hamburger-btn"
                         aria-label="Open more links" aria-expanded="false" aria-controls="cbt-ham-panel">
@@ -82,7 +87,7 @@
                 </button>
             </div>
 
-            <!-- ── Mobile Right: Hamburger (<1024px) ─────── -->
+            <!-- â”€â”€ Mobile Right: Hamburger (<1024px) â”€â”€â”€â”€â”€â”€â”€ -->
             <div class="cbt-mobile-right" id="cbt-mobile-right">
                 <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn"
                         aria-label="Open mobile menu" aria-expanded="false" aria-controls="cbt-mobile-drawer">
@@ -94,7 +99,7 @@
 
         </div><!-- /.cbt-nav-inner -->
 
-        <!-- ══ Desktop Hamburger Panel (right slide-in) ════════════ -->
+        <!-- â•â• Desktop Hamburger Panel (right slide-in) â•â•â•â•â•â•â•â•â•â•â•â• -->
         <!-- Overlay -->
         <div class="cbt-panel-overlay" id="cbt-panel-overlay" aria-hidden="true"></div>
         <!-- Panel -->
@@ -109,7 +114,7 @@
             </nav>
         </div>
 
-        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- â•â• Mobile Full Drawer â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
         <!-- Overlay -->
         <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
         <!-- Drawer -->
@@ -254,7 +259,7 @@
                 implementations.
             </p>
 
-            <a href="problems.php?year=2026" class="explore-btn">Explore 2026 →
+            <a href="problems.php?year=2026" class="explore-btn">Explore 2026 â†’
             </a>
 
         </div>
@@ -278,7 +283,7 @@
                 and multi-language code support.
             </p>
 
-            <a href="problems.php?year=2027" class="explore-btn">Explore 2027 →
+            <a href="problems.php?year=2027" class="explore-btn">Explore 2027 â†’
             </a>
 
         </div>
@@ -302,7 +307,7 @@
                 Python, C++, and JavaScript.
             </p>
 
-            <a href="problems.php?year=2028" class="explore-btn">Explore 2028 →
+            <a href="problems.php?year=2028" class="explore-btn">Explore 2028 â†’
             </a>
 
         </div>
@@ -325,22 +330,22 @@
 
             <span class="donate-badge">SUPPORT US</span>
 
-            <h2>Fuel the <span class="gold-highlight">Daily DSA</span> Journey ☕</h2>
+            <h2>Fuel the <span class="gold-highlight">Daily DSA</span> Journey â˜•</h2>
 
             <p>
-                CodeByTushu publishes free LeetCode solutions every single day —
+                CodeByTushu publishes free LeetCode solutions every single day â€”
                 no paywalls, no subscriptions. If this content has helped you crack
                 interviews or sharpen your DSA skills, consider buying a boba!
             </p>
 
             <ul class="donate-perks">
-                <li>🧋 Every boba = 1 day of free content</li>
-                <li>🚀 Keeps daily problems alive</li>
-                <li>❤️ Shows your support to the community</li>
+                <li>ðŸ§‹ Every boba = 1 day of free content</li>
+                <li>ðŸš€ Keeps daily problems alive</li>
+                <li>â¤ï¸ Shows your support to the community</li>
             </ul>
 
             <a href="donate.php" class="donate-go-btn">
-                Support Now →
+                Support Now â†’
             </a>
 
         </div>
@@ -351,15 +356,15 @@
             <div class="donate-card-preview">
 
                 <div class="dp-logo-ring">
-                    <span class="dp-arrow">←</span><span class="dp-d">D</span>
+                    <span class="dp-arrow">â†</span><span class="dp-d">D</span>
                 </div>
 
                 <h3>Leetcode Daily</h3>
                 <p>Support by buying a boba!</p>
 
                 <div class="dp-boba-row">
-                    <span class="dp-boba-icon">🧋</span>
-                    <span class="dp-x">×</span>
+                    <span class="dp-boba-icon">ðŸ§‹</span>
+                    <span class="dp-x">Ã—</span>
                     <div class="dp-qty-wrap">
                         <span class="dp-qty active">1</span>
                         <span class="dp-qty">3</span>
@@ -367,7 +372,7 @@
                     </div>
                 </div>
 
-                <a href="donate.php" class="dp-support-btn" style="text-decoration:none; display:block; text-align:center; box-sizing:border-box;">Support ₹100</a>
+                <a href="donate.php" class="dp-support-btn" style="text-decoration:none; display:block; text-align:center; box-sizing:border-box;">Support â‚¹100</a>
 
             </div>
 
@@ -450,9 +455,9 @@
     <script src="js/main.js"></script>
     <script src="/back-home.js"></script>
 
-    <!-- ═══════════════════════════════════════════════════════
-         CBT NAVBAR JS — Theme + Hamburger Panel + Mobile Drawer
-         ═══════════════════════════════════════════════════════ -->
+    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+         CBT NAVBAR JS â€” Theme + Hamburger Panel + Mobile Drawer
+         â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var cbtNav = document.getElementById('mainNavbar');

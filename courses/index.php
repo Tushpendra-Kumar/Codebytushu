@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../classes/Auth.php';
+Auth::boot();
+Auth::requireLogin();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -128,7 +133,7 @@
                     <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">A</div>
                     <div>
                         <h4 style="color:var(--text-heading); font-size:1rem;">Amit Kumar</h4>
-                        <span style="color:var(--text-muted); font-size:0.85rem;">⭐⭐⭐⭐⭐</span>
+                        <span style="color:var(--text-muted); font-size:0.85rem;">â­â­â­â­â­</span>
                     </div>
                 </div>
             </div>
@@ -138,7 +143,7 @@
                     <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">S</div>
                     <div>
                         <h4 style="color:var(--text-heading); font-size:1rem;">Sneha Sharma</h4>
-                        <span style="color:var(--text-muted); font-size:0.85rem;">⭐⭐⭐⭐⭐</span>
+                        <span style="color:var(--text-muted); font-size:0.85rem;">â­â­â­â­â­</span>
                     </div>
                 </div>
             </div>
@@ -148,7 +153,7 @@
                     <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">R</div>
                     <div>
                         <h4 style="color:var(--text-heading); font-size:1rem;">Rahul Verma</h4>
-                        <span style="color:var(--text-muted); font-size:0.85rem;">⭐⭐⭐⭐⭐</span>
+                        <span style="color:var(--text-muted); font-size:0.85rem;">â­â­â­â­â­</span>
                     </div>
                 </div>
             </div>
@@ -159,7 +164,7 @@
     <section class="cbt-courses-container">
         <h2 class="cbt-section-title">Learning Roadmap</h2>
         <div style="background:rgba(22, 22, 22, 0.5); padding:30px; border-radius:12px; border:1px solid var(--border-color); text-align:center;">
-            <p style="color:var(--text-main); margin-bottom:20px;">Beginner → Intermediate → Advanced → Projects → Interview Ready</p>
+            <p style="color:var(--text-main); margin-bottom:20px;">Beginner â†’ Intermediate â†’ Advanced â†’ Projects â†’ Interview Ready</p>
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
                 <div style="flex:1; min-width:150px; background:rgba(10, 10, 10, 0.5); padding:20px; border-radius:8px; border:1px solid var(--primary);">
                     <h3 style="color:var(--primary);">1. Basics</h3>
@@ -335,7 +340,7 @@
                                 
                                 <div class="cbt-course-price-row">
                                     ${priceDisplay}
-                                    <span style="color:var(--text-muted); font-size:0.9rem;">⭐ ${course.rating} (${course.students})</span>
+                                    <span style="color:var(--text-muted); font-size:0.9rem;">â­ ${course.rating} (${course.students})</span>
                                 </div>
 
                                 <div class="cbt-course-actions">
