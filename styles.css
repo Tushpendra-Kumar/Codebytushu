@@ -82,11 +82,6 @@ html {
     background: #555;
 }
 
-/* Scroll offset for all anchor-targeted sections — accounts for fixed navbar */
-[id] {
-    scroll-margin-top: 90px;
-}
-
 /* all similar content styling codes */
 section {
     padding: 40px 0 100px;
