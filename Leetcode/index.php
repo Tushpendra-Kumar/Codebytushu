@@ -329,22 +329,24 @@ Auth::requireLogin();
 
             <span class="donate-badge">SUPPORT US</span>
 
-            <h2>Fuel the <span class="gold-highlight">Daily DSA</span> Journey â˜•</h2>
+            <h2>Support <span class="gold-highlight">CodeByTushu</span></h2>
 
             <p>
-                CodeByTushu publishes free LeetCode solutions every single day —
-                no paywalls, no subscriptions. If this content has helped you crack
-                interviews or sharpen your DSA skills, consider buying a boba!
+                CodeByTushu is dedicated to providing high-quality programming content, daily LeetCode solutions, and practical development resources — completely free for everyone.
+            </p>
+            <p style="margin-top: 15px;">
+                If our content has helped you learn, grow, or prepare for interviews, your support helps us continue creating better tutorials, maintaining the platform, and delivering new content consistently.
             </p>
 
             <ul class="donate-perks">
-                <li><i class="fa-solid fa-mug-hot"></i> Every boba = 1 day of free content</li>
-                <li><i class="fa-solid fa-rocket"></i> Keeps daily problems alive</li>
-                <li>â¤ï¸ Shows your support to the community</li>
+                <li><i class="fa-solid fa-graduation-cap"></i> Supports free educational content</li>
+                <li><i class="fa-solid fa-code"></i> Helps us publish daily LeetCode solutions</li>
+                <li><i class="fa-solid fa-laptop-code"></i> Improves the platform and future features</li>
+                <li><i class="fa-solid fa-heart"></i> Every contribution makes a difference</li>
             </ul>
 
             <a href="donate.php" class="donate-go-btn">
-                Support Now <i class="fa-solid fa-arrow-right"></i>
+                Support CodeByTushu <i class="fa-solid fa-arrow-right"></i>
             </a>
 
         </div>
@@ -358,11 +360,11 @@ Auth::requireLogin();
                     <span class="dp-arrow"><i class="fa-solid fa-arrow-up" style="font-size:inherit;"></i></span><span class="dp-d">D</span>
                 </div>
 
-                <h3>Leetcode Daily</h3>
-                <p>Support by buying a boba!</p>
+                <h3>Support CodeByTushu</h3>
+                <p>Help us keep programming education free.</p>
 
                 <div class="dp-boba-row">
-                    <span class="dp-boba-icon"><i class="fa-solid fa-mug-hot"></i></span>
+                    <span class="dp-boba-icon"><i class="fa-solid fa-heart"></i></span>
                     <span class="dp-x">×</span>
                     <div class="dp-qty-wrap">
                         <span class="dp-qty active">1</span>
