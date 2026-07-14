@@ -76,11 +76,11 @@ Auth::requireLogin();
 
     <!-- ===== TOP LEFT CURRENCY BADGE ===== -->
     <button class="currency-badge" id="currencyBadge" onclick="toggleSidebar()">
-        <span id="badgeSymbol">â‚¹</span> <span id="badgeName">INR</span>
+        <span id="badgeSymbol">&#x20B9;</span> <span id="badgeName">INR</span>
     </button>
 
     <!-- ===== TOP RIGHT THEME TOGGLE ===== -->
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">ðŸŒ™</button>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">&#x1F319;</button>
 
     <!-- ===== MAIN CARD ===== -->
     <main class="donate-page">
@@ -90,7 +90,7 @@ Auth::requireLogin();
             <div class="brand-logo">
                 <div class="logo-ring">
                     <div class="logo-inner">
-                        <span class="logo-arrow">â†</span><span class="logo-d">D</span>
+                        <span class="logo-arrow">&#x2191;</span><span class="logo-d">D</span>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@ Auth::requireLogin();
             <div class="amount-row" style="display:flex;align-items:center;justify-content:center;gap:15px;margin:30px 0;">
                 <button id="btnMinus" class="qty-btn" style="width:40px;height:40px;font-size:20px;padding:0;display:flex;align-items:center;justify-content:center;">-</button>
                 <div style="display:flex; align-items:center; font-size:24px; font-weight:700; color:var(--text); justify-content:center; gap:2px;">
-                    <span id="currencySymbolPrefix">â‚¹</span>
+                    <span id="currencySymbolPrefix">&#x20B9;</span>
                     <input type="number" id="amountInput" value="10" min="10" style="background:transparent; border:none; color:var(--text); font-size:24px; font-weight:700; width:100px; outline:none; -moz-appearance:textfield; padding:0;">
                 </div>
                 <button id="btnPlus" class="qty-btn" style="width:40px;height:40px;font-size:20px;padding:0;display:flex;align-items:center;justify-content:center;">+</button>
@@ -111,10 +111,10 @@ Auth::requireLogin();
 
             <!-- Support Button -->
             <button class="support-btn" id="supportBtn">
-                Support <span id="supportAmount">â‚¹100</span>
+                Support <span id="supportAmount">&#x20B9;100</span>
             </button>
 
-            <p class="secure-note">ðŸ”’ Zero transaction fees via direct UPI</p>
+            <p class="secure-note">&#x1F512; Zero transaction fees via direct UPI</p>
         </div>
     </main>
 

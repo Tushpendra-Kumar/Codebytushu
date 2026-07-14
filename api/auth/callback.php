@@ -2,18 +2,13 @@
 /**
  * CodeByTushu — Google OAuth Callback Handler
  * GET /api/auth/callback.php?code=xxx&state=yyy
- *
- * Handles the OAuth 2.0 authorization code exchange:
- * 1. Validates CSRF state token
- * 2. Exchanges auth code for access token
- * 3. Fetches Google user profile
- * 4. Creates or logs in the user
  */
 declare(strict_types=1);
 require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../includes/functions.php';
 require_once __DIR__ . '/../../classes/Auth.php';
+
 
 Auth::boot();
 

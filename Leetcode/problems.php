@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -152,7 +152,7 @@ $yearDescs = [
         <div class="cbt-nav-inner">
             <!-- Logo -->
             <div class="cbt-logo" id="cbt-logo">
-                <a href="/Leetcode/index.html" id="cbt-logo-link" aria-label="CodeByTushu Home" style="display:flex;align-items:center;gap:7px;text-decoration:none;">
+                <a href="/Leetcode/" id="cbt-logo-link" aria-label="CodeByTushu Home" style="display:flex;align-items:center;gap:7px;text-decoration:none;">
                     <img src="/image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
                     <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0;">
                         <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
@@ -166,7 +166,7 @@ $yearDescs = [
 
             <!-- Center Nav (Desktop) -->
             <ul class="cbt-center-nav" id="cbt-center-nav" role="menubar" aria-label="Primary navigation">
-                <li role="none"><a href="/Leetcode/index.html"  class="cbt-nav-link" id="nav-home"    role="menuitem" tabindex="0">Home</a></li>
+                <li role="none"><a href="/Leetcode/"  class="cbt-nav-link" id="nav-home"    role="menuitem" tabindex="0">Home</a></li>
                 <li role="none"><a href="/Leetcode/problems.php" class="cbt-nav-link active" id="nav-problems" role="menuitem" tabindex="0">Problems</a></li>
                 <li role="none"><a href="/Leetcode/donate.php"  class="cbt-nav-link" id="nav-donate"  role="menuitem" tabindex="0">Donate</a></li>
             </ul>
@@ -208,7 +208,7 @@ $yearDescs = [
         <div class="cbt-mobile-drawer" id="cbt-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile menu" aria-hidden="true">
             <div class="cbt-drawer-header">
                 <div class="cbt-logo">
-                    <a href="/Leetcode/index.html" aria-label="CodeByTushu Home" tabindex="-1" style="display:flex;align-items:center;gap:7px;text-decoration:none;">
+                    <a href="/Leetcode/" aria-label="CodeByTushu Home" tabindex="-1" style="display:flex;align-items:center;gap:7px;text-decoration:none;">
                         <img src="/image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img" style="height:35px;">
                         <span class="cbt-logo-text" style="font-size:18px;">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
                     </a>
@@ -217,7 +217,7 @@ $yearDescs = [
             </div>
             <div class="cbt-drawer-body">
                 <ul class="cbt-drawer-primary" role="menu" aria-label="Main navigation">
-                    <li role="none"><a href="/Leetcode/index.html"   class="cbt-drawer-link" id="drawer-home"     role="menuitem">Home</a></li>
+                    <li role="none"><a href="/Leetcode/"   class="cbt-drawer-link" id="drawer-home"     role="menuitem">Home</a></li>
                     <li role="none"><a href="/Leetcode/problems.php"  class="cbt-drawer-link" id="drawer-problems" role="menuitem">Problems</a></li>
                     <li role="none"><a href="/Leetcode/donate.php"   class="cbt-drawer-link" id="drawer-donate"   role="menuitem">Donate</a></li>
                 </ul>

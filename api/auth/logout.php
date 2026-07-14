@@ -14,6 +14,14 @@ require_once __DIR__ . '/../../classes/Auth.php';
 
 Auth::boot();
 
+// Allow GET logout via simple navbar link (browser redirect)
+// POST+CSRF is still required for AJAX logout calls
+if (!isPost() && !isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+    // Simple GET logout — clear session and redirect
+    Auth::logout();
+    redirect('/', 302);
+}
+
 if (!isPost()) {
     jsonError('Method not allowed.', 405);
 }

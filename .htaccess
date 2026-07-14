@@ -47,6 +47,10 @@ ServerSignature Off
   RewriteRule ^Leetcode/problems\.html$ Leetcode/problems.php [R=301,L]
   RewriteRule ^Leetcode/donate\.html$   Leetcode/donate.php   [R=301,L]
 
+  # Leetcode index.html → index.php (old bookmark/link compat)
+  RewriteRule ^Leetcode/index\.html$ /Leetcode/ [R=301,L]
+  RewriteRule ^Leetcode/?$ Leetcode/index.php [L]
+
   # ── Blog Routes ─────────────────────────────────────────────────
   RewriteRule ^blog/([a-zA-Z0-9-]+)$ blog-detail.php?slug=$1 [L,NC]
 </IfModule>
