@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -8,7 +8,7 @@ Auth::requireLogin();
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Video Editor & Content Creator Portfolio â€” CodeByTushu.">
+    <meta name="description" content="Video Editor & Content Creator Portfolio — CodeByTushu.">
     <title>Video Editor | Premium Portfolio By CodeByTushu</title>
 
     <!-- FAVICON -->
@@ -23,7 +23,7 @@ Auth::requireLogin();
     <style>.material-symbols-rounded{font-size:inherit;vertical-align:middle;line-height:1;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;}</style>
 
     <!-- Main Site Styles -->
-    <link rel="stylesheet" href="../styles.css?v=50">
+    <link rel="stylesheet" href="../styles.css?v=40">
     <!-- Local Premium Styles -->
     <link rel="stylesheet" href="./style.css?v=2">
 </head>
@@ -37,7 +37,7 @@ Auth::requireLogin();
                     <img src="../image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
                     <span class="cbt-logo-text" style="display: flex; flex-direction: column; line-height: 1.2;">
                         <span>CodeBy<span class="cbt-logo-accent">Tushu</span></span>
-                        <span style="font-size: 0.45em; color: var(--text-muted); font-weight: 400; margin-top: 2px;">Video Editor â€¢ Content Creator</span>
+                        <span style="font-size: 0.45em; color: var(--text-muted); font-weight: 400; margin-top: 2px;">Video Editor • Content Creator</span>
                     </span>
                 </a>
             </div>
@@ -175,7 +175,7 @@ Auth::requireLogin();
     <section class="cbt-ve-services" id="services">
         <div class="cbt-ve-container">
             <div class="cbt-ve-section-header">
-                <p class="cbt-ve-section-subtitle">â€” What I Offer</p>
+                <p class="cbt-ve-section-subtitle">— What I Offer</p>
                 <h2 class="cbt-ve-section-title">Premium Editing Services</h2>
                 <p class="cbt-ve-section-desc">Tailored video editing solutions to maximize engagement, retention, and quality across all platforms.</p>
             </div>
@@ -292,7 +292,7 @@ Auth::requireLogin();
     <section class="cbt-ve-portfolio" id="portfolio">
         <div class="cbt-ve-container">
             <div class="cbt-ve-section-header">
-                <p class="cbt-ve-section-subtitle">â€” My Best Work</p>
+                <p class="cbt-ve-section-subtitle">— My Best Work</p>
                 <h2 class="cbt-ve-section-title">Selected Projects</h2>
                 <p class="cbt-ve-section-desc">Explore a diverse range of my video editing projects, from fast-paced shorts to cinematic travel films.</p>
             </div>
@@ -413,7 +413,7 @@ Auth::requireLogin();
     <section class="cbt-ve-guide" id="guide">
         <div class="cbt-ve-container">
             <div class="cbt-ve-section-header">
-                <p class="cbt-ve-section-subtitle">â€” Step by Step Roadmap</p>
+                <p class="cbt-ve-section-subtitle">— Step by Step Roadmap</p>
                 <h2 class="cbt-ve-section-title">Learn Video Editing Step by Step</h2>
                 <p class="cbt-ve-section-desc">Follow this structured roadmap to go from a complete beginner to a professional video editor.</p>
             </div>

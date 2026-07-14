@@ -4,7 +4,7 @@ Auth::boot();
 Auth::requireLogin();
 
 /**
- * CodeByTushu â€” LeetCode Month Timeline
+ * CodeByTushu — LeetCode Month Timeline
  * Displays all daily problems for a given month dynamically.
  */
 declare(strict_types=1);
@@ -36,7 +36,7 @@ $days = $stmtDays->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<?= e($month['month_name']) ?> <?= e($month['y_year']) ?> LeetCode Solutions â€” CodeByTushu">
+    <meta name="description" content="<?= e($month['month_name']) ?> <?= e($month['y_year']) ?> LeetCode Solutions — CodeByTushu">
     <title><?= e($month['month_name']) ?> <?= e($month['y_year']) ?> Problems | CodeByTushu</title>
 
     <link rel="icon"             href="/favicon.ico?v=6"                 sizes="any">
@@ -51,7 +51,7 @@ $days = $stmtDays->fetchAll();
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Main Website Styling System (root-relative) -->
-    <link rel="stylesheet" href="/styles.css?v=33">
+    <link rel="stylesheet" href="/styles.css?v=40">
 
     <!-- LeetCode Specific Overrides (root-relative) -->
     <link rel="stylesheet" href="/Leetcode/CSS/style.css">

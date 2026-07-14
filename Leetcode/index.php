@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -9,11 +9,11 @@ Auth::requireLogin();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="LeetCode Unlocked â€” Daily DSA solutions by CodeByTushu.">
+    <meta name="description" content="LeetCode Unlocked — Daily DSA solutions by CodeByTushu.">
 
     <title>LeetCode Unlocked | CodeByTushu</title>
 
-    <!-- FAVICON â€” generated from Black Logo.PNG (root-level, cache-busted) -->
+    <!-- FAVICON — generated from Black Logo.PNG (root-level, cache-busted) -->
     <link rel="icon"             href="/favicon.ico?v=6"                 sizes="any">
     <link rel="icon"             href="/favicon-32x32.png?v=6"           type="image/png" sizes="32x32">
     <link rel="icon"             href="/favicon-48x48.png?v=6"           type="image/png" sizes="48x48">
@@ -33,11 +33,11 @@ Auth::requireLogin();
     <script src="/theme.js"></script>
 
     <!-- Main Website Styling System -->
-    <link rel="stylesheet" href="../styles.css?v=33">
+    <link rel="stylesheet" href="../styles.css?v=40">
     <!-- LeetCode Specific Overrides -->
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="auth.css">
-    <!-- Fonts â€” Material Symbols (auth modal icon) + Poppins (typography) -->
+    <!-- Fonts — Material Symbols (auth modal icon) + Poppins (typography) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -332,14 +332,14 @@ Auth::requireLogin();
             <h2>Fuel the <span class="gold-highlight">Daily DSA</span> Journey â˜•</h2>
 
             <p>
-                CodeByTushu publishes free LeetCode solutions every single day â€”
+                CodeByTushu publishes free LeetCode solutions every single day —
                 no paywalls, no subscriptions. If this content has helped you crack
                 interviews or sharpen your DSA skills, consider buying a boba!
             </p>
 
             <ul class="donate-perks">
-                <li>ðŸ§‹ Every boba = 1 day of free content</li>
-                <li>ðŸš€ Keeps daily problems alive</li>
+                <li><i class="fa-solid fa-mug-hot"></i> Every boba = 1 day of free content</li>
+                <li><i class="fa-solid fa-rocket"></i> Keeps daily problems alive</li>
                 <li>â¤ï¸ Shows your support to the community</li>
             </ul>
 
@@ -362,8 +362,8 @@ Auth::requireLogin();
                 <p>Support by buying a boba!</p>
 
                 <div class="dp-boba-row">
-                    <span class="dp-boba-icon">ðŸ§‹</span>
-                    <span class="dp-x">Ã—</span>
+                    <span class="dp-boba-icon"><i class="fa-solid fa-mug-hot"></i></span>
+                    <span class="dp-x">×</span>
                     <div class="dp-qty-wrap">
                         <span class="dp-qty active">1</span>
                         <span class="dp-qty">3</span>
@@ -371,7 +371,7 @@ Auth::requireLogin();
                     </div>
                 </div>
 
-                <a href="donate.php" class="dp-support-btn" style="text-decoration:none; display:block; text-align:center; box-sizing:border-box;">Support â‚¹100</a>
+                <a href="donate.php" class="dp-support-btn" style="text-decoration:none; display:block; text-align:center; box-sizing:border-box;">Support ₹100</a>
 
             </div>
 
@@ -455,7 +455,7 @@ Auth::requireLogin();
     <script src="/back-home.js"></script>
 
     <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         CBT NAVBAR JS â€” Theme + Hamburger Panel + Mobile Drawer
+         CBT NAVBAR JS — Theme + Hamburger Panel + Mobile Drawer
          â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {

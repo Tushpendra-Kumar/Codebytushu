@@ -4,7 +4,7 @@ Auth::boot();
 Auth::requireLogin();
 
 /**
- * CodeByTushu â€” LeetCode Dynamic Solution Page
+ * CodeByTushu — LeetCode Dynamic Solution Page
  * Single template rendering ALL problem pages from the database.
  *
  * Routes:
@@ -266,7 +266,7 @@ if (!$sol && !$notFound) {
     /* â”€â”€â”€ Page title â”€â”€â”€ */
     $numberPrefix = $sol['problem_number'] ? $sol['problem_number'] . '. ' : '';
     $pageTitle    = $numberPrefix . $sol['problem_title'];
-    $metaDesc     = $sol['meta_description'] ?: ('LeetCode ' . $pageTitle . ' â€” Solution in Java, Python, C++, JavaScript with time and space complexity analysis.');
+    $metaDesc     = $sol['meta_description'] ?: ('LeetCode ' . $pageTitle . ' — Solution in Java, Python, C++, JavaScript with time and space complexity analysis.');
 }
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -280,16 +280,16 @@ if (!$sol && !$notFound) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <?php if ($notFound): ?>
-    <title>Problem Not Found â€” CodeByTushu LeetCode</title>
+    <title>Problem Not Found — CodeByTushu LeetCode</title>
     <meta name="robots" content="noindex,nofollow">
     <?php else: ?>
-    <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?> â€” LeetCode Solution | CodeByTushu</title>
+    <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?> — LeetCode Solution | CodeByTushu</title>
     <meta name="description" content="<?= htmlspecialchars($metaDesc, ENT_QUOTES, 'UTF-8') ?>">
     <meta name="robots" content="<?= $isUpcoming ? 'noindex,nofollow' : 'index,follow' ?>">
     <link rel="canonical" href="<?= SITE_URL ?>/leetcode/problem/<?= htmlspecialchars($sol['slug'], ENT_QUOTES, 'UTF-8') ?>">
     <!-- Open Graph -->
     <meta property="og:type"        content="article">
-    <meta property="og:title"       content="<?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?> â€” LeetCode Solution">
+    <meta property="og:title"       content="<?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?> — LeetCode Solution">
     <meta property="og:description" content="<?= htmlspecialchars($metaDesc, ENT_QUOTES, 'UTF-8') ?>">
     <meta property="og:url"         content="<?= SITE_URL ?>/leetcode/problem/<?= htmlspecialchars($sol['slug'], ENT_QUOTES, 'UTF-8') ?>">
     <?php if (!empty($sol['og_image_url'])): ?>
@@ -315,7 +315,7 @@ if (!$sol && !$notFound) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Main Website Styling System (root-relative) -->
-    <link rel="stylesheet" href="/styles.css?v=33">
+    <link rel="stylesheet" href="/styles.css?v=40">
     <!-- LeetCode Module CSS -->
     <link rel="stylesheet" href="/Leetcode/CSS/style.css">
     <!-- Solution page specific overrides -->
@@ -471,7 +471,7 @@ if (!$sol && !$notFound) {
                     <p style="margin-bottom: 10px;">Sorry! This solution has not been added yet.</p>
                     <p style="margin-bottom: 10px; color: #aaa; line-height: 1.6;">I am gradually uploading all previous LeetCode solutions along with detailed explanations, optimized code, video tutorials, time complexity, and space complexity analysis.</p>
                     <p style="margin-bottom: 15px; color: #aaa;">Please check back later. This page will be updated soon.</p>
-                    <p style="color: #fff;">Thank you for your patience and support. â¤ï¸<br>â€“ CodeByTushu</p>
+                    <p style="color: #fff;">Thank you for your patience and support. â¤ï¸<br>— CodeByTushu</p>
                 </div>
 
                 <?php elseif ($isUpcoming): ?>
@@ -481,7 +481,7 @@ if (!$sol && !$notFound) {
                     Solution will be available on
                     <strong><?= date('d F Y', strtotime($sol['solution_date'])) ?></strong>.
                     <br><br>
-                    Check back on the problem date â€” it will appear here automatically.
+                    Check back on the problem date — it will appear here automatically.
                 </div>
 
                 <?php elseif (empty($availableLangs)): ?>
@@ -506,7 +506,7 @@ if (!$sol && !$notFound) {
                     <button class="copy-btn" onclick="copyCode()">ðŸ“‹ Copy</button>
                 </div>
 
-                <!-- Code blocks â€” only rendered for languages that have code -->
+                <!-- Code blocks — only rendered for languages that have code -->
                 <?php $isFirst = true; foreach ($availableLangs as $key => $meta): ?>
                 <pre id="code-<?= htmlspecialchars($meta['id'], ENT_QUOTES, 'UTF-8') ?>"
                      class="code-content"

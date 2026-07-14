@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -20,7 +20,7 @@ Auth::requireLogin();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <!-- Main Site Styles -->
-    <link rel="stylesheet" href="../styles.css?v=32">
+    <link rel="stylesheet" href="../styles.css?v=40">
     <!-- Courses Styles -->
     <link rel="stylesheet" href="./courses.css?v=1">
 
