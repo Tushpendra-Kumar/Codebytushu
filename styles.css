@@ -3093,19 +3093,27 @@ textarea:focus{
     }
 }
 
-/* pr loader design  */
+/* preloader design — pure CSS spinner (no external GIF needed) */
 #preloader {
-    background: url("img/e3a.gif") no-repeat center;
-    background-size: 15%;
-    filter: invert(100%);
-    background-color: #fff;
+    background-color: #000;
     height: 100vh;
     width: 100%;
     position: fixed;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 1000;
-    /* border-radius: 12px; */
 }
+#preloader::after {
+    content: '';
+    width: 44px;
+    height: 44px;
+    border: 4px solid rgba(255,196,0,0.2);
+    border-top-color: #ffc400;
+    border-radius: 50%;
+    animation: cbt-spin 0.7s linear infinite;
+}
+@keyframes cbt-spin { to { transform: rotate(360deg); } }
 
 /* responsive media query start */
 @media (max-width: 1104px) {
