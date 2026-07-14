@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -7,7 +9,6 @@ Auth::requireLogin();
  * CodeByTushu — LeetCode Month Timeline
  * Displays all daily problems for a given month dynamically.
  */
-declare(strict_types=1);
 
 require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../config/database.php';

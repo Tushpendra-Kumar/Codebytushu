@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -8,14 +10,13 @@ Auth::requireLogin();
  * Single template rendering ALL problem pages from the database.
  *
  * Routes:
- *   /leetcode/problem/{slug}   â†’ ?slug=...  (primary SEO URL)
+ *   /leetcode/problem/{slug}   → ?slug=...  (primary SEO URL)
  *   /leetcode/problem/?date=YYYY-MM-DD      (legacy redirect)
  *
  * This file requires NO hardcoded HTML per problem.
  * All content is loaded from the `leetcode_solutions` and
  * `solution_code_blocks` database tables.
  */
-declare(strict_types=1);
 
 require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../config/database.php';

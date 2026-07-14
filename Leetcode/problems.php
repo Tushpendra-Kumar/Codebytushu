@@ -1,14 +1,15 @@
 <?php
+declare(strict_types=1);
+
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
 
 /**
  * CodeByTushu — LeetCode Problems Archive
- * MODE A: No ?year= param  â†’ show year-selector cards (2026, 2027, 2028)
- * MODE B: ?year=XXXX        â†’ show only that year's 12 monthly cards
+ * MODE A: No ?year= param  → show year-selector cards (2026, 2027, 2028)
+ * MODE B: ?year=XXXX        → show only that year's 12 monthly cards
  */
-declare(strict_types=1);
 
 require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../config/database.php';
