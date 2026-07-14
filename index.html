@@ -875,22 +875,26 @@
     </script>
     <!-- scroll bar js  -->
     <script type="text/javascript">
-        var preogressbar = document.getElementById("preogressbar")
-        var percent = document.getElementById("percent")
+        var preogressbar = document.getElementById("preogressbar");
+        var percent = document.getElementById("percent");
 
-        var totalHeight = document.body.scrollHeight - window.innerHeight;
-        window.onscroll = function () {
-            var progress = (window.pageYOffset / totalHeight) * 100;
-            preogressbar.style.height = progress + "%";
-            percent.innerHTML = "Page Scrolled " + Math.round(progress) + "%"
+        if (preogressbar || percent) {
+            var totalHeight = document.body.scrollHeight - window.innerHeight;
+            window.onscroll = function () {
+                var progress = totalHeight > 0 ? (window.pageYOffset / totalHeight) * 100 : 0;
+                if (preogressbar) preogressbar.style.height = progress + "%";
+                if (percent) percent.innerHTML = "Page Scrolled " + Math.round(progress) + "%";
+            };
         }
     </script>
     <!-- pre loader js  -->
     <script>
         var loader = document.getElementById("preloader");
-        window.addEventListener("load", function () {
-            loader.style.display = "none";
-        })
+        if (loader) {
+            window.addEventListener("load", function () {
+                loader.style.display = "none";
+            });
+        }
     </script>
 
     <!-- ═══════════════════════════════════════════════════════
