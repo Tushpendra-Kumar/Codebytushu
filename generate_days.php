@@ -25,7 +25,7 @@ foreach ($yearsToGenerate as $year) {
     for ($monthNum = 1; $monthNum <= 12; $monthNum++) {
         $monthName = date('F', mktime(0, 0, 0, $monthNum, 10));
         $monthShort = date('M', mktime(0, 0, 0, $monthNum, 10));
-        $totalDays = cal_days_in_month(CAL_GREGORIAN, $monthNum, $year);
+        $totalDays = (int)date('t', mktime(0, 0, 0, $monthNum, 1, $year));
 
         // Insert Month if not exists
         $stmt = $pdo->prepare("SELECT id FROM leetcode_months WHERE year_id = ? AND month_num = ?");

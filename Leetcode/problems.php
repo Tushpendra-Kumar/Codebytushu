@@ -53,7 +53,7 @@ if ($selectedYear) {
             for ($m = 1; $m <= 12; $m++) {
                 $mName = date('F', mktime(0, 0, 0, $m, 10));
                 $mShort = date('M', mktime(0, 0, 0, $m, 10));
-                $days = cal_days_in_month(CAL_GREGORIAN, $m, $yearInt);
+                $days = (int)date('t', mktime(0, 0, 0, $m, 1, $yearInt));
                 
                 $ins = $pdo->prepare("INSERT IGNORE INTO leetcode_months (year_id, year, month_num, month_name, month_short, total_days, is_visible) VALUES (?, ?, ?, ?, ?, ?, 1)");
                 $ins->execute([$yearRow['id'], $yearInt, $m, $mName, $mShort, $days]);

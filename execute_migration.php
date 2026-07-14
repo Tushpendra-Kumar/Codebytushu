@@ -130,7 +130,7 @@ try {
         if (!$monthId) {
             $monthsArr = ['','January','February','March','April','May','June','July','August','September','October','November','December'];
             $monthShorts = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+            $daysInMonth = (int)date('t', mktime(0, 0, 0, $month, 1, $year));
             $pdo->prepare('INSERT IGNORE INTO leetcode_months (year_id, year, month_num, month_name, month_short, total_days) VALUES (?,?,?,?,?,?)')
                 ->execute([$yearId, $year, $month, $monthsArr[$month], $monthShorts[$month], $daysInMonth]);
             $monthId = (int)$pdo->lastInsertId();

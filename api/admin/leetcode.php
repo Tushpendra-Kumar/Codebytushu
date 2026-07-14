@@ -104,7 +104,7 @@ if (!$monthId) {
         ->execute([$year, (string)$year, "Year $year", "", "active"]);
     $yearId = (int)($pdo->query("SELECT id FROM leetcode_years WHERE year=$year LIMIT 1")->fetchColumn());
     $mShort = substr($mName, 0, 3);
-    $tDays  = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+    $tDays  = (int)date('t', mktime(0, 0, 0, $month, 1, $year));
     $pdo->prepare('INSERT IGNORE INTO leetcode_months (year_id, year, month_num, month_name, month_short, total_days) VALUES (?,?,?,?,?,?)')
         ->execute([$yearId, $year, $month, $mName, $mShort, $tDays]);
     $monthId = (int)$pdo->lastInsertId() ?: null;
