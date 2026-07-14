@@ -231,16 +231,17 @@ if ($next !== '/') {
     <p class="subtitle">Login to unlock premium modules and save your progress permanently.</p>
 
     <!-- Alerts -->
-    <?php if ($msg = getFlash('error')): ?>
+    <?php $flashData = flash(); ?>
+    <?php if ($flashData && $flashData['type'] === 'error'): ?>
       <div class="alert alert-error">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
-        <?= htmlspecialchars($msg) ?>
+        <?= htmlspecialchars($flashData['message']) ?>
       </div>
     <?php endif; ?>
-    <?php if ($msg = getFlash('success')): ?>
+    <?php if ($flashData && $flashData['type'] === 'success'): ?>
       <div class="alert alert-success">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
-        <?= htmlspecialchars($msg) ?>
+        <?= htmlspecialchars($flashData['message']) ?>
       </div>
     <?php endif; ?>
     <?php if ($error === 'google_not_configured'): ?>
