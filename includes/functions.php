@@ -330,3 +330,39 @@ function rootPath(string $append = ''): string {
     return $append ? $root . DIRECTORY_SEPARATOR . ltrim($append, '/\\') : $root;
 }
 
+
+/**
+ * Perform a POST request to Google API (for OAuth token exchange).
+ */
+function googleApiPost(string $url, array $data): ?array
+{
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/x-www-form-urlencoded'
+    ]);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    if (!$response) return null;
+    return json_decode($response, true);
+}
+
+/**
+ * Perform a GET request to Google API (for User Profile).
+ */
+function googleApiGet(string $url, string $accessToken): ?array
+{
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Authorization: Bearer ' . $accessToken
+    ]);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    if (!$response) return null;
+    return json_decode($response, true);
+}

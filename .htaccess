@@ -29,6 +29,9 @@ ServerSignature Off
   RewriteCond %{THE_REQUEST} \s(.+?)/\s [NC]
   RewriteRule ^(.*)/$ $1 [R=301,L]
 
+  # ── Auth & General Redirects ────────────────────────────────────
+  RewriteRule ^login\.php$ auth/login.php [R=301,L,NC]
+
   # ── LeetCode HTML → PHP 301 redirects ───────────────────────
   # New SEO route for single template
   RewriteRule ^leetcode/problem/([a-zA-Z0-9-]+)$ Leetcode/solution.php?slug=$1 [L,NC]
