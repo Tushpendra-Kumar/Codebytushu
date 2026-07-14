@@ -132,44 +132,4 @@ unset($_SESSION['redirect_after_login']);
 
 redirectWithMessage($intended, 'success', 'Welcome, ' . ($result['user']['full_name'] ?? 'User') . '! 👋');
 
-// ── Helpers ───────────────────────────────────────────────────────────────
 
-/**
- * POST to Google API with JSON body.
- */
-function googleApiPost(string $url, array $data): ?array
-{
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [
-        CURLOPT_POST           => true,
-        CURLOPT_POSTFIELDS     => http_build_query($data),
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT        => 10,
-        CURLOPT_HTTPHEADER     => ['Content-Type: application/x-www-form-urlencoded'],
-        CURLOPT_SSL_VERIFYPEER => true,
-    ]);
-    $body = curl_exec($ch);
-    $err  = curl_error($ch);
-    curl_close($ch);
-    if ($err || !$body) return null;
-    return json_decode($body, true);
-}
-
-/**
- * GET from Google API with Bearer token.
- */
-function googleApiGet(string $url, string $accessToken): ?array
-{
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT        => 10,
-        CURLOPT_HTTPHEADER     => ["Authorization: Bearer $accessToken"],
-        CURLOPT_SSL_VERIFYPEER => true,
-    ]);
-    $body = curl_exec($ch);
-    $err  = curl_error($ch);
-    curl_close($ch);
-    if ($err || !$body) return null;
-    return json_decode($body, true);
-}
