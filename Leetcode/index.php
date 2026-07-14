@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -258,7 +258,7 @@ Auth::requireLogin();
                 implementations.
             </p>
 
-            <a href="problems.php?year=2026" class="explore-btn">Explore 2026 â†’
+            <a href="problems.php?year=2026" class="explore-btn">Explore 2026 <i class="fa-solid fa-arrow-right"></i>
             </a>
 
         </div>
@@ -282,7 +282,7 @@ Auth::requireLogin();
                 and multi-language code support.
             </p>
 
-            <a href="problems.php?year=2027" class="explore-btn">Explore 2027 â†’
+            <a href="problems.php?year=2027" class="explore-btn">Explore 2027 <i class="fa-solid fa-arrow-right"></i>
             </a>
 
         </div>
@@ -306,7 +306,7 @@ Auth::requireLogin();
                 Python, C++, and JavaScript.
             </p>
 
-            <a href="problems.php?year=2028" class="explore-btn">Explore 2028 â†’
+            <a href="problems.php?year=2028" class="explore-btn">Explore 2028 <i class="fa-solid fa-arrow-right"></i>
             </a>
 
         </div>
@@ -344,7 +344,7 @@ Auth::requireLogin();
             </ul>
 
             <a href="donate.php" class="donate-go-btn">
-                Support Now â†’
+                Support Now <i class="fa-solid fa-arrow-right"></i>
             </a>
 
         </div>
@@ -355,7 +355,7 @@ Auth::requireLogin();
             <div class="donate-card-preview">
 
                 <div class="dp-logo-ring">
-                    <span class="dp-arrow">â†</span><span class="dp-d">D</span>
+                    <span class="dp-arrow"><i class="fa-solid fa-arrow-up" style="font-size:inherit;"></i></span><span class="dp-d">D</span>
                 </div>
 
                 <h3>Leetcode Daily</h3>

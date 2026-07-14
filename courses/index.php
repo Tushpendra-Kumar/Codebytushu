@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -164,7 +164,7 @@ Auth::requireLogin();
     <section class="cbt-courses-container">
         <h2 class="cbt-section-title">Learning Roadmap</h2>
         <div style="background:rgba(22, 22, 22, 0.5); padding:30px; border-radius:12px; border:1px solid var(--border-color); text-align:center;">
-            <p style="color:var(--text-main); margin-bottom:20px;">Beginner â†’ Intermediate â†’ Advanced â†’ Projects â†’ Interview Ready</p>
+            <p style="color:var(--text-main); margin-bottom:20px;">Beginner <i class="fa-solid fa-arrow-right" style="margin:0 5px; font-size:0.9em; opacity:0.7;"></i> Intermediate <i class="fa-solid fa-arrow-right" style="margin:0 5px; font-size:0.9em; opacity:0.7;"></i> Advanced <i class="fa-solid fa-arrow-right" style="margin:0 5px; font-size:0.9em; opacity:0.7;"></i> Projects <i class="fa-solid fa-arrow-right" style="margin:0 5px; font-size:0.9em; opacity:0.7;"></i> Interview Ready</p>
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
                 <div style="flex:1; min-width:150px; background:rgba(10, 10, 10, 0.5); padding:20px; border-radius:8px; border:1px solid var(--primary);">
                     <h3 style="color:var(--primary);">1. Basics</h3>

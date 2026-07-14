@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -404,14 +404,14 @@ if (!$sol && !$notFound) {
     <div class="not-found">
         <h1>404</h1>
         <p>Problem not found. It may not be published yet or the URL is incorrect.</p>
-        <a href="/Leetcode/problems.php" style="color:#ffc400;">â† Browse All Problems</a>
+        <a href="/Leetcode/problems.php" style="color:#ffc400;"><i class="fa-solid fa-arrow-left"></i> Browse All Problems</a>
     </div>
 
     <?php else: ?>
 
     <!-- Back button -->
     <a href="/Leetcode/month.php?id=<?= $sol['month_id'] ?>" class="back-btn sol-specific">
-        <span style="margin-right: 6px;">â†</span> Back to Month
+        <span style="margin-right: 6px;"><i class="fa-solid fa-arrow-left"></i></span> Back to Month
     </a>
 
     <!-- Problem meta row: difficulty + date -->
@@ -422,16 +422,16 @@ if (!$sol && !$notFound) {
         <a href="<?= htmlspecialchars($sol['leetcode_url'], ENT_QUOTES, 'UTF-8') ?>"
            target="_blank" rel="noopener noreferrer"
            style="color:#666;font-size:13px;text-decoration:none;border-bottom:1px solid #333;padding-bottom:1px;">
-            View on LeetCode â†—
+            View on LeetCode <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:inherit; margin-left: 4px;"></i>
         </a>
         <?php endif; ?>
     </div>
 
     <section class="problem-section">
 
-        <!-- â•â•â•â•â•â•â•â•â•â•â•â•
+        <!-- ————————————
              LEFT PANEL
-        â•â•â•â•â•â•â•â•â•â•â•â• -->
+        ———————————— -->
         <div class="left-content">
 
             <h1><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></h1>
@@ -460,24 +460,24 @@ if (!$sol && !$notFound) {
                 <?php if ($isFutureYear): ?>
                 <!-- Future Year Message -->
                 <div class="upcoming-message">
-                    <span class="lock-icon">ðŸ”’</span>
+                    <span class="lock-icon">🔒</span>
                     This solution has not been published yet. Please check back later.
                 </div>
 
                 <?php elseif ($isComingSoon2026): ?>
                 <!-- 2026 Custom Coming Soon Message -->
                 <div class="upcoming-message" style="text-align: left;">
-                    <h3 style="color: #ffc400; margin-bottom: 15px;">â³ Solution Coming Soon</h3>
+                    <h3 style="color: #ffc400; margin-bottom: 15px;">⏳ Solution Coming Soon</h3>
                     <p style="margin-bottom: 10px;">Sorry! This solution has not been added yet.</p>
                     <p style="margin-bottom: 10px; color: #aaa; line-height: 1.6;">I am gradually uploading all previous LeetCode solutions along with detailed explanations, optimized code, video tutorials, time complexity, and space complexity analysis.</p>
                     <p style="margin-bottom: 15px; color: #aaa;">Please check back later. This page will be updated soon.</p>
-                    <p style="color: #fff;">Thank you for your patience and support. â¤ï¸<br>— CodeByTushu</p>
+                    <p style="color: #fff;">Thank you for your patience and support. ❤️ <br>— CodeByTushu</p>
                 </div>
 
                 <?php elseif ($isUpcoming): ?>
                 <!-- Upcoming / locked -->
                 <div class="upcoming-message">
-                    <span class="lock-icon">ðŸ”’</span>
+                    <span class="lock-icon">🔒</span>
                     Solution will be available on
                     <strong><?= date('d F Y', strtotime($sol['solution_date'])) ?></strong>.
                     <br><br>
@@ -487,7 +487,7 @@ if (!$sol && !$notFound) {
                 <?php elseif (empty($availableLangs)): ?>
                 <!-- Published but no code added yet -->
                 <div class="upcoming-message">
-                    <span class="lock-icon">â³</span>
+                    <span class="lock-icon">⌛</span>
                     Code solution is being added to the database. Check back shortly.
                 </div>
 
@@ -503,7 +503,7 @@ if (!$sol && !$notFound) {
                         </button>
                         <?php $isFirst = false; endforeach; ?>
                     </div>
-                    <button class="copy-btn" onclick="copyCode()">ðŸ“‹ Copy</button>
+                    <button class="copy-btn" onclick="copyCode()">📋 Copy</button>
                 </div>
 
                 <!-- Code blocks — only rendered for languages that have code -->
@@ -519,9 +519,9 @@ if (!$sol && !$notFound) {
         </div><!-- /.left-content -->
 
 
-        <!-- â•â•â•â•â•â•â•â•â•â•â•â•
+        <!-- ————————————
              RIGHT PANEL
-        â•â•â•â•â•â•â•â•â•â•â•â• -->
+        ———————————— -->
         <div class="right-content">
 
             <!-- YouTube Video -->
@@ -572,16 +572,16 @@ if (!$sol && !$notFound) {
     </section><!-- /.problem-section -->
 
 
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    <!-- ————————————————————————————————————————————————————————————————————————
          PREV / NEXT NAVIGATION
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    ———————————————————————————————————————————————————————————————————————— -->
     <?php if ($prevSol || $nextSol): ?>
     <nav class="solution-nav" aria-label="Problem navigation">
 
         <?php if ($prevSol): ?>
         <a href="<?= SITE_URL ?>/leetcode/problem/<?= htmlspecialchars($prevSol['slug'], ENT_QUOTES, 'UTF-8') ?>"
            class="nav-link prev">
-            <span class="nav-arrow">â†</span>
+            <span class="nav-arrow"><i class="fa-solid fa-arrow-left"></i></span>
             <div class="nav-info">
                 <span class="nav-label">Previous</span>
                 <span class="nav-title">
@@ -596,7 +596,7 @@ if (!$sol && !$notFound) {
         <?php if ($nextSol): ?>
         <a href="<?= SITE_URL ?>/leetcode/problem/<?= htmlspecialchars($nextSol['slug'], ENT_QUOTES, 'UTF-8') ?>"
            class="nav-link next">
-            <span class="nav-arrow">â†’</span>
+            <span class="nav-arrow"><i class="fa-solid fa-arrow-right"></i></span>
             <div class="nav-info">
                 <span class="nav-label">Next</span>
                 <span class="nav-title">

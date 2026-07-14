@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -286,7 +286,7 @@ $days = $stmtDays->fetchAll();
 
     <br><br><br><br>
 
-    <a href="/Leetcode/problems.php?year=<?= (int)$month['y_year'] ?>" class="month-back-btn">â† Back to All Months</a>
+    <a href="/Leetcode/problems.php?year=<?= (int)$month['y_year'] ?>" class="month-back-btn"><i class="fa-solid fa-arrow-left"></i> Back to All Months</a>
 
     <section class="problems-page">
         <div class="month-section-head">
