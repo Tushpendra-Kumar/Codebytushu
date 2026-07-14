@@ -41,7 +41,7 @@ if ($selectedYear) {
         $stmtM = $pdo->prepare(
             "SELECT id, month_num, month_name, total_days, published_solutions
              FROM leetcode_months
-             WHERE year_id = ? AND is_visible = 1
+             WHERE year_id = ?
              ORDER BY month_num ASC"
         );
         $stmtM->execute([$yearRow['id']]);
@@ -55,7 +55,7 @@ if ($selectedYear) {
                 $mShort = date('M', mktime(0, 0, 0, $m, 10));
                 $days = (int)date('t', mktime(0, 0, 0, $m, 1, $yearInt));
                 
-                $ins = $pdo->prepare("INSERT IGNORE INTO leetcode_months (year_id, year, month_num, month_name, month_short, total_days, is_visible) VALUES (?, ?, ?, ?, ?, ?, 1)");
+                $ins = $pdo->prepare("INSERT IGNORE INTO leetcode_months (year_id, year, month_num, month_name, month_short, total_days) VALUES (?, ?, ?, ?, ?, ?)");
                 $ins->execute([$yearRow['id'], $yearInt, $m, $mName, $mShort, $days]);
             }
             // Re-fetch after seeding

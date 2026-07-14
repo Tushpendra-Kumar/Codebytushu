@@ -33,7 +33,7 @@ foreach ($yearsToGenerate as $year) {
         $monthId = $stmt->fetchColumn();
 
         if (!$monthId) {
-            $pdo->prepare("INSERT INTO leetcode_months (year_id, month_num, month_name, month_short, total_days, published_solutions, is_visible) VALUES (?, ?, ?, ?, ?, 0, 1)")->execute([$yearId, $monthNum, $monthName, $monthShort, $totalDays]);
+            $pdo->prepare("INSERT INTO leetcode_months (year_id, month_num, month_name, month_short, total_days, published_solutions) VALUES (?, ?, ?, ?, ?, 0)")->execute([$yearId, $monthNum, $monthName, $monthShort, $totalDays]);
             $monthId = $pdo->lastInsertId();
         }
 
