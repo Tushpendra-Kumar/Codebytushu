@@ -44,6 +44,31 @@ Auth::requireLogin();
 </head>
 <body class="dark-mode">
 
+    <!-- GLOBAL CONTINUOUS PREMIUM BACKGROUND -->
+    <div class="cbt-hero-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;">
+        <div class="cbt-glow-center"></div>
+        <div class="cbt-streak cbt-streak-1"></div>
+        <div class="cbt-streak cbt-streak-2"></div>
+        <div class="cbt-streak cbt-streak-3"></div>
+        <div class="cbt-streak cbt-streak-4"></div>
+        <div class="cbt-circle cbt-circle-left"></div>
+        <div class="cbt-circle cbt-circle-right"></div>
+        <div class="cbt-dots cbt-dots-top-left"></div>
+        <div class="cbt-dots cbt-dots-bottom-right"></div>
+        <div class="cbt-particles">
+            <span class="cbt-particle p-1"></span>
+            <span class="cbt-particle p-2"></span>
+            <span class="cbt-particle p-3"></span>
+            <span class="cbt-particle p-4"></span>
+            <span class="cbt-particle p-5"></span>
+            <span class="cbt-particle p-6"></span>
+            <span class="cbt-particle p-7"></span>
+            <span class="cbt-particle p-8"></span>
+            <span class="cbt-particle p-9"></span>
+            <span class="cbt-particle p-10"></span>
+        </div>
+    </div>
+
     <!-- ===== CURRENCY SIDEBAR ===== -->
     <div class="currency-sidebar" id="currencySidebar">
         <div class="currency-option active" data-currency="INR" data-symbol="₹" data-rate="1" data-base="10">
