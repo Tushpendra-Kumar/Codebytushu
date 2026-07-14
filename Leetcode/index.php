@@ -42,11 +42,10 @@ Auth::requireLogin();
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <!-- Firebase Compat CDN -->
-    
-    
+    <!-- Firebase Compat SDK v10 — ORDER MATTERS: app first, then services -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics-compat.js"></script>
-    <!-- Firebase Config (upload via FTP â€” gitignored) -->
+    <!-- Firebase Config (gitignored — upload manually to Hostinger via FTP) -->
     <script src="/firebase-config.js"></script>
 </head>
 
@@ -452,7 +451,7 @@ Auth::requireLogin();
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script src="/Leetcode/JS/main.js"></script>
     <script src="/back-home.js"></script>
 
     <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•

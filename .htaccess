@@ -71,7 +71,7 @@ ServerSignature Off
      font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; \
      img-src 'self' data: https: blob:; \
      media-src 'self' https://www.youtube.com; \
-     connect-src 'self' https://accounts.google.com https://www.googleapis.com https://api.emailjs.com; \
+     connect-src 'self' https://accounts.google.com https://www.googleapis.com https://api.emailjs.com https://www.gstatic.com https://firebaseinstallations.googleapis.com https://firebaselogging-pa.googleapis.com https://firebase.googleapis.com; \
      frame-src https://www.youtube.com https://youtube.com https://www.google.com https://maps.google.com;"
 
   # Remove PHP version header
