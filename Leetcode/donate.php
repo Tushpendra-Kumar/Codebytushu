@@ -327,7 +327,7 @@ Auth::requireLogin();
             // Calculate exact INR value
             const inrAmount = (currentAmount / currentCurrency.rate).toFixed(2);
             
-            const upiId = 'tushpendrakumar@okicici';
+            const upiId = 'tushpendrakum@slc';
             const name = 'Tushpendra Kumar';
             
             // Construct standard UPI intent URL
