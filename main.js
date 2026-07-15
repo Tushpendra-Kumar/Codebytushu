@@ -33,18 +33,6 @@ $(document).ready(function(){
         $('.menu-btn i').toggleClass("active");
     });
 
-    // typing text animation script
-    // PHP MIGRATION NOTE: These strings can be fetched from a `site_config`
-    // MySQL table (key: 'hero_typing_strings', value: JSON array).
-    if (document.querySelector(".typing")) {
-        var typed = new Typed(".typing", {
-            strings: ["Learn Coding", "Watch Tutorials", "Explore Projects", "Code for Free"],
-            typeSpeed: 100,
-            backSpeed: 60,
-            loop: true
-        });
-    }
-
 
 });
 
