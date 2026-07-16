@@ -202,7 +202,7 @@ Auth::requireLogin();
             <div class="footer-divider"></div>
 
             <p class="footer-copy">
-                &copy; 2026 <a href="/" aria-label="CodeByTushu homepage">CodeByTushu</a> &nbsp;&bull;&nbsp; All Rights Reserved
+                &copy; 2025 <a href="/" aria-label="CodeByTushu homepage">CodeByTushu</a> &nbsp;&bull;&nbsp; All Rights Reserved
             </p>
 
             <nav class="footer-links" aria-label="Footer navigation">
