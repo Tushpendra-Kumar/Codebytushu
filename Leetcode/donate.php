@@ -105,8 +105,6 @@ Auth::requireLogin();
         <span id="badgeSymbol">₹</span> <span id="badgeName">INR</span>
     </button>
 
-    <!-- ===== TOP RIGHT THEME TOGGLE ===== -->
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
 
     <!-- ===== MAIN CARD ===== -->
     <main class="donate-page">
@@ -362,13 +360,6 @@ Auth::requireLogin();
             modal.classList.add('show');
         });
 
-        // ---- Theme toggle ----
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            document.body.classList.toggle('light-mode');
-            document.getElementById('themeToggle').innerHTML =
-                document.body.classList.contains('dark-mode') ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-        }
     </script>
     <script src="/back-home.js"></script>
 </body>
