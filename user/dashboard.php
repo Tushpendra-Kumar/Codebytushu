@@ -25,8 +25,10 @@ if (isPost()) {
     if ($sub === 'profile') {
         $activeTab = 'profile';
         $phone = sanitize(post('phone_number'));
-        $pdo->prepare('UPDATE users SET phone_number=?, updated_at=NOW() WHERE id=?')
-            ->execute([$phone, $user['id']]);
+        $fullName = sanitize(post('full_name'));
+        
+        $pdo->prepare('UPDATE users SET full_name=?, phone_number=?, updated_at=NOW() WHERE id=?')
+            ->execute([$fullName, $phone, $user['id']]);
         $success = 'Profile updated successfully.';
         $user = Auth::user(true);
     }
@@ -215,8 +217,8 @@ if (isPost()) {
                 <input type="email" class="form-control" value="<?= e($user['email']) ?>" readonly>
               </div>
               <div class="form-group">
-                <label class="form-label">Full Name (Managed by Google)</label>
-                <input type="text" class="form-control" value="<?= e($user['full_name']) ?>" readonly>
+                <label class="form-label">Full Name</label>
+                <input type="text" name="full_name" class="form-control" value="<?= e($user['full_name']) ?>">
               </div>
               <div class="form-group">
                 <label class="form-label">Phone Number (Optional)</label>
