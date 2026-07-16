@@ -331,13 +331,18 @@ Auth::requireLogin();
             const name = 'Tushpendra Kumar';
             
             // Construct standard UPI intent URL
-            const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${inrAmount}&cu=INR`;
+            // NOTE: We do NOT pass &am= (amount) in the QR code URL for personal UPI IDs.
+            // Banks and UPI apps often reject programmatic amount pre-fills on non-merchant VPAs.
+            // The QR code leads to a clean pay page where user enters the shown amount manually.
+            // The deep link button still carries amount for convenience on supported apps.
+            const upiUrlForQR  = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&cu=INR`;
+            const upiUrlForBtn = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${inrAmount}&cu=INR`;
 
             // Update Modal UI
             document.getElementById('modalAmount').textContent = `₹${inrAmount}`;
-            document.getElementById('upiDeepLink').href = upiUrl;
+            document.getElementById('upiDeepLink').href = upiUrlForBtn;
 
-            // Generate QR Code
+            // Generate QR Code (without amount — avoids bank rejection on personal UPI IDs)
             const qrContainer = document.getElementById('qrcode');
             qrContainer.innerHTML = ''; // Clear previous
             
@@ -346,7 +351,7 @@ Auth::requireLogin();
             }
             
             qrCodeInstance = new QRCode(qrContainer, {
-                text: upiUrl,
+                text: upiUrlForQR,
                 width: 200,
                 height: 200,
                 colorDark : "#000000",
