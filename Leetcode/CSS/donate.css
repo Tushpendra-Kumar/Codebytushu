@@ -1,9 +1,9 @@
 /* =============================================
-   DONATE PAGE — Full Design
+   DONATE PAGE — Premium Redesign
+   Matching: CodeByTushu Black + Gold Theme
    ============================================= */
 
-/* ---------- Google Font ---------- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 /* ---------- Reset & Base ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,19 +11,8 @@
 body {
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
-    transition: background 0.3s, color 0.3s;
-}
-
-/* ---------- Dark Mode (default) ---------- */
-body.dark-mode {
-    background-color: #000000;
+    background-color: #050505;
     color: #ffffff;
-}
-
-/* ---------- Light Mode ---------- */
-body.light-mode {
-    background-color: #f0f0f0;
-    color: #111;
 }
 
 /* =============================================
@@ -34,13 +23,15 @@ body.light-mode {
     top: 50%;
     left: 0;
     transform: translateY(-50%) translateX(-100%);
-    background: #1a1a1a;
+    background: #111;
+    border: 1px solid rgba(255,196,0,0.2);
+    border-left: none;
     border-radius: 0 16px 16px 0;
     padding: 10px 0;
-    z-index: 200;
-    box-shadow: 4px 0 24px rgba(0,0,0,0.5);
+    z-index: 500;
+    box-shadow: 4px 0 30px rgba(0,0,0,0.6);
     transition: transform 0.35s cubic-bezier(.4,0,.2,1);
-    min-width: 90px;
+    min-width: 100px;
 }
 
 .currency-sidebar.open {
@@ -51,247 +42,336 @@ body.light-mode {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 18px;
+    padding: 11px 20px;
     cursor: pointer;
-    color: #aaa;
-    font-size: 14px;
+    color: #888;
+    font-size: 13px;
     font-weight: 600;
     transition: background 0.2s, color 0.2s;
+    letter-spacing: 0.3px;
 }
 
 .currency-option:hover {
-    background: #2a2a2a;
+    background: #1a1a1a;
     color: #fff;
 }
 
 .currency-option.active {
-    background: #ffc400;
-    color: #000;
-    border-radius: 0 8px 8px 0;
+    background: rgba(255,196,0,0.15);
+    color: #ffc400;
+    border-right: 2px solid #ffc400;
 }
 
-.c-symbol { font-size: 15px; font-weight: 700; min-width: 20px; }
-.c-name   { font-size: 12px; letter-spacing: 0.5px; }
+.c-symbol { font-size: 14px; font-weight: 800; min-width: 20px; }
+.c-name   { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
 
 /* =============================================
    CURRENCY BADGE (Top Left)
    ============================================= */
 .currency-badge {
     position: fixed;
-    top: 18px;
-    left: 18px;
-    z-index: 300;
-    background: #1e1e1e;
+    top: 20px;
+    left: 20px;
+    z-index: 400;
+    background: rgba(20,20,20,0.85);
+    backdrop-filter: blur(10px);
     color: #ffc400;
-    border: 2px solid #ffc400;
+    border: 1.5px solid rgba(255,196,0,0.6);
     border-radius: 50px;
-    padding: 8px 18px;
-    font-size: 14px;
+    padding: 8px 16px;
+    font-size: 13px;
     font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 6px;
-    transition: background 0.2s, color 0.2s;
+    gap: 5px;
+    transition: all 0.2s ease;
     letter-spacing: 0.5px;
 }
 
 .currency-badge:hover {
-    background: #ffc400;
-    color: #000;
-}
-
-/* =============================================
-   THEME TOGGLE (Top Right)
-   ============================================= */
-.theme-toggle {
-    position: fixed;
-    top: 18px;
-    right: 18px;
-    z-index: 300;
-    background: #1e1e1e;
-    border: 2px solid #333;
-    border-radius: 50%;
-    width: 42px;
-    height: 42px;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s, border-color 0.2s;
-}
-
-.theme-toggle:hover {
-    background: #2a2a2a;
+    background: rgba(255,196,0,0.12);
     border-color: #ffc400;
+    box-shadow: 0 0 16px rgba(255,196,0,0.25);
 }
 
 /* =============================================
-   MAIN PAGE LAYOUT
+   PAGE WRAPPER
    ============================================= */
-.donate-page {
+.donate-page-wrapper {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 80px 20px 0;
 }
 
 /* =============================================
    DONATE CARD
    ============================================= */
 .donate-card {
-    background: transparent;
-    text-align: center;
-    max-width: 500px;
+    background: rgba(10, 10, 10, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 196, 0, 0.18);
+    border-radius: 24px;
+    padding: 40px 36px 36px;
+    max-width: 480px;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
+    text-align: center;
+    box-shadow:
+        0 0 0 1px rgba(255,196,0,0.06) inset,
+        0 30px 80px rgba(0,0,0,0.6),
+        0 0 60px rgba(255,196,0,0.04);
+    position: relative;
 }
 
-/* ---------- Logo Ring ---------- */
+/* =============================================
+   LOGO CIRCLE
+   ============================================= */
 .brand-logo {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
 .logo-ring {
-    width: 110px;
-    height: 110px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    border: 3px solid #ffc400;
+    border: 2.5px solid #ffc400;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #1a1a1a;
-    box-shadow: 0 0 30px rgba(255, 196, 0, 0.2);
+    background: #111;
+    box-shadow: 0 0 24px rgba(255,196,0,0.25);
+    margin: 0 auto;
 }
 
 .logo-inner {
     display: flex;
     align-items: center;
-    gap: 2px;
-    font-size: 32px;
+    gap: 1px;
+    font-size: 26px;
     font-weight: 900;
     letter-spacing: -2px;
 }
 
 .logo-arrow {
     color: #ffffff;
-    font-size: 28px;
+    font-size: 20px;
 }
 
 .logo-d {
     color: #ffc400;
-    font-size: 36px;
+    font-size: 28px;
 }
 
-/* ---------- Title & Subtitle ---------- */
-.donate-title {
-    font-size: 36px;
+/* =============================================
+   BADGE
+   ============================================= */
+.support-badge {
+    display: inline-block;
+    background: transparent;
+    border: 1.5px solid rgba(255,196,0,0.5);
+    border-radius: 50px;
+    padding: 4px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffc400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+/* =============================================
+   HEADINGS
+   ============================================= */
+.donate-heading {
+    font-size: 34px;
     font-weight: 800;
     color: #ffffff;
+    line-height: 1.15;
     letter-spacing: -0.5px;
+    margin-bottom: 4px;
 }
 
-.donate-subtitle {
-    font-size: 15px;
-    color: #999;
-    margin-top: -6px;
+.donate-heading .gold {
+    color: #ffc400;
 }
 
-/* ---------- Boba Row ---------- */
-.boba-row {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background: #1c1c1c;
-    border: 1px solid #2a2a2a;
-    border-radius: 16px;
-    padding: 20px 28px;
-    margin-top: 8px;
+.donate-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =============================================
+   FEATURE CARDS ROW
+   ============================================= */
+.features-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
     width: 100%;
-    justify-content: center;
+    margin-bottom: 28px;
 }
 
-.boba-icon {
-    font-size: 44px;
-    line-height: 1;
+.feature-card {
+    background: rgba(255,196,0,0.05);
+    border: 1px solid rgba(255,196,0,0.12);
+    border-radius: 14px;
+    padding: 18px 12px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.2s, background 0.2s;
 }
 
-.boba-x {
-    font-size: 22px;
-    color: #666;
-    font-weight: 500;
+.feature-card:hover {
+    border-color: rgba(255,196,0,0.3);
+    background: rgba(255,196,0,0.08);
 }
 
-.qty-buttons {
+.feature-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(255,196,0,0.1);
+    border: 1px solid rgba(255,196,0,0.2);
+    border-radius: 10px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    color: #ffc400;
+    font-size: 18px;
 }
 
-/* Preset qty buttons */
-.qty-btn {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 2px solid #333;
-    background: #111;
-    color: #fff;
-    font-size: 15px;
+.feature-title {
+    font-size: 13px;
     font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
+    color: #fff;
+    line-height: 1.2;
+}
+
+.feature-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* =============================================
+   DIVIDER WITH HEART
+   ============================================= */
+.heart-divider {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    margin-bottom: 16px;
+    color: rgba(255,196,0,0.5);
+    font-size: 18px;
+}
+
+/* =============================================
+   CHOOSE AMOUNT LABEL
+   ============================================= */
+.choose-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.3px;
+    margin-bottom: 14px;
+}
+
+/* =============================================
+   AMOUNT SELECTOR
+   ============================================= */
+.amount-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    width: 100%;
+}
+
+.qty-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    flex-shrink: 0;
 }
 
 .qty-btn:hover {
     border-color: #ffc400;
     color: #ffc400;
+    background: rgba(255,196,0,0.08);
 }
 
-.qty-btn.active {
-    background: #ffc400;
-    border-color: #ffc400;
-    color: #000;
+.qty-btn:active {
+    transform: scale(0.93);
 }
 
-/* Custom qty input */
-.qty-custom {
-    width: 50px;
-    height: 42px;
-    border-radius: 10px;
-    border: 2px solid #333;
-    background: #111;
-    color: #fff;
-    font-size: 15px;
+.amount-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 10px 16px;
+    min-width: 130px;
+}
+
+.amount-symbol {
+    font-size: 22px;
     font-weight: 700;
-    text-align: center;
+    color: #fff;
+    line-height: 1;
+}
+
+#amountInput {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    width: 80px;
     outline: none;
-    transition: border-color 0.2s;
     -moz-appearance: textfield;
+    text-align: left;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
 }
 
-.qty-custom::-webkit-inner-spin-button,
-.qty-custom::-webkit-outer-spin-button { -webkit-appearance: none; }
-
-.qty-custom:focus {
-    border-color: #ffc400;
+#amountInput::-webkit-inner-spin-button,
+#amountInput::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-.qty-custom::placeholder {
-    color: #555;
-}
-
-/* ---------- Support Button ---------- */
+/* =============================================
+   SUPPORT BUTTON
+   ============================================= */
 .support-btn {
     width: 100%;
-    padding: 18px;
+    padding: 17px 24px;
     background: #ffc400;
     color: #000;
     border: none;
@@ -299,48 +379,355 @@ body.light-mode {
     font-size: 18px;
     font-weight: 800;
     cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
-    letter-spacing: 0.3px;
-    margin-top: 4px;
+    transition: all 0.2s ease;
+    letter-spacing: 0.2px;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.support-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+    pointer-events: none;
 }
 
 .support-btn:hover {
-    background: #ffc04a;
+    background: #ffd230;
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(255, 196, 0, 0.4);
+    box-shadow: 0 10px 35px rgba(255,196,0,0.45);
 }
 
 .support-btn:active {
     transform: translateY(0);
-    box-shadow: none;
-}
-
-/* ---------- Secure Note ---------- */
-.secure-note {
-    font-size: 12px;
-    color: #555;
-    margin-top: -4px;
+    box-shadow: 0 4px 14px rgba(255,196,0,0.3);
 }
 
 /* =============================================
-   LIGHT MODE OVERRIDES
+   SECURE NOTES
    ============================================= */
-body.light-mode .donate-card {}
-body.light-mode .donate-title { color: #111; }
-body.light-mode .logo-ring    { background: #f0f0f0; }
-body.light-mode .boba-row     { background: #fff; border-color: #ddd; }
-body.light-mode .qty-btn      { background: #f0f0f0; color: #111; border-color: #ccc; }
-body.light-mode .qty-custom   { background: #f0f0f0; color: #111; border-color: #ccc; }
-body.light-mode .currency-badge { background: #fff; }
-body.light-mode .theme-toggle { background: #fff; border-color: #ccc; }
+.secure-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.secure-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.secure-note i {
+    font-size: 11px;
+    color: rgba(255,196,0,0.6);
+}
+
+/* =============================================
+   UPI MODAL
+   ============================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal-content {
+    background: #111;
+    border: 1px solid rgba(255,196,0,0.25);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-align: center;
+    max-width: 360px;
+    width: 90%;
+    position: relative;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.3s ease;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+}
+
+.modal-overlay.show .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.modal-close:hover { color: #ffc400; }
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.modal-subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.modal-amount-display {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 20px;
+}
+
+.modal-amount-display span {
+    color: #ffc400;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+#qrcode {
+    display: flex;
+    justify-content: center;
+    padding: 14px;
+    background: #fff;
+    border-radius: 12px;
+    width: max-content;
+    margin: 0 auto;
+}
+
+.modal-open-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 14px;
+    background: #ffc400;
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.modal-open-btn:hover {
+    background: #ffd230;
+    box-shadow: 0 6px 24px rgba(255,196,0,0.4);
+}
+
+/* =============================================
+   TOAST
+   ============================================= */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 14px 22px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(-16px);
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 99999;
+    font-family: 'Inter', sans-serif;
+}
+
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.success { background: #22c55e; }
+.toast.error   { background: #ef4444; }
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.donate-footer {
+    width: 100%;
+    max-width: 480px;
+    margin-top: 48px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+.footer-heart-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.footer-heart-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,196,0,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffc400;
+    font-size: 20px;
+    background: rgba(255,196,0,0.06);
+}
+
+.footer-thankyou {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.footer-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.footer-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,196,0,0.15), transparent);
+    margin-bottom: 20px;
+}
+
+.footer-copy {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 14px;
+}
+
+.footer-copy a {
+    color: #ffc400;
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.footer-copy a:hover { opacity: 0.8; }
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    padding: 4px 2px;
+    transition: color 0.2s;
+    font-weight: 500;
+}
+
+.footer-link i {
+    font-size: 11px;
+    color: rgba(255,196,0,0.5);
+}
+
+.footer-link:hover {
+    color: rgba(255,255,255,0.8);
+}
+
+.footer-dot {
+    color: rgba(255,255,255,0.2);
+    font-size: 10px;
+    padding: 0 2px;
+}
 
 /* =============================================
    RESPONSIVE
    ============================================= */
-@media (max-width: 480px) {
-    .donate-title   { font-size: 28px; }
-    .boba-row       { padding: 16px; gap: 10px; flex-wrap: wrap; justify-content: center; }
-    .qty-btn        { width: 36px; height: 36px; font-size: 13px; }
-    .qty-custom     { width: 44px; height: 36px; }
-    .boba-icon      { font-size: 36px; }
+@media (max-width: 540px) {
+    .donate-card {
+        padding: 30px 22px 28px;
+        border-radius: 20px;
+    }
+
+    .donate-heading {
+        font-size: 28px;
+    }
+
+    .features-row {
+        gap: 8px;
+    }
+
+    .feature-card {
+        padding: 14px 8px 12px;
+    }
+
+    .feature-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    .feature-title {
+        font-size: 12px;
+    }
+
+    .feature-desc {
+        font-size: 10px;
+    }
+
+    .support-btn {
+        font-size: 16px;
+        padding: 15px 20px;
+    }
+
+    .donate-page-wrapper {
+        padding: 70px 14px 0;
+    }
+
+    .footer-links {
+        gap: 4px;
+    }
+}
+
+@media (max-width: 380px) {
+    .features-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .feature-desc {
+        display: none;
+    }
+
+    .amount-display {
+        min-width: 110px;
+    }
 }

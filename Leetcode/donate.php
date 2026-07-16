@@ -8,43 +8,33 @@ Auth::requireLogin();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Support Leetcode Daily by CodeByTushu â€” Buy a boba!">
-    <title>Support Leetcode Daily | CodeByTushu</title>
+    <meta name="description" content="Support CodeByTushu — Help keep programming education free for everyone.">
+    <title>Support CodeByTushu | Donate</title>
 
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         FAVICON â€” root-level, cache-busted (consistent with all pages)
-         PHP MIGRATION NOTE: In PHP, these will move into includes/head.php
-         â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- Favicon -->
     <link rel="icon"             href="/favicon.ico?v=6"                 sizes="any">
     <link rel="icon"             href="/favicon-32x32.png?v=6"           type="image/png" sizes="32x32">
-    <link rel="icon"             href="/favicon-48x48.png?v=6"           type="image/png" sizes="48x48">
     <link rel="icon"             href="/favicon-16x16.png?v=6"           type="image/png" sizes="16x16">
-    <link rel="icon"             href="/android-chrome-192x192.png?v=6"  type="image/png" sizes="192x192">
-    <link rel="icon"             href="/android-chrome-512x512.png?v=6"  type="image/png" sizes="512x512">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=6"        sizes="180x180">
     <link rel="manifest"         href="/site.webmanifest?v=6">
     <meta name="theme-color"     content="#ffc400">
 
-    <!-- Theme init â€” prevents flash. NOTE: donate.html uses its own
-         inline dark/light toggle (body class) which is separate from
-         the global data-theme system. Both coexist safely. -->
+    <!-- Theme init -->
     <script src="/theme.js"></script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-    
-    <!-- Main Website Styling System (root-relative) -->
-    <link rel="stylesheet" href="/styles.css?v=40">
 
-    <!-- LeetCode Specific Overrides (root-relative) -->
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles.css?v=40">
     <link rel="stylesheet" href="/Leetcode/CSS/style.css">
-    <link rel="stylesheet" href="/Leetcode/CSS/donate.css">
+    <link rel="stylesheet" href="/Leetcode/CSS/donate.css?v=5">
 </head>
 <body class="dark-mode">
 
-    <!-- GLOBAL CONTINUOUS PREMIUM BACKGROUND -->
+    <!-- ===== ANIMATED PREMIUM BACKGROUND ===== -->
     <div class="cbt-hero-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;">
         <div class="cbt-glow-center"></div>
         <div class="cbt-streak cbt-streak-1"></div>
@@ -77,290 +67,365 @@ Auth::requireLogin();
         <div class="currency-option" data-currency="USD" data-symbol="$" data-rate="0.012" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">USD</span>
         </div>
-        <div class="currency-option" data-currency="AUD" data-symbol="$" data-rate="0.018" data-base="1">
-            <span class="c-symbol">$</span><span class="c-name">AUD</span>
+        <div class="currency-option" data-currency="AUD" data-symbol="A$" data-rate="0.018" data-base="1">
+            <span class="c-symbol">A$</span><span class="c-name">AUD</span>
         </div>
         <div class="currency-option" data-currency="GBP" data-symbol="£" data-rate="0.0095" data-base="1">
             <span class="c-symbol">£</span><span class="c-name">GBP</span>
         </div>
-        <div class="currency-option" data-currency="CAD" data-symbol="$" data-rate="0.016" data-base="1">
-            <span class="c-symbol">$</span><span class="c-name">CAD</span>
+        <div class="currency-option" data-currency="CAD" data-symbol="C$" data-rate="0.016" data-base="1">
+            <span class="c-symbol">C$</span><span class="c-name">CAD</span>
+        </div>
+        <div class="currency-option" data-currency="EUR" data-symbol="€" data-rate="0.011" data-base="1">
+            <span class="c-symbol">€</span><span class="c-name">EUR</span>
+        </div>
+        <div class="currency-option" data-currency="SGD" data-symbol="S$" data-rate="0.016" data-base="1">
+            <span class="c-symbol">S$</span><span class="c-name">SGD</span>
         </div>
         <div class="currency-option" data-currency="MYR" data-symbol="RM" data-rate="0.056" data-base="1">
             <span class="c-symbol">RM</span><span class="c-name">MYR</span>
         </div>
-        <div class="currency-option" data-currency="MXN" data-symbol="$" data-rate="0.2" data-base="1">
-            <span class="c-symbol">$</span><span class="c-name">MXN</span>
-        </div>
-        <div class="currency-option" data-currency="SGD" data-symbol="$" data-rate="0.016" data-base="1">
-            <span class="c-symbol">$</span><span class="c-name">SGD</span>
-        </div>
-        <div class="currency-option" data-currency="PLN" data-symbol="zł" data-rate="0.048" data-base="1">
-            <span class="c-symbol">zł</span><span class="c-name">PLN</span>
-        </div>
     </div>
 
-    <!-- ===== TOP LEFT CURRENCY BADGE ===== -->
-    <button class="currency-badge" id="currencyBadge" onclick="toggleSidebar()">
-        <span id="badgeSymbol">₹</span> <span id="badgeName">INR</span>
+    <!-- ===== CURRENCY BADGE (Top Left) ===== -->
+    <button class="currency-badge" id="currencyBadge" onclick="toggleSidebar()" aria-label="Select currency">
+        <i class="fa-solid fa-indian-rupee-sign" id="badgeIcon" style="font-size:11px;"></i>
+        <span id="badgeName">INR</span>
     </button>
 
+    <!-- ===== MAIN PAGE WRAPPER ===== -->
+    <div class="donate-page-wrapper">
 
-    <!-- ===== MAIN CARD ===== -->
-    <main class="donate-page">
-        <div class="donate-card">
+        <!-- ===== DONATE CARD ===== -->
+        <div class="donate-card" role="main">
 
             <!-- Logo Circle -->
             <div class="brand-logo">
                 <div class="logo-ring">
                     <div class="logo-inner">
-                        <span class="logo-arrow"><i class="fa-solid fa-arrow-up" style="font-size:inherit;"></i></span><span class="logo-d">D</span>
+                        <span class="logo-arrow"><i class="fa-solid fa-arrow-up"></i></span><span class="logo-d">D</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Title -->
-            <h1 class="donate-title">Leetcode Daily</h1>
-            <p class="donate-subtitle">Support Leetcode Daily by buying them a boba!</p>
+            <!-- Support Us Badge -->
+            <div class="support-badge">SUPPORT US</div>
+
+            <!-- Heading -->
+            <h1 class="donate-heading">
+                Support<br>
+                <span class="gold">CodeByTushu</span>
+            </h1>
+
+            <!-- Description -->
+            <p class="donate-desc">
+                CodeByTushu is dedicated to providing high-quality programming content, daily LeetCode solutions, and practical development resources — completely free for everyone.
+            </p>
+
+            <!-- Feature Cards -->
+            <div class="features-row" aria-label="Why your support matters">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="feature-title">Free Content</div>
+                    <div class="feature-desc">Always free, always will be.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <div class="feature-title">Daily Updates</div>
+                    <div class="feature-desc">New LeetCode solutions every single day.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-code"></i></div>
+                    <div class="feature-title">Built for You</div>
+                    <div class="feature-desc">Made to help you crack interviews and grow.</div>
+                </div>
+            </div>
+
+            <!-- Heart Divider -->
+            <div class="heart-divider" aria-hidden="true">
+                <i class="fa-regular fa-heart"></i>
+            </div>
+
+            <!-- Choose Amount Label -->
+            <p class="choose-label">Choose an amount</p>
 
             <!-- Amount Selector -->
-            <div class="amount-row" style="display:flex;align-items:center;justify-content:center;gap:15px;margin:30px 0;">
-                <button id="btnMinus" class="qty-btn" style="width:40px;height:40px;font-size:20px;padding:0;display:flex;align-items:center;justify-content:center;">-</button>
-                <div style="display:flex; align-items:center; font-size:24px; font-weight:700; color:var(--text); justify-content:center; gap:2px;">
-                    <span id="currencySymbolPrefix">₹</span>
-                    <input type="number" id="amountInput" value="10" min="10" style="background:transparent; border:none; color:var(--text); font-size:24px; font-weight:700; width:100px; outline:none; -moz-appearance:textfield; padding:0;">
+            <div class="amount-row">
+                <button id="btnMinus" class="qty-btn" aria-label="Decrease amount">&#8722;</button>
+                <div class="amount-display">
+                    <span class="amount-symbol" id="currencySymbolPrefix">₹</span>
+                    <input
+                        type="number"
+                        id="amountInput"
+                        value="10"
+                        min="10"
+                        aria-label="Donation amount"
+                    >
                 </div>
-                <button id="btnPlus" class="qty-btn" style="width:40px;height:40px;font-size:20px;padding:0;display:flex;align-items:center;justify-content:center;">+</button>
+                <button id="btnPlus" class="qty-btn" aria-label="Increase amount">+</button>
             </div>
 
             <!-- Support Button -->
-            <button class="support-btn" id="supportBtn">
+            <button class="support-btn" id="supportBtn" aria-label="Proceed to payment">
                 Support <span id="supportAmount">₹10</span>
             </button>
 
-            <p class="secure-note"><i class="fa-solid fa-lock"></i> Zero transaction fees via direct UPI</p>
-        </div>
-    </main>
+            <!-- Secure Notes -->
+            <div class="secure-notes">
+                <p class="secure-note">
+                    <i class="fa-solid fa-lock"></i>
+                    Secure payment via direct UPI
+                </p>
+                <p class="secure-note">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Zero transaction fees via UPI
+                </p>
+            </div>
+
+        </div><!-- /.donate-card -->
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="donate-footer" role="contentinfo">
+
+            <div class="footer-heart-wrap">
+                <div class="footer-heart-icon">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+            </div>
+
+            <p class="footer-thankyou">Thank you for supporting free education.</p>
+            <p class="footer-sub">
+                Your support helps thousands of developers<br>
+                learn and grow every single day.
+            </p>
+
+            <div class="footer-divider"></div>
+
+            <p class="footer-copy">
+                &copy; 2026 <a href="/" aria-label="CodeByTushu homepage">CodeByTushu</a> &nbsp;&bull;&nbsp; All Rights Reserved
+            </p>
+
+            <nav class="footer-links" aria-label="Footer navigation">
+                <a href="/privacy-policy/" class="footer-link" id="footer-privacy">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Privacy Policy
+                </a>
+                <span class="footer-dot" aria-hidden="true">&#x2022;</span>
+                <a href="/terms/" class="footer-link" id="footer-terms">
+                    <i class="fa-regular fa-file-lines"></i>
+                    Terms of Service
+                </a>
+                <span class="footer-dot" aria-hidden="true">&#x2022;</span>
+                <a href="mailto:codebytushu@gmail.com" class="footer-link" id="footer-contact">
+                    <i class="fa-regular fa-envelope"></i>
+                    Contact Us
+                </a>
+            </nav>
+
+        </footer>
+
+    </div><!-- /.donate-page-wrapper -->
 
     <!-- ===== UPI QR MODAL ===== -->
-    <div id="upiModal" class="modal-overlay">
+    <div id="upiModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-content">
-            <button class="modal-close" id="closeModal">&times;</button>
-            <h2 style="margin-top:0; color:var(--text); font-size:24px;">Scan & Pay</h2>
-            <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Use any UPI App (GPay, PhonePe, Paytm) to scan the QR code below.</p>
-            
-            <div id="qrcode" style="display:flex; justify-content:center; padding:15px; background:#fff; border-radius:10px; width:max-content; margin:0 auto 20px auto;"></div>
-            
-            <p style="color:var(--text); font-weight:600; font-size:18px; margin-bottom:20px;">Amount: <span id="modalAmount">₹100</span></p>
-            
-            <!-- Deep link for Mobile Users -->
-            <a href="#" id="upiDeepLink" class="support-btn" style="text-decoration:none; display:inline-block;">Open UPI App</a>
+            <button class="modal-close" id="closeModal" aria-label="Close modal">&times;</button>
+            <p class="modal-title" id="modalTitle">Scan &amp; Pay</p>
+            <p class="modal-subtitle">Use GPay, PhonePe, Paytm or any UPI app to scan the QR below.</p>
+
+            <div id="qrcode"></div>
+
+            <p class="modal-amount-display">
+                Amount: <span id="modalAmount">₹10</span>
+            </p>
+
+            <!-- Deep link for mobile users -->
+            <a href="#" id="upiDeepLink" class="modal-open-btn" role="button">
+                <i class="fa-solid fa-mobile-screen-button" style="margin-right:6px;"></i>
+                Open UPI App
+            </a>
         </div>
     </div>
 
-    <!-- qrcode.js CDN -->
+    <!-- Toast -->
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+    <!-- QR Code library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-    <!-- Simple Toast Notification CSS for Payment Status -->
-    <style>
-        .toast {
-            position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px;
-            color: #fff; font-weight: 600; font-family: sans-serif; opacity: 0;
-            transform: translateY(-20px); transition: opacity 0.3s, transform 0.3s; z-index: 9999;
-        }
-        .toast.show { opacity: 1; transform: translateY(0); }
-        .toast.success { background: #22c55e; }
-        .toast.error { background: #ef4444; }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
-        }
-        .modal-overlay.show { opacity: 1; pointer-events: all; }
-        
-        .modal-content {
-            background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 16px; padding: 30px; text-align: center;
-            max-width: 400px; width: 90%; position: relative;
-            transform: translateY(20px); transition: transform 0.3s;
-        }
-        .modal-overlay.show .modal-content { transform: translateY(0); }
-
-        .modal-close {
-            position: absolute; top: 15px; right: 15px;
-            background: transparent; border: none; color: var(--text-muted);
-            font-size: 28px; cursor: pointer; line-height: 1;
-            transition: color 0.2s;
-        }
-        .modal-close:hover { color: var(--accent); }
-        
-        /* Hide spin buttons for number input */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
-        }
-    </style>
-    <div id="toast" class="toast"></div>
-
     <script>
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = 'toast ' + type + ' show';
-            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+    /* =============================================
+       DONATE PAGE — Full JS
+       ============================================= */
+
+    // ---- Toast ----
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = 'toast ' + type + ' show';
+        setTimeout(() => { toast.classList.remove('show'); }, 4000);
+    }
+
+    // ---- State ----
+    let currentCurrency = { symbol: '₹', rate: 1, base: 10, name: 'INR' };
+    let currentAmount   = 10;
+
+    // ---- Sidebar toggle ----
+    function toggleSidebar() {
+        document.getElementById('currencySidebar').classList.toggle('open');
+    }
+
+    document.addEventListener('click', function(e) {
+        const sidebar = document.getElementById('currencySidebar');
+        const badge   = document.getElementById('currencyBadge');
+        if (sidebar && badge && !sidebar.contains(e.target) && !badge.contains(e.target)) {
+            sidebar.classList.remove('open');
         }
+    });
 
-        // ---- State ----
-        let currentCurrency = { symbol: '₹', rate: 1, base: 10, name: 'INR' };
-        let currentAmount = 10;
+    // ---- Currency icons map ----
+    const currencyIcons = {
+        INR: 'fa-indian-rupee-sign',
+        USD: 'fa-dollar-sign',
+        AUD: 'fa-dollar-sign',
+        GBP: 'fa-sterling-sign',
+        CAD: 'fa-dollar-sign',
+        EUR: 'fa-euro-sign',
+        SGD: 'fa-dollar-sign',
+        MYR: 'fa-dollar-sign',
+    };
 
-        // ---- Sidebar toggle ----
-        function toggleSidebar() {
-            document.getElementById('currencySidebar').classList.toggle('open');
+    // ---- Currency selection ----
+    document.querySelectorAll('.currency-option').forEach(opt => {
+        opt.addEventListener('click', function () {
+            document.querySelectorAll('.currency-option').forEach(o => o.classList.remove('active'));
+            this.classList.add('active');
+
+            currentCurrency = {
+                symbol: this.dataset.symbol,
+                rate:   parseFloat(this.dataset.rate),
+                base:   parseFloat(this.dataset.base),
+                name:   this.dataset.currency
+            };
+
+            const icon = currencyIcons[currentCurrency.name] || 'fa-dollar-sign';
+            document.getElementById('badgeIcon').className = `fa-solid ${icon}`;
+            document.getElementById('badgeName').textContent = currentCurrency.name;
+            document.getElementById('currencySymbolPrefix').textContent = currentCurrency.symbol;
+
+            document.getElementById('currencySidebar').classList.remove('open');
+
+            currentAmount = currentCurrency.base;
+            document.getElementById('amountInput').value  = currentAmount;
+            document.getElementById('amountInput').min    = currentCurrency.base;
+            updateAmountDisplay();
+        });
+    });
+
+    // ---- Amount input ----
+    const amountInput = document.getElementById('amountInput');
+
+    amountInput.addEventListener('input', function () {
+        const val = parseFloat(this.value);
+        if (!isNaN(val) && val > 0) {
+            currentAmount = val;
+            updateAmountDisplay();
         }
+    });
 
-        // Close sidebar when clicking outside
-        document.addEventListener('click', function(e) {
-            const sidebar = document.getElementById('currencySidebar');
-            const badge = document.getElementById('currencyBadge');
-            if (!sidebar.contains(e.target) && !badge.contains(e.target)) {
-                sidebar.classList.remove('open');
-            }
-        });
+    amountInput.addEventListener('blur', function () {
+        let val = parseFloat(this.value);
+        if (isNaN(val) || val < currentCurrency.base) {
+            currentAmount = currentCurrency.base;
+        } else {
+            currentAmount = val;
+        }
+        this.value = currentAmount;
+        updateAmountDisplay();
+    });
 
-        // ---- Currency selection ----
-        document.querySelectorAll('.currency-option').forEach(opt => {
-            opt.addEventListener('click', function () {
-                document.querySelectorAll('.currency-option').forEach(o => o.classList.remove('active'));
-                this.classList.add('active');
-
-                currentCurrency = {
-                    symbol: this.dataset.symbol,
-                    rate:   parseFloat(this.dataset.rate),
-                    base:   parseFloat(this.dataset.base),
-                    name:   this.dataset.currency
-                };
-
-                document.getElementById('badgeSymbol').textContent = currentCurrency.symbol;
-                document.getElementById('badgeName').textContent   = currentCurrency.name;
-                document.getElementById('currencySymbolPrefix').textContent = currentCurrency.symbol;
-
-                document.getElementById('currencySidebar').classList.remove('open');
-                
-                // Reset amount to the new currency's base
-                currentAmount = currentCurrency.base;
-                document.getElementById('amountInput').value = currentAmount;
-                document.getElementById('amountInput').min = currentCurrency.base;
-                updateAmount();
-            });
-        });
-
-        // ---- Amount Input Handling ----
-        const amountInput = document.getElementById('amountInput');
-        
-        amountInput.addEventListener('input', function() {
-            let val = parseInt(this.value, 10);
-            if (!isNaN(val)) {
-                currentAmount = val;
-                updateAmount();
-            }
-        });
-
-        amountInput.addEventListener('blur', function() {
-            let val = parseInt(this.value, 10);
-            if (isNaN(val) || val < currentCurrency.base) {
-                currentAmount = currentCurrency.base;
-            } else {
-                currentAmount = val;
-            }
-            this.value = currentAmount;
-            updateAmount();
-        });
-
-        // ---- Qty buttons (Step Selector) ----
-        document.getElementById('btnMinus').addEventListener('click', function () {
-            if (currentAmount > currentCurrency.base) {
-                currentAmount = Math.max(currentCurrency.base, currentAmount - currentCurrency.base);
-                amountInput.value = currentAmount;
-                updateAmount();
-            }
-        });
-
-        document.getElementById('btnPlus').addEventListener('click', function () {
-            currentAmount += currentCurrency.base;
+    // ---- +/- Buttons ----
+    document.getElementById('btnMinus').addEventListener('click', function () {
+        if (currentAmount > currentCurrency.base) {
+            currentAmount = Math.max(currentCurrency.base, currentAmount - currentCurrency.base);
             amountInput.value = currentAmount;
-            updateAmount();
-        });
+            updateAmountDisplay();
+        }
+    });
 
-        // ---- Update support button amount ----
-        function updateAmount() {
-            const finalAmount = currentAmount.toFixed(currentCurrency.base < 10 ? 2 : 0);
-            const formatted = currentCurrency.symbol + finalAmount;
-            document.getElementById('supportAmount').textContent = formatted;
+    document.getElementById('btnPlus').addEventListener('click', function () {
+        currentAmount += currentCurrency.base;
+        amountInput.value = currentAmount;
+        updateAmountDisplay();
+    });
+
+    // ---- Update support button display ----
+    function updateAmountDisplay() {
+        const isDecimal = currentCurrency.base < 10;
+        const formatted = isDecimal
+            ? currentCurrency.symbol + parseFloat(currentAmount).toFixed(2)
+            : currentCurrency.symbol + Math.round(currentAmount);
+        document.getElementById('supportAmount').textContent = formatted;
+    }
+
+    // ---- Modal ----
+    const modal      = document.getElementById('upiModal');
+    const closeModal = document.getElementById('closeModal');
+    let qrCodeInstance = null;
+
+    closeModal.addEventListener('click', () => modal.classList.remove('show'));
+    modal.addEventListener('click', e => {
+        if (e.target === modal) modal.classList.remove('show');
+    });
+
+    // ---- Support button → UPI QR ----
+    document.getElementById('supportBtn').addEventListener('click', function () {
+        // Validate
+        if (isNaN(currentAmount) || currentAmount < currentCurrency.base) {
+            currentAmount = currentCurrency.base;
+            amountInput.value = currentAmount;
+            updateAmountDisplay();
         }
 
-        // ---- Modal Logic ----
-        const modal = document.getElementById('upiModal');
-        const closeModal = document.getElementById('closeModal');
-        let qrCodeInstance = null;
+        // Convert to INR (always integer for UPI)
+        const inrAmount = Math.round(currentAmount / currentCurrency.rate);
 
-        closeModal.addEventListener('click', () => modal.classList.remove('show'));
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.classList.remove('show');
+        const upiId  = 'tushpendrakum@slc';
+        const name   = 'Tushpendra Kumar';
+
+        // Clean UPI deep link — integer amount, no decimals
+        const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${inrAmount}&cu=INR&tn=${encodeURIComponent('CodeByTushu Donation')}`;
+
+        // Update modal
+        document.getElementById('modalAmount').textContent =
+            currentCurrency.symbol + (currentCurrency.base < 10 ? parseFloat(currentAmount).toFixed(2) : Math.round(currentAmount));
+        document.getElementById('upiDeepLink').href = upiUrl;
+
+        // Generate QR
+        const qrContainer = document.getElementById('qrcode');
+        qrContainer.innerHTML = '';
+        if (qrCodeInstance) { try { qrCodeInstance.clear(); } catch(e) {} }
+
+        qrCodeInstance = new QRCode(qrContainer, {
+            text:         upiUrl,
+            width:        200,
+            height:       200,
+            colorDark:    '#000000',
+            colorLight:   '#ffffff',
+            correctLevel: QRCode.CorrectLevel.H
         });
 
-        // ---- Support button click (UPI QR Generation) ----
-        document.getElementById('supportBtn').addEventListener('click', function () {
-            // Strict validation before proceeding
-            if (isNaN(currentAmount) || currentAmount < currentCurrency.base) {
-                currentAmount = currentCurrency.base;
-                amountInput.value = currentAmount;
-                updateAmount();
-            }
-            
-            // Calculate exact INR value as integer (no decimals — some UPI apps reject "10.00")
-            // INR always passes as whole number e.g. "10" not "10.00"
-            const inrAmount = Math.round(currentAmount / currentCurrency.rate);
-            
-            const upiId = 'tushpendrakum@slc';
-            const name  = 'Tushpendra Kumar';
-            
-            // UPI deep link spec:
-            // pa = payee VPA, pn = payee name, am = amount (integer), cu = currency, tn = note
-            // Using integer amount (not toFixed(2)) for maximum UPI app compatibility.
-            // Both QR code and "Open UPI App" button carry the same URL with amount pre-filled.
-            const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${inrAmount}&cu=INR&tn=${encodeURIComponent('CodeByTushu Donation')}`;
+        modal.classList.add('show');
+    });
 
-            // Update Modal UI
-            document.getElementById('modalAmount').textContent = `₹${inrAmount}`;
-            document.getElementById('upiDeepLink').href = upiUrl;
-
-            // Generate QR Code (same URL — amount pre-filled for both scan and button)
-            const qrContainer = document.getElementById('qrcode');
-            qrContainer.innerHTML = ''; // Clear previous
-            
-            if (qrCodeInstance) {
-                qrCodeInstance.clear();
-            }
-            
-            qrCodeInstance = new QRCode(qrContainer, {
-                text: upiUrl,
-                width: 200,
-                height: 200,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
-
-            // Show Modal
-            modal.classList.add('show');
-        });
-
+    // ---- Keyboard: Escape closes modal ----
+    document.addEventListener('keydown', e => {
+        if ((e.key === 'Escape' || e.keyCode === 27) && modal.classList.contains('show')) {
+            modal.classList.remove('show');
+        }
+    });
     </script>
+
     <script src="/back-home.js"></script>
 </body>
 </html>
