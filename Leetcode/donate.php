@@ -324,24 +324,24 @@ Auth::requireLogin();
                 updateAmount();
             }
             
-            // Calculate exact INR value
-            const inrAmount = (currentAmount / currentCurrency.rate).toFixed(2);
+            // Calculate exact INR value as integer (no decimals — some UPI apps reject "10.00")
+            // INR always passes as whole number e.g. "10" not "10.00"
+            const inrAmount = Math.round(currentAmount / currentCurrency.rate);
             
             const upiId = 'tushpendrakum@slc';
-            const name = 'Tushpendra Kumar';
+            const name  = 'Tushpendra Kumar';
             
-            // Construct clean UPI URL — NO &am= (amount) parameter.
-            // Reason: tushpendrakum@slc is a personal Slice savings VPA (not merchant).
-            // Banks/UPI apps reject programmatic amount pre-fills on personal VPAs.
-            // Both QR code and the "Open UPI App" button use the same clean URL.
-            // The amount is clearly shown in the modal so the user can type it manually.
-            const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&cu=INR`;
+            // UPI deep link spec:
+            // pa = payee VPA, pn = payee name, am = amount (integer), cu = currency, tn = note
+            // Using integer amount (not toFixed(2)) for maximum UPI app compatibility.
+            // Both QR code and "Open UPI App" button carry the same URL with amount pre-filled.
+            const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${inrAmount}&cu=INR&tn=${encodeURIComponent('CodeByTushu Donation')}`;
 
             // Update Modal UI
             document.getElementById('modalAmount').textContent = `₹${inrAmount}`;
             document.getElementById('upiDeepLink').href = upiUrl;
 
-            // Generate QR Code
+            // Generate QR Code (same URL — amount pre-filled for both scan and button)
             const qrContainer = document.getElementById('qrcode');
             qrContainer.innerHTML = ''; // Clear previous
             
