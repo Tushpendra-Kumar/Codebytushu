@@ -23,6 +23,12 @@ if (isPost()) {
     $sub = post('_sub');
 
     if ($sub === 'delete_account') {
+        // Admin protection
+        if ($user['email'] === 'tushpendrakumar@gmail.com') {
+            if (isAjax()) jsonError("Admin account cannot be deleted.", 403);
+            die("Admin account cannot be deleted.");
+        }
+        
         $userId = $user['id'];
         
         // Delete avatar if it is a local file
@@ -33,8 +39,15 @@ if (isPost()) {
             }
         }
         
+        // Delete user (cascade will handle related data if DB is setup with ON DELETE CASCADE)
+        // Ensure session and cookies are destroyed
         $pdo->prepare('DELETE FROM users WHERE id=?')->execute([$userId]);
         Auth::logout();
+        
+        if (isAjax()) {
+            jsonSuccess();
+        }
+        
         header("Location: /");
         exit;
     }
@@ -69,6 +82,13 @@ require_once __DIR__ . '/includes/sidebar.php';
             /* Toast Notification */
             .settings-toast { position: fixed; bottom: 20px; right: 20px; background: #22c55e; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 1000; pointer-events: none; }
             .settings-toast.show { opacity: 1; transform: translateY(0); }
+            /* Modals */
+            .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); animation: fadeIn .2s; }
+            .modal-content { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; width: 90%; max-width: 450px; box-shadow: 0 10px 40px rgba(0,0,0,0.7); }
+            .btn-danger { padding: 10px 20px; background: var(--danger); border: none; color: #fff; border-radius: var(--radius); cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif; transition: opacity .2s; }
+            .btn-danger:hover { opacity: 0.9; }
+            .btn-cancel { padding: 10px 20px; background: transparent; border: 1px solid var(--border); color: var(--text); border-radius: var(--radius); cursor: pointer; font-family: 'Poppins', sans-serif; transition: background .2s; }
+            .btn-cancel:hover { background: rgba(255,255,255,0.05); }
           </style>
 
           <!-- Notifications -->
@@ -121,6 +141,7 @@ require_once __DIR__ . '/includes/sidebar.php';
             </div>
           </div>
 
+          <?php if ($user['email'] !== 'tushpendrakumar@gmail.com'): ?>
           <!-- Danger Zone -->
           <div class="settings-section">
             <h3 style="color: var(--danger);">Danger Zone</h3>
@@ -131,18 +152,88 @@ require_once __DIR__ . '/includes/sidebar.php';
                 <h4>Delete Account</h4>
                 <p>Permanently remove your account and all associated data.</p>
               </div>
-              <form id="delete-account-form" method="POST" style="display: none;">
-                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
-                <input type="hidden" name="_sub" value="delete_account">
-              </form>
-              <button type="button" class="btn-save" style="background: transparent; color: var(--danger); border: 1px solid var(--danger); flex-shrink: 0;" onclick="if(confirm('Are you sure you want to permanently delete your account? This action cannot be undone.')) document.getElementById('delete-account-form').submit();">Delete Account</button>
+              <button type="button" class="btn-danger" onclick="showDeleteModal()">Delete Account</button>
             </div>
           </div>
+          <?php endif; ?>
 
         </div>
       </div>
       
       <div id="settingsToast" class="settings-toast">Settings saved successfully</div>
+
+      <?php if ($user['email'] !== 'tushpendrakumar@gmail.com'): ?>
+      <!-- Delete Confirmation Modal -->
+      <div id="deleteModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+          <h2 style="color:var(--danger); margin-bottom:15px; font-size:1.5rem;">Delete Your Account?</h2>
+          <p style="color:var(--muted); font-size:14px; margin-bottom:25px; line-height:1.6;">
+            This action is permanent and cannot be undone. All your account data, profile, orders, downloads, certificates and associated information will be permanently deleted.
+          </p>
+          <div style="display:flex; gap:15px; justify-content:flex-end;">
+            <button onclick="closeDeleteModal()" class="btn-cancel">Cancel</button>
+            <button onclick="confirmDelete(this)" class="btn-danger">Yes, Delete My Account</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete Success Modal -->
+      <div id="deleteSuccessModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content" style="text-align:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:64px; height:64px; color:#22c55e; margin:0 auto 15px auto;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h2 style="margin-bottom:15px; font-size:1.5rem;">Account Deleted Successfully</h2>
+          <p style="color:var(--muted); font-size:14px; margin-bottom:25px;">
+            Your account has been permanently deleted. Thank you for being a part of CodeByTushu.
+          </p>
+          <button onclick="window.location.href='/'" class="btn-save" style="width:100%; justify-content:center;">Go to Home</button>
+        </div>
+      </div>
+      
+      <script>
+        function showDeleteModal() {
+          document.getElementById('deleteModal').style.display = 'flex';
+        }
+        
+        function closeDeleteModal() {
+          document.getElementById('deleteModal').style.display = 'none';
+          if (typeof showSaveToast === 'function') {
+              showSaveToast('Thank you for staying with CodeByTushu ❤️');
+          }
+        }
+        
+        async function confirmDelete(btn) {
+          btn.innerHTML = 'Deleting...';
+          btn.disabled = true;
+          
+          const formData = new FormData();
+          formData.append('_sub', 'delete_account');
+          formData.append('csrf_token', '<?= e(csrf_token()) ?>');
+          
+          try {
+            const res = await fetch(window.location.href, {
+              method: 'POST',
+              headers: { 'X-Requested-With': 'XMLHttpRequest' },
+              body: formData
+            });
+            
+            const data = await res.json();
+            
+            if (data.success) {
+              document.getElementById('deleteModal').style.display = 'none';
+              document.getElementById('deleteSuccessModal').style.display = 'flex';
+            } else {
+              alert(data.error || 'Something went wrong');
+              btn.innerHTML = 'Yes, Delete My Account';
+              btn.disabled = false;
+            }
+          } catch(e) {
+            alert('A network error occurred.');
+            btn.innerHTML = 'Yes, Delete My Account';
+            btn.disabled = false;
+          }
+        }
+      </script>
+      <?php endif; ?>
 
     </main>
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
