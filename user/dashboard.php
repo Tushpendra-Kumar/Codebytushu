@@ -222,7 +222,22 @@ if (isPost()) {
               </div>
               <div class="form-group">
                 <label class="form-label">Phone Number (Optional)</label>
-                <input type="text" name="phone_number" class="form-control" value="<?= e($user['phone_number'] ?? '') ?>" placeholder="+91 9876543210">
+                <div style="display:flex; gap:10px;">
+                  <input type="tel" id="phoneNumber" name="phone_number" class="form-control" value="<?= e($user['phone_number'] ?? '') ?>" placeholder="+91 9876543210" autocomplete="tel">
+                  <button type="button" id="btnSendOtp" class="btn-save" style="background:#222; color:#fff; border:1px solid #444; flex-shrink:0;">Verify</button>
+                </div>
+                <div id="recaptcha-container" style="margin-top:10px;"></div>
+                
+                <!-- OTP Section -->
+                <div id="otpSection" style="display:none; margin-top:15px; background:rgba(255,255,255,0.03); padding:16px; border-radius:12px; border:1px solid var(--border);">
+                   <label class="form-label" style="color:var(--accent);">Enter 6-digit OTP</label>
+                   <div style="display:flex; gap:10px;">
+                      <input type="text" id="otpCode" class="form-control" placeholder="123456" maxlength="6" style="letter-spacing:4px; font-weight:bold;">
+                      <button type="button" id="btnVerifyOtp" class="btn-save" style="flex-shrink:0;">Confirm</button>
+                   </div>
+                   <p id="otpMessage" style="font-size:13px; margin-top:10px; color:var(--danger); display:none;"></p>
+                   <p id="otpSuccess" style="font-size:13px; margin-top:10px; color:#22c55e; display:none; font-weight:600;"><i class="fa-solid fa-circle-check"></i> Phone Verified Successfully!</p>
+                </div>
               </div>
               <button type="submit" class="btn-save">Save Profile</button>
             </form>
@@ -323,6 +338,142 @@ document.addEventListener('DOMContentLoaded', () => {
     switchTab(tab);
   }
 });
+</script>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  // Firebase Configuration provided by user
+  const firebaseConfig = {
+    apiKey: "AIzaSyDHUiszVq3UUmXcBMt8G5ZGhMLTFV9SuaU",
+    authDomain: "codebytushu-839a5.firebaseapp.com",
+    projectId: "codebytushu-839a5",
+    storageBucket: "codebytushu-839a5.firebasestorage.app",
+    messagingSenderId: "396256984712",
+    appId: "1:396256984712:web:ae36995ac91a195ebd293d",
+    measurementId: "G-KJRB6YG0DV"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  auth.useDeviceLanguage();
+
+  let confirmationResult = null;
+
+  // Initialize Recaptcha
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'btnSendOtp', {
+    'size': 'invisible',
+    'callback': (response) => {
+      // reCAPTCHA solved
+    }
+  });
+
+  const btnSendOtp = document.getElementById('btnSendOtp');
+  const btnVerifyOtp = document.getElementById('btnVerifyOtp');
+  const otpSection = document.getElementById('otpSection');
+  const phoneNumberInput = document.getElementById('phoneNumber');
+  const otpCodeInput = document.getElementById('otpCode');
+  const otpMessage = document.getElementById('otpMessage');
+  const otpSuccess = document.getElementById('otpSuccess');
+
+  // Check if already verified
+  if (phoneNumberInput.value.trim() !== '') {
+      btnSendOtp.textContent = "Change";
+  }
+
+  // 1. Send OTP
+  btnSendOtp.addEventListener('click', () => {
+    const phoneNumber = phoneNumberInput.value.trim();
+    
+    // Ensure format includes +91
+    if (!phoneNumber.startsWith('+')) {
+        otpMessage.textContent = 'Please include country code (e.g. +91 9876543210)';
+        otpMessage.style.display = 'block';
+        return;
+    }
+
+    otpMessage.style.display = 'none';
+    btnSendOtp.textContent = "Sending...";
+    btnSendOtp.disabled = true;
+
+    signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
+      .then((result) => {
+        confirmationResult = result;
+        otpSection.style.display = 'block';
+        btnSendOtp.textContent = "Sent!";
+        btnSendOtp.style.background = "#22c55e";
+        btnSendOtp.style.borderColor = "#22c55e";
+        
+        // Reset recaptcha for subsequent requests
+        if(window.recaptchaVerifier) {
+             window.recaptchaVerifier.clear();
+             window.recaptchaVerifier = new RecaptchaVerifier(auth, 'btnSendOtp', {'size': 'invisible'});
+        }
+      }).catch((error) => {
+        console.error(error);
+        otpMessage.textContent = 'Failed to send OTP: ' + error.message;
+        otpMessage.style.display = 'block';
+        btnSendOtp.textContent = "Verify";
+        btnSendOtp.disabled = false;
+        
+        // Reset recaptcha on error
+        if(window.recaptchaVerifier) window.recaptchaVerifier.clear();
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'btnSendOtp', {'size': 'invisible'});
+      });
+  });
+
+  // 2. Verify OTP
+  btnVerifyOtp.addEventListener('click', () => {
+    const code = otpCodeInput.value.trim();
+    if (code.length < 6) return;
+
+    btnVerifyOtp.textContent = "Verifying...";
+    btnVerifyOtp.disabled = true;
+    otpMessage.style.display = 'none';
+
+    confirmationResult.confirm(code).then((result) => {
+      // User signed in successfully
+      const user = result.user;
+      
+      // Save phone number via AJAX
+      fetch('/api/auth/save_phone.php', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: 'phone_number=' + encodeURIComponent(phoneNumberInput.value.trim())
+      })
+      .then(res => res.json())
+      .then(data => {
+          if (data.success) {
+              otpSuccess.style.display = 'block';
+              otpCodeInput.disabled = true;
+              btnVerifyOtp.style.display = 'none';
+              btnSendOtp.textContent = "Verified";
+              btnSendOtp.disabled = true;
+          } else {
+              throw new Error(data.message || 'Failed to save to database');
+          }
+      })
+      .catch(err => {
+          otpMessage.textContent = err.message;
+          otpMessage.style.display = 'block';
+          btnVerifyOtp.textContent = "Confirm";
+          btnVerifyOtp.disabled = false;
+      });
+      
+    }).catch((error) => {
+      // User couldn't sign in (bad verification code?)
+      console.error(error);
+      otpMessage.textContent = 'Invalid OTP. Please try again.';
+      otpMessage.style.display = 'block';
+      btnVerifyOtp.textContent = "Confirm";
+      btnVerifyOtp.disabled = false;
+    });
+  });
 </script>
 </body>
 </html>
