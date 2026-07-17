@@ -62,13 +62,27 @@ if (isPost()) {
                 $error = 'Invalid file type. Only JPG, PNG, and WebP are allowed.';
             }
         }
-        
         if (!$error) {
             $pdo->prepare('UPDATE users SET full_name=?, profile_image=?, updated_at=NOW() WHERE id=?')
                 ->execute([$fullName, $profileImage, $user['id']]);
             $success = 'Profile updated successfully.';
             $user = Auth::user(true); // refresh user data
         }
+    } elseif ($sub === 'delete_account') {
+        $userId = $user['id'];
+        
+        // Delete avatar if it is a local file
+        if (!empty($user['profile_image']) && strpos($user['profile_image'], 'http') !== 0) {
+            $avatarPath = __DIR__ . '/../' . ltrim($user['profile_image'], '/');
+            if (file_exists($avatarPath) && is_file($avatarPath)) {
+                @unlink($avatarPath);
+            }
+        }
+        
+        $pdo->prepare('DELETE FROM users WHERE id=?')->execute([$userId]);
+        Auth::logout();
+        header("Location: /");
+        exit;
     }
 }
 ?>
@@ -369,25 +383,6 @@ if (isPost()) {
               .settings-toast.show { opacity: 1; transform: translateY(0); }
             </style>
 
-            <!-- Appearance -->
-            <div class="settings-section">
-              <h3>Appearance</h3>
-              <p>Customize how CodeByTushu looks on your device.</p>
-              
-              <div class="setting-item">
-                <div class="setting-info">
-                  <h4>Theme Preference</h4>
-                  <p>Choose between light and dark mode.</p>
-                </div>
-                <div>
-                  <select id="themeSelector" class="form-control" style="width: auto; padding: 8px 12px;" onchange="changeUserTheme(this.value)">
-                    <option value="dark">Dark Theme (Default)</option>
-                    <option value="light">Light Theme</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
             <!-- Notifications -->
             <div class="settings-section">
               <h3>Notifications</h3>
@@ -395,32 +390,45 @@ if (isPost()) {
               
               <div class="setting-item">
                 <div class="setting-info">
+                  <h4>Full Notifications</h4>
+                  <p>Master toggle for all email notifications.</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="masterNotif" checked onchange="toggleMasterNotif(this)">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-info">
                   <h4>Product Updates</h4>
                   <p>Receive emails about new features and major platform updates.</p>
                 </div>
                 <label class="switch">
-                  <input type="checkbox" checked onchange="showSaveToast('Notification preferences saved')">
+                  <input type="checkbox" class="child-notif" checked onchange="showSaveToast('Notification preferences saved')">
                   <span class="slider"></span>
                 </label>
               </div>
+              
               <div class="setting-item">
                 <div class="setting-info">
                   <h4>Promotions & Offers</h4>
                   <p>Get notified about special discounts and new courses.</p>
                 </div>
                 <label class="switch">
-                  <input type="checkbox" checked onchange="showSaveToast('Notification preferences saved')">
+                  <input type="checkbox" class="child-notif" checked onchange="showSaveToast('Notification preferences saved')">
                   <span class="slider"></span>
                 </label>
               </div>
+              
               <div class="setting-item">
                 <div class="setting-info">
                   <h4>Order Receipts</h4>
                   <p>Email me a receipt whenever I make a purchase.</p>
                 </div>
-                <label class="switch" title="Required for purchases">
-                  <input type="checkbox" checked disabled>
-                  <span class="slider" style="opacity: 0.5; cursor: not-allowed;"></span>
+                <label class="switch">
+                  <input type="checkbox" class="child-notif" checked onchange="showSaveToast('Notification preferences saved')">
+                  <span class="slider"></span>
                 </label>
               </div>
             </div>
@@ -435,7 +443,11 @@ if (isPost()) {
                   <h4>Delete Account</h4>
                   <p>Permanently remove your account and all associated data.</p>
                 </div>
-                <button type="button" class="btn-save" style="background: transparent; color: var(--danger); border: 1px solid var(--danger);" onclick="alert('Account deletion is currently restricted. Please contact support.')">Delete Account</button>
+                <form method="POST" onsubmit="return confirm('Are you sure you want to permanently delete your account? This action cannot be undone.');">
+                  <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+                  <input type="hidden" name="_sub" value="delete_account">
+                  <button type="submit" class="btn-save" style="background: transparent; color: var(--danger); border: 1px solid var(--danger);">Delete Account</button>
+                </form>
               </div>
             </div>
 
@@ -467,12 +479,6 @@ document.addEventListener('DOMContentLoaded', () => {
     switchTab(tab);
   }
   
-  // Set initial theme dropdown value
-  const currentTheme = localStorage.getItem('cbt-theme') || 'dark';
-  const themeSelector = document.getElementById('themeSelector');
-  if (themeSelector) {
-    themeSelector.value = currentTheme;
-  }
 });
 
 function previewAvatar(input) {
@@ -499,14 +505,21 @@ function previewAvatar(input) {
   }
 }
 
-function changeUserTheme(theme) {
-  // Update local storage and DOM
-  localStorage.setItem('cbt-theme', theme);
-  document.documentElement.setAttribute('data-theme', theme);
-  
-  // Dispatch event for other scripts if any
-  document.dispatchEvent(new CustomEvent('themeChange', { detail: theme }));
-  showSaveToast('Theme updated to ' + theme);
+function toggleMasterNotif(masterCheckbox) {
+  const isChecked = masterCheckbox.checked;
+  const childCheckboxes = document.querySelectorAll('.child-notif');
+  childCheckboxes.forEach(cb => {
+    cb.checked = isChecked;
+    cb.disabled = !isChecked;
+    if(!isChecked) {
+       cb.nextElementSibling.style.opacity = '0.5';
+       cb.nextElementSibling.style.cursor = 'not-allowed';
+    } else {
+       cb.nextElementSibling.style.opacity = '1';
+       cb.nextElementSibling.style.cursor = 'pointer';
+    }
+  });
+  showSaveToast(isChecked ? 'All notifications enabled' : 'All notifications disabled');
 }
 
 let toastTimeout;
