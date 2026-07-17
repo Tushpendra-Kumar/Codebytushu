@@ -344,16 +344,106 @@ if (isPost()) {
       <!-- TAB: SETTINGS -->
       <div id="tab-settings" class="tab-content <?= $activeTab === 'settings' ? 'active' : '' ?>">
         <div class="card">
-          <div class="card-header"><h2 class="card-title">Settings</h2></div>
+          <div class="card-header"><h2 class="card-title">Account Settings</h2></div>
           <div class="card-body">
-            <div class="empty-state">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-              <h3>Account Preferences</h3>
-              <p style="margin-top:8px;">Manage your notification and display settings here in the future.</p>
+            
+            <style>
+              .settings-section { margin-bottom: 30px; border-bottom: 1px solid var(--border); padding-bottom: 30px; }
+              .settings-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+              .settings-section h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 5px; color: var(--text-primary); }
+              .settings-section > p { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.4; }
+              .setting-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-top: 1px solid rgba(255,255,255,0.05); }
+              .setting-item:first-of-type { border-top: none; }
+              .setting-info h4 { font-size: 1rem; font-weight: 500; margin-bottom: 4px; }
+              .setting-info p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+              /* Toggle Switch */
+              .switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+              .switch input { opacity: 0; width: 0; height: 0; }
+              .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); transition: .4s; border-radius: 24px; }
+              [data-theme="light"] .slider { background-color: rgba(0,0,0,0.1); }
+              .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+              input:checked + .slider { background-color: var(--accent); }
+              input:checked + .slider:before { transform: translateX(20px); }
+              /* Toast Notification */
+              .settings-toast { position: fixed; bottom: 20px; right: 20px; background: #22c55e; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; transform: translateY(20px); transition: all 0.3s ease; z-index: 1000; pointer-events: none; }
+              .settings-toast.show { opacity: 1; transform: translateY(0); }
+            </style>
+
+            <!-- Appearance -->
+            <div class="settings-section">
+              <h3>Appearance</h3>
+              <p>Customize how CodeByTushu looks on your device.</p>
+              
+              <div class="setting-item">
+                <div class="setting-info">
+                  <h4>Theme Preference</h4>
+                  <p>Choose between light and dark mode.</p>
+                </div>
+                <div>
+                  <select id="themeSelector" class="form-control" style="width: auto; padding: 8px 12px;" onchange="changeUserTheme(this.value)">
+                    <option value="dark">Dark Theme (Default)</option>
+                    <option value="light">Light Theme</option>
+                  </select>
+                </div>
+              </div>
             </div>
+
+            <!-- Notifications -->
+            <div class="settings-section">
+              <h3>Notifications</h3>
+              <p>Control what emails and alerts you receive from us.</p>
+              
+              <div class="setting-item">
+                <div class="setting-info">
+                  <h4>Product Updates</h4>
+                  <p>Receive emails about new features and major platform updates.</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked onchange="showSaveToast('Notification preferences saved')">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <h4>Promotions & Offers</h4>
+                  <p>Get notified about special discounts and new courses.</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked onchange="showSaveToast('Notification preferences saved')">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <h4>Order Receipts</h4>
+                  <p>Email me a receipt whenever I make a purchase.</p>
+                </div>
+                <label class="switch" title="Required for purchases">
+                  <input type="checkbox" checked disabled>
+                  <span class="slider" style="opacity: 0.5; cursor: not-allowed;"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Danger Zone -->
+            <div class="settings-section">
+              <h3 style="color: var(--danger);">Danger Zone</h3>
+              <p>Irreversible and destructive actions for your account.</p>
+              
+              <div class="setting-item">
+                <div class="setting-info">
+                  <h4>Delete Account</h4>
+                  <p>Permanently remove your account and all associated data.</p>
+                </div>
+                <button type="button" class="btn-save" style="background: transparent; color: var(--danger); border: 1px solid var(--danger);" onclick="alert('Account deletion is currently restricted. Please contact support.')">Delete Account</button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
+      
+      <div id="settingsToast" class="settings-toast">Settings saved successfully</div>
 
     </main>
   </div>
@@ -375,6 +465,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const tab = urlParams.get('tab');
   if (tab) {
     switchTab(tab);
+  }
+  
+  // Set initial theme dropdown value
+  const currentTheme = localStorage.getItem('cbt-theme') || 'dark';
+  const themeSelector = document.getElementById('themeSelector');
+  if (themeSelector) {
+    themeSelector.value = currentTheme;
   }
 });
 
@@ -400,5 +497,29 @@ function previewAvatar(input) {
     }
     reader.readAsDataURL(input.files[0]);
   }
+}
+
+function changeUserTheme(theme) {
+  // Update local storage and DOM
+  localStorage.setItem('cbt-theme', theme);
+  document.documentElement.setAttribute('data-theme', theme);
+  
+  // Dispatch event for other scripts if any
+  document.dispatchEvent(new CustomEvent('themeChange', { detail: theme }));
+  showSaveToast('Theme updated to ' + theme);
+}
+
+let toastTimeout;
+function showSaveToast(message) {
+  const toast = document.getElementById('settingsToast');
+  if (!toast) return;
+  
+  if (message) toast.textContent = message;
+  
+  toast.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
 }
 </script>
