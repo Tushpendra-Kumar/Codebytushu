@@ -152,7 +152,7 @@ require_once __DIR__ . '/includes/sidebar.php';
                 <h4>Delete Account</h4>
                 <p>Permanently remove your account and all associated data.</p>
               </div>
-              <button type="button" class="btn-danger" onclick="showDeleteModal()">Delete Account</button>
+              <button type="button" class="btn-danger" id="triggerDeleteModalBtn">Delete Account</button>
             </div>
           </div>
           <?php endif; ?>
@@ -171,8 +171,8 @@ require_once __DIR__ . '/includes/sidebar.php';
             This action is permanent and cannot be undone. All your account data, profile, orders, downloads, certificates and associated information will be permanently deleted.
           </p>
           <div style="display:flex; gap:15px; justify-content:flex-end;">
-            <button onclick="closeDeleteModal()" class="btn-cancel">Cancel</button>
-            <button onclick="confirmDelete(this)" class="btn-danger">Yes, Delete My Account</button>
+            <button id="cancelDeleteBtn" class="btn-cancel">Cancel</button>
+            <button id="confirmDeleteBtn" class="btn-danger">Yes, Delete My Account</button>
           </div>
         </div>
       </div>
@@ -190,48 +190,76 @@ require_once __DIR__ . '/includes/sidebar.php';
       </div>
       
       <script>
-        function showDeleteModal() {
-          document.getElementById('deleteModal').style.display = 'flex';
-        }
-        
-        function closeDeleteModal() {
-          document.getElementById('deleteModal').style.display = 'none';
-          if (typeof showSaveToast === 'function') {
-              showSaveToast('Thank you for staying with CodeByTushu ❤️');
-          }
-        }
-        
-        async function confirmDelete(btn) {
-          btn.innerHTML = 'Deleting...';
-          btn.disabled = true;
+        document.addEventListener('DOMContentLoaded', () => {
+          const triggerBtn = document.getElementById('triggerDeleteModalBtn');
+          const deleteModal = document.getElementById('deleteModal');
+          const cancelBtn = document.getElementById('cancelDeleteBtn');
+          const confirmBtn = document.getElementById('confirmDeleteBtn');
+          const successModal = document.getElementById('deleteSuccessModal');
           
-          const formData = new FormData();
-          formData.append('_sub', 'delete_account');
-          formData.append('csrf_token', '<?= e(csrf_token()) ?>');
-          
-          try {
-            const res = await fetch(window.location.href, {
-              method: 'POST',
-              headers: { 'X-Requested-With': 'XMLHttpRequest' },
-              body: formData
+          if (triggerBtn && deleteModal) {
+            triggerBtn.addEventListener('click', () => {
+              deleteModal.style.display = 'flex';
             });
-            
-            const data = await res.json();
-            
-            if (data.success) {
-              document.getElementById('deleteModal').style.display = 'none';
-              document.getElementById('deleteSuccessModal').style.display = 'flex';
-            } else {
-              alert(data.error || 'Something went wrong');
-              btn.innerHTML = 'Yes, Delete My Account';
-              btn.disabled = false;
-            }
-          } catch(e) {
-            alert('A network error occurred.');
-            btn.innerHTML = 'Yes, Delete My Account';
-            btn.disabled = false;
           }
-        }
+          
+          if (cancelBtn && deleteModal) {
+            cancelBtn.addEventListener('click', () => {
+              deleteModal.style.display = 'none';
+              if (typeof showSaveToast === 'function') {
+                  showSaveToast('Thank you for staying with CodeByTushu ❤️');
+              }
+            });
+          }
+          
+          if (confirmBtn) {
+            confirmBtn.addEventListener('click', async (e) => {
+              const btn = e.target;
+              btn.innerHTML = 'Deleting...';
+              btn.disabled = true;
+              
+              const formData = new FormData();
+              formData.append('_sub', 'delete_account');
+              formData.append('csrf_token', '<?= e(csrf_token()) ?>');
+              
+              try {
+                const res = await fetch(window.location.href, {
+                  method: 'POST',
+                  headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                  body: formData
+                });
+                
+                let data = {};
+                const text = await res.text();
+                try {
+                  data = JSON.parse(text);
+                } catch(err) {
+                  console.error('JSON Parse error on response:', text);
+                  // If it redirect to home, we might get HTML back.
+                  if (res.redirected || text.includes('<!DOCTYPE html>')) {
+                      data = { success: true };
+                  } else {
+                      data = { success: false, error: 'Invalid response from server' };
+                  }
+                }
+                
+                if (data.success) {
+                  deleteModal.style.display = 'none';
+                  successModal.style.display = 'flex';
+                } else {
+                  alert(data.error || 'Something went wrong');
+                  btn.innerHTML = 'Yes, Delete My Account';
+                  btn.disabled = false;
+                }
+              } catch(error) {
+                console.error('Fetch error:', error);
+                alert('A network error occurred.');
+                btn.innerHTML = 'Yes, Delete My Account';
+                btn.disabled = false;
+              }
+            });
+          }
+        });
       </script>
       <?php endif; ?>
 
