@@ -44,11 +44,7 @@ if (isPost()) {
         $pdo->prepare('DELETE FROM users WHERE id=?')->execute([$userId]);
         Auth::logout();
         
-        if (isAjax()) {
-            jsonSuccess();
-        }
-        
-        header("Location: /");
+        header("Location: " . SITE_URL . "/user/account-deleted.php");
         exit;
     }
 }
@@ -172,68 +168,15 @@ require_once __DIR__ . '/includes/sidebar.php';
           </p>
           <div style="display:flex; gap:15px; justify-content:flex-end;">
             <button onclick="document.getElementById('deleteModal').style.display='none'; if(typeof showSaveToast === 'function') showSaveToast('Thank you for staying with CodeByTushu ❤️');" class="btn-cancel">Cancel</button>
-            <button onclick="executeDeleteAccount(this)" class="btn-danger">Yes, Delete My Account</button>
+            <form method="POST" style="margin:0;">
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+                <input type="hidden" name="_sub" value="delete_account">
+                <button type="submit" class="btn-danger" onclick="this.innerHTML='Deleting...'; this.style.pointerEvents='none';">Yes, Delete My Account</button>
+            </form>
           </div>
         </div>
       </div>
 
-      <!-- Delete Success Modal -->
-      <div id="deleteSuccessModal" class="modal-overlay" style="display:none;">
-        <div class="modal-content" style="text-align:center;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:64px; height:64px; color:#22c55e; margin:0 auto 15px auto;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <h2 style="margin-bottom:15px; font-size:1.5rem;">Account Deleted Successfully</h2>
-          <p style="color:var(--muted); font-size:14px; margin-bottom:25px;">
-            Your account has been permanently deleted. Thank you for being a part of CodeByTushu.
-          </p>
-          <button onclick="window.location.href='/'" class="btn-save" style="width:100%; justify-content:center;">Go to Home</button>
-        </div>
-      </div>
-      
-      <script>
-        async function executeDeleteAccount(btn) {
-          btn.innerHTML = 'Deleting...';
-          btn.disabled = true;
-          
-          const formData = new FormData();
-          formData.append('_sub', 'delete_account');
-          formData.append('csrf_token', '<?= e(csrf_token()) ?>');
-          
-          try {
-            const res = await fetch(window.location.href, {
-              method: 'POST',
-              headers: { 'X-Requested-With': 'XMLHttpRequest' },
-              body: formData
-            });
-            
-            let data = {};
-            const text = await res.text();
-            try {
-              data = JSON.parse(text);
-            } catch(err) {
-              console.error('JSON Parse error on response:', text);
-              if (res.redirected || text.includes('<!DOCTYPE html>')) {
-                  data = { success: true };
-              } else {
-                  data = { success: false, error: 'Invalid response from server' };
-              }
-            }
-            
-            if (data.success) {
-              document.getElementById('deleteModal').style.display = 'none';
-              document.getElementById('deleteSuccessModal').style.display = 'flex';
-            } else {
-              alert(data.error || 'Something went wrong');
-              btn.innerHTML = 'Yes, Delete My Account';
-              btn.disabled = false;
-            }
-          } catch(error) {
-            console.error('Fetch error:', error);
-            alert('A network error occurred.');
-            btn.innerHTML = 'Yes, Delete My Account';
-            btn.disabled = false;
-          }
-        }
-      </script>
       <?php endif; ?>
 
     </main>
