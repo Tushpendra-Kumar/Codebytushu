@@ -443,7 +443,7 @@ if (isPost()) {
                   <h4>Delete Account</h4>
                   <p>Permanently remove your account and all associated data.</p>
                 </div>
-                <form method="POST" onsubmit="return confirm('Are you sure you want to permanently delete your account? This action cannot be undone.');">
+                <form method="POST" onsubmit="return confirm('Are you sure you want to permanently delete your account? This action cannot be undone.');" style="margin: 0; padding: 0; flex-shrink: 0;">
                   <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
                   <input type="hidden" name="_sub" value="delete_account">
                   <button type="submit" class="btn-save" style="background: transparent; color: var(--danger); border: 1px solid var(--danger);">Delete Account</button>
