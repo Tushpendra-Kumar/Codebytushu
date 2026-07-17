@@ -154,12 +154,12 @@ function navActive(string ...$pages): string {
 
   <!-- User footer -->
   <div class="sidebar-footer">
-    <div class="sidebar-user-card" onclick="window.location.href='<?= SITE_URL ?>/user/profile.php'" title="My Profile" role="button" tabindex="0">
-      <div class="user-avatar">
+    <div class="sidebar-user-card" onclick="window.location.href='<?= SITE_URL ?>/user/dashboard.php?tab=profile'" title="My Profile" role="button" tabindex="0">
+      <div class="sidebar-user-avatar">
         <?php if (!empty($user['profile_image'])): ?>
           <img src="<?= e($user['profile_image']) ?>" alt="<?= e($user['full_name']) ?>">
         <?php else: ?>
-          <?= strtoupper(substr($user['full_name'] ?? 'A', 0, 1)) ?>
+          <?= strtoupper(substr($user['full_name'] ?? 'U', 0, 1)) ?>
         <?php endif; ?>
       </div>
       <div class="user-meta">

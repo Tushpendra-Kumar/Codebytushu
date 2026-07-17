@@ -72,11 +72,16 @@ class Auth
             if ($user['status'] === 'pending') {
                 return ['success' => false, 'error' => 'Your account is pending approval.'];
             }
-            // Update existing user
+            // Only update profile image if they don't have a custom local uploaded one
+            $newProfileImage = $user['profile_image'];
+            if (empty($user['profile_image']) || strpos($user['profile_image'], 'http') === 0) {
+                $newProfileImage = $profileImage;
+            }
+
             $pdo->prepare(
                 'UPDATE users SET google_uid = ?, profile_image = ?, full_name = ?, last_login = NOW(), login_count = login_count + 1 WHERE id = ?'
-            )->execute([$googleUid, $profileImage, $fullName, $user['id']]);
-            $user['profile_image'] = $profileImage;
+            )->execute([$googleUid, $newProfileImage, $fullName, $user['id']]);
+            $user['profile_image'] = $newProfileImage;
             $user['full_name'] = $fullName;
         } else {
             // Create new user (SSO Registration)
