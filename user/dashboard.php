@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-  // Firebase Configuration provided by user
+  // Firebase Configuration
   const firebaseConfig = {
     apiKey: "AIzaSyDHUiszVq3UUmXcBMt8G5ZGhMLTFV9SuaU",
     authDomain: "codebytushu-839a5.firebaseapp.com",
@@ -357,123 +357,124 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+  const app  = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   auth.useDeviceLanguage();
 
-  let confirmationResult = null;
+  let confirmationResult  = null;
+  let recaptchaVerifier   = null;
 
-  // Initialize Recaptcha
-  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'btnSendOtp', {
-    'size': 'invisible',
-    'callback': (response) => {
-      // reCAPTCHA solved
+  // Helper — create a fresh invisible RecaptchaVerifier on the container div
+  function initRecaptcha() {
+    if (recaptchaVerifier) {
+      try { recaptchaVerifier.clear(); } catch(e) {}
     }
-  });
-
-  const btnSendOtp = document.getElementById('btnSendOtp');
-  const btnVerifyOtp = document.getElementById('btnVerifyOtp');
-  const otpSection = document.getElementById('otpSection');
-  const phoneNumberInput = document.getElementById('phoneNumber');
-  const otpCodeInput = document.getElementById('otpCode');
-  const otpMessage = document.getElementById('otpMessage');
-  const otpSuccess = document.getElementById('otpSuccess');
-
-  // Check if already verified
-  if (phoneNumberInput.value.trim() !== '') {
-      btnSendOtp.textContent = "Change";
+    recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+      size: 'invisible',
+      callback: () => {}
+    });
   }
 
-  // 1. Send OTP
-  btnSendOtp.addEventListener('click', () => {
-    const phoneNumber = phoneNumberInput.value.trim();
-    
-    // Ensure format includes +91
-    if (!phoneNumber.startsWith('+')) {
-        otpMessage.textContent = 'Please include country code (e.g. +91 9876543210)';
-        otpMessage.style.display = 'block';
-        return;
+  // Run after DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    const btnSendOtp      = document.getElementById('btnSendOtp');
+    const btnVerifyOtp    = document.getElementById('btnVerifyOtp');
+    const otpSection      = document.getElementById('otpSection');
+    const phoneNumberInput= document.getElementById('phoneNumber');
+    const otpCodeInput    = document.getElementById('otpCode');
+    const otpMessage      = document.getElementById('otpMessage');
+    const otpSuccess      = document.getElementById('otpSuccess');
+
+    // Show "Change" if phone already saved
+    if (phoneNumberInput && phoneNumberInput.value.trim() !== '') {
+      btnSendOtp.textContent = 'Change';
     }
 
-    otpMessage.style.display = 'none';
-    btnSendOtp.textContent = "Sending...";
-    btnSendOtp.disabled = true;
+    // Pre-init reCAPTCHA
+    initRecaptcha();
 
-    signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier)
-      .then((result) => {
-        confirmationResult = result;
-        otpSection.style.display = 'block';
-        btnSendOtp.textContent = "Sent!";
-        btnSendOtp.style.background = "#22c55e";
-        btnSendOtp.style.borderColor = "#22c55e";
-        
-        // Reset recaptcha for subsequent requests
-        if(window.recaptchaVerifier) {
-             window.recaptchaVerifier.clear();
-             window.recaptchaVerifier = new RecaptchaVerifier(auth, 'btnSendOtp', {'size': 'invisible'});
-        }
-      }).catch((error) => {
-        console.error(error);
-        otpMessage.textContent = 'Failed to send OTP: ' + error.message;
+    // ── 1. SEND OTP ───────────────────────────────────────────
+    btnSendOtp.addEventListener('click', async () => {
+      const phoneNumber = phoneNumberInput.value.trim();
+
+      if (!phoneNumber.startsWith('+')) {
+        otpMessage.textContent = 'Country code required — e.g. +91 9876543210';
         otpMessage.style.display = 'block';
-        btnSendOtp.textContent = "Verify";
-        btnSendOtp.disabled = false;
-        
-        // Reset recaptcha on error
-        if(window.recaptchaVerifier) window.recaptchaVerifier.clear();
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'btnSendOtp', {'size': 'invisible'});
-      });
-  });
+        return;
+      }
 
-  // 2. Verify OTP
-  btnVerifyOtp.addEventListener('click', () => {
-    const code = otpCodeInput.value.trim();
-    if (code.length < 6) return;
+      otpMessage.style.display = 'none';
+      btnSendOtp.textContent   = 'Sending…';
+      btnSendOtp.disabled      = true;
 
-    btnVerifyOtp.textContent = "Verifying...";
-    btnVerifyOtp.disabled = true;
-    otpMessage.style.display = 'none';
-
-    confirmationResult.confirm(code).then((result) => {
-      // User signed in successfully
-      const user = result.user;
-      
-      // Save phone number via AJAX
-      fetch('/api/auth/save_phone.php', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: 'phone_number=' + encodeURIComponent(phoneNumberInput.value.trim())
-      })
-      .then(res => res.json())
-      .then(data => {
-          if (data.success) {
-              otpSuccess.style.display = 'block';
-              otpCodeInput.disabled = true;
-              btnVerifyOtp.style.display = 'none';
-              btnSendOtp.textContent = "Verified";
-              btnSendOtp.disabled = true;
-          } else {
-              throw new Error(data.message || 'Failed to save to database');
-          }
-      })
-      .catch(err => {
-          otpMessage.textContent = err.message;
-          otpMessage.style.display = 'block';
-          btnVerifyOtp.textContent = "Confirm";
-          btnVerifyOtp.disabled = false;
-      });
-      
-    }).catch((error) => {
-      // User couldn't sign in (bad verification code?)
-      console.error(error);
-      otpMessage.textContent = 'Invalid OTP. Please try again.';
-      otpMessage.style.display = 'block';
-      btnVerifyOtp.textContent = "Confirm";
-      btnVerifyOtp.disabled = false;
+      try {
+        confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
+        otpSection.style.display      = 'block';
+        btnSendOtp.textContent        = 'OTP Sent ✓';
+        btnSendOtp.style.background   = '#22c55e';
+        btnSendOtp.style.borderColor  = '#22c55e';
+        btnSendOtp.style.color        = '#fff';
+        otpCodeInput.focus();
+      } catch (error) {
+        console.error('Send OTP error:', error);
+        otpMessage.textContent = 'Failed to send OTP: ' + (error.message || error.code);
+        otpMessage.style.display = 'block';
+        btnSendOtp.textContent   = 'Verify';
+        btnSendOtp.disabled      = false;
+        // Re-init reCAPTCHA for retry
+        initRecaptcha();
+      }
     });
-  });
+
+    // ── 2. VERIFY OTP ─────────────────────────────────────────
+    btnVerifyOtp.addEventListener('click', async () => {
+      const code = otpCodeInput.value.trim();
+      if (code.length < 6) {
+        otpMessage.textContent = 'Enter the full 6-digit OTP.';
+        otpMessage.style.display = 'block';
+        return;
+      }
+
+      btnVerifyOtp.textContent = 'Verifying…';
+      btnVerifyOtp.disabled    = true;
+      otpMessage.style.display = 'none';
+
+      try {
+        await confirmationResult.confirm(code);
+
+        // Save phone number via AJAX
+        const res  = await fetch('/api/auth/save_phone.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'phone_number=' + encodeURIComponent(phoneNumberInput.value.trim())
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          otpSuccess.style.display = 'block';
+          otpMessage.style.display = 'none';
+          otpCodeInput.disabled    = true;
+          btnVerifyOtp.style.display = 'none';
+          btnSendOtp.textContent   = 'Verified ✓';
+          btnSendOtp.disabled      = true;
+          btnSendOtp.style.background  = '#22c55e';
+          btnSendOtp.style.color       = '#fff';
+        } else {
+          throw new Error(data.message || 'DB save failed');
+        }
+
+      } catch (error) {
+        console.error('Verify OTP error:', error);
+        otpMessage.textContent   = error.code === 'auth/invalid-verification-code'
+          ? 'Invalid OTP. Please try again.'
+          : (error.message || 'Verification failed.');
+        otpMessage.style.display = 'block';
+        btnVerifyOtp.textContent = 'Confirm';
+        btnVerifyOtp.disabled    = false;
+      }
+    });
+  }); // end DOMContentLoaded
 </script>
 </body>
 </html>
+

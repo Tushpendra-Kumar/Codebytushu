@@ -66,13 +66,14 @@ ServerSignature Off
   # Content-Security-Policy — adjust for your CDNs
   Header always set Content-Security-Policy \
     "default-src 'self'; \
-     script-src 'self' 'unsafe-inline' https://code.jquery.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://www.gstatic.com https://www.emailjs.com https://www.googletagmanager.com; \
+     script-src 'self' 'unsafe-inline' 'unsafe-eval' https://code.jquery.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com https://www.gstatic.com https://www.emailjs.com https://www.googletagmanager.com https://www.google.com https://apis.google.com https://securetoken.googleapis.com; \
      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; \
      font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; \
      img-src 'self' data: https: blob:; \
      media-src 'self' https://www.youtube.com; \
-     connect-src 'self' https://accounts.google.com https://www.googleapis.com https://api.emailjs.com https://www.gstatic.com https://firebaseinstallations.googleapis.com https://firebaselogging-pa.googleapis.com https://firebase.googleapis.com https://www.google-analytics.com https://www.google.com https://analytics.google.com; \
-     frame-src https://www.youtube.com https://youtube.com https://www.google.com https://maps.google.com;"
+     connect-src 'self' https://accounts.google.com https://www.googleapis.com https://api.emailjs.com https://www.gstatic.com https://firebaseinstallations.googleapis.com https://firebaselogging-pa.googleapis.com https://firebase.googleapis.com https://www.google-analytics.com https://www.google.com https://analytics.google.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://apis.google.com; \
+     frame-src https://www.youtube.com https://youtube.com https://www.google.com https://maps.google.com https://codebytushu-839a5.firebaseapp.com; \
+     worker-src blob: 'self';"
 
   # Remove PHP version header
   Header always unset X-Powered-By
