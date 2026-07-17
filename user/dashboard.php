@@ -24,11 +24,10 @@ if (isPost()) {
 
     if ($sub === 'profile') {
         $activeTab = 'profile';
-        $phone = sanitize(post('phone_number'));
         $fullName = sanitize(post('full_name'));
         
-        $pdo->prepare('UPDATE users SET full_name=?, phone_number=?, updated_at=NOW() WHERE id=?')
-            ->execute([$fullName, $phone, $user['id']]);
+        $pdo->prepare('UPDATE users SET full_name=?, updated_at=NOW() WHERE id=?')
+            ->execute([$fullName, $user['id']]);
         $success = 'Profile updated successfully.';
         $user = Auth::user(true);
     }
@@ -220,25 +219,7 @@ if (isPost()) {
                 <label class="form-label">Full Name</label>
                 <input type="text" name="full_name" class="form-control" value="<?= e($user['full_name']) ?>">
               </div>
-              <div class="form-group">
-                <label class="form-label">Phone Number (Optional)</label>
-                <div style="display:flex; gap:10px;">
-                  <input type="tel" id="phoneNumber" name="phone_number" class="form-control" value="<?= e($user['phone_number'] ?? '') ?>" placeholder="+91 9876543210" autocomplete="tel">
-                  <button type="button" id="btnSendOtp" class="btn-save" style="background:#222; color:#fff; border:1px solid #444; flex-shrink:0;">Verify</button>
-                </div>
-                <div id="recaptcha-container" style="margin-top:10px;"></div>
-                
-                <!-- OTP Section -->
-                <div id="otpSection" style="display:none; margin-top:15px; background:rgba(255,255,255,0.03); padding:16px; border-radius:12px; border:1px solid var(--border);">
-                   <label class="form-label" style="color:var(--accent);">Enter 6-digit OTP</label>
-                   <div style="display:flex; gap:10px;">
-                      <input type="text" id="otpCode" class="form-control" placeholder="123456" maxlength="6" style="letter-spacing:4px; font-weight:bold;">
-                      <button type="button" id="btnVerifyOtp" class="btn-save" style="flex-shrink:0;">Confirm</button>
-                   </div>
-                   <p id="otpMessage" style="font-size:13px; margin-top:10px; color:var(--danger); display:none;"></p>
-                   <p id="otpSuccess" style="font-size:13px; margin-top:10px; color:#22c55e; display:none; font-weight:600;"><i class="fa-solid fa-circle-check"></i> Phone Verified Successfully!</p>
-                </div>
-              </div>
+
               <button type="submit" class="btn-save">Save Profile</button>
             </form>
           </div>
@@ -338,159 +319,4 @@ document.addEventListener('DOMContentLoaded', () => {
     switchTab(tab);
   }
 });
-</script>
-
-<!-- Firebase SDK -->
-<script type="module">
-  import { initializeApp }                                      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey:            "AIzaSyDHUiszVq3UUmXcBMt8G5ZGhMLTFV9SuaU",
-    authDomain:        "codebytushu-839a5.firebaseapp.com",
-    projectId:         "codebytushu-839a5",
-    storageBucket:     "codebytushu-839a5.firebasestorage.app",
-    messagingSenderId: "396256984712",
-    appId:             "1:396256984712:web:ae36995ac91a195ebd293d",
-    measurementId:     "G-KJRB6YG0DV"
-  };
-
-  const app  = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  auth.useDeviceLanguage();
-
-  let confirmationResult = null;
-  let recaptchaVerifier  = null;
-
-  /**
-   * Safely destroy old reCAPTCHA verifier by REMOVING and RECREATING
-   * the container DOM node — avoids TypeError from reCAPTCHA's internal
-   * .clear() when a previous request was in flight and failed.
-   */
-  function getFreshVerifier() {
-    // Nullify reference first so no code holds a stale verifier
-    recaptchaVerifier = null;
-
-    // Remove old container and create a brand-new one
-    const oldEl = document.getElementById('recaptcha-container');
-    if (oldEl) {
-      const parent = oldEl.parentNode;
-      const newEl  = document.createElement('div');
-      newEl.id = 'recaptcha-container';
-      parent.replaceChild(newEl, oldEl);
-    }
-
-    recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-      size: 'invisible',
-      callback: () => {}
-    });
-    return recaptchaVerifier;
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const btnSendOtp       = document.getElementById('btnSendOtp');
-    const btnVerifyOtp     = document.getElementById('btnVerifyOtp');
-    const otpSection       = document.getElementById('otpSection');
-    const phoneNumberInput = document.getElementById('phoneNumber');
-    const otpCodeInput     = document.getElementById('otpCode');
-    const otpMessage       = document.getElementById('otpMessage');
-    const otpSuccess       = document.getElementById('otpSuccess');
-
-    if (phoneNumberInput && phoneNumberInput.value.trim() !== '') {
-      btnSendOtp.textContent = 'Change';
-    }
-
-    // ── SEND OTP ──────────────────────────────────────────────────────
-    btnSendOtp.addEventListener('click', async () => {
-      const phoneNumber = phoneNumberInput.value.trim();
-
-      if (!phoneNumber.startsWith('+')) {
-        showMsg('Country code required — e.g. +91 9876543210', 'error');
-        return;
-      }
-
-      showMsg('', '');
-      btnSendOtp.textContent = 'Sending…';
-      btnSendOtp.disabled    = true;
-
-      try {
-        const verifier     = getFreshVerifier();
-        confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, verifier);
-
-        otpSection.style.display     = 'block';
-        btnSendOtp.textContent       = 'OTP Sent ✓';
-        btnSendOtp.style.background  = '#22c55e';
-        btnSendOtp.style.borderColor = '#22c55e';
-        btnSendOtp.style.color       = '#fff';
-        otpCodeInput.focus();
-
-      } catch (err) {
-        console.error('Send OTP error:', err);
-        const msg =
-          err.code === 'auth/operation-not-allowed'
-            ? 'Phone OTP is blocked by the app settings. Please try again later.'
-            : err.code === 'auth/too-many-requests'
-            ? 'Too many attempts. Wait a few minutes and try again.'
-            : err.code === 'auth/invalid-phone-number'
-            ? 'Invalid phone format. Use +91XXXXXXXXXX.'
-            : 'Error: ' + (err.message || err.code);
-        showMsg(msg, 'error');
-        btnSendOtp.textContent = 'Verify';
-        btnSendOtp.disabled    = false;
-      }
-    });
-
-    // ── VERIFY OTP ────────────────────────────────────────────────────
-    btnVerifyOtp.addEventListener('click', async () => {
-      const code = otpCodeInput.value.trim();
-      if (code.length < 6) { showMsg('Enter the full 6-digit OTP.', 'error'); return; }
-
-      btnVerifyOtp.textContent = 'Verifying…';
-      btnVerifyOtp.disabled    = true;
-      showMsg('', '');
-
-      try {
-        await confirmationResult.confirm(code);
-
-        const res  = await fetch('/api/auth/save_phone.php', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body:    'phone_number=' + encodeURIComponent(phoneNumberInput.value.trim())
-        });
-        const data = await res.json();
-
-        if (data.success) {
-          otpSuccess.style.display   = 'block';
-          otpCodeInput.disabled      = true;
-          btnVerifyOtp.style.display = 'none';
-          btnSendOtp.textContent     = 'Verified ✓';
-          btnSendOtp.disabled        = true;
-          btnSendOtp.style.background = '#22c55e';
-          btnSendOtp.style.color      = '#fff';
-          showMsg('', '');
-        } else {
-          throw new Error(data.message || 'Failed to save phone number.');
-        }
-
-      } catch (err) {
-        console.error('Verify OTP error:', err);
-        const msg =
-          err.code === 'auth/invalid-verification-code'
-            ? 'Wrong OTP. Please check and try again.'
-            : err.code === 'auth/code-expired'
-            ? 'OTP expired. Click Verify again to resend.'
-            : (err.message || 'Verification failed.');
-        showMsg(msg, 'error');
-        btnVerifyOtp.textContent = 'Confirm';
-        btnVerifyOtp.disabled    = false;
-      }
-    });
-
-    function showMsg(text, type) {
-      otpMessage.textContent   = text;
-      otpMessage.style.display = text ? 'block' : 'none';
-      otpMessage.style.color   = type === 'error' ? 'var(--danger)' : '#22c55e';
-    }
-  });
-</script>
 
