@@ -169,7 +169,7 @@ require_once __DIR__ . '/includes/sidebar.php';
           <div style="display:flex; gap:15px; justify-content:flex-end;">
             <button onclick="document.getElementById('deleteModal').style.display='none'; if(typeof showSaveToast === 'function') showSaveToast('Thank you for staying with CodeByTushu ❤️');" class="btn-cancel">Cancel</button>
             <form method="POST" style="margin:0;">
-                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+                <input type="hidden" name="csrf_token" value="<?= e(csrfToken()) ?>">
                 <input type="hidden" name="_sub" value="delete_account">
                 <button type="submit" class="btn-danger" onclick="this.innerHTML='Deleting...'; this.style.pointerEvents='none';">Yes, Delete My Account</button>
             </form>
