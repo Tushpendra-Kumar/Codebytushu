@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- Firebase SDK -->
 <script type="module">
-  import { initializeApp }                           from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { initializeApp }                                      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
   const firebaseConfig = {
@@ -362,15 +362,24 @@ document.addEventListener('DOMContentLoaded', () => {
   let confirmationResult = null;
   let recaptchaVerifier  = null;
 
-  // Creates a FRESH invisible verifier — clears old one first
+  /**
+   * Safely destroy old reCAPTCHA verifier by REMOVING and RECREATING
+   * the container DOM node — avoids TypeError from reCAPTCHA's internal
+   * .clear() when a previous request was in flight and failed.
+   */
   function getFreshVerifier() {
-    if (recaptchaVerifier) {
-      try { recaptchaVerifier.clear(); } catch (_) {}
-      // Also clear the DOM container so reCAPTCHA can re-render
-      const container = document.getElementById('recaptcha-container');
-      if (container) container.innerHTML = '';
-      recaptchaVerifier = null;
+    // Nullify reference first so no code holds a stale verifier
+    recaptchaVerifier = null;
+
+    // Remove old container and create a brand-new one
+    const oldEl = document.getElementById('recaptcha-container');
+    if (oldEl) {
+      const parent = oldEl.parentNode;
+      const newEl  = document.createElement('div');
+      newEl.id = 'recaptcha-container';
+      parent.replaceChild(newEl, oldEl);
     }
+
     recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
       size: 'invisible',
       callback: () => {}
@@ -396,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const phoneNumber = phoneNumberInput.value.trim();
 
       if (!phoneNumber.startsWith('+')) {
-        showMsg('Please enter phone number with country code. e.g. +91 9876543210', 'error');
+        showMsg('Country code required — e.g. +91 9876543210', 'error');
         return;
       }
 
@@ -405,24 +414,26 @@ document.addEventListener('DOMContentLoaded', () => {
       btnSendOtp.disabled    = true;
 
       try {
-        // Always create a fresh verifier — avoids "already rendered" error
-        const verifier    = getFreshVerifier();
+        const verifier     = getFreshVerifier();
         confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, verifier);
 
-        otpSection.style.display = 'block';
-        btnSendOtp.textContent   = 'OTP Sent ✓';
-        btnSendOtp.style.cssText += ';background:#22c55e;border-color:#22c55e;color:#fff;';
+        otpSection.style.display     = 'block';
+        btnSendOtp.textContent       = 'OTP Sent ✓';
+        btnSendOtp.style.background  = '#22c55e';
+        btnSendOtp.style.borderColor = '#22c55e';
+        btnSendOtp.style.color       = '#fff';
         otpCodeInput.focus();
 
       } catch (err) {
         console.error('Send OTP error:', err);
-        const msg = err.code === 'auth/operation-not-allowed'
-          ? 'Phone sign-in is not enabled. Please contact support.'
-          : err.code === 'auth/too-many-requests'
-          ? 'Too many attempts. Please wait a few minutes and try again.'
-          : err.code === 'auth/invalid-phone-number'
-          ? 'Invalid phone number format. Use +91XXXXXXXXXX.'
-          : ('Error: ' + (err.message || err.code));
+        const msg =
+          err.code === 'auth/operation-not-allowed'
+            ? 'Phone OTP is blocked by the app settings. Please try again later.'
+            : err.code === 'auth/too-many-requests'
+            ? 'Too many attempts. Wait a few minutes and try again.'
+            : err.code === 'auth/invalid-phone-number'
+            ? 'Invalid phone format. Use +91XXXXXXXXXX.'
+            : 'Error: ' + (err.message || err.code);
         showMsg(msg, 'error');
         btnSendOtp.textContent = 'Verify';
         btnSendOtp.disabled    = false;
@@ -454,7 +465,8 @@ document.addEventListener('DOMContentLoaded', () => {
           btnVerifyOtp.style.display = 'none';
           btnSendOtp.textContent     = 'Verified ✓';
           btnSendOtp.disabled        = true;
-          btnSendOtp.style.cssText  += ';background:#22c55e;color:#fff;';
+          btnSendOtp.style.background = '#22c55e';
+          btnSendOtp.style.color      = '#fff';
           showMsg('', '');
         } else {
           throw new Error(data.message || 'Failed to save phone number.');
@@ -462,11 +474,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       } catch (err) {
         console.error('Verify OTP error:', err);
-        const msg = err.code === 'auth/invalid-verification-code'
-          ? 'Wrong OTP. Please check and try again.'
-          : err.code === 'auth/code-expired'
-          ? 'OTP expired. Please click Verify again to resend.'
-          : (err.message || 'Verification failed.');
+        const msg =
+          err.code === 'auth/invalid-verification-code'
+            ? 'Wrong OTP. Please check and try again.'
+            : err.code === 'auth/code-expired'
+            ? 'OTP expired. Click Verify again to resend.'
+            : (err.message || 'Verification failed.');
         showMsg(msg, 'error');
         btnVerifyOtp.textContent = 'Confirm';
         btnVerifyOtp.disabled    = false;
