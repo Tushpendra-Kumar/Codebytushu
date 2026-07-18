@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__ . '/config/app.php';
+require_once __DIR__ . '/classes/Auth.php';
+Auth::boot();
+$user = Auth::user();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,44 +50,7 @@
         </div>
     </div>
 
-    <nav class="cbt-navbar navbar" id="mainNavbar" role="navigation" aria-label="Main navigation">
-        <div class="cbt-nav-inner">
-
-            <!-- ── Logo ───────────────────────────────────────────── -->
-            <div class="cbt-logo" id="cbt-logo">
-                <a href="index.html" id="cbt-logo-link" aria-label="CodeByTushu Home">
-                    <img src="./image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
-                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
-                </a>
-            </div>
-
-            <!-- ── Center Navigation (About Platform Links) ──────── -->
-            <ul class="cbt-center-nav" id="cbt-center-nav" role="menubar" aria-label="About Platform navigation">
-                <li role="none"><a href="#story"      class="cbt-nav-link" role="menuitem" tabindex="0">Story</a></li>
-                <li role="none"><a href="#purpose"    class="cbt-nav-link" role="menuitem" tabindex="0">Purpose</a></li>
-                <li role="none"><a href="#features"   class="cbt-nav-link" role="menuitem" tabindex="0">Features</a></li>
-                <li role="none"><a href="#experience" class="cbt-nav-link" role="menuitem" tabindex="0">Experience</a></li>
-                <li role="none"><a href="#vision"     class="cbt-nav-link" role="menuitem" tabindex="0">Vision</a></li>
-                <li role="none"><a href="#faq"        class="cbt-nav-link" role="menuitem" tabindex="0">FAQ</a></li>
-            </ul>
-
-            <!-- ── Right Side: Login (Desktop ≥1024px) ── -->
-            <div class="cbt-nav-right" id="cbt-nav-right">
-                <a href="auth/login.php" class="cbt-login-btn" id="cbt-login-btn" aria-label="Login to your account">
-                    <span>Login</span>
-                </a>
-            </div>
-
-            <!-- ── Mobile Right: Login (<1024px) ─────── -->
-            <div class="cbt-mobile-right" id="cbt-mobile-right">
-                <a href="auth/login.php" class="cbt-login-btn" id="cbt-login-btn-mob" aria-label="Login">
-                    <span>Login</span>
-                </a>
-            </div>
-
-        </div><!-- /.cbt-nav-inner -->
-
-    </nav><!-- /.cbt-navbar -->
+    <?php require_once __DIR__ . '/includes/navbar.php'; ?>
 
     <!-- STORY SECTION -->
     <section class="cbt-story-section" id="story">

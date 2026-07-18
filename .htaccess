@@ -31,6 +31,9 @@ ServerSignature Off
 
   # ── Auth & General Redirects ────────────────────────────────────
   RewriteRule ^login\.php$ auth/login.php [R=301,L,NC]
+  RewriteRule ^index\.html$ / [R=301,L]
+  RewriteRule ^about-platform\.html$ /about-platform.php [R=301,L]
+
 
   # ── LeetCode HTML → PHP 301 redirects ───────────────────────
   # New SEO route for single template
