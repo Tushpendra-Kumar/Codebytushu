@@ -67,16 +67,20 @@
 
             <!-- ── Right Side: Login (Desktop ≥1024px) ── -->
             <div class="cbt-nav-right" id="cbt-nav-right">
-                <a href="auth/login.php" class="cbt-login-btn" id="cbt-login-btn" aria-label="Login to your account">
-                    <span>Login</span>
-                </a>
+                <div id="cbt-auth-area" style="display:inline-flex;align-items:center;gap:8px;">
+                    <a href="auth/login.php" class="cbt-login-btn" id="cbt-login-btn" aria-label="Login to your account">
+                        <span>Login</span>
+                    </a>
+                </div>
             </div>
 
             <!-- ── Mobile Right: Login (<1024px) ─────── -->
             <div class="cbt-mobile-right" id="cbt-mobile-right">
-                <a href="auth/login.php" class="cbt-login-btn" id="cbt-login-btn-mob" aria-label="Login">
-                    <span>Login</span>
-                </a>
+                <div id="cbt-auth-area-mob" style="display:inline-flex;align-items:center;">
+                    <a href="auth/login.php" class="cbt-login-btn" id="cbt-login-btn-mob" aria-label="Login">
+                        <span>Login</span>
+                    </a>
+                </div>
             </div>
 
         </div><!-- /.cbt-nav-inner -->
@@ -714,7 +718,7 @@
                 });
             }
         })();
-    </script>
+    </script>    <script src="/auth-ui.js"></script>
 </body>
 </html>
 
