@@ -404,6 +404,13 @@
 }
 
 /* -------- Mobile Responsiveness Adjustments -------- */
+@media (max-width: 1024px) {
+    /* Ensure right icons (cart, profile) are visible since we don't use mobile drawer here */
+    .cbt-navbar .cbt-nav-right {
+        display: flex !important;
+    }
+}
+
 @media (max-width: 768px) {
     /* Display navigation on mobile */
     .cbt-center-nav {
