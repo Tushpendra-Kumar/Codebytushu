@@ -10,6 +10,12 @@
 .env
 .env.local
 .env.*.local
+*.env
+
+# Database Backups (CRITICAL: Never commit data dumps)
+/database/backups/*.sql
+*.sqlite
+*.db
 
 # Node / npm (if ever used)
 node_modules/
