@@ -64,7 +64,8 @@
             // Update drawer login link (if drawer exists)
             var drawerLi = document.getElementById('drawer-auth-li');
             if (drawerLi) {
-                drawerLi.innerHTML = '<a href="/api/auth/logout.php" class="cbt-drawer-link" id="drawer-logout" role="menuitem" style="color:#ff6b6b;">Logout</a>';
+                drawerLi.outerHTML = '<li role="none"><a href="/user/dashboard.php" class="cbt-drawer-link" role="menuitem" style="color:#ffc400;">My Dashboard</a></li>'
+                                   + '<li role="none"><a href="/api/auth/logout.php" class="cbt-drawer-link" id="drawer-logout" role="menuitem" style="color:#ff6b6b;">Logout</a></li>';
             }
 
             // Toggle dropdown on avatar click
