@@ -253,7 +253,7 @@ Auth::requireLogin('/cart/index.php');
 
     <header class="checkout-header">
         <a href="/courses/" class="checkout-logo">
-            <img src="/image1/Black Logo.PNG" alt="CodeByTushu">
+            <img src="/image1/Black%20Logo.PNG" alt="CodeByTushu">
             <span>CodeBy<span>Tushu</span></span>
         </a>
     </header>
