@@ -402,3 +402,70 @@
     display: flex;
     align-items: center;
 }
+
+/* -------- Mobile Responsiveness Adjustments -------- */
+@media (max-width: 768px) {
+    /* Navbar logo sizing */
+    .cbt-logo {
+        flex-shrink: 1;
+        min-width: 0;
+        margin-right: auto;
+    }
+    .cbt-main-logo-img {
+        max-width: 140px;
+        height: auto;
+    }
+    .cbt-logo-text {
+        font-size: 1.2rem;
+        display: none; /* Hide text on small screens if logo img is present */
+    }
+    
+    /* Hero Section */
+    .cbt-courses-hero {
+        padding: 100px 15px 40px;
+    }
+    .cbt-courses-hero h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+        margin-bottom: 0.8rem;
+    }
+    .cbt-courses-hero p {
+        font-size: 0.95rem;
+    }
+    
+    /* Search Bar */
+    .cbt-courses-search {
+        padding: 0 10px;
+    }
+    .cbt-courses-search input {
+        max-width: 100%;
+        font-size: 0.95rem;
+    }
+    
+    /* Filters */
+    .cbt-courses-filters {
+        gap: 10px;
+        padding: 0 10px;
+        justify-content: center;
+    }
+    .cbt-filter-btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+    
+    /* Grid */
+    .cbt-courses-container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .cbt-course-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Avoid any global horizontal overflow */
+    body, html {
+        overflow-x: hidden;
+        width: 100%;
+    }
+}

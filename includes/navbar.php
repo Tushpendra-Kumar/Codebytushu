@@ -4,7 +4,7 @@
             <!-- ── Logo ───────────────────────────────────────────── -->
             <div class="cbt-logo" id="cbt-logo">
                 <a href="/#home" id="cbt-logo-link" aria-label="CodeByTushu Home">
-                    <img src="./image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
+                    <img src="/image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
                     <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
                 </a>
             </div>
