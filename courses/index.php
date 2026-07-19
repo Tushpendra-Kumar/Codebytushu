@@ -159,7 +159,7 @@ if (Auth::check()) {
                 mobOverlay.style.display = 'block';
                 requestAnimationFrame(function () {
                     mobOverlay.classList.add('active');
-                    mobDrawer.classList.add('active');
+                    mobDrawer.classList.add('is-open');
                     mobHamBtn.classList.add('is-open');
                     mobHamBtn.setAttribute('aria-expanded', 'true');
                     document.body.style.overflow = 'hidden';
@@ -170,7 +170,7 @@ if (Auth::check()) {
                 if (!mobDrawer) return;
                 drawerIsOpen = false;
                 mobOverlay.classList.remove('active');
-                mobDrawer.classList.remove('active');
+                mobDrawer.classList.remove('is-open');
                 if (mobHamBtn) {
                     mobHamBtn.classList.remove('is-open');
                     mobHamBtn.setAttribute('aria-expanded', 'false');
