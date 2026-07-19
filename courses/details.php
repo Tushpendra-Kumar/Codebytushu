@@ -45,7 +45,7 @@ if ($is_logged_in) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($course['title']) ?> - CodeByTushu</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/styles.css">
     <style>
         .course-container { max-width: 1000px; margin: 50px auto; padding: 20px; display: flex; gap: 40px; background: #111; border-radius: 12px; border: 1px solid #333; }
         .course-image { flex: 1; border-radius: 8px; overflow: hidden; }

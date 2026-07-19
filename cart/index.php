@@ -11,7 +11,7 @@ Auth::requireLogin();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart - CodeByTushu</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .cart-container { max-width: 800px; margin: 50px auto; padding: 20px; background: #111; border-radius: 12px; border: 1px solid #333; }

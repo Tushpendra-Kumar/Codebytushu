@@ -15,7 +15,7 @@ $order_number = isset($_GET['order']) ? $_GET['order'] : '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Submitted - CodeByTushu</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .success-container { max-width: 600px; margin: 80px auto; padding: 40px; background: #111; border-radius: 12px; border: 1px solid #333; text-align: center; }
