@@ -19,7 +19,7 @@ Auth::requireLogin();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <link rel="stylesheet" href="../styles.css?v=40">
-    <link rel="stylesheet" href="./store.css?v=1">
+    <link rel="stylesheet" href="./store.css?v=2">
 </head>
 <body>
     <!-- Futuristic Animated Background (Global for Store) -->
@@ -74,14 +74,94 @@ Auth::requireLogin();
                     <span class="cbt-cart-counter" style="display: none;">0</span>
                 </a>
                 
-                <button class="cbt-hamburger-btn" id="cbt-hamburger-btn" aria-label="Menu">
+                <!-- Hamburger for mobile (visible only on mobile via CSS) -->
+                <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn"
+                        aria-label="Open mobile menu" aria-expanded="false" aria-controls="cbt-mobile-drawer" style="margin-left:15px;">
                     <span class="cbt-ham-bar"></span>
                     <span class="cbt-ham-bar"></span>
                     <span class="cbt-ham-bar"></span>
                 </button>
             </div>
         </div>
+
+        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- Overlay -->
+        <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
+        <!-- Drawer -->
+        <div class="cbt-mobile-drawer" id="cbt-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile menu" aria-hidden="true">
+            <div class="cbt-drawer-header">
+                <div class="cbt-logo">
+                    <a href="../index.html" aria-label="CodeByTushu Home" tabindex="-1">
+                        <span class="cbt-logo-text" style="font-size:1.2rem;">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                    </a>
+                </div>
+                <button class="cbt-drawer-close" id="cbt-drawer-close" aria-label="Close menu">&#x2715;</button>
+            </div>
+            <div class="cbt-drawer-body">
+                <ul class="cbt-drawer-primary" role="menu" aria-label="Main navigation">
+                    <li role="none"><a href="index.html" class="cbt-drawer-link" role="menuitem">Home</a></li>
+                    <li role="none"><a href="#categories" class="cbt-drawer-link" role="menuitem">Categories</a></li>
+                    <li role="none"><a href="#all-products" class="cbt-drawer-link" role="menuitem">All Products</a></li>
+                    <li role="none"><a href="cart/index.html" class="cbt-drawer-link" role="menuitem">My Cart</a></li>
+                    <li role="none"><a href="#faq" class="cbt-drawer-link" role="menuitem">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var mobHamBtn     = document.getElementById('cbt-mobile-ham-btn');
+            var mobDrawer     = document.getElementById('cbt-mobile-drawer');
+            var mobOverlay    = document.getElementById('cbt-mobile-overlay');
+            var drawerClose   = document.getElementById('cbt-drawer-close');
+            var drawerIsOpen  = false;
+
+            function openDrawer() {
+                if (!mobDrawer) return;
+                drawerIsOpen = true;
+                mobOverlay.style.display = 'block';
+                requestAnimationFrame(function () {
+                    mobOverlay.classList.add('active');
+                    mobDrawer.classList.add('active');
+                    mobHamBtn.classList.add('is-open');
+                    mobHamBtn.setAttribute('aria-expanded', 'true');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            function closeDrawer() {
+                if (!mobDrawer) return;
+                drawerIsOpen = false;
+                mobOverlay.classList.remove('active');
+                mobDrawer.classList.remove('active');
+                if (mobHamBtn) {
+                    mobHamBtn.classList.remove('is-open');
+                    mobHamBtn.setAttribute('aria-expanded', 'false');
+                }
+                document.body.style.overflow = '';
+                setTimeout(function () {
+                    if (!drawerIsOpen) {
+                        mobOverlay.style.display = 'none';
+                    }
+                }, 300);
+            }
+
+            if (mobHamBtn) mobHamBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                drawerIsOpen ? closeDrawer() : openDrawer();
+            });
+            if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+            if (mobOverlay) mobOverlay.addEventListener('click', closeDrawer);
+
+            if (mobDrawer) {
+                var links = mobDrawer.querySelectorAll('.cbt-drawer-link');
+                links.forEach(function(link) {
+                    link.addEventListener('click', closeDrawer);
+                });
+            }
+        });
+    </script>
 
     <!-- ===================== HERO SECTION ===================== -->
     <header class="cbt-store-hero">
