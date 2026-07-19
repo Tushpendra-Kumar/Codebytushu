@@ -13,7 +13,7 @@ $courses = $stmt->fetchAll();
 
 // Fetch cart items for Add/Remove logic
 $cartItems = [];
-if (Auth::isLoggedIn()) {
+if (Auth::check()) {
     $cartStmt = $pdo->prepare("SELECT course_id FROM cart_items WHERE user_id = ?");
     $cartStmt->execute([Auth::user()['id']]);
     $cartItems = $cartStmt->fetchAll(PDO::FETCH_COLUMN);
