@@ -433,6 +433,10 @@
     
     .cbt-nav-inner {
         flex-wrap: wrap;
+        height: auto !important; /* Override fixed 60px height */
+        min-height: 60px;
+        padding-bottom: 10px;
+        justify-content: space-between;
     }
 
     /* Navbar logo sizing */
