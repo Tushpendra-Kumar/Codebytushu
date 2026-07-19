@@ -90,7 +90,7 @@ if (Auth::check()) {
             </div>
             
             <ul class="cbt-center-nav" id="cbt-center-nav">
-                <li><a href="index.php" class="cbt-nav-link active">Home</a></li>
+                <li><a href="#home" class="cbt-nav-link active">Home</a></li>
                 <li><a href="#categories" class="cbt-nav-link">Categories</a></li>
                 <li><a href="#all-courses" class="cbt-nav-link">All Courses</a></li>
                 <li><a href="/cart/index.php" class="cbt-nav-link">My Cart</a></li>
@@ -110,18 +110,14 @@ if (Auth::check()) {
                     </a>
                 </div>
 
-                <button class="cbt-hamburger-btn" id="cbt-hamburger-btn">
-                    <span class="cbt-ham-bar"></span>
-                    <span class="cbt-ham-bar"></span>
-                    <span class="cbt-ham-bar"></span>
-                </button>
+
             </div>
         </div>
     </nav>
 
 
     <!-- ===================== HERO SECTION ===================== -->
-    <header class="cbt-courses-hero">
+    <header class="cbt-courses-hero" id="home">
         <div style="position: relative; z-index: 10;">
             <h1>Master In-Demand Skills <br> with <span class="highlight">Practical Courses</span></h1>
         <p>Learn industry-ready skills through step-by-step courses designed for beginners as well as advanced learners. Every course focuses on practical learning and real-world projects.</p>
@@ -130,7 +126,7 @@ if (Auth::check()) {
             <input type="text" id="courseSearch" placeholder="Search for Java, React, DSA...">
         </div>
 
-        <div class="cbt-courses-filters" id="courseFilters">
+        <div class="cbt-courses-filters" id="categories">
             <button class="cbt-filter-btn active" data-filter="all">All Courses</button>
             <button class="cbt-filter-btn" data-filter="java">Java</button>
             <button class="cbt-filter-btn" data-filter="react">React</button>
@@ -557,6 +553,48 @@ if (Auth::check()) {
             })
             .catch(err => console.error(err));
         }
+        
+        // Navigation active state and smooth scrolling
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.cbt-nav-link');
+            const sections = document.querySelectorAll('header[id], div[id], section[id], main[id]');
+            
+            // Smooth scroll
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80, // adjust for navbar height
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Active state on scroll
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>

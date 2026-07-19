@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../config/database.php';
 header('Content-Type: application/json');
 
 Auth::boot();
-if (!isset($_SESSION['user_id'])) {
+if (!Auth::check()) {
     echo json_encode(['success' => false, 'error' => 'You must be logged in to add items to your cart.']);
     exit;
 }
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $course_id = isset($_POST['course_id']) ? (int)$_POST['course_id'] : 0;
-$user_id = $_SESSION['user_id'];
+$user_id = Auth::id();
 
 if (!$course_id) {
     echo json_encode(['success' => false, 'error' => 'Invalid course ID.']);

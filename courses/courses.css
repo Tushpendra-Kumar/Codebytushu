@@ -405,6 +405,29 @@
 
 /* -------- Mobile Responsiveness Adjustments -------- */
 @media (max-width: 768px) {
+    /* Display navigation on mobile */
+    .cbt-center-nav {
+        display: flex !important;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 15px;
+        padding: 10px 0;
+        width: 100%;
+        order: 3; /* Push below logo and cart */
+        justify-content: flex-start;
+        border-top: 1px solid rgba(255,196,0,0.1);
+        margin-top: 10px;
+    }
+    
+    .cbt-center-nav::-webkit-scrollbar {
+        display: none; /* Hide scrollbar */
+    }
+    
+    .cbt-nav-inner {
+        flex-wrap: wrap;
+    }
+
     /* Navbar logo sizing */
     .cbt-logo {
         flex-shrink: 1;

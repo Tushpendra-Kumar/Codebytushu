@@ -6,12 +6,12 @@ require_once __DIR__ . '/../../config/database.php';
 header('Content-Type: application/json');
 
 Auth::boot();
-if (!isset($_SESSION['user_id'])) {
+if (!Auth::check()) {
     echo json_encode(['success' => false, 'error' => 'Not logged in.']);
     exit;
 }
 
-$user_id = $_SESSION['user_id'];
+$user_id = Auth::id();
 
 try {
     $pdo = db();
