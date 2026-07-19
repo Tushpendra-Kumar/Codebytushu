@@ -369,6 +369,15 @@ function secs2dur(int $s): string {
                     <div id="pvPrev" style="margin-top:8px;display:none;"></div>
                     <div class="up-progress" id="pvProg"><div class="up-bar" id="pvBar"></div></div>
                   </div>
+                  
+                  <!-- Secure PDF Path -->
+                  <div class="form-group" style="grid-column: span 2;">
+                    <label class="form-label">Secure PDF Download Path</label>
+                    <input type="text" name="download_file_path" class="form-control"
+                           value="<?= cv($course,'download_file_path') ?>"
+                           placeholder="/private/courses/demo-course.pdf">
+                    <div class="form-hint">Enter the relative path to the PDF file (e.g. /private/courses/demo-course.pdf). Leave empty if not a downloadable course.</div>
+                  </div>
                 </div>
               </div>
 

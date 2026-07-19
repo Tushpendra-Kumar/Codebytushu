@@ -283,6 +283,7 @@ $data=[
     'is_published'      =>$isPublished,
     'duration_hours'    =>post('duration_hours')?(float)post('duration_hours'):null,
     'meta_description'  =>post('meta_description')?:null,
+    'download_file_path'=>post('download_file_path')?:null,
 ];
 if($thumbPath!==null) $data['thumbnail_path']=$thumbPath;
 if($previewVideo)     $data['preview_video']=$previewVideo;
