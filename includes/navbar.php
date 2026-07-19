@@ -115,3 +115,5 @@
         </div><!-- /.cbt-mobile-drawer -->
 
     </nav><!-- /.cbt-navbar -->
+
+<script src="/auth-ui.js"></script>
