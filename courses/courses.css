@@ -430,19 +430,7 @@
         width: 100%;
         justify-content: flex-end;
     }
-    .cbt-logo {
-        flex-shrink: 1;
-        min-width: 0;
-        margin-right: auto;
-    }
-    .cbt-main-logo-img {
-        max-width: 140px;
-        height: auto;
-    }
-    .cbt-logo-text {
-        font-size: 1.2rem;
-        display: none; /* Hide text on small screens if logo img is present */
-    }
+    /* Logo overrides removed to match main page */
     
     /* Hero Section */
     .cbt-courses-hero {
