@@ -412,34 +412,25 @@
 }
 
 @media (max-width: 768px) {
-    /* Display navigation on mobile */
-    .cbt-center-nav {
-        display: flex !important;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        gap: 15px;
-        padding: 10px 0;
-        width: 100%;
-        order: 3; /* Push below logo and cart */
-        justify-content: flex-start;
-        border-top: 1px solid rgba(255,196,0,0.1);
-        margin-top: 10px;
-    }
-    
-    .cbt-center-nav::-webkit-scrollbar {
-        display: none; /* Hide scrollbar */
+    /* Mobile Navbar Simplified: Only Cart Icon Visible */
+    .cbt-logo,
+    .cbt-center-nav,
+    #cbt-auth-area {
+        display: none !important;
     }
     
     .cbt-nav-inner {
-        flex-wrap: wrap;
-        height: auto !important; /* Override fixed 60px height */
+        height: 60px !important;
         min-height: 60px;
-        padding-bottom: 10px;
-        justify-content: space-between;
+        padding-bottom: 0;
+        justify-content: flex-end !important; /* Push cart icon to the far right */
+        align-items: center;
     }
-
-    /* Navbar logo sizing */
+    
+    .cbt-navbar .cbt-nav-right {
+        width: 100%;
+        justify-content: flex-end;
+    }
     .cbt-logo {
         flex-shrink: 1;
         min-width: 0;

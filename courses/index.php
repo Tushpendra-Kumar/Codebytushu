@@ -39,7 +39,7 @@ if (Auth::check()) {
     <!-- Main Site Styles -->
     <link rel="stylesheet" href="../styles.css?v=40">
     <!-- Courses Styles -->
-    <link rel="stylesheet" href="./courses.css?v=3">
+    <link rel="stylesheet" href="./courses.css?v=4">
 
     <style>
         .material-symbols-rounded {
