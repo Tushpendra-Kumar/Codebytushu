@@ -422,13 +422,7 @@
         height: 60px !important;
         min-height: 60px;
         padding-bottom: 0;
-        justify-content: flex-end !important; /* Push cart icon to the far right */
         align-items: center;
-    }
-    
-    .cbt-navbar .cbt-nav-right {
-        width: 100%;
-        justify-content: flex-end;
     }
     /* Logo overrides removed to match main page */
     
