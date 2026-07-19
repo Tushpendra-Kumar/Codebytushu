@@ -74,16 +74,45 @@
                 </div>
             </div>
 
-            <!-- ── Mobile Right: Login (<1024px) ─────── -->
+            <!-- ── Mobile Right: Hamburger (<1024px) ─────── -->
             <div class="cbt-mobile-right" id="cbt-mobile-right">
-                <div id="cbt-auth-area-mob" style="display:inline-flex;align-items:center;">
-                    <a href="auth/login.php" class="cbt-login-btn" id="cbt-login-btn-mob" aria-label="Login">
-                        <span>Login</span>
-                    </a>
-                </div>
+                <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn"
+                        aria-label="Open mobile menu" aria-expanded="false" aria-controls="cbt-mobile-drawer">
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                </button>
             </div>
 
         </div><!-- /.cbt-nav-inner -->
+
+        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- Overlay -->
+        <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
+        <!-- Drawer -->
+        <div class="cbt-mobile-drawer" id="cbt-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile menu" aria-hidden="true">
+            <!-- Drawer Header -->
+            <div class="cbt-drawer-header">
+                <div class="cbt-logo">
+                    <a href="index.html" aria-label="CodeByTushu Home" tabindex="-1">
+                        <span class="cbt-logo-text" style="font-size:1.2rem;">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                    </a>
+                </div>
+                <button class="cbt-drawer-close" id="cbt-drawer-close" aria-label="Close menu">&#x2715;</button>
+            </div>
+            <!-- Drawer Body -->
+            <div class="cbt-drawer-body">
+                <ul class="cbt-drawer-primary" role="menu" aria-label="Main navigation">
+                    <li role="none"><a href="#story"      class="cbt-drawer-link" role="menuitem">Story</a></li>
+                    <li role="none"><a href="#purpose"    class="cbt-drawer-link" role="menuitem">Purpose</a></li>
+                    <li role="none"><a href="#features"   class="cbt-drawer-link" role="menuitem">Features</a></li>
+                    <li role="none"><a href="#experience" class="cbt-drawer-link" role="menuitem">Experience</a></li>
+                    <li role="none"><a href="#vision"     class="cbt-drawer-link" role="menuitem">Vision</a></li>
+                    <li role="none"><a href="#faq"        class="cbt-drawer-link" role="menuitem">FAQ</a></li>
+                    <li role="none"><a href="auth/login.php" class="cbt-drawer-link" role="menuitem">Login</a></li>
+                </ul>
+            </div>
+        </div>
 
     </nav><!-- /.cbt-navbar -->
 

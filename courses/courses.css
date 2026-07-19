@@ -412,8 +412,7 @@
 }
 
 @media (max-width: 768px) {
-    /* Mobile Navbar Simplified: Only Cart Icon Visible */
-    .cbt-logo,
+    /* Mobile Navbar Simplified */
     .cbt-center-nav,
     #cbt-auth-area {
         display: none !important;

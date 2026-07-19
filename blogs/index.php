@@ -72,8 +72,96 @@ Auth::requireLogin();
                     <span class="material-symbols-rounded">search</span>
                 </button>
             </div>
+
+            <!-- ── Mobile Right: Hamburger (<1024px) ─────── -->
+            <div class="cbt-mobile-right" id="cbt-mobile-right">
+                <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn"
+                        aria-label="Open mobile menu" aria-expanded="false" aria-controls="cbt-mobile-drawer">
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- Overlay -->
+        <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
+        <!-- Drawer -->
+        <div class="cbt-mobile-drawer" id="cbt-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile menu" aria-hidden="true">
+            <div class="cbt-drawer-header">
+                <div class="cbt-logo">
+                    <a href="../index.html" aria-label="CodeByTushu Home" tabindex="-1">
+                        <span class="cbt-logo-text" style="font-size:1.2rem;">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                    </a>
+                </div>
+                <button class="cbt-drawer-close" id="cbt-drawer-close" aria-label="Close menu">&#x2715;</button>
+            </div>
+            <div class="cbt-drawer-body">
+                <ul class="cbt-drawer-primary" role="menu" aria-label="Main navigation">
+                    <li role="none"><a href="#home" class="cbt-drawer-link" role="menuitem">Home</a></li>
+                    <li role="none"><a href="#categories" class="cbt-drawer-link" role="menuitem">Categories</a></li>
+                    <li role="none"><a href="#tags" class="cbt-drawer-link" role="menuitem">Tags</a></li>
+                    <li role="none"><a href="#all-blogs" class="cbt-drawer-link" role="menuitem">All Blogs</a></li>
+                    <li role="none"><a href="#faq" class="cbt-drawer-link" role="menuitem">FAQ</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var mobHamBtn     = document.getElementById('cbt-mobile-ham-btn');
+            var mobDrawer     = document.getElementById('cbt-mobile-drawer');
+            var mobOverlay    = document.getElementById('cbt-mobile-overlay');
+            var drawerClose   = document.getElementById('cbt-drawer-close');
+            var drawerIsOpen  = false;
+
+            function openDrawer() {
+                if (!mobDrawer) return;
+                drawerIsOpen = true;
+                mobOverlay.style.display = 'block';
+                requestAnimationFrame(function () {
+                    mobOverlay.classList.add('active');
+                    mobDrawer.classList.add('active');
+                    mobHamBtn.classList.add('is-open');
+                    mobHamBtn.setAttribute('aria-expanded', 'true');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            function closeDrawer() {
+                if (!mobDrawer) return;
+                drawerIsOpen = false;
+                mobOverlay.classList.remove('active');
+                mobDrawer.classList.remove('active');
+                if (mobHamBtn) {
+                    mobHamBtn.classList.remove('is-open');
+                    mobHamBtn.setAttribute('aria-expanded', 'false');
+                }
+                document.body.style.overflow = '';
+                setTimeout(function () {
+                    if (!drawerIsOpen) {
+                        mobOverlay.style.display = 'none';
+                    }
+                }, 300);
+            }
+
+            if (mobHamBtn) mobHamBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                drawerIsOpen ? closeDrawer() : openDrawer();
+            });
+            if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+            if (mobOverlay) mobOverlay.addEventListener('click', closeDrawer);
+
+            if (mobDrawer) {
+                var links = mobDrawer.querySelectorAll('.cbt-drawer-link');
+                links.forEach(function(link) {
+                    link.addEventListener('click', closeDrawer);
+                });
+            }
+        });
+    </script>
 
     <!-- ===================== HERO SECTION ===================== -->
     <header class="cbt-blog-hero" id="home">
