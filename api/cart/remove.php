@@ -16,13 +16,19 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$cart_id = isset($_POST['cart_id']) ? (int)$_POST['cart_id'] : 0;
+$course_id = isset($_POST['course_id']) ? (int)$_POST['course_id'] : (isset($_POST['cart_id']) ? (int)$_POST['cart_id'] : 0);
 $user_id = $_SESSION['user_id'];
 
 try {
     $pdo = db();
-    $stmt = $pdo->prepare("DELETE FROM cart_items WHERE id = ? AND user_id = ?");
-    $stmt->execute([$cart_id, $user_id]);
+    // Allow deleting by either course_id (if passed from toggle) or cart_id (if passed from cart page)
+    if (isset($_POST['course_id'])) {
+        $stmt = $pdo->prepare("DELETE FROM cart_items WHERE course_id = ? AND user_id = ?");
+        $stmt->execute([$course_id, $user_id]);
+    } else {
+        $stmt = $pdo->prepare("DELETE FROM cart_items WHERE id = ? AND user_id = ?");
+        $stmt->execute([$course_id, $user_id]);
+    }
     
     echo json_encode(['success' => true, 'message' => 'Item removed from cart.']);
     
