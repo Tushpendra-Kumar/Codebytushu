@@ -29,7 +29,7 @@ foreach ($items as $item) {
     $total += (float)$item['price'];
 }
 
-$upi_id = "shpend@slice";
+$upi_id = "tushpendrakum@slc";
 // Generate UPI Intent Link
 $upi_link = "upi://pay?pa={$upi_id}&pn=CodeByTushu&am={$total}&cu=INR";
 // Generate QR code URL using a free API
@@ -93,7 +93,7 @@ $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" . url
             <ul style="padding-left: 20px; margin-top: 10px;">
                 <li>Please do not refresh this page while paying.</li>
                 <li>After completing the payment on your app, click the "I Have Completed Payment" button above.</li>
-                <li>Your course will be unlocked as soon as our admin verifies the transaction (usually within a few hours).</li>
+                <li>Your course will be unlocked <strong>instantly</strong>, and you can download the PDF right away!</li>
             </ul>
         </div>
     </div>

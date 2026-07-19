@@ -47,7 +47,7 @@ try {
     $order_number = 'ORD-' . strtoupper(uniqid()) . '-' . rand(1000, 9999);
     
     // Create Order
-    $stmt = $pdo->prepare("INSERT INTO orders (user_id, order_number, total_amount, payment_method, payment_status) VALUES (?, ?, ?, 'upi', 'pending')");
+    $stmt = $pdo->prepare("INSERT INTO orders (user_id, order_number, total_amount, payment_method, payment_status) VALUES (?, ?, ?, 'upi', 'verified')");
     $stmt->execute([$user_id, $order_number, $total]);
     $order_id = $pdo->lastInsertId();
     
