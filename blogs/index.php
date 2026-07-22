@@ -111,6 +111,34 @@ Auth::requireLogin();
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var cbtNav = document.getElementById('mainNavbar');
+            if (cbtNav) {
+                window.addEventListener('scroll', function () {
+                    if (window.scrollY > 20) {
+                        cbtNav.classList.add('sticky');
+                    } else {
+                        cbtNav.classList.remove('sticky');
+                    }
+                }, { passive: true });
+            }
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('.cbt-nav-link, .cbt-drawer-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#') && targetId.length > 1) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
             var mobHamBtn     = document.getElementById('cbt-mobile-ham-btn');
             var mobDrawer     = document.getElementById('cbt-mobile-drawer');
             var mobOverlay    = document.getElementById('cbt-mobile-overlay');

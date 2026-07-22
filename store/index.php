@@ -49,7 +49,147 @@ Auth::requireLogin();
 
     <script src="../theme.js"></script>
 
-    <?php include __DIR__ . '/../includes/navbar.php'; ?>
+    <!-- ===================== NAVBAR ===================== -->
+    <nav class="cbt-navbar navbar" id="mainNavbar">
+        <div class="cbt-nav-inner">
+            <div class="cbt-logo" id="cbt-logo">
+                <a href="../index.html" id="cbt-logo-link">
+                    <img src="../image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
+                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                </a>
+            </div>
+
+            <!-- Dedicated Store Navbar -->
+            <ul class="cbt-center-nav" id="cbt-center-nav">
+                <li><a href="index.html" class="cbt-nav-link active">Home</a></li>
+                <li><a href="#categories" class="cbt-nav-link">Categories</a></li>
+                <li><a href="#all-products" class="cbt-nav-link">All Products</a></li>
+                <li><a href="cart/index.html" class="cbt-nav-link">My Cart</a></li>
+                <li><a href="#faq" class="cbt-nav-link">FAQ</a></li>
+            </ul>
+
+            <div class="cbt-nav-right">
+                <a href="cart/index.html" class="cbt-nav-cart-btn" aria-label="Cart">
+                    <span class="material-symbols-rounded">shopping_cart</span>
+                    <span class="cbt-cart-counter" style="display: none;">0</span>
+                </a>
+                
+                <!-- Hamburger for mobile (visible only on mobile via CSS) -->
+                <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn"
+                        aria-label="Open mobile menu" aria-expanded="false" aria-controls="cbt-mobile-drawer" style="margin-left:15px;">
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- Overlay -->
+        <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
+        <!-- Drawer -->
+        <div class="cbt-mobile-drawer" id="cbt-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile menu" aria-hidden="true">
+            <div class="cbt-drawer-header">
+                <div class="cbt-logo">
+                    <a href="../index.html" aria-label="CodeByTushu Home" tabindex="-1">
+                        <span class="cbt-logo-text" style="font-size:1.2rem;">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                    </a>
+                </div>
+                <button class="cbt-drawer-close" id="cbt-drawer-close" aria-label="Close menu">&#x2715;</button>
+            </div>
+            <div class="cbt-drawer-body">
+                <ul class="cbt-drawer-primary" role="menu" aria-label="Main navigation">
+                    <li role="none"><a href="index.html" class="cbt-drawer-link" role="menuitem">Home</a></li>
+                    <li role="none"><a href="#categories" class="cbt-drawer-link" role="menuitem">Categories</a></li>
+                    <li role="none"><a href="#all-products" class="cbt-drawer-link" role="menuitem">All Products</a></li>
+                    <li role="none"><a href="cart/index.html" class="cbt-drawer-link" role="menuitem">My Cart</a></li>
+                    <li role="none"><a href="#faq" class="cbt-drawer-link" role="menuitem">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var cbtNav = document.getElementById('mainNavbar');
+            if (cbtNav) {
+                window.addEventListener('scroll', function () {
+                    if (window.scrollY > 20) {
+                        cbtNav.classList.add('sticky');
+                    } else {
+                        cbtNav.classList.remove('sticky');
+                    }
+                }, { passive: true });
+            }
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('.cbt-nav-link, .cbt-drawer-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#') && targetId.length > 1) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            var mobHamBtn     = document.getElementById('cbt-mobile-ham-btn');
+            var mobDrawer     = document.getElementById('cbt-mobile-drawer');
+            var mobOverlay    = document.getElementById('cbt-mobile-overlay');
+            var drawerClose   = document.getElementById('cbt-drawer-close');
+            var drawerIsOpen  = false;
+
+            function openDrawer() {
+                if (!mobDrawer) return;
+                drawerIsOpen = true;
+                mobOverlay.style.display = 'block';
+                requestAnimationFrame(function () {
+                    mobOverlay.classList.add('active');
+                    mobDrawer.classList.add('is-open');
+                    mobHamBtn.classList.add('is-open');
+                    mobHamBtn.setAttribute('aria-expanded', 'true');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            function closeDrawer() {
+                if (!mobDrawer) return;
+                drawerIsOpen = false;
+                mobOverlay.classList.remove('active');
+                mobDrawer.classList.remove('is-open');
+                if (mobHamBtn) {
+                    mobHamBtn.classList.remove('is-open');
+                    mobHamBtn.setAttribute('aria-expanded', 'false');
+                }
+                document.body.style.overflow = '';
+                setTimeout(function () {
+                    if (!drawerIsOpen) {
+                        mobOverlay.style.display = 'none';
+                    }
+                }, 300);
+            }
+
+            if (mobHamBtn) mobHamBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                drawerIsOpen ? closeDrawer() : openDrawer();
+            });
+            if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+            if (mobOverlay) mobOverlay.addEventListener('click', closeDrawer);
+
+            if (mobDrawer) {
+                var links = mobDrawer.querySelectorAll('.cbt-drawer-link');
+                links.forEach(function(link) {
+                    link.addEventListener('click', closeDrawer);
+                });
+            }
+        });
+    </script>
 
     <!-- ===================== HERO SECTION ===================== -->
     <header class="cbt-store-hero">
