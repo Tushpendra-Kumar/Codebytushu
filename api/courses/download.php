@@ -1,78 +1,89 @@
 <?php
 /**
- * CodeByTushu - Secure Course PDF Download Controller
- * 
- * Verifies that the user has an active, paid enrollment for the course
- * before streaming the PDF from a private directory.
+ * API: /api/courses/download.php
+ * Serves a course PDF download securely.
+ *
+ * - Free courses  → anyone can download (no login required)
+ * - Paid courses  → only users with a verified purchase via orders table
+ *
+ * Future-proof: also supports 'video' content_type (returns redirect to video URL).
  */
-
 require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../classes/Auth.php';
 require_once __DIR__ . '/../../config/database.php';
 
 Auth::boot();
-Auth::requireLogin();
 
-$course_id = isset($_GET['course_id']) ? (int)$_GET['course_id'] : 0;
-$user_id = $_SESSION['user_id'];
+$course_id = intval($_GET['id'] ?? 0);
 
 if (!$course_id) {
-    die("Invalid course ID.");
+    http_response_code(400);
+    die('Invalid request.');
 }
 
-try {
-    $pdo = db();
-    
-    // 1. Verify Enrollment
-    $stmt = $pdo->prepare("
-        SELECT payment_status 
-        FROM course_enrollments 
-        WHERE course_id = ? AND user_id = ?
+$pdo = db();
+
+// Fetch the course
+$stmt = $pdo->prepare("SELECT * FROM courses WHERE id = ? AND is_published = 1");
+$stmt->execute([$course_id]);
+$course = $stmt->fetch();
+
+if (!$course) {
+    http_response_code(404);
+    die('Course not found.');
+}
+
+$isFree      = ((float) $course['price'] == 0);
+$contentType = $course['content_type'] ?? 'pdf'; // future-proof: 'pdf' | 'video'
+
+// --- Access check for paid courses ---
+if (!$isFree) {
+    if (!Auth::check()) {
+        header('Location: /auth/login.php?redirect=' . urlencode('/api/courses/download.php?id=' . $course_id));
+        exit;
+    }
+
+    $check = $pdo->prepare("
+        SELECT oi.id FROM order_items oi
+        JOIN orders o ON oi.order_id = o.id
+        WHERE o.user_id = ? AND oi.course_id = ? AND o.payment_status = 'verified'
     ");
-    $stmt->execute([$course_id, $user_id]);
-    $enrollment = $stmt->fetch();
-    
-    if (!$enrollment || ($enrollment['payment_status'] !== 'paid' && $enrollment['payment_status'] !== 'free')) {
-        http_response_code(403);
-        die("You do not have permission to download this course. Please purchase it first or wait for admin verification.");
-    }
-    
-    // 2. Fetch Course File Path
-    $stmt = $pdo->prepare("SELECT title, download_file_path FROM courses WHERE id = ?");
-    $stmt->execute([$course_id]);
-    $course = $stmt->fetch();
-    
-    if (!$course || empty($course['download_file_path'])) {
-        http_response_code(404);
-        die("Download file not found for this course.");
-    }
-    
-    // 3. Serve the File securely
-    $filePath = ROOT_DIR . '/' . ltrim($course['download_file_path'], '/');
-    
-    if (!file_exists($filePath)) {
-        http_response_code(404);
-        die("The requested file does not exist on the server.");
-    }
-    
-    $fileName = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $course['title']) . '.pdf';
-    
-    // Disable caching
-    header("Expires: 0");
-    header("Cache-Control: no-cache, no-store, must-revalidate"); 
-    header("Pragma: no-cache");
-    
-    // Set PDF headers
-    header("Content-Type: application/pdf");
-    header("Content-Disposition: attachment; filename=\"$fileName\"");
-    header("Content-Length: " . filesize($filePath));
-    
-    // Output the file
-    readfile($filePath);
-    exit;
+    $check->execute([Auth::user()['id'], $course_id]);
 
-} catch (PDOException $e) {
-    error_log("Download Error: " . $e->getMessage());
-    http_response_code(500);
-    die("A server error occurred while processing your download.");
+    if (!$check->fetch()) {
+        http_response_code(403);
+        die('Access denied. Please purchase this course first.');
+    }
 }
+
+// --- Serve the file ---
+$filePath = $course['download_file_path'] ?? null;
+
+if (empty($filePath)) {
+    http_response_code(404);
+    die('Course material is not available yet. Please check back soon.');
+}
+
+// If it's a URL (starts with http), redirect directly
+if (filter_var($filePath, FILTER_VALIDATE_URL)) {
+    header('Location: ' . $filePath);
+    exit;
+}
+
+// Otherwise serve local file
+$absPath = realpath(__DIR__ . '/../../' . ltrim($filePath, '/'));
+
+if (!$absPath || !file_exists($absPath)) {
+    http_response_code(404);
+    die('File not found on server.');
+}
+
+$filename = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $course['title']) . '.pdf';
+$mime     = mime_content_type($absPath) ?: 'application/octet-stream';
+
+header('Content-Type: ' . $mime);
+header('Content-Disposition: attachment; filename="' . $filename . '"');
+header('Content-Length: ' . filesize($absPath));
+header('Cache-Control: no-cache, must-revalidate');
+readfile($absPath);
+exit;
