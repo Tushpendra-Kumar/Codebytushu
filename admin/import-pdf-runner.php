@@ -39,11 +39,17 @@ echo '<h2>Step 1: Adding Missing Columns to `courses` Table</h2>';
 
 /**
  * Check if a column exists in the given table.
+ * Uses INFORMATION_SCHEMA — works on all MySQL/MariaDB versions.
  */
 function columnExists(PDO $pdo, string $table, string $column): bool {
-    $stmt = $pdo->prepare("SHOW COLUMNS FROM `{$table}` LIKE :col");
-    $stmt->execute([':col' => $column]);
-    return (bool) $stmt->fetch();
+    $stmt = $pdo->prepare(
+        "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
+          WHERE TABLE_SCHEMA = DATABASE()
+            AND TABLE_NAME   = ?
+            AND COLUMN_NAME  = ?"
+    );
+    $stmt->execute([$table, $column]);
+    return (int) $stmt->fetchColumn() > 0;
 }
 
 /**
