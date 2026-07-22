@@ -298,7 +298,7 @@ if (Auth::check()) {
                     <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">A</div>
                     <div>
                         <h4 style="color:var(--text-heading); font-size:1rem;">Amit Kumar</h4>
-                        <span style="color:var(--text-muted); font-size:0.85rem;">├ó┬¡┬É├ó┬¡┬É├ó┬¡┬É├ó┬¡┬É├ó┬¡┬É</span>
+                        <span style="color:#ffc400; font-size:0.95rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                     </div>
                 </div>
             </div>
@@ -308,7 +308,7 @@ if (Auth::check()) {
                     <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">S</div>
                     <div>
                         <h4 style="color:var(--text-heading); font-size:1rem;">Sneha Sharma</h4>
-                        <span style="color:var(--text-muted); font-size:0.85rem;">├ó┬¡┬É├ó┬¡┬É├ó┬¡┬É├ó┬¡┬É├ó┬¡┬É</span>
+                        <span style="color:#ffc400; font-size:0.95rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                     </div>
                 </div>
             </div>
@@ -318,7 +318,7 @@ if (Auth::check()) {
                     <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">R</div>
                     <div>
                         <h4 style="color:var(--text-heading); font-size:1rem;">Rahul Verma</h4>
-                        <span style="color:var(--text-muted); font-size:0.85rem;">├ó┬¡┬É├ó┬¡┬É├ó┬¡┬É├ó┬¡┬É├ó┬¡┬É</span>
+                        <span style="color:#ffc400; font-size:0.95rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                     </div>
                 </div>
             </div>
