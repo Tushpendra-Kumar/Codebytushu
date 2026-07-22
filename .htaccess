@@ -53,6 +53,9 @@ ServerSignature Off
 
   # ── Blog Routes ─────────────────────────────────────────────────
   RewriteRule ^blog/([a-zA-Z0-9-]+)$ blog-detail.php?slug=$1 [L,NC]
+  
+  # ── Course Routes ───────────────────────────────────────────────
+  RewriteRule ^courses/([a-zA-Z0-9-]+)$ courses/details.php?slug=$1 [L,NC]
 </IfModule>
 
 # ── Security Headers ───────────────────────────────────────────

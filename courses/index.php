@@ -7,7 +7,13 @@ Auth::boot();
 $pdo = db();
 
 // Fetch courses
-$stmt = $pdo->prepare("SELECT * FROM courses WHERE is_published = 1 ORDER BY created_at DESC");
+$stmt = $pdo->prepare("
+    SELECT c.*, cat.slug as cat_slug 
+    FROM courses c 
+    LEFT JOIN categories cat ON c.category_id = cat.id 
+    WHERE c.is_published = 1 
+    ORDER BY c.created_at DESC
+");
 $stmt->execute();
 $courses = $stmt->fetchAll();
 
@@ -235,7 +241,13 @@ if (Auth::check()) {
                     $priceDisplay = $course['price'] == 0 ? '<span class="cbt-course-price free">Free</span>' : '<span class="cbt-course-price">₹' . number_format($course['price'], 2) . '</span>';
                     $thumb = $course['thumbnail_path'] ?: '/assets/images/default-course.jpg';
                 ?>
-                <div class="cbt-course-card">
+                <?php 
+                    $cat = strtolower($course['cat_slug'] ?? 'all');
+                ?>
+                <div class="cbt-course-card" 
+                     data-title="<?= htmlspecialchars(strtolower($course['title'])) ?>"
+                     data-category="<?= htmlspecialchars($cat) ?>"
+                     data-price="<?= (float)$course['price'] ?>">
                     <img src="<?= htmlspecialchars($thumb) ?>" alt="<?= htmlspecialchars($course['title']) ?>" class="cbt-course-thumb">
                     <div class="cbt-course-info">
                         <div class="cbt-course-meta">
@@ -254,7 +266,7 @@ if (Auth::check()) {
                         </div>
 
                         <div class="cbt-course-actions">
-                            <a href="/courses/details.php?slug=<?= urlencode($course['slug']) ?>" class="cbt-btn cbt-btn-outline">View Details</a>
+                            <a href="/courses/<?= urlencode($course['slug']) ?>" class="cbt-btn cbt-btn-outline">View Details</a>
                             
                             <?php
                                 $isFree     = ($course['price'] == 0);
@@ -466,82 +478,62 @@ if (Auth::check()) {
     </footer>
 
     <!-- Scripts -->
-    <script src="js/data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const grid = document.getElementById('courseGrid');
             const search = document.getElementById('courseSearch');
             const filters = document.querySelectorAll('.cbt-filter-btn');
+            const cards = document.querySelectorAll('.cbt-course-card');
 
-            function renderCourses(courses) {
-                grid.innerHTML = '';
-                if(courses.length === 0) {
-                    grid.innerHTML = '<p style="color:var(--text-muted); text-align:center; grid-column:1/-1;">No courses found.</p>';
-                    return;
-                }
-                courses.forEach(course => {
-                    const inCart = isInCart(course.id);
-                    const btnText = inCart ? 'Remove from Cart <span class="material-symbols-rounded">remove_shopping_cart</span>' : 'Add to Cart <span class="material-symbols-rounded">shopping_cart</span>';
-                    const btnClass = inCart ? 'added' : '';
-                    
-                    const priceDisplay = course.price === 0 ? '<span class="cbt-course-price free">Free</span>' : `<span class="cbt-course-price">$${course.price}</span>`;
-
-                    grid.innerHTML += `
-                        <div class="cbt-course-card">
-                            <img src="${course.image}" alt="${course.title}" class="cbt-course-thumb">
-                            <div class="cbt-course-info">
-                                <div class="cbt-course-meta">
-                                    <span class="cbt-course-category">${course.category}</span>
-                                    <span>${course.difficulty}</span>
-                                </div>
-                                <h3 class="cbt-course-title">${course.title}</h3>
-                                <p class="cbt-course-desc">${course.description}</p>
-                                
-                                <div class="cbt-course-details-row">
-                                    <span><span class="material-symbols-rounded">schedule</span> ${course.duration}</span>
-                                    <span><span class="material-symbols-rounded">menu_book</span> ${course.lessons} Lessons</span>
-                                </div>
-                                
-                                <div class="cbt-course-price-row">
-                                    ${priceDisplay}
-                                    <span style="color:var(--text-muted); font-size:0.9rem;">├ó┬¡┬É ${course.rating} (${course.students})</span>
-                                </div>
-
-                                <div class="cbt-course-actions">
-                                    <a href="course-details/index.html?id=${course.id}" class="cbt-btn cbt-btn-outline">View Details</a>
-                                    <button class="cbt-btn cbt-btn-primary ${btnClass}" onclick="toggleCart('${course.id}', this)">${btnText}</button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-
-            // Initial render
-            renderCourses(coursesData);
-
-            // Filtering
             let currentFilter = 'all';
             let currentSearch = '';
 
             function applyFilters() {
-                let filtered = coursesData.filter(c => c.title.toLowerCase().includes(currentSearch));
-                
-                if (currentFilter !== 'all') {
-                    if (currentFilter === 'free') {
-                        filtered = filtered.filter(c => c.price === 0);
+                let visibleCount = 0;
+                cards.forEach(card => {
+                    const title = card.getAttribute('data-title').toLowerCase();
+                    const cat = card.getAttribute('data-category').toLowerCase();
+                    const price = parseFloat(card.getAttribute('data-price') || 0);
+                    
+                    const matchSearch = title.includes(currentSearch);
+                    let matchFilter = false;
+
+                    if (currentFilter === 'all') {
+                        matchFilter = true;
+                    } else if (currentFilter === 'free') {
+                        matchFilter = price === 0;
                     } else if (currentFilter === 'paid') {
-                        filtered = filtered.filter(c => c.price > 0);
+                        matchFilter = price > 0;
                     } else {
-                        filtered = filtered.filter(c => c.category.toLowerCase() === currentFilter);
+                        matchFilter = cat.includes(currentFilter) || currentFilter.includes(cat);
                     }
+
+                    if (matchSearch && matchFilter) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                let noResultsMsg = document.getElementById('cbt-no-results');
+                if (visibleCount === 0) {
+                    if (!noResultsMsg) {
+                        noResultsMsg = document.createElement('p');
+                        noResultsMsg.id = 'cbt-no-results';
+                        noResultsMsg.style = 'color:var(--text-muted); text-align:center; grid-column:1/-1; padding:20px;';
+                        noResultsMsg.textContent = 'No courses found.';
+                        grid.appendChild(noResultsMsg);
+                    } else {
+                        noResultsMsg.style.display = 'block';
+                    }
+                } else if (noResultsMsg) {
+                    noResultsMsg.style.display = 'none';
                 }
-                
-                renderCourses(filtered);
             }
 
             search.addEventListener('input', (e) => {
-                currentSearch = e.target.value.toLowerCase();
+                currentSearch = e.target.value.toLowerCase().trim();
                 applyFilters();
             });
 
@@ -549,7 +541,7 @@ if (Auth::check()) {
                 btn.addEventListener('click', () => {
                     filters.forEach(f => f.classList.remove('active'));
                     btn.classList.add('active');
-                    currentFilter = btn.dataset.filter;
+                    currentFilter = btn.getAttribute('data-filter');
                     applyFilters();
                 });
             });
