@@ -1,89 +1,135 @@
 <?php
 /**
- * API: /api/courses/download.php
- * Serves a course PDF download securely.
+ * /api/courses/download.php
+ * ─────────────────────────────────────────────────────────────
+ * Secure course content delivery controller.
  *
- * - Free courses  → anyone can download (no login required)
- * - Paid courses  → only users with a verified purchase via orders table
+ * Security model:
+ *   • PDFs live in  private/courses/  (web-inaccessible via .htaccess)
+ *   • This script is the ONLY way to access them
+ *   • Free courses  → login NOT required, anyone can download
+ *   • Paid courses  → must be logged in + have a verified order
+ *   • The real filesystem path is NEVER exposed to the client
  *
- * Future-proof: also supports 'video' content_type (returns redirect to video URL).
+ * Future-proof:
+ *   • content_type = 'pdf'   → stream the PDF
+ *   • content_type = 'video' → redirect to signed/secure video URL
+ *   • content_type = 'mixed' → stream primary PDF
  */
+
+declare(strict_types=1);
+
 require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../classes/Auth.php';
 require_once __DIR__ . '/../../config/database.php';
 
 Auth::boot();
 
-$course_id = intval($_GET['id'] ?? 0);
-
-if (!$course_id) {
+/* ── 1. Parse & validate course ID ───────────────────────── */
+$course_id = (int) ($_GET['id'] ?? 0);
+if ($course_id < 1) {
     http_response_code(400);
-    die('Invalid request.');
+    exit('Invalid request.');
 }
 
-$pdo = db();
-
-// Fetch the course
-$stmt = $pdo->prepare("SELECT * FROM courses WHERE id = ? AND is_published = 1");
+/* ── 2. Fetch published course ────────────────────────────── */
+$pdo  = db();
+$stmt = $pdo->prepare(
+    'SELECT id, title, price, is_free, download_file_path, content_type
+       FROM courses
+      WHERE id = ? AND is_published = 1
+      LIMIT 1'
+);
 $stmt->execute([$course_id]);
 $course = $stmt->fetch();
 
 if (!$course) {
     http_response_code(404);
-    die('Course not found.');
+    exit('Course not found.');
 }
 
-$isFree      = ((float) $course['price'] == 0);
-$contentType = $course['content_type'] ?? 'pdf'; // future-proof: 'pdf' | 'video'
+/* ── 3. Access control for PAID courses ──────────────────── */
+$isFree = ((float) $course['price'] === 0.0 || (int) $course['is_free'] === 1);
 
-// --- Access check for paid courses ---
 if (!$isFree) {
+    // Must be logged in
     if (!Auth::check()) {
         header('Location: /auth/login.php?redirect=' . urlencode('/api/courses/download.php?id=' . $course_id));
         exit;
     }
 
-    $check = $pdo->prepare("
-        SELECT oi.id FROM order_items oi
-        JOIN orders o ON oi.order_id = o.id
-        WHERE o.user_id = ? AND oi.course_id = ? AND o.payment_status = 'verified'
-    ");
-    $check->execute([Auth::user()['id'], $course_id]);
+    // Must have a verified purchase in the orders table
+    $checkStmt = $pdo->prepare(
+        'SELECT oi.id
+           FROM order_items oi
+           JOIN orders o ON oi.order_id = o.id
+          WHERE o.user_id = ?
+            AND oi.course_id = ?
+            AND o.payment_status = \'verified\'
+          LIMIT 1'
+    );
+    $checkStmt->execute([Auth::user()['id'], $course_id]);
 
-    if (!$check->fetch()) {
+    if (!$checkStmt->fetch()) {
         http_response_code(403);
-        die('Access denied. Please purchase this course first.');
+        exit('Access denied. Please purchase this course first.');
     }
 }
 
-// --- Serve the file ---
-$filePath = $course['download_file_path'] ?? null;
+/* ── 4. Resolve the file path ─────────────────────────────── */
+$storedPath = $course['download_file_path'] ?? '';
 
-if (empty($filePath)) {
+if (empty($storedPath)) {
     http_response_code(404);
-    die('Course material is not available yet. Please check back soon.');
+    exit('Course material is not available yet. Please check back soon.');
 }
 
-// If it's a URL (starts with http), redirect directly
-if (filter_var($filePath, FILTER_VALIDATE_URL)) {
-    header('Location: ' . $filePath);
+// If it's an external URL, redirect (for future CDN/video support)
+if (filter_var($storedPath, FILTER_VALIDATE_URL)) {
+    header('Location: ' . $storedPath);
     exit;
 }
 
-// Otherwise serve local file
-$absPath = realpath(__DIR__ . '/../../' . ltrim($filePath, '/'));
+// Build absolute path — stored paths are relative to project root
+// e.g.  "private/courses/Java Masterclass for Beginners.pdf"
+$rootDir = rtrim(dirname(__DIR__, 2), '/\\');
+$absPath = realpath($rootDir . DIRECTORY_SEPARATOR . ltrim($storedPath, '/\\'));
 
-if (!$absPath || !file_exists($absPath)) {
-    http_response_code(404);
-    die('File not found on server.');
+// Security: ensure the resolved path is actually inside private/courses/
+$allowedBase = realpath($rootDir . '/private/courses');
+if (!$absPath || !$allowedBase || strncmp($absPath, $allowedBase, strlen($allowedBase)) !== 0) {
+    http_response_code(403);
+    error_log("Download blocked — path traversal attempt: {$storedPath}");
+    exit('Access denied.');
 }
 
-$filename = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $course['title']) . '.pdf';
-$mime     = mime_content_type($absPath) ?: 'application/octet-stream';
+if (!file_exists($absPath)) {
+    http_response_code(404);
+    exit('File not found on server. Please contact support.');
+}
+
+/* ── 5. Stream the file securely ─────────────────────────── */
+// Build a clean download filename from course title
+$safeTitle    = preg_replace('/[^a-zA-Z0-9\s\-_]/', '', $course['title']);
+$safeTitle    = preg_replace('/\s+/', '-', trim($safeTitle));
+$ext          = strtolower(pathinfo($absPath, PATHINFO_EXTENSION));
+$downloadName = $safeTitle . '.' . $ext;
+
+$mime         = mime_content_type($absPath) ?: 'application/octet-stream';
+$fileSize     = filesize($absPath);
+
+// Disable output buffering to allow large file streaming
+while (ob_get_level()) {
+    ob_end_clean();
+}
 
 header('Content-Type: ' . $mime);
-header('Content-Disposition: attachment; filename="' . $filename . '"');
-header('Content-Length: ' . filesize($absPath));
-header('Cache-Control: no-cache, must-revalidate');
+header('Content-Disposition: attachment; filename="' . $downloadName . '"');
+header('Content-Length: ' . $fileSize);
+header('Cache-Control: private, no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
+header('X-Content-Type-Options: nosniff');
+
 readfile($absPath);
 exit;
