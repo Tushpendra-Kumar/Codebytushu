@@ -72,20 +72,30 @@ if ($is_logged_in) {
         </div>
         <div class="course-info">
             <h1><?= htmlspecialchars($course['title']) ?></h1>
-            <p><?= nl2br(htmlspecialchars($course['description'] ?: $course['short_description'])) ?></p>
+            <div style="color:#ddd; line-height:1.6; margin-bottom:25px;">
+                <?= $course['description'] ?: htmlspecialchars($course['short_description']) ?>
+            </div>
             <div class="price">
                 <?= $course['price'] > 0 ? '₹' . number_format($course['price'], 2) : 'FREE' ?>
             </div>
             
             <div id="action-area">
-                <?php if ($has_purchased): ?>
-                    <a href="/user/courses.php" class="btn btn-success"><i class="fas fa-play"></i> Go to Dashboard</a>
+                <?php
+                    $isFree = ($course['price'] == 0);
+                    $isPurchased = false;
+                    if ($is_logged_in) {
+                        $pStmt = $pdo->prepare("SELECT id FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE o.user_id = ? AND oi.course_id = ? AND o.payment_status = 'verified'");
+                        $pStmt->execute([$user_id, $course['id']]);
+                        $isPurchased = (bool)$pStmt->fetch();
+                    }
+                ?>
+                
+                <?php if ($isPurchased || $isFree): ?>
+                    <a href="/api/courses/download.php?id=<?= $course['id'] ?>" class="btn btn-primary"><i class="fas fa-download"></i> Download Course</a>
                 <?php elseif (!$is_logged_in): ?>
-                    <a href="/auth/login.php?redirect=/courses/details.php?slug=<?= urlencode($slug) ?>" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login to Buy</a>
-                <?php elseif ($in_cart): ?>
-                    <a href="/cart/" class="btn btn-secondary"><i class="fas fa-shopping-cart"></i> Go to Cart</a>
+                    <a href="/auth/login.php?redirect=/courses/<?= urlencode($slug) ?>" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login to Buy</a>
                 <?php else: ?>
-                    <button id="add-to-cart-btn" class="btn btn-primary" onclick="addToCart(<?= $course['id'] ?>)"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    <button class="btn btn-primary" onclick="initPayment(<?= $course['id'] ?>, '<?= htmlspecialchars($course['title']) ?>', <?= $course['price'] ?>)"><i class="fas fa-lock-open"></i> Buy & Download</button>
                 <?php endif; ?>
             </div>
         </div>
