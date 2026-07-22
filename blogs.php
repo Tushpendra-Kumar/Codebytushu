@@ -128,6 +128,7 @@ $metaDesc  = 'Tutorials, guides, and insights to help you become a better develo
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css?v=40">
 <style>
 /* ═══════════════════════════════════════════════════
    BLOG LISTING — PREMIUM DARK THEME
@@ -160,54 +161,6 @@ body {
 
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
-
-/* ── NAVBAR ── */
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(10,10,10,0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-}
-.navbar-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-}
-.nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--text);
-}
-.nav-logo-icon {
-    width: 36px; height: 36px;
-    background: var(--accent);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: #000; font-size: 14px; font-weight: 800;
-    flex-shrink: 0;
-}
-.nav-links { display: flex; align-items: center; gap: 8px; }
-.nav-link {
-    color: var(--muted);
-    font-size: 14px;
-    font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 8px;
-    transition: all 0.2s;
-}
-.nav-link:hover, .nav-link.active { color: var(--text); background: rgba(255,255,255,0.06); }
-.nav-link.active { color: var(--accent); }
 
 /* ── HERO ── */
 .blog-hero {
@@ -737,20 +690,7 @@ img { max-width: 100%; display: block; }
 <body>
 
 <!-- ── NAVBAR ─────────────────────────────────────────────────────────────── -->
-<nav class="navbar">
-    <div class="navbar-inner">
-        <a href="/" class="nav-logo">
-            <div class="nav-logo-icon">CB</div>
-            CodeByTushu
-        </a>
-        <div class="nav-links">
-            <a href="/" class="nav-link">Home</a>
-            <a href="/Leetcode/problems.php" class="nav-link">LeetCode</a>
-            <a href="/blogs.php" class="nav-link active">Blog</a>
-            <a href="/admin/" class="nav-link">Admin</a>
-        </div>
-    </div>
-</nav>
+<?php include __DIR__ . '/includes/navbar.php'; ?>
 
 <!-- ── HERO ───────────────────────────────────────────────────────────────── -->
 <section class="blog-hero">
