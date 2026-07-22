@@ -22,7 +22,6 @@ if (!$course) {
 
 $is_logged_in = isset($_SESSION['user_id']);
 $has_purchased = false;
-$in_cart = false;
 
 if ($is_logged_in) {
     $user_id = $_SESSION['user_id'];
@@ -31,11 +30,6 @@ if ($is_logged_in) {
     $stmt = $pdo->prepare("SELECT id FROM course_enrollments WHERE course_id = ? AND user_id = ?");
     $stmt->execute([$course['id'], $user_id]);
     $has_purchased = (bool)$stmt->fetch();
-    
-    // Check cart
-    $stmt = $pdo->prepare("SELECT id FROM cart_items WHERE course_id = ? AND user_id = ?");
-    $stmt->execute([$course['id'], $user_id]);
-    $in_cart = (bool)$stmt->fetch();
 }
 
 ?>
@@ -100,37 +94,7 @@ if ($is_logged_in) {
             </div>
         </div>
     </div>
-
-    <script>
-    async function addToCart(courseId) {
-        const btn = document.getElementById('add-to-cart-btn');
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
-        
-        try {
-            const formData = new FormData();
-            formData.append('course_id', courseId);
-            
-            const res = await fetch('/api/cart/add.php', {
-                method: 'POST',
-                body: formData
-            });
-            const data = await res.json();
-            
-            if (data.success) {
-                document.getElementById('action-area').innerHTML = '<a href="/cart/" class="btn btn-secondary"><i class="fas fa-shopping-cart"></i> Go to Cart</a>';
-                alert(data.message);
-            } else {
-                alert('Error: ' + data.error);
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
-            }
-        } catch(e) {
-            alert('A network error occurred.');
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
-        }
-    }
-    </script>
+    
+    <?php include __DIR__ . '/payment_modal.php'; ?>
 </body>
 </html>
