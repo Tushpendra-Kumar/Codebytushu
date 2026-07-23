@@ -304,8 +304,12 @@ if($isNew){
     if($isPublished&&empty($pr['published_at'])) $data['published_at']=date('Y-m-d H:i:s');
     $sets=implode(',',array_map(fn($k)=>"$k=?",array_keys($data)));
     $v=array_values($data); $v[]=$id;
-    $pdo->prepare("UPDATE courses SET $sets,updated_at=NOW() WHERE id=?")->execute($v);
-    jsonSuccess(['id'=>$id],'Course updated.');
+    try {
+        $pdo->prepare("UPDATE courses SET $sets,updated_at=NOW() WHERE id=?")->execute($v);
+        jsonSuccess(['id'=>$id],'Course updated.');
+    } catch (PDOException $e) {
+        jsonError('Database Error: ' . $e->getMessage(), 500);
+    }
 }
 
 function updateCourseStats(PDO $pdo,int $courseId): void {
