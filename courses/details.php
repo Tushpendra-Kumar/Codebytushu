@@ -20,11 +20,11 @@ if (!$course) {
     die("Course not found.");
 }
 
-$is_logged_in = isset($_SESSION['user_id']);
+$is_logged_in = Auth::check();
 $has_purchased = false;
 
 if ($is_logged_in) {
-    $user_id = $_SESSION['user_id'];
+    $user_id = Auth::id();
     
     // Check purchase
     $stmt = $pdo->prepare("SELECT id FROM course_enrollments WHERE course_id = ? AND user_id = ?");
@@ -275,5 +275,6 @@ if ($is_logged_in) {
     </div>
     
     <?php include __DIR__ . '/payment_modal.php'; ?>
+    <script src="/auth-ui.js"></script>
 </body>
 </html>
