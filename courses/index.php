@@ -223,9 +223,7 @@ if (Auth::check()) {
             <h1>Master In-Demand Skills <br> with <span class="highlight">Practical Courses</span></h1>
         <p>Learn industry-ready skills through step-by-step courses designed for beginners as well as advanced learners. Every course focuses on practical learning and real-world projects.</p>
         
-        <div class="cbt-courses-search">
-            <input type="text" id="courseSearch" placeholder="Search for Java, React, DSA...">
-        </div>
+
 
         <div class="cbt-courses-filters" id="categories">
             <button class="cbt-filter-btn active" data-filter="all">All Courses</button>
@@ -541,10 +539,12 @@ if (Auth::check()) {
                 }
             }
 
-            search.addEventListener('input', (e) => {
-                currentSearch = e.target.value.toLowerCase().trim();
-                applyFilters();
-            });
+            if (search) {
+                search.addEventListener('input', (e) => {
+                    currentSearch = e.target.value.toLowerCase().trim();
+                    applyFilters();
+                });
+            }
 
             filters.forEach(btn => {
                 btn.addEventListener('click', () => {
