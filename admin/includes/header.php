@@ -162,7 +162,7 @@ try {
               aria-expanded="false"
               aria-label="User menu">
         <div class="profile-avatar">
-          <?php if (!empty($user['profile_image'])): ?>
+          <?php if (!empty($user['profile_image']) && file_exists(dirname(__DIR__, 2) . $user['profile_image'])): ?>
             <img src="<?= e($user['profile_image']) ?>" alt="">
           <?php else: ?>
             <?= strtoupper(substr($user['full_name'] ?? 'A', 0, 1)) ?>

@@ -156,7 +156,7 @@ function navActive(string ...$pages): string {
   <div class="sidebar-footer">
     <div class="sidebar-user-card" onclick="window.location.href='<?= SITE_URL ?>/user/dashboard.php'" title="My Profile" role="button" tabindex="0">
       <div class="sidebar-user-avatar">
-        <?php if (!empty($user['profile_image'])): ?>
+        <?php if (!empty($user['profile_image']) && file_exists(dirname(__DIR__, 2) . $user['profile_image'])): ?>
           <img src="<?= e($user['profile_image']) ?>" alt="<?= e($user['full_name']) ?>">
         <?php else: ?>
           <?= strtoupper(substr($user['full_name'] ?? 'U', 0, 1)) ?>
