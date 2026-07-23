@@ -248,7 +248,7 @@ if ($is_logged_in) {
                     $isFree = ($course['price'] == 0);
                     $isPurchased = false;
                     if ($is_logged_in) {
-                        $pStmt = $pdo->prepare("SELECT id FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE o.user_id = ? AND oi.course_id = ? AND o.payment_status = 'verified'");
+                        $pStmt = $pdo->prepare("SELECT oi.id FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE o.user_id = ? AND oi.course_id = ? AND o.payment_status = 'verified'");
                         $pStmt->execute([$user_id, $course['id']]);
                         $isPurchased = (bool)$pStmt->fetch();
                     }

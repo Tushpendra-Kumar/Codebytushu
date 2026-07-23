@@ -16,11 +16,18 @@
         </div>
     </div>
 
-    <!-- Success Toast -->
-    <div id="success-toast" style="display:none;position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#111;border:1px solid #28a745;color:#fff;padding:18px 28px;border-radius:12px;z-index:99999;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.5);min-width:300px;">
-        <div style="font-size:1.8rem;color:#28a745;margin-bottom:6px;">&#10003;</div>
-        <div style="font-weight:700;font-size:1.1rem;margin-bottom:4px;">Payment Successful!</div>
-        <div style="color:#aaa;font-size:0.95rem;">Thank you for purchasing this course. Your download has started.</div>
+    <!-- Premium Success Popup -->
+    <div id="success-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:99999; align-items:center; justify-content:center; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); opacity:0; transition:opacity 0.4s ease;">
+        <div style="background:#111; border:1px solid rgba(255,196,0,0.3); border-radius:16px; padding:40px 30px; max-width:450px; width:90%; text-align:center; box-shadow:0 10px 40px rgba(255,196,0,0.15); transform:scale(0.9); transition:transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+            <div style="width:70px; height:70px; background:rgba(40,167,69,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; border:2px solid #28a745;">
+                <i class="fas fa-check" style="color:#28a745; font-size:2rem;"></i>
+            </div>
+            <h2 style="color:#ffc400; margin-bottom:15px; font-size:1.8rem;">Payment Successful</h2>
+            <p style="color:#ddd; font-size:1.1rem; line-height:1.6; margin-bottom:10px;"><strong>Thank you for purchasing this course.</strong></p>
+            <p style="color:#aaa; margin-bottom:15px;">Your payment has been verified successfully.</p>
+            <p id="success-download-text" style="color:#28a745; font-weight:bold; margin-bottom:30px;"><i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i>Your PDF download is starting automatically...</p>
+            <button onclick="closeSuccessPopup()" style="background:#333; color:#fff; border:1px solid #555; padding:12px 25px; border-radius:8px; font-weight:bold; cursor:pointer; transition:background 0.3s;">Continue Browsing</button>
+        </div>
     </div>
 
     <script>
@@ -69,17 +76,25 @@
 
                 if (data.success) {
                     closePayModal();
-                    // Auto-trigger download
-                    var a = document.createElement('a');
-                    a.href = '/api/courses/download.php?id=' + _payingCourseId;
-                    a.download = '';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    // Show success toast
-                    var toast = document.getElementById('success-toast');
-                    toast.style.display = 'block';
-                    setTimeout(function() { toast.style.display = 'none'; location.reload(); }, 4000);
+                    // Show Premium Success Popup
+                    var popup = document.getElementById('success-popup');
+                    popup.style.display = 'flex';
+                    // Trigger fade and scale animation
+                    setTimeout(function() {
+                        popup.style.opacity = '1';
+                        popup.firstElementChild.style.transform = 'scale(1)';
+                    }, 50);
+
+                    // Auto-trigger download after 1.5 seconds for better UX
+                    setTimeout(function() {
+                        document.getElementById('success-download-text').innerHTML = '<i class="fas fa-check-circle" style="margin-right:8px;"></i>Download started!';
+                        var a = document.createElement('a');
+                        a.href = '/api/courses/download.php?id=' + _payingCourseId;
+                        a.download = '';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    }, 1500);
                 } else {
                     alert('Error: ' + (data.error || 'Something went wrong.'));
                 }
@@ -89,5 +104,15 @@
                 btn.disabled = false;
                 btn.textContent = 'I Have Completed Payment';
             }
+        }
+
+        function closeSuccessPopup() {
+            var popup = document.getElementById('success-popup');
+            popup.style.opacity = '0';
+            popup.firstElementChild.style.transform = 'scale(0.9)';
+            setTimeout(function() {
+                popup.style.display = 'none';
+                location.reload();
+            }, 400);
         }
     </script>
