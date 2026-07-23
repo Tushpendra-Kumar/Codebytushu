@@ -94,7 +94,7 @@ if ($action === 'import') {
     $pdfText = extractPdfText($absPath);
 
     // ── Generate course data from PDF ──────────────────────
-    $data = generateCourseData($filename, $pdfText);
+    $data = generateCourseData($filename, $pdfText, $absPath);
 
     // ── Save to database ────────────────────────────────────
     try {
@@ -251,7 +251,7 @@ function extractPdfText(string $path): string
 /* ═══════════════════════════════════════════════════════════
    HELPER: Generate course metadata from PDF filename + text
    ══════════════════════════════════════════════════════════ */
-function generateCourseData(string $filename, string $pdfText): array
+function generateCourseData(string $filename, string $pdfText, string $absPath = ''): array
 {
     // Clean title from filename
     $title = preg_replace('/\.pdf$/i', '', $filename);
@@ -268,7 +268,7 @@ function generateCourseData(string $filename, string $pdfText): array
     $language   = 'English'; // default
 
     // Duration estimate from PDF pages
-    $pages       = estimatePages($pdfText, strlen(file_get_contents('')));
+    $pages       = estimatePages($pdfText, $absPath && file_exists($absPath) ? filesize($absPath) : 1024 * 1024);
     $durationHrs = max(2, min(40, round($pages / 15, 1)));
 
     // Short description
