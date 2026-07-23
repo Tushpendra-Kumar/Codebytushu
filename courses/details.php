@@ -146,9 +146,6 @@ if ($is_logged_in) {
             <div class="cbt-nav-right">
                 <!-- Auth area for Login/Avatar -->
                 <div id="cbt-auth-area" style="display:inline-flex;align-items:center;gap:8px;margin-left:15px;">
-                    <a href="/auth/login.php" class="cbt-login-btn" id="cbt-login-btn">
-                        <span>Login</span>
-                    </a>
                 </div>
 
                 <!-- Hamburger for mobile (visible only on mobile via CSS) -->
