@@ -1,11 +1,12 @@
 <?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
-Auth::requireLogin();
+$isLoggedIn = Auth::check() ? 'true' : 'false';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>window.isLoggedIn = <?php echo $isLoggedIn; ?>;</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogs | CodeByTushu</title>

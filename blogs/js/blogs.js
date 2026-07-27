@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span><i class="fa-regular fa-calendar"></i> ${blog.date}</span>
                             <span><i class="fa-regular fa-clock"></i> ${blog.readTime}</span>
                         </div>
-                        <a href="blog-details/index.html?id=${blog.id}" style="text-decoration:none;">
+                        <a href="javascript:void(0)" onclick="handleReadArticle(event, '${blog.id}')" style="text-decoration:none;">
                             <h3 class="cbt-blog-card-title">${blog.title}</h3>
                         </a>
                         <p class="cbt-blog-card-desc">${blog.shortDesc}</p>
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="cbt-blog-author-img" style="background:var(--primary); display:flex; justify-content:center; align-items:center; color:#111; font-weight:bold;">T</div>
                                 <span class="cbt-blog-author-name">${blog.author}</span>
                             </div>
-                            <a href="blog-details/index.html?id=${blog.id}" class="cbt-btn-read-more">Read Article <i class="fa-solid fa-arrow-right"></i></a>
+                            <a href="javascript:void(0)" onclick="handleReadArticle(event, '${blog.id}')" class="cbt-btn-read-more">Read Article <i class="fa-solid fa-arrow-right"></i></a>
                         </div>
                     </div>
                 `;
@@ -352,3 +352,15 @@ window.resetTags = function() {
     // We need to trigger renderGrid but since it's scoped, we dispatch a custom event
     window.dispatchEvent(new CustomEvent('reset-tags-event'));
 };
+
+// Global function to handle reading an article with Auth check
+window.handleReadArticle = function(event, id) {
+    event.preventDefault();
+    if (window.isLoggedIn) {
+        window.location.href = "blog-details/index.html?id=" + id;
+    } else {
+        alert("Please Login to continue reading this article.");
+        window.location.href = "../auth/login.php?redirect=" + encodeURIComponent(window.location.pathname);
+    }
+};
+

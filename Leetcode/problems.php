@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
-Auth::requireLogin();
 
 /**
  * CodeByTushu — LeetCode Problems Archive

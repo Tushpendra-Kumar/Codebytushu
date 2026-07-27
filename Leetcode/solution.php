@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
-Auth::requireLogin();
+$isLoggedIn = Auth::check() ? 'true' : 'false';
 
 /**
  * CodeByTushu — LeetCode Dynamic Solution Page
@@ -642,6 +642,13 @@ function showCode(langId, event) {
 
 /* â”€â”€ Copy active code to clipboard â”€â”€ */
 function copyCode() {
+    var isLoggedIn = <?php echo $isLoggedIn; ?>;
+    if (!isLoggedIn) {
+        alert("Please Login to copy the solution code.");
+        window.location.href = '/auth/login.php?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
+        return;
+    }
+    
     var activeBlock = document.querySelector('.code-content[style*="display: block"], .code-content:not([style*="display: none"])');
     if (!activeBlock) return;
 
