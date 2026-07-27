@@ -249,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 
+                // 2. Wrap Code Blocks
                 const codeBlocks = contentEl.querySelectorAll('pre code');
                 codeBlocks.forEach(code => {
                     const pre = code.parentElement;
@@ -257,6 +258,94 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     pre.parentNode.insertBefore(wrapper, pre);
                     wrapper.appendChild(pre);
+                });
+
+                // 3. Group into Learning Sections
+                const childNodes = Array.from(contentEl.childNodes);
+                let currentSection = document.createElement('section');
+                currentSection.className = 'cbt-learning-section';
+                let sectionsArr = [];
+                let sectionIndex = 1;
+                
+                for(let node of childNodes) {
+                    if (node.nodeType === 1 && node.tagName.toLowerCase() === 'h2') {
+                        if (currentSection.childNodes.length > 0) {
+                            sectionsArr.push(currentSection);
+                        }
+                        currentSection = document.createElement('section');
+                        currentSection.className = 'cbt-learning-section';
+                        currentSection.id = 'learning-section-' + sectionIndex;
+                        sectionIndex++;
+                    }
+                    currentSection.appendChild(node);
+                }
+                if (currentSection.childNodes.length > 0) {
+                    sectionsArr.push(currentSection);
+                }
+                
+                contentEl.innerHTML = '';
+                
+                // 4. Inject Progress Pill
+                const progressPill = document.createElement('div');
+                progressPill.className = 'cbt-learning-progress-pill';
+                progressPill.innerHTML = 'Section <span id="cbt-curr-sec">1</span> of ' + sectionsArr.length + ' <span class="perc" id="cbt-sec-perc">(0%)</span>';
+                contentEl.appendChild(progressPill);
+
+                // 5. Append Sections and Nav
+                sectionsArr.forEach((sec, idx) => {
+                    contentEl.appendChild(sec);
+                    
+                    const nav = document.createElement('div');
+                    nav.className = 'cbt-section-nav';
+                    
+                    const prevBtn = document.createElement('a');
+                    prevBtn.className = 'cbt-section-nav-btn';
+                    prevBtn.innerHTML = '⬅ Previous Topic';
+                    if (idx > 0) {
+                        const hTarget = sectionsArr[idx-1].querySelector('h2, h3');
+                        prevBtn.href = hTarget ? '#' + hTarget.id : '#';
+                        prevBtn.onclick = (e) => {
+                            e.preventDefault();
+                            sectionsArr[idx-1].scrollIntoView({behavior: 'smooth', block: 'start'});
+                        };
+                    } else {
+                        prevBtn.style.visibility = 'hidden';
+                    }
+                    
+                    const tocBtn = document.createElement('a');
+                    tocBtn.className = 'cbt-section-nav-btn';
+                    tocBtn.innerHTML = '📑 Table of Contents';
+                    tocBtn.href = '#';
+                    tocBtn.onclick = (e) => {
+                        e.preventDefault();
+                        const toc = document.querySelector('.cbt-toc');
+                        if (toc) toc.scrollIntoView({behavior: 'smooth', block: 'center'});
+                    };
+                    
+                    const nextBtn = document.createElement('a');
+                    nextBtn.className = 'cbt-section-nav-btn primary';
+                    if (idx < sectionsArr.length - 1) {
+                        nextBtn.innerHTML = 'Continue to Next Topic ➡';
+                        const hTarget = sectionsArr[idx+1].querySelector('h2, h3');
+                        nextBtn.href = hTarget ? '#' + hTarget.id : '#';
+                        nextBtn.onclick = (e) => {
+                            e.preventDefault();
+                            sectionsArr[idx+1].scrollIntoView({behavior: 'smooth', block: 'start'});
+                        };
+                    } else {
+                        nextBtn.innerHTML = 'Finish Article 🏁';
+                        nextBtn.href = '#comments';
+                        nextBtn.onclick = (e) => {
+                            e.preventDefault();
+                            document.querySelector('.cbt-comments-section')?.scrollIntoView({behavior: 'smooth'});
+                        };
+                    }
+                    
+                    nav.appendChild(prevBtn);
+                    nav.appendChild(tocBtn);
+                    nav.appendChild(nextBtn);
+                    
+                    sec.appendChild(nav);
                 });
             }
 
@@ -294,8 +383,9 @@ document.addEventListener('DOMContentLoaded', () => {
             window.addEventListener('scroll', () => {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                let scrolled = 0;
                 if (height > 0) {
-                    const scrolled = (winScroll / height) * 100;
+                    scrolled = Math.min((winScroll / height) * 100, 100);
                     const progressBar = document.getElementById('cbt-reading-progress');
                     if (progressBar) {
                         progressBar.style.width = scrolled + '%';
@@ -304,10 +394,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const headings = document.querySelectorAll('#b-content h2, #b-content h3');
                 const tocLinks = document.querySelectorAll('.cbt-toc a');
+                const sections = document.querySelectorAll('.cbt-learning-section');
+                
                 if (headings.length > 0 && tocLinks.length > 0) {
                     let passedHeading = null;
                     headings.forEach(h => {
-                        if (window.scrollY >= h.offsetTop - 100) {
+                        if (window.scrollY >= h.offsetTop - 150) {
                             passedHeading = h.id;
                         }
                     });
@@ -317,6 +409,28 @@ document.addEventListener('DOMContentLoaded', () => {
                             link.classList.add('active');
                         }
                     });
+                }
+
+                if (sections.length > 0) {
+                    let passedSecIndex = 0;
+                    sections.forEach((sec, idx) => {
+                        sec.classList.remove('active-section');
+                        if (window.scrollY >= sec.offsetTop - 300) {
+                            passedSecIndex = idx;
+                        }
+                    });
+                    if (sections[passedSecIndex]) {
+                        sections[passedSecIndex].classList.add('active-section');
+                    }
+                    
+                    const secCountEl = document.getElementById('cbt-curr-sec');
+                    if (secCountEl) secCountEl.textContent = passedSecIndex + 1;
+                    
+                    const secPercEl = document.getElementById('cbt-sec-perc');
+                    if (secPercEl) {
+                        const calcPerc = Math.round(((passedSecIndex + 1) / sections.length) * 100);
+                        secPercEl.textContent = '(' + Math.max(Math.round(scrolled), calcPerc) + '%)';
+                    }
                 }
             });
 

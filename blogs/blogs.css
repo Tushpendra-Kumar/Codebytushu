@@ -942,3 +942,88 @@ body {
     color: var(--accent-gold);
     font-weight: 600;
 }
+
+/* Guided Learning Experience Styles */
+.cbt-learning-section {
+    background: rgba(25, 25, 25, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 30px 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.cbt-learning-section.active-section {
+    border-color: rgba(255, 196, 0, 0.3);
+    transform: translateY(-2px);
+}
+@media (max-width: 768px) {
+    .cbt-learning-section {
+        padding: 20px 15px;
+    }
+}
+
+.cbt-section-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.cbt-section-nav-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+.cbt-section-nav-btn:hover {
+    background: var(--accent-gold);
+    color: #000;
+    border-color: var(--accent-gold);
+}
+.cbt-section-nav-btn.primary {
+    background: rgba(255, 196, 0, 0.1);
+    color: var(--accent-gold);
+    border-color: rgba(255, 196, 0, 0.2);
+}
+.cbt-section-nav-btn.primary:hover {
+    background: var(--accent-gold);
+    color: #000;
+}
+
+.cbt-learning-progress-pill {
+    position: sticky;
+    top: 90px;
+    float: right;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 196, 0, 0.3);
+    color: var(--accent-gold);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.cbt-learning-progress-pill span.perc {
+    color: #fff;
+    font-weight: 400;
+    opacity: 0.8;
+}
