@@ -246,7 +246,23 @@ if (Auth::check()) {
         <?php else: ?>
             <?php foreach($courses as $course): ?>
                 <?php 
-                    $priceDisplay = $course['price'] == 0 ? '<span class="cbt-course-price free">Free</span>' : '<span class="cbt-course-price">₹' . number_format($course['price'], 2) . '</span>';
+                    $hasDiscount = (!empty($course['discount_price']) && $course['discount_price'] > 0 && $course['discount_price'] < $course['price']);
+                    $currentPrice = $hasDiscount ? $course['discount_price'] : $course['price'];
+                    
+                    if ($currentPrice == 0) {
+                        $priceDisplay = '<span class="cbt-course-price free">Free</span>';
+                    } elseif ($hasDiscount) {
+                        $discountPct = round((($course['price'] - $course['discount_price']) / $course['price']) * 100);
+                        $priceDisplay = '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                                            <div style="display:flex;align-items:baseline;gap:6px;">
+                                                <span class="cbt-course-price" style="font-size:1.4rem;">₹' . number_format($currentPrice, 2) . '</span>
+                                                <span style="text-decoration:line-through;color:var(--text-dim);font-size:0.9rem;">₹' . number_format($course['price'], 2) . '</span>
+                                            </div>
+                                            <span style="background:rgba(34,197,94,0.15);color:#22c55e;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;border:1px solid rgba(34,197,94,0.3);letter-spacing:0.5px;">' . $discountPct . '% OFF</span>
+                                         </div>';
+                    } else {
+                        $priceDisplay = '<span class="cbt-course-price">₹' . number_format($course['price'], 2) . '</span>';
+                    }
                     $thumb = $course['thumbnail_path'] ?: '/assets/images/default-course.jpg';
                 ?>
                 <?php 
@@ -255,7 +271,7 @@ if (Auth::check()) {
                 <div class="cbt-course-card" 
                      data-title="<?= htmlspecialchars(strtolower($course['title'])) ?>"
                      data-category="<?= htmlspecialchars($cat) ?>"
-                     data-price="<?= (float)$course['price'] ?>">
+                     data-price="<?= (float)$currentPrice ?>">
                     <img src="<?= htmlspecialchars($thumb) ?>" alt="<?= htmlspecialchars($course['title']) ?>" class="cbt-course-thumb">
                     <div class="cbt-course-info">
                         <div class="cbt-course-meta">
@@ -277,7 +293,7 @@ if (Auth::check()) {
                             <a href="/courses/<?= urlencode($course['slug']) ?>" class="cbt-btn cbt-btn-outline">View Details</a>
                             
                             <?php
-                                $isFree     = ($course['price'] == 0);
+                                $isFree     = ($currentPrice == 0);
                                 $isPurchased = in_array($course['id'], $purchasedCourses);
                                 // content_type: 'pdf' | 'video' | null (future-proof)
                                 $contentType = $course['content_type'] ?? 'pdf';
@@ -295,7 +311,7 @@ if (Auth::check()) {
                                 </a>
                             <?php else: ?>
                                 <!-- Paid course: go to payment -->
-                                <button type="button" class="cbt-btn cbt-btn-primary" onclick="initPayment(<?= $course['id'] ?>, '<?= htmlspecialchars($course['title']) ?>', <?= $course['price'] ?>)">
+                                <button type="button" class="cbt-btn cbt-btn-primary" onclick="initPayment(<?= $course['id'] ?>, '<?= htmlspecialchars($course['title']) ?>', <?= $currentPrice ?>)">
                                     <span class="material-symbols-rounded" style="font-size:18px;margin-left:4px;">lock_open</span> Download Course
                                 </button>
                             <?php endif; ?>

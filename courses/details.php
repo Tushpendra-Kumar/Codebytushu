@@ -239,13 +239,27 @@ if ($is_logged_in) {
             <div style="color:#ddd; line-height:1.6; margin-bottom:25px;">
                 <?= $course['description'] ?: htmlspecialchars($course['short_description']) ?>
             </div>
+            <?php
+                $hasDiscount = (!empty($course['discount_price']) && $course['discount_price'] > 0 && $course['discount_price'] < $course['price']);
+                $currentPrice = $hasDiscount ? $course['discount_price'] : $course['price'];
+            ?>
             <div class="price">
-                <?= $course['price'] > 0 ? '₹' . number_format($course['price'], 2) : 'FREE' ?>
+                <?php if ($currentPrice == 0): ?>
+                    FREE
+                <?php elseif ($hasDiscount): ?>
+                    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                        <span style="font-size:2.4rem;">₹<?= number_format($currentPrice, 2) ?></span>
+                        <span style="text-decoration:line-through;color:rgba(255,255,255,0.5);font-size:1.4rem;">₹<?= number_format($course['price'], 2) ?></span>
+                        <span style="background:rgba(34,197,94,0.15);color:#22c55e;padding:4px 10px;border-radius:6px;font-size:1rem;font-weight:700;border:1px solid rgba(34,197,94,0.3);"><?= round((($course['price'] - $course['discount_price']) / $course['price']) * 100) ?>% OFF</span>
+                    </div>
+                <?php else: ?>
+                    ₹<?= number_format($course['price'], 2) ?>
+                <?php endif; ?>
             </div>
             
             <div id="action-area">
                 <?php
-                    $isFree = ($course['price'] == 0);
+                    $isFree = ($currentPrice == 0);
                     $isPurchased = false;
                     if ($is_logged_in) {
                         $pStmt = $pdo->prepare("SELECT oi.id FROM order_items oi JOIN orders o ON oi.order_id = o.id WHERE o.user_id = ? AND oi.course_id = ? AND o.payment_status = 'verified'");
@@ -259,7 +273,7 @@ if ($is_logged_in) {
                 <?php elseif (!$is_logged_in): ?>
                     <a href="/auth/login.php?redirect=/courses/<?= urlencode($slug) ?>" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login to Buy</a>
                 <?php else: ?>
-                    <button class="btn btn-primary" onclick="initPayment(<?= $course['id'] ?>, '<?= htmlspecialchars($course['title']) ?>', <?= $course['price'] ?>)"><i class="fas fa-lock-open"></i> Buy & Download</button>
+                    <button class="btn btn-primary" onclick="initPayment(<?= $course['id'] ?>, '<?= htmlspecialchars($course['title']) ?>', <?= $currentPrice ?>)"><i class="fas fa-lock-open"></i> Buy & Download</button>
                 <?php endif; ?>
             </div>
         </div>
