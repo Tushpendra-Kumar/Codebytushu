@@ -318,9 +318,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         if(current && current !== 'home') {
-            history.replaceState(null, null, '#' + current);
+            if (window.location.hash !== '#' + current) {
+                history.replaceState(null, null, '#' + current);
+            }
         } else if (current === 'home') {
-            history.replaceState(null, null, window.location.pathname);
+            if (window.location.hash !== '') {
+                history.replaceState(null, null, window.location.pathname);
+            }
         }
     });
     
