@@ -23,6 +23,14 @@ if (!Auth::check()) {
 
 $user = Auth::user();
 
+$profile_image = $user['profile_image'] ?? $user['avatar'] ?? '';
+if ($profile_image) {
+    $absolute_path = realpath(__DIR__ . '/../../' . ltrim($profile_image, '/'));
+    if (!$absolute_path || !is_file($absolute_path)) {
+        $profile_image = ''; // File missing, use default initials
+    }
+}
+
 echo json_encode([
     'logged_in' => true,
     'user' => [
@@ -30,7 +38,7 @@ echo json_encode([
         'full_name'     => $user['full_name'] ?? '',
         'username'      => $user['username'] ?? '',
         'email'         => $user['email'] ?? '',
-        'profile_image' => $user['profile_image'] ?? $user['avatar'] ?? '',
+        'profile_image' => $profile_image,
         'role'          => $user['role'] ?? 'user',
     ],
 ]);

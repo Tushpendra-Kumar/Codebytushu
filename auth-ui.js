@@ -56,7 +56,7 @@
             var mobArea = document.getElementById('cbt-auth-area-mob');
             if (mobArea) {
                 var mobAvatarHtml = photo
-                    ? '<img src="' + photo + '" class="cbt-user-avatar" style="width:32px;height:32px;" alt="' + name + '" onclick="window.location.href=\'/user/dashboard.php\'">'
+                    ? '<img src="' + photo + '" class="cbt-user-avatar" style="width:32px;height:32px;" alt="' + name + '" onclick="window.location.href=\'/user/dashboard.php\'" onerror="this.style.display=\'none\';document.getElementById(\'cbt-mob-init\').style.display=\'inline-flex\';"><span class="cbt-user-initials" id="cbt-mob-init" style="display:none;width:32px;height:32px;font-size:12px;" onclick="window.location.href=\'/user/dashboard.php\'">' + initials + '</span>'
                     : '<span class="cbt-user-initials" style="width:32px;height:32px;font-size:12px;" onclick="window.location.href=\'/user/dashboard.php\'">' + initials + '</span>';
                 mobArea.innerHTML = mobAvatarHtml;
             }
