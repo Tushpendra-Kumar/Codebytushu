@@ -560,7 +560,7 @@ body {
 
 .cbt-sidebar-widget h3 {
     font-size: 1.2rem;
-    color: var(--text-heading);
+    color: #FFFFFF;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(255,255,255,0.1);

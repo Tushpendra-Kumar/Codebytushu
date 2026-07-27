@@ -298,19 +298,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Smooth scrolling for links
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').replace('#', '');
-            if (targetId) {
-                const targetSec = document.getElementById(targetId);
-                if (targetSec) {
-                    const offset = 80; // height of fixed navbar
-                    const elementPosition = targetSec.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - offset;
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                    });
-                    history.pushState(null, null, '#' + targetId);
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#') && href.length > 1) {
+                e.preventDefault();
+                const targetId = href.replace('#', '');
+                if (targetId) {
+                    const targetSec = document.getElementById(targetId);
+                    if (targetSec) {
+                        const offset = 80; // height of fixed navbar
+                        const elementPosition = targetSec.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                        history.pushState(null, null, '#' + targetId);
+                    }
                 }
             }
         });
