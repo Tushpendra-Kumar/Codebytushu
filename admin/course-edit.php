@@ -546,9 +546,9 @@ function secs2dur(int $s): string {
               <div class="tab-pane" id="tab-seo">
                 <div class="form-group">
                   <label class="form-label">Meta Description</label>
-                  <textarea name="meta_description" id="metaDesc" class="form-control" rows="3"
+                  <textarea name="seo_description" id="metaDesc" class="form-control" rows="3"
                             maxlength="160" oninput="updateSeoCount()"
-                            placeholder="Brief description for search engines…"><?= cv($course,'meta_description') ?></textarea>
+                            placeholder="Brief description for search engines…"><?= cv($course,'seo_description') ?></textarea>
                   <div style="display:flex;justify-content:space-between;margin-top:3px;">
                     <div class="form-hint">Max 160 chars.</div>
                     <span style="font-size:10px;color:var(--text-dim);" id="metaTc">0/160</span>
@@ -560,7 +560,7 @@ function secs2dur(int $s): string {
                   <div style="background:var(--input-bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;">
                     <div style="font-size:12px;color:#22c55e;font-family:monospace;" id="spUrl">codebytushu.com › courses › <?= cv($course,'slug','course-slug') ?></div>
                     <div style="font-size:16px;color:#93c5fd;font-weight:500;margin:4px 0;" id="spTitle"><?= cv($course,'title') ?: 'Course Title — CodeByTushu' ?></div>
-                    <div style="font-size:13px;color:var(--text-muted);" id="spDesc"><?= cv($course,'meta_description') ?: 'No meta description yet.' ?></div>
+                    <div style="font-size:13px;color:var(--text-muted);" id="spDesc"><?= cv($course,'seo_description') ?: 'No meta description yet.' ?></div>
                   </div>
                 </div>
               </div>

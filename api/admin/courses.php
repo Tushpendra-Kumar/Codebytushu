@@ -282,7 +282,7 @@ $data=[
     'is_featured'       =>isset($_POST['is_featured'])?1:0,
     'is_published'      =>$isPublished,
     'duration_hours'    =>post('duration_hours')?(float)post('duration_hours'):null,
-    'meta_description'  =>post('meta_description')?:null,
+    'seo_description'   =>post('seo_description')?:null,
     'download_file_path'=>post('download_file_path')?:null,
 ];
 if($thumbPath!==null) $data['thumbnail_path']=$thumbPath;
