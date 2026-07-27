@@ -480,18 +480,34 @@ nav ul li a:hover::after {
 /* COPY BUTTON */
 
 .copy-btn {
-    background: transparent;
-    border: none;
-    color: #9d9d9d;
+    background: rgba(255, 196, 0, 0.1);
+    border: 1px solid rgba(255, 196, 0, 0.3);
+    color: #ffc400;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 600;
     font-family: 'Inter', sans-serif;
-    transition: 0.3s;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .copy-btn:hover {
-    color: white;
+    background: rgba(255, 196, 0, 0.2);
+    border-color: rgba(255, 196, 0, 0.6);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 196, 0, 0.15);
+}
+
+.copy-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 4px rgba(255, 196, 0, 0.1);
 }
 
 

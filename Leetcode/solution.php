@@ -504,7 +504,7 @@ if (!$sol && !$notFound) {
                         </button>
                         <?php $isFirst = false; endforeach; ?>
                     </div>
-                    <button class="copy-btn" onclick="copyCode()">📋 Copy</button>
+                    <button class="copy-btn" onclick="copyCode()"><i class="fa-regular fa-copy"></i> Copy</button>
                 </div>
 
                 <!-- Code blocks — only rendered for languages that have code -->
@@ -644,7 +644,6 @@ function showCode(langId, event) {
 function copyCode() {
     var isLoggedIn = <?php echo $isLoggedIn; ?>;
     if (!isLoggedIn) {
-        alert("Please Login to copy the solution code.");
         window.location.href = '/auth/login.php?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
         return;
     }
@@ -657,7 +656,7 @@ function copyCode() {
     navigator.clipboard.writeText(text).then(function() {
         var btn = document.querySelector('.copy-btn');
         var orig = btn.innerHTML;
-        btn.innerHTML = 'âœ… Copied!';
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
         setTimeout(function() { btn.innerHTML = orig; }, 2000);
     }).catch(function() {
         /* Fallback for non-HTTPS or older browsers */

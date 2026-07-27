@@ -36,8 +36,8 @@
         function initPayment(courseId, title, price) {
             // If not logged in, redirect to login
             <?php if (!Auth::check()): ?>
-            alert("Please Login to continue your purchase.");
-            window.location.href = '/auth/login.php?redirect=' + encodeURIComponent(window.location.pathname);
+            
+            window.location.href = '/auth/login.php?redirect=' + encodeURIComponent(window.location.pathname + window.location.search);
             return;
             <?php endif; ?>
 

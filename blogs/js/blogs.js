@@ -359,8 +359,7 @@ window.handleReadArticle = function(event, id) {
     if (window.isLoggedIn) {
         window.location.href = "blog-details/index.html?id=" + id;
     } else {
-        alert("Please Login to continue reading this article.");
-        window.location.href = "../auth/login.php?redirect=" + encodeURIComponent(window.location.pathname);
+        window.location.href = "../auth/login.php?redirect=" + encodeURIComponent("/blogs/blog-details/index.html?id=" + id);
     }
 };
 
