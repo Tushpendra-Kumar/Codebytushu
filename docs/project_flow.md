@@ -2,33 +2,83 @@
 
 This document outlines the primary data flows and user journeys throughout the application.
 
-## 1. Authentication Flow
-The most critical flow in the application is how a user proves their identity.
+## 1. Authentication Flows
 
-### Standard Login (Email & Password)
-1. **Client**: User submits credentials at `/auth/login.php`.
-2. **API**: AJAX POST to `/api/auth/login.php`.
-3. **Database**: Queries `users` table by email. Verifies `password_hash` using `password_verify()`.
-4. **Session**: If valid, `Auth::login($user)` is called. PHP `$_SESSION['user_id']` is populated.
-5. **Client**: Redirects to `/user/dashboard.php`.
+### Google OAuth Login (Primary Method)
+1. **Client**: User clicks "Continue with Google" at `/auth/login.php`.
+2. **Redirect**: PHP redirects to `/api/auth/google.php`, which generates the Google consent URL.
+3. **Google**: User completes Google sign-in. Google redirects to `/api/auth/callback.php?code=...`.
+4. **Verification**: PHP exchanges the authorization code for an Access Token. Fetches Google User Profile (name, email, avatar, google_uid).
+5. **Database**: Checks `users` table for `google_uid` or `email`:
+   - **Existing user** → Log them in: `Auth::loginWithGoogle()` → sets `$_SESSION['user_id']`.
+   - **New user** → Create row in `users` table, then log in.
+   - **New user needs phone** → Redirect to `/api/auth/save_phone.php` to collect phone number first.
+6. **Session**: `$_SESSION['user_id']`, `$_SESSION['cbt_user']` populated.
+7. **Client**: Redirected to `/?loggedin=1` or the `redirect_after_login` URL stored in session.
 
-### Google OAuth Login
-1. **Client**: User clicks "Login with Google".
-2. **API**: Redirects to Google's OAuth 2.0 consent screen via `/api/auth/google.php`.
-3. **Callback**: Google redirects to `/api/auth/callback.php` with an authorization code.
-4. **Verification**: PHP exchanges the code for an Access Token and fetches the Google User Profile.
-5. **Database**: If `google_uid` exists, log them in. If not, create a new row in the `users` table and log them in.
+### Email/Password Login
+1. **Client**: User submits credentials at `/auth/login.php` (standard form).
+2. **Server-Side PHP**: CSRF token verified → queries `users` table by email → `password_verify()` against `password_hash`.
+3. **Email Verification Check**: If `email_verified_at` is NULL, redirect to verification-required page.
+4. **Session**: `Auth::login($user)` sets `$_SESSION['user_id']`.
+5. **Remember Me**: If checked, a secure token is stored in `users` table and an `httponly` cookie is set.
+6. **Client**: Redirected to dashboard or original page.
+
+### Email/Password Registration
+1. **Client**: User submits at `/auth/signup.php`.
+2. **Server-Side PHP**: Validates input → `password_hash()` → inserts into `users` table → sends verification email via `Mailer`.
+3. **Email Verification**: User clicks link in email → `/auth/verify-email.php?token=...` → updates `email_verified_at`.
+
+### Forgot Password Flow
+1. **Client**: Submits email at `/auth/forgot-password.php`.
+2. **Server**: Generates secure reset token → stores in `users.password_reset_token` → sends email via `Mailer`.
+3. **Client**: Clicks link in email → `/auth/reset-password.php?token=...` → enters new password.
+4. **Server**: Verifies token expiry → `password_hash()` new password → clears token.
 
 ## 2. Protected Page Flow
-When a user visits a protected route (e.g., `/user/dashboard.php`):
-1. **Bootstrap**: `config/app.php` and `classes/Auth.php` are required.
-2. **Check**: `Auth::boot()` checks if `$_SESSION` exists.
-3. **Enforcement**: `Auth::requireLogin()` is called. If the user is NOT logged in, they are immediately redirected (HTTP 302) to `/auth/login.php`.
-4. **Render**: If authorized, the server queries the database for user-specific data (e.g., purchased courses) and renders the HTML.
+When a user visits a protected route (e.g., `/user/dashboard.php`, `/Leetcode/index.php`, `/blogs/index.php`):
 
-## 3. Data Modification Flow (CSRF Protection)
-Whenever a user modifies data (e.g., updating their profile, deleting an account):
+1. **Bootstrap**: `config/app.php` and `classes/Auth.php` are required.
+2. **Session Boot**: `Auth::boot()` starts session, checks "Remember Me" cookie if needed.
+3. **Enforcement**: `Auth::requireLogin()` is called. If the user is NOT logged in, they are immediately redirected (HTTP 302) to `/auth/login.php?next=/original/path`.
+4. **Render**: If authorized, the server queries the database for user-specific data and renders the HTML.
+
+## 3. Admin Panel Flow
+When a user visits any `/admin/*.php` page:
+
+1. `require_once __DIR__ . '/includes/auth_check.php'` is the first include.
+2. This internally calls `Auth::boot()` + `Auth::requireAdmin()`.
+3. `requireAdmin()` checks that `$_SESSION['cbt_user']['role']` is `admin` or `super_admin`. Otherwise redirects to `/` with a 403.
+4. The page template (header + sidebar + content + footer) is assembled via admin includes.
+
+## 4. Course Purchase Flow
+1. **Browse**: User visits `/courses/index.php` (login required).
+2. **Details**: User clicks a course → `/courses/details.php?slug=...`.
+3. **Buy/Add to Cart**: User clicks "Add to Cart" → AJAX to `POST /api/cart/add.php`.
+4. **Cart Review**: User visits `/cart/index.php` or `/checkout/index.php`.
+5. **Checkout**: User submits order → `POST /api/checkout/submit.php` or `submit_single.php` → Order created in `orders` + `order_items` tables.
+6. **Payment**: UPI payment shown. After payment, user uploads screenshot or references transaction ID.
+7. **Verification**: Admin manually verifies in `/admin/payments.php` → marks order as `verified`.
+8. **Download**: Once verified, user sees "Download PDF" in `/user/purchases.php` → `GET /api/courses/download.php?order_id=...` streams the PDF securely.
+
+> [!NOTE]
+> Automatic webhook-based payment verification (Razorpay) is planned but not yet implemented. Current flow requires manual admin verification.
+
+## 5. Data Modification Flow (CSRF Protection)
+Whenever a user modifies data (e.g., updating profile, submitting a form):
 1. **Form**: A hidden CSRF token is embedded in the form using `<?= csrfField() ?>`.
 2. **Submission**: The token is sent alongside the POST data.
-3. **API Validation**: The receiving API endpoint calls `verifyCsrfToken()`. If the token is missing or invalid, the request is rejected with a 403 Forbidden error.
+3. **API Validation**: The receiving API endpoint calls `requireCsrf()`. If the token is missing or invalid, the request is rejected with a 403 Forbidden error.
 4. **Execution**: The database query executes securely via PDO prepared statements.
+
+## 6. Analytics Tracking Flow
+Every PHP page includes `includes/analytics.php` which:
+1. Detects the current page URL, device type (mobile/desktop/tablet), and referrer.
+2. Inserts a row into the `analytics_events` table.
+3. This data is consumed by `/admin/analytics.php` to show visitor charts, device breakdowns, and top pages.
+
+## 7. Email Flow (via Mailer)
+The `Mailer` class (`classes/Mailer.php`) wraps PHPMailer and is used for:
+- **Email Verification** — Sent on new signup.
+- **Password Reset** — Sent on forgot-password request.
+- Configured via SMTP constants from `config/app.php` (SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS).
