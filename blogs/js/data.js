@@ -23,7 +23,7 @@ const BLOG_POSTS = [
         shortDesc: "Understand the core concepts of OOPs in Java with real-world examples and practical code snippets. Perfect for beginners and interview prep.",
         seo: {
         "SEO Title": "Mastering Object-Oriented Programming in Java: A Complete Guide",
-        "Meta Title": "Mastering Object-Oriented Programming (OOP) in Java "“ Complete Guide for Beginners and Experts",
+        "Meta Title": "Mastering Object-Oriented Programming (OOP) in Java - Complete Guide for Beginners and Experts",
         "Meta Description": "Learn Object-Oriented Programming (OOP) in Java from basics to advanced. This comprehensive guide covers classes, objects, the four OOP pillars (encapsulation, inheritance, polymorphism, abstraction), interfaces, SOLID principles, design patterns, best practices, and interview questions. Get practical examples, real-world analogies, and performance tips to become a Java OOP pro.",
         "SEO URL Slug": "mastering-object-oriented-programming-java",
         "Canonical URL Suggestion": "https://codebytushu.com/mastering-object-oriented-programming-java",
@@ -32,40 +32,40 @@ const BLOG_POSTS = [
         "Secondary Keywords": "Java classes and objects, OOP principles in Java, Java inheritance example, polymorphism in Java, encapsulation Java example, Java interface vs abstract class, Java OOP tutorial, Java OOP interview questions",
         "Long Tail Keywords": "how to use object-oriented programming in Java, Java OOP beginners tutorial, Java inheritance encapsulation polymorphism guide, advanced Java OOP concepts, Java class object example code",
         "Semantic Keywords": "encapsulation, inheritance, polymorphism, abstraction, interfaces, SOLID principles, Java design patterns, Java programming, OOP vs procedural, UML in Java",
-        "LSI Keywords": ""Java is inherently object oriented", "object oriented design in Java", "Java OOP concepts", "OOP benefits", "class vs object Java", "composition vs inheritance Java"",
+        "LSI Keywords": "Java is inherently object oriented, object oriented design in Java, Java OOP concepts, OOP benefits, class vs object Java, composition vs inheritance Java",
         "Search Tags": "OOP, Java, Java Tutorial, Programming, Software Engineering, Coding Interview",
         "Blog Category": "Java Tutorial",
         "Sub Category": "Object-Oriented Programming (OOP)",
         "Difficulty Level": "Beginner to Advanced",
         "Estimated Reading Time": "70 minutes",
         "Feature Image Suggestion": "Diagram illustrating key Java OOP concepts (classes and objects, inheritance hierarchies, polymorphism) with a modern flat-design infographic style.",
-        "Feature Image Prompt": ""A modern infographic style illustration showing Java classes and objects, with class hierarchies and inheritance arrows, demonstrating encapsulation and polymorphism."",
-        "Feature Image Alt Text": ""Illustration of Java classes and objects demonstrating OOP concepts"",
-        "Open Graph Title": "Mastering Object-Oriented Programming in Java (OOP) "“ Complete Guide",
+        "Feature Image Prompt": "A modern infographic style illustration showing Java classes and objects, with class hierarchies and inheritance arrows, demonstrating encapsulation and polymorphism.",
+        "Feature Image Alt Text": "Illustration of Java classes and objects demonstrating OOP concepts",
+        "Open Graph Title": "Mastering Object-Oriented Programming in Java (OOP) - Complete Guide",
         "Open Graph Description": "Dive deep into Java OOP with this definitive guide. Learn classes, objects, encapsulation, inheritance, polymorphism, abstraction, interfaces, SOLID principles, and design patterns with real examples. Perfect for beginners and experienced developers alike.",
-        "Twitter Title": "Master Java OOP "“ Ultimate Guide to Classes, Objects, and OOP Principles",
+        "Twitter Title": "Master Java OOP - Ultimate Guide to Classes, Objects, and OOP Principles",
         "Twitter Description": "Unlock the power of Object-Oriented Programming in Java. This extensive guide covers everything from classes/objects to interfaces and design patterns, with examples and interview tips. #Java #OOP #Coding"
         },
         content: `
-﻿<h1>Mastering Object-Oriented Programming in Java</h1>
+<h1>Mastering Object-Oriented Programming in Java</h1>
 <h2><a id="introduction"></a>Introduction</h2>
 
-<p>Object-Oriented Programming (OOP) is a <em>paradigm</em> that models real-world entities as "objects" in software. In Java, every piece of code revolves around objects and classes, making Java one of the most <strong>object-oriented</strong> popular languagesã€9"&nbsp;L91-L99ã€‘ã€14"&nbsp;L26-L33ã€‘. Learning OOP in Java is crucial because it leads to cleaner, modular, and maintainable code. In real-world projects, OOP lets developers structure code in terms of real-world concepts, improving teamwork and scalability. Moreover, OOP principles and concepts are <strong>frequent interview topics</strong>; mastering them helps in technical screenings and design discussions.</p>
+<p>Object-Oriented Programming (OOP) is a <em>paradigm</em> that models real-world entities as "objects" in software. In Java, every piece of code revolves around objects and classes, making Java one of the most <strong>object-oriented</strong> popular languagesã€. Learning OOP in Java is crucial because it leads to cleaner, modular, and maintainable code. In real-world projects, OOP lets developers structure code in terms of real-world concepts, improving teamwork and scalability. Moreover, OOP principles and concepts are <strong>frequent interview topics</strong>; mastering them helps in technical screenings and design discussions.</p>
 
 <p>In this comprehensive guide, you will learn <strong>why Java is known for OOP</strong>, <strong>how it models real-world problems</strong>, and <strong>when to use each concept</strong>. We will build a strong conceptual foundation, explain the <em>why</em> and <em>how</em> behind every feature (from basic classes to advanced patterns), and include <strong>practical examples</strong>, analogies, and interview tips. By the end, you'll have a definitive resource for Java OOP, complete with best practices, code snippets, and helpful diagrams.</p>
 <h2><a id="what-is-object-oriented-programming"></a>What Is Object-Oriented Programming?</h2>
 
-<p>Object-Oriented Programming is a programming paradigm centered on "objects" "“ entities that bundle <strong>data (state)</strong> and <strong>behavior (methods)</strong> together. In OOP, software is designed as a collection of interacting objects rather than a sequence of actions. According to Java's designers, OOP is "based on a hierarchy of classes, and well-defined and cooperating objects"ã€9"&nbsp;L91-L99ã€‘. Each class acts as a blueprint, and objects are instances of these classes.</p>
+<p>Object-Oriented Programming is a programming paradigm centered on "objects" "\" entities that bundle <strong>data (state)</strong> and <strong>behavior (methods)</strong> together. In OOP, software is designed as a collection of interacting objects rather than a sequence of actions. According to Java's designers, OOP is "based on a hierarchy of classes, and well-defined and cooperating objects"ã€. Each class acts as a blueprint, and objects are instances of these classes.</p>
 <h3><a id="history-and-evolution"></a>History and Evolution</h3>
 
 <ul>
   <li><strong>Early Roots:</strong> The idea began in the 1960s with Simula, the first language with classes and objects. Smalltalk in the 1970s popularized OOP (credit to Alan Kay).</li>
-  <li><strong>OOP Growth:</strong> In the 1980s"“90s, C++ added OOP to C, and Java (mid-90s) made OOP core to its design. Over time, modern languages (C#, Python, etc.) also embraced OOP principles.</li>
+  <li><strong>OOP Growth:</strong> In the 1980s"\"90s, C++ added OOP to C, and Java (mid-90s) made OOP core to its design. Over time, modern languages (C#, Python, etc.) also embraced OOP principles.</li>
   <li><strong>Why Needed:</strong> OOP emerged to manage complexity. As software grew, older procedural code became hard to maintain. OOP's <strong>modularity and abstraction</strong> allowed developers to build larger systems more reliably.</li>
 </ul>
 <h3><a id="philosophy-and-need"></a>Philosophy and Need</h3>
 
-<p>The philosophy of OOP is "real-world modeling" "“ representing entities in code that mirror real-world items or concepts. By bundling data and methods, OOP achieves <strong>encapsulation</strong> (hiding internals) and <strong>reusability</strong>. For example, a Car class can model various car objects with different colors and behaviors, closely matching how we think about cars.</p>
+<p>The philosophy of OOP is "real-world modeling" "\" representing entities in code that mirror real-world items or concepts. By bundling data and methods, OOP achieves <strong>encapsulation</strong> (hiding internals) and <strong>reusability</strong>. For example, a Car class can model various car objects with different colors and behaviors, closely matching how we think about cars.</p>
 <h3><a id="procedural-vs.-object-oriented"></a>Procedural vs. Object-Oriented</h3>
 
 <p>A key comparison is with procedural programming. Procedural code treats data and functions separately, often leading to scattered global data. OOP ties them together:</p>
@@ -94,7 +94,7 @@ const BLOG_POSTS = [
 </td><td>
 <p>Low (functions on specific data)</p>
 </td><td>
-<p>High (classes and objects can be reused)ã€17"&nbsp;L98-L100ã€‘</p>
+<p>High (classes and objects can be reused)ã€</p>
 </td></tr><tr><td>
 <p>Design Complexity</p>
 </td><td>
@@ -110,17 +110,17 @@ const BLOG_POSTS = [
 </td></tr></tbody></table>
 </div>
 </div>
-<p>In summary, OOP makes programs <strong>easier to understand, extend, and maintain</strong>ã€19"&nbsp;L49-L52ã€‘ã€14"&nbsp;L30-L34ã€‘. It mirrors the way we naturally categorize the world, which is why Java adopted it completely: "one of the great things about Java: it is inherently object oriented"ã€9"&nbsp;L71-L74ã€‘.</p>
+<p>In summary, OOP makes programs <strong>easier to understand, extend, and maintain</strong>ã€. It mirrors the way we naturally categorize the world, which is why Java adopted it completely: "one of the great things about Java: it is inherently object oriented"ã€.</p>
 <h2><a id="why-oop-matters"></a>Why OOP Matters</h2>
 
 <p>Object-oriented design brings many tangible benefits to software projects:</p>
 
 <ul>
   <li><strong>Scalability:</strong> OOP's modular structure lets teams build and grow codebases gradually. Adding features often means creating new classes or extending existing ones rather than rewriting giant functions.</li>
-  <li><strong>Reusability:</strong> By defining general classes, you can reuse code across the project. For example, a User class or Logger class can be reused wherever needed. Inheritance and composition enable sharing common functionalityã€17"&nbsp;L98-L100ã€‘.</li>
-  <li><strong>Maintainability:</strong> Changes tend to be localized. If one class is modified, other parts of the system often remain unaffected. As one developer notes, the purpose of OOP is to increase <strong>readability, flexibility, and maintainability</strong>ã€19"&nbsp;L49-L52ã€‘.</li>
+  <li><strong>Reusability:</strong> By defining general classes, you can reuse code across the project. For example, a User class or Logger class can be reused wherever needed. Inheritance and composition enable sharing common functionalityã€.</li>
+  <li><strong>Maintainability:</strong> Changes tend to be localized. If one class is modified, other parts of the system often remain unaffected. As one developer notes, the purpose of OOP is to increase <strong>readability, flexibility, and maintainability</strong>ã€.</li>
   <li><strong>Testing:</strong> Smaller, self-contained classes are easier to test. Each class can have its own unit tests, promoting robust, reliable code.</li>
-  <li><strong>Security:</strong> Encapsulation allows hiding sensitive data. For example, marking fields private protects them from unauthorized accessã€21"&nbsp;L19-L24ã€‘.</li>
+  <li><strong>Security:</strong> Encapsulation allows hiding sensitive data. For example, marking fields private protects them from unauthorized accessã€.</li>
   <li><strong>Team Collaboration:</strong> Clear class interfaces mean different developers can work on different components simultaneously. If one team builds PaymentProcessor, another can use it without knowing internal details.</li>
   <li><strong>Code Quality:</strong> OOP encourages well-defined contracts (interfaces/abstract classes) and design principles (like SOLID, discussed later), leading to cleaner architecture.</li>
 </ul>
@@ -133,27 +133,27 @@ const BLOG_POSTS = [
 <p>Java's runtime (JVM) provides a robust foundation for OOP features. When you run a Java program, the <strong>Java Virtual Machine (JVM)</strong> manages memory and execution:</p>
 
 <ul>
-  <li><strong>Class Loading:</strong> Java loads classes dynamically. When your code references a class for the first time, the JVM's <strong>class loader</strong> reads the .class file (bytecode) into the <strong>Method Area</strong> (also called the "permanent generation" in older versions, now Metaspace). Class metadata (like methods and static fields) is stored hereã€63"&nbsp;L53-L61ã€‘.</li>
-  <li><strong>Method Area (Metaspace):</strong> A shared memory region for class definitions, metadata, and static variablesã€63"&nbsp;L53-L61ã€‘. All class metadata and String intern pool reside here.</li>
-  <li><strong>Heap:</strong> The JVM heap stores all <strong>objects and instance variables</strong> at runtimeã€63"&nbsp;L60-L64ã€‘. Whenever you use new, you allocate an object on the heap. The Garbage Collector later reclaims memory of objects no longer in use.</li>
-  <li><strong>Stack:</strong> Each thread has its own stack for <strong>primitive local variables</strong> and references to objectsã€24"&nbsp;L31-L35ã€‘. For example, when you call a method, a <em>stack frame</em> is created holding local variables and parameters. Once the method finishes, its frame is popped.</li>
-  <li><strong>References:</strong> A variable of class type actually holds a <strong>reference</strong> (a pointer) to the object in the heap, not the object itselfã€24"&nbsp;L31-L35ã€‘. For instance, String s = new String("hi"); creates a String object in the heap, while s (on the stack) points to it.</li>
-  <li><strong>Garbage Collection (GC):</strong> Java automatically manages memory. When an object has no live references, the GC reclaims its spaceã€24"&nbsp;L129-L132ã€‘. You don't free memory manually. This helps avoid memory leaks (though poor programming can still lead to unreachable data in static lists, etc.).</li>
-  <li><strong>String Pool:</strong> Java maintains a special <strong>String constant pool</strong> (inside the heap/Metaspace) where string literals are interned. This means duplicate string literals share the same memory. For example, two "Hello" literals point to one interned string (saves memory and speeds comparisonsã€60"&nbsp;L28-L35ã€‘).</li>
+  <li><strong>Class Loading:</strong> Java loads classes dynamically. When your code references a class for the first time, the JVM's <strong>class loader</strong> reads the .class file (bytecode) into the <strong>Method Area</strong> (also called the "permanent generation" in older versions, now Metaspace). Class metadata (like methods and static fields) is stored hereã€.</li>
+  <li><strong>Method Area (Metaspace):</strong> A shared memory region for class definitions, metadata, and static variablesã€. All class metadata and String intern pool reside here.</li>
+  <li><strong>Heap:</strong> The JVM heap stores all <strong>objects and instance variables</strong> at runtimeã€. Whenever you use new, you allocate an object on the heap. The Garbage Collector later reclaims memory of objects no longer in use.</li>
+  <li><strong>Stack:</strong> Each thread has its own stack for <strong>primitive local variables</strong> and references to objectsã€. For example, when you call a method, a <em>stack frame</em> is created holding local variables and parameters. Once the method finishes, its frame is popped.</li>
+  <li><strong>References:</strong> A variable of class type actually holds a <strong>reference</strong> (a pointer) to the object in the heap, not the object itselfã€. For instance, String s = new String("hi"); creates a String object in the heap, while s (on the stack) points to it.</li>
+  <li><strong>Garbage Collection (GC):</strong> Java automatically manages memory. When an object has no live references, the GC reclaims its spaceã€. You don't free memory manually. This helps avoid memory leaks (though poor programming can still lead to unreachable data in static lists, etc.).</li>
+  <li><strong>String Pool:</strong> Java maintains a special <strong>String constant pool</strong> (inside the heap/Metaspace) where string literals are interned. This means duplicate string literals share the same memory. For example, two "Hello" literals point to one interned string (saves memory and speeds comparisonsã€).</li>
 </ul>
 
 <p>Below is a diagram illustrating how a Java program's memory is organized:</p>
 
-<p>ã€27"&nbsp;embed_imageã€‘ <em>Diagram: Java Runtime Memory Structure (stack, heap, method area)</em></p>
+<p>ã€27"&nbsp;embed_imageã€' <em>Diagram: Java Runtime Memory Structure (stack, heap, method area)</em></p>
 
-<p>As the diagram shows, class loading happens first, putting blueprints in the method area. When you create objects with new, memory is allocated in the heap. References to these objects live on the stack (within each thread's call frames). The GC cleans up unreferenced heap objects automaticallyã€24"&nbsp;L129-L132ã€‘.</p>
+<p>As the diagram shows, class loading happens first, putting blueprints in the method area. When you create objects with new, memory is allocated in the heap. References to these objects live on the stack (within each thread's call frames). The GC cleans up unreferenced heap objects automaticallyã€.</p>
 
 <p>Understanding Java's memory model is key to OOP performance: e.g., heavy object creation impacts GC, so patterns like object pooling or reuse can be critical in high-performance systems. We'll cover performance tips later.</p>
 
 <p>In summary, <strong>Java's architecture naturally supports OOP</strong>: everything is a class/ object, and the JVM provides managed memory (heap/stack) with GC. This lets you focus on designing good classes without worrying about low-level memory errors.</p>
 <h2><a id="class"></a>Class</h2>
 
-<p>A <strong>class</strong> is the fundamental blueprint for objects in Java. It defines <em>what data</em> (fields) and <em>what behavior</em> (methods) objects of that type will have. Formally, "a class is a blueprint or template used to create objects"ã€14"&nbsp;L43-L47ã€‘. You can think of a class as a <em>specification</em> for something.</p>
+<p>A <strong>class</strong> is the fundamental blueprint for objects in Java. It defines <em>what data</em> (fields) and <em>what behavior</em> (methods) objects of that type will have. Formally, "a class is a blueprint or template used to create objects"ã€. You can think of a class as a <em>specification</em> for something.</p>
 
 <pre><code class="language-java">
 public class Person {
@@ -175,8 +175,8 @@ public class Person {
 
 <ul>
   <li><strong>Definition &amp; Syntax:</strong> We declare a class with the class keyword. In the example above, Person is a class. Its fields are name and age, and it has a constructor and a method.</li>
-  <li><strong>Naming Conventions:</strong> By convention, class names use <strong>PascalCase</strong> (each word capitalized)ã€66"&nbsp;L77-L85ã€‘. In the example, Person follows this. Use clear, descriptive names (e.g., Account, Invoice, UserManager).</li>
-  <li><strong>Memory:</strong> When a class is loaded, its bytecode is stored in the JVM's method area. Static fields (class-level data) also reside there. Instance fields are part of each object's memory on the heapã€63"&nbsp;L53-L61ã€‘ã€63"&nbsp;L60-L64ã€‘.</li>
+  <li><strong>Naming Conventions:</strong> By convention, class names use <strong>PascalCase</strong> (each word capitalized)ã€. In the example, Person follows this. Use clear, descriptive names (e.g., Account, Invoice, UserManager).</li>
+  <li><strong>Memory:</strong> When a class is loaded, its bytecode is stored in the JVM's method area. Static fields (class-level data) also reside there. Instance fields are part of each object's memory on the heapã€.</li>
   <li><strong>Lifecycle:</strong> A class is loaded when first needed, before any objects are created. It can also be unloaded (in certain JVM implementations) when no longer needed.</li>
   <li><strong>Examples:</strong> You might have classes like Car, Employee, or BankAccount. Each class encapsulates relevant data and behavior. For instance, a BankAccount class might have fields like balance and methods like deposit() and withdraw().</li>
 </ul>
@@ -186,7 +186,7 @@ public class Person {
 <p>Classes form the <strong>types</strong> in Java. Once a class is defined, you can create objects (instances) of that class.</p>
 <h2><a id="object"></a>Object</h2>
 
-<p>An <strong>object</strong> is a concrete instance of a class. It's a piece of data in memory that has the structure defined by its class. As GeeksforGeeks puts it, "an object in Java is an instance of a class that represents a real-world entity"ã€14"&nbsp;L58-L62ã€‘. Objects combine state (field values) and behavior (methods).</p>
+<p>An <strong>object</strong> is a concrete instance of a class. It's a piece of data in memory that has the structure defined by its class. As GeeksforGeeks puts it, "an object in Java is an instance of a class that represents a real-world entity"ã€. Objects combine state (field values) and behavior (methods).</p>
 <h3><a id="creating-objects"></a>Creating Objects</h3>
 
 <ul>
@@ -240,7 +240,7 @@ public class Main {
   <li><strong>Copy Constructor Concept:</strong> Java doesn't have built-in copy constructors, but you can create one: e.g., public Person(Person other) { this.name = other.name; this.age = other.age; }.</li>
   <li><strong>this() and super():</strong> The special this() call invokes another constructor in the same class; super() calls the parent class's constructor. The call to this() or super() must be the first line in the constructor.</li>
   <li><strong>Private Constructors:</strong> If you declare a constructor private, you prevent outside code from creating instances. This is used in the Singleton pattern (only one instance allowed) or in utility classes with only static methods.</li>
-  <li><strong>Best Practices:</strong> Keep constructors simple "“ ideally just assign values. Don't do heavy logic in them. If initialization is complex, consider a factory method or builder.</li>
+  <li><strong>Best Practices:</strong> Keep constructors simple "\" ideally just assign values. Don't do heavy logic in them. If initialization is complex, consider a factory method or builder.</li>
   <li><strong>Common Mistakes:</strong> A common mistake is forgetting to initialize fields or shadowing fields with parameters (use this.field = field;). Another is not calling super() properly in inheritance.</li>
 </ul>
 
@@ -279,13 +279,13 @@ class Account {
 <p>The essence of OOP can be boiled down to <strong>four pillars</strong>: Encapsulation, Inheritance, Polymorphism, and Abstraction. Each is a fundamental concept:</p>
 <h3><a id="encapsulation"></a>1. Encapsulation</h3>
 
-<p>Encapsulation is the practice of <strong>hiding the internal state of an object</strong> and requiring all interaction to be performed through an object's methods. It "bundles data (fields) and methods that operate on the data within one unit"ã€19"&nbsp;L45-L52ã€‘ã€21"&nbsp;L19-L24ã€‘. This protects the object's integrity and helps maintain control.</p>
+<p>Encapsulation is the practice of <strong>hiding the internal state of an object</strong> and requiring all interaction to be performed through an object's methods. It "bundles data (fields) and methods that operate on the data within one unit"ã€. This protects the object's integrity and helps maintain control.</p>
 
 <ul>
   <li><strong>Why:</strong> By making fields private and providing public getters/setters, you control how data is accessed or modified. This prevents other parts of the code from putting your object into an invalid state.</li>
   <li><strong>How:</strong> Use access modifiers (private for fields, public for methods). For example, a BankAccount might have private double balance; with public deposit() and public withdraw() methods.</li>
   <li><strong>Benefits:</strong></li>
-  <li><strong>Security:</strong> Sensitive data is hidden. E.g., account balance can't be directly manipulated from outsideã€21"&nbsp;L19-L24ã€‘.</li>
+  <li><strong>Security:</strong> Sensitive data is hidden. E.g., account balance can't be directly manipulated from outsideã€.</li>
   <li><strong>Maintainability:</strong> Change implementation without affecting users of the class.</li>
   <li><strong>Readability:</strong> Clear interfaces (methods) make intent obvious.</li>
   <li><strong>Real-World Analogy:</strong> Think of a TV remote: you can press buttons (methods), but you cannot reach inside the remote to tamper with its circuits (fields).</li>
@@ -312,7 +312,7 @@ class BankAccount {
 <p>The balance can only change via the deposit and withdraw methods, which include validation.</p>
 
 <ul>
-  <li><strong>Interview Tip:</strong> Often asked <em>"why use encapsulation-</em> Answer: to protect the data and enforce valid states. As one guide notes, encapsulation "improves security and robustness"ã€21"&nbsp;L19-L24ã€‘.</li>
+  <li><strong>Interview Tip:</strong> Often asked <em>"why use encapsulation-</em> Answer: to protect the data and enforce valid states. As one guide notes, encapsulation "improves security and robustness"ã€.</li>
 </ul>
 
 <div class="cbt-callout cbt-callout-tip"><strong>Pro Tip:</strong> Always keep fields private unless there's a strong reason not to. Use getters/setters to expose controlled access.</div>
@@ -321,12 +321,12 @@ class BankAccount {
 <p>Inheritance lets a class (child/subclass) <em>inherit</em> fields and methods from another class (parent/superclass). This creates an "is-a" relationship: a <strong>Dog</strong> class can extend an <strong>Animal</strong> class because a dog <em>is an</em> animal.</p>
 
 <ul>
-  <li><strong>Types of Inheritance in Java:</strong> Java supports single inheritance of classes (a class can extend one class) and multiple inheritance via interfacesã€32"&nbsp;L149-L154ã€‘. There's also:</li>
+  <li><strong>Types of Inheritance in Java:</strong> Java supports single inheritance of classes (a class can extend one class) and multiple inheritance via interfacesã€. There's also:</li>
   <li><strong>Multilevel:</strong> Class C extends B, which extends A.</li>
   <li><strong>Hierarchical:</strong> Multiple classes extend the same parent.</li>
   <li><strong>Using extends and super:</strong> Use class Child extends Parent. The child inherits non-private members. You can call the parent's constructor with super(...).</li>
   <li><strong>Method Overriding:</strong> A child can override a parent's method by defining the same signature. This allows runtime polymorphism (dynamic dispatch).</li>
-  <li><strong>super Keyword:</strong> Refers to the parent class. You can use super.method() to invoke a method from the parent, or super.field for a shadowed fieldã€41"&nbsp;L32-L34ã€‘.</li>
+  <li><strong>super Keyword:</strong> Refers to the parent class. You can use super.method() to invoke a method from the parent, or super.field for a shadowed fieldã€.</li>
   <li><strong>Example:</strong></li>
   <li><pre><code class="language-java">
 class Animal {
@@ -345,10 +345,10 @@ class Dog extends Animal {
 <ul>
   <li><strong>Pros:</strong> Code reuse (don't rewrite common behavior), establishes logical hierarchy (e.g., UI components inheritance).</li>
   <li><strong>Cons:</strong> Can lead to tight coupling. If the parent changes, children may break. The saying goes "Favor composition over inheritance" to avoid brittle hierarchies.</li>
-  <li><strong>Interview Tip:</strong> Know the Liskov Substitution Principle: subclasses should be substitutable for their base classesã€52"&nbsp;L544-L547ã€‘. Avoid "is-a" relationships that violate this.</li>
+  <li><strong>Interview Tip:</strong> Know the Liskov Substitution Principle: subclasses should be substitutable for their base classesã€. Avoid "is-a" relationships that violate this.</li>
 </ul>
 
-<div class="cbt-callout cbt-callout-note"><strong>Note:</strong> Java does <em>not</em> support multiple class inheritance to avoid the "Diamond Problem." Interfaces provide a workaround for multiple inheritance of type ã€32"&nbsp;L149-L154ã€‘.</div>
+<div class="cbt-callout cbt-callout-note"><strong>Note:</strong> Java does <em>not</em> support multiple class inheritance to avoid the "Diamond Problem." Interfaces provide a workaround for multiple inheritance of type ã€.</div>
 <h3><a id="polymorphism"></a>3. Polymorphism</h3>
 
 <p>Polymorphism means "many forms." In Java OOP, it allows objects to be treated as instances of their parent class rather than their actual class. The two main types are:</p>
@@ -361,7 +361,7 @@ class MathUtils {
     double add(double a, double b) { return a + b; }
 }
 </code></pre></li>
-  <li><strong>Run-Time (Dynamic) Polymorphism:</strong> Achieved through <em>method overriding</em>. A parent reference refers to a child object, and the method call is resolved at runtime to the child's implementationã€52"&nbsp;L544-L547ã€‘.</li>
+  <li><strong>Run-Time (Dynamic) Polymorphism:</strong> Achieved through <em>method overriding</em>. A parent reference refers to a child object, and the method call is resolved at runtime to the child's implementationã€.</li>
   <li><pre><code class="language-java">
 Animal myPet = new Dog();
 myPet.eat();  // calls Dog's eat()
@@ -408,7 +408,7 @@ abstract class Animal {
     void sleep() { System.out.println("Sleeping"); }
 }
 </code></pre></li>
-  <li><strong>Interface:</strong> A pure form of abstraction. Prior to Java 8, interfaces only had abstract methods. Now (Java 8+) interfaces can have default, static, and even private methodsã€30"&nbsp;L30-L33ã€‘, but they mainly declare what a class should do, not how.</li>
+  <li><strong>Interface:</strong> A pure form of abstraction. Prior to Java 8, interfaces only had abstract methods. Now (Java 8+) interfaces can have default, static, and even private methodsã€, but they mainly declare what a class should do, not how.</li>
   <li><strong>When to Use:</strong> Use abstraction when you want to define a contract. For example, List is an interface: you don't care how it stores data, just that you can add, remove, iterate.</li>
   <li><strong>Real-World Analogy:</strong> A TV remote interface abstracts away the electronics. You just see buttons (the methods) to turn on/off or change volume, not how the signals are generated.</li>
   <li><strong>Example:</strong></li>
@@ -436,7 +436,7 @@ class ConsoleLogger implements Logger {
 <p><strong>Best Practice:</strong> Favor programming to <strong>interfaces</strong> rather than concrete classes. This makes your code more flexible to change implementations.</p>
 <h2><a id="interfaces-in-java"></a>Interfaces in Java</h2>
 
-<p>An <strong>interface</strong> is a reference type in Java, similar to a class, that can contain <strong>abstract methods</strong>, default methods, static methods, and constant declarationsã€30"&nbsp;L30-L33ã€‘. Interfaces define a contract "“ a set of behaviors that implementing classes must provide.</p>
+<p>An <strong>interface</strong> is a reference type in Java, similar to a class, that can contain <strong>abstract methods</strong>, default methods, static methods, and constant declarationsã€. Interfaces define a contract "\" a set of behaviors that implementing classes must provide.</p>
 
 <ul>
   <li><strong>Default Methods (Java 8+):</strong> Interfaces can include methods with a default implementation. This allows adding new methods to interfaces without breaking existing implementations. Example: Comparator.sort() was added as a default method in Comparator interface.</li>
@@ -478,7 +478,7 @@ class Car implements Vehicle {
 }
 </code></pre>
 
-<div class="cbt-callout cbt-callout-tip"><strong>Interview Tip:</strong> Know the differences between interfaces and abstract classes, and when to use each. Also be ready to discuss default methods (e.g., <em>"Why were default methods introduced in Java 8-</em> "“ answer: to evolve interfaces without breaking implementations).</div>
+<div class="cbt-callout cbt-callout-tip"><strong>Interview Tip:</strong> Know the differences between interfaces and abstract classes, and when to use each. Also be ready to discuss default methods (e.g., <em>"Why were default methods introduced in Java 8-</em> "\" answer: to evolve interfaces without breaking implementations).</div>
 <h2><a id="abstract-class-vs-interface"></a>Abstract Class vs Interface</h2>
 
 <p>Although both abstract classes and interfaces can be used to define abstract methods, there are key differences:</p>
@@ -503,45 +503,45 @@ interface Drawable { ... }
 </td></tr><tr><td>
 <p>Methods</p>
 </td><td>
-<p>Can have both abstract and concrete methodsã€32"&nbsp;L42-L45ã€‘</p>
+<p>Can have both abstract and concrete methodsã€</p>
 </td><td>
-<p>All methods are abstract by default (Java 8+: may have default/static)ã€32"&nbsp;L99-L102ã€‘</p>
+<p>All methods are abstract by default (Java 8+: may have default/static)ã€</p>
 </td></tr><tr><td>
 <p>Variables</p>
 </td><td>
 <p>Can have instance variables</p>
 </td><td>
-<p>Only public static final constants (immutable)ã€32"&nbsp;L35-L38ã€‘</p>
+<p>Only public static final constants (immutable)ã€</p>
 </td></tr><tr><td>
 <p>Constructors</p>
 </td><td>
 <p>Can have constructors</p>
 </td><td>
-<p>No constructors (cannot be instantiated)ã€32"&nbsp;L35-L38ã€‘</p>
+<p>No constructors (cannot be instantiated)ã€</p>
 </td></tr><tr><td>
 <p>Inheritance</p>
 </td><td>
 <p>Single inheritance (extends)</p>
 </td><td>
-<p>Multiple inheritance (implements); an interface can extend multiple interfacesã€32"&nbsp;L149-L154ã€‘</p>
+<p>Multiple inheritance (implements); an interface can extend multiple interfacesã€</p>
 </td></tr><tr><td>
 <p>Access Modifiers</p>
 </td><td>
-<p>Methods can be public, protected, or privateã€32"&nbsp;L143-L147ã€‘</p>
+<p>Methods can be public, protected, or privateã€</p>
 </td><td>
-<p>Methods are public by default; private allowed in Java 9+ã€32"&nbsp;L143-L147ã€‘</p>
+<p>Methods are public by default; private allowed in Java 9+ã€</p>
 </td></tr><tr><td>
 <p>State</p>
 </td><td>
-<p>Can maintain state (instance fields)ã€32"&nbsp;L149-L150ã€‘</p>
+<p>Can maintain state (instance fields)ã€</p>
 </td><td>
-<p>Cannot maintain instance state (only constants)ã€32"&nbsp;L147-L150ã€‘</p>
+<p>Cannot maintain instance state (only constants)ã€</p>
 </td></tr><tr><td>
 <p>Inheritance Type</p>
 </td><td>
-<p>Single class inheritanceã€32"&nbsp;L149-L152ã€‘</p>
+<p>Single class inheritanceã€</p>
 </td><td>
-<p>Can extend multiple interfaces (multiple inheritance of type)ã€32"&nbsp;L149-L154ã€‘</p>
+<p>Can extend multiple interfaces (multiple inheritance of type)ã€</p>
 </td></tr><tr><td>
 <p>Keywords</p>
 </td><td>
@@ -559,12 +559,12 @@ interface Drawable { ... }
 </div>
 <p>For example, use an abstract class when you have an "is-a" relationship and want to share code: e.g., an abstract Animal class with some implemented methods. Use an interface when you want multiple unrelated classes to fulfill a role: e.g., many classes implementing Comparable.</p>
 
-<p>For a concise comparison: <em>"Abstract class can have both abstract and concrete methods; interface (before Java 8) could only have abstract methods. Abstract classes allow state; interfaces don't."</em> You can cite [32] for details like "abstract classes can have constructors and variables, whereas interfaces can contain only constantsã€32"&nbsp;L35-L38ã€‘."</p>
+<p>For a concise comparison: <em>"Abstract class can have both abstract and concrete methods; interface (before Java 8) could only have abstract methods. Abstract classes allow state; interfaces don't."</em> You can cite [32] for details like "abstract classes can have constructors and variables, whereas interfaces can contain only constantsã€."</p>
 
 <div class="cbt-callout cbt-callout-note"><strong>Note:</strong> Since Java 8+, interfaces have default and static methods, blurring lines. However, abstract classes can still hold common code/state while interfaces cannot.</div>
 <h2><a id="access-modifiers"></a>Access Modifiers</h2>
 
-<p>Java provides four <strong>access modifiers</strong> to control visibility of classes, methods, and fieldsã€34"&nbsp;L32-L39ã€‘:</p>
+<p>Java provides four <strong>access modifiers</strong> to control visibility of classes, methods, and fieldsã€:</p>
 
 <ul>
   <li><strong>public</strong>: Visible from anywhere. (No restrictions)</li>
@@ -584,7 +584,7 @@ public class Example {
 }
 </code></pre>
 
-<p>As [34] summarizes: <em>"Public: Accessible from anywhere; Protected: accessible within same package and subclasses; Private: only within the same class; Default: only within the same package."</em>ã€34"&nbsp;L32-L39ã€‘.</p>
+<p>As [34] summarizes: <em>"Public: Accessible from anywhere; Protected: accessible within same package and subclasses; Private: only within the same class; Default: only within the same package."</em>ã€.</p>
 
 <p><strong>Comparison Table:</strong></p>
 <div class="cbt-table-responsive">
@@ -664,7 +664,7 @@ public class Example {
 </div>
 <p><em>("Class" means top-level class itself; only public or default allowed there)</em>.</p>
 
-<p><strong>Real-World Example:</strong> In a class BankAccount, you might make balance private to hide it, provide a protected method for subclasses to adjust balance, and have public methods for clients. The [34] example notes using private for sensitive data (e.g., account balance) and public for actions like depositã€34"&nbsp;L32-L39ã€‘.</p>
+<p><strong>Real-World Example:</strong> In a class BankAccount, you might make balance private to hide it, provide a protected method for subclasses to adjust balance, and have public methods for clients. The [34] example notes using private for sensitive data (e.g., account balance) and public for actions like depositã€.</p>
 
 <p>Using the right modifier enforces encapsulation and proper access control. Avoid using default (package-private) unless classes are intended to be tightly coupled in one package.</p>
 <h2><a id="important-keywords"></a>Important Keywords</h2>
@@ -672,12 +672,12 @@ public class Example {
 <p>Java has several <strong>keywords</strong> (reserved words) that play key roles in OOP:</p>
 
 <ul>
-  <li><strong>this</strong>: Refers to the current object instanceã€38"&nbsp;L25-L33ã€‘. Use it to access instance variables or methods from inside the class, especially when shadowing occurs.</li>
+  <li><strong>this</strong>: Refers to the current object instanceã€. Use it to access instance variables or methods from inside the class, especially when shadowing occurs.</li>
   <li><pre><code class="language-java">
 public Person(String name) { this.name = name; }
 </code></pre></li>
-  <li><strong>super</strong>: Refers to the parent class (superclass) objectã€41"&nbsp;L32-L34ã€‘. Use super() to invoke parent constructors, or super.field/super.method() to access overridden members.</li>
-  <li><strong>final</strong>: Prevents change. Marking a variable final makes it a constant (cannot reassign)ã€43"&nbsp;L37-L43ã€‘; a final method cannot be overridden; a final class cannot be extended.</li>
+  <li><strong>super</strong>: Refers to the parent class (superclass) objectã€. Use super() to invoke parent constructors, or super.field/super.method() to access overridden members.</li>
+  <li><strong>final</strong>: Prevents change. Marking a variable final makes it a constant (cannot reassign)ã€; a final method cannot be overridden; a final class cannot be extended.</li>
   <li><strong>static</strong>: Belongs to class, not instance. A static field or method is shared by all instances. For example, public static int count;.</li>
   <li><strong>instanceof</strong>: Binary operator to test if an object is an instance of a given type. E.g., if (obj instanceof Person).</li>
   <li><strong>extends</strong>: Indicates inheritance from a class. E.g., class Dog extends Animal.</li>
@@ -699,7 +699,7 @@ public final class Circle extends Shape { ... } // sealed-&gt;final
 <p>Each keyword modifies the behavior of classes or members in a specific way. For example, marking a class abstract means you intend only subclasses to be instantiated, whereas marking a class final means you want to prohibit subclassing (e.g., String is final in Java). The choice of keywords helps express design intent and constraints.</p>
 <h2><a id="the-object-class"></a>The Object Class</h2>
 
-<p>Every class in Java implicitly extends java.lang.Object (unless it already extends another). Object is the root of the class hierarchyã€46"&nbsp;L90-L98ã€‘. It provides several essential methods that all objects inherit:</p>
+<p>Every class in Java implicitly extends java.lang.Object (unless it already extends another). Object is the root of the class hierarchyã€. It provides several essential methods that all objects inherit:</p>
 
 <ul>
   <li><strong>equals(Object obj)</strong>: Tests logical equality. By default, it's the same as ==, but classes often override it. If two objects are "equal" by some definition, they should override this.</li>
@@ -711,39 +711,39 @@ public final class Circle extends Shape { ... } // sealed-&gt;final
   <li><strong>Thread Methods:</strong> wait(), notify(), notifyAll() are used for low-level thread communication on an object's monitor. For example, a thread can wait on an object until another thread calls notify() on it.</li>
 </ul>
 
-<p>The Object class "provides essential methods like toString(), equals(), hashCode(), clone() and several others that support object comparison, hashing, debugging, cloning and synchronization"ã€46"&nbsp;L90-L98ã€‘. In practice:</p>
+<p>The Object class "provides essential methods like toString(), equals(), hashCode(), clone() and several others that support object comparison, hashing, debugging, cloning and synchronization"ã€. In practice:</p>
 
 <ul>
-  <li>Always <strong>override toString()</strong> to make debugging/logging easier (as shown in the Person example in [46"&nbsp;L113-L120]).</li>
-  <li>When you override equals(), also override hashCode()ã€46"&nbsp;L223-L231ã€‘.</li>
+  <li>Always <strong>override toString()</strong> to make debugging/logging easier (as shown in the Person example in []).</li>
+  <li>When you override equals(), also override hashCode()ã€.</li>
   <li>Use equals() for logical comparison, not == (which checks reference identity).</li>
-  <li>Be cautious with clone() "“ it has pitfalls. Instead, use copy constructors or serializers.</li>
+  <li>Be cautious with clone() "\" it has pitfalls. Instead, use copy constructors or serializers.</li>
   <li>With threads, avoid wait/notify low-level patterns if possible, and prefer higher-level concurrency utilities (java.util.concurrent).</li>
 </ul>
 
 <p><strong>Best Practice:</strong> Use @Override when overriding methods. For equals(), also consider implementing Comparable&lt;T&gt; if natural ordering is needed. Understand that finalize() is deprecated; prefer cleaners or try-with-resources for resource management.</p>
 <h2><a id="solid-principles"></a>SOLID Principles</h2>
 
-<p>The <strong>SOLID principles</strong> are a set of five design principles in OOP that promote maintainable and flexible codeã€48"&nbsp;L28-L34ã€‘. They stand for:</p>
+<p>The <strong>SOLID principles</strong> are a set of five design principles in OOP that promote maintainable and flexible codeã€. They stand for:</p>
 <ol>
-  <li><strong>Single Responsibility Principle (SRP):</strong> A class should have only one reason to changeã€48"&nbsp;L39-L44ã€‘. In other words, a class should have one job. For example, in a bakery system, a BreadBaker class should only bake bread, not manage inventory or serve customersã€48"&nbsp;L46-L54ã€‘. Splitting responsibilities means each class is more focused and easier to maintain.</li>
-  <li><strong>Open/Closed Principle (OCP):</strong> "Software entities should be open for extension, but closed for modification"ã€50"&nbsp;L300-L304ã€‘. You should be able to add new functionality by adding new code (like subclasses), not by modifying existing tested code. For instance, to support a new payment method, create a new class (e.g., PayPalPaymentProcessor) instead of changing an existing PaymentProcessor classã€50"&nbsp;L300-L304ã€‘.</li>
-  <li><strong>Liskov Substitution Principle (LSP):</strong> Objects of a superclass should be replaceable with objects of a subclass without affecting the program's correctnessã€52"&nbsp;L544-L547ã€‘. In simple terms, subclasses should behave in ways consistent with the parent class contract. A classic violation: making Square extend Rectangle can break expectations if code expects to change width and height independentlyã€52"&nbsp;L544-L554ã€‘.</li>
-  <li><strong>Interface Segregation Principle (ISP):</strong> Clients should not be forced to depend on methods they do not useã€54"&nbsp;L795-L800ã€‘. This means create small, specific interfaces rather than one large interface. For example, instead of one Menu interface with all items, split into VegetarianMenu, NonVegetarianMenu, etc., so a vegetarian customer isn't given unrelated methodsã€54"&nbsp;L795-L800ã€‘.</li>
-  <li><strong>Dependency Inversion Principle (DIP):</strong> High-level modules should not depend on low-level modules; both should depend on abstractionsã€56"&nbsp;L1088-L1096ã€‘. In practice, depend on interfaces or abstract classes, not concrete implementations. For example, a DevelopmentTeam class should use an IVersionControl interface, not directly couple to GitVersionControl. This way, you can swap in a different IVersionControl (like SVN) without changing the team's codeã€56"&nbsp;L1088-L1096ã€‘.</li></ol>
-<p>These principles lead to <strong>looser coupling and higher cohesion</strong>ã€48"&nbsp;L28-L34ã€‘. Each guideline has many tutorials and examples (see G4G's SOLID series). Keep them in mind when designing classes and modules.</p>
+  <li><strong>Single Responsibility Principle (SRP):</strong> A class should have only one reason to changeã€. In other words, a class should have one job. For example, in a bakery system, a BreadBaker class should only bake bread, not manage inventory or serve customersã€. Splitting responsibilities means each class is more focused and easier to maintain.</li>
+  <li><strong>Open/Closed Principle (OCP):</strong> "Software entities should be open for extension, but closed for modification"ã€. You should be able to add new functionality by adding new code (like subclasses), not by modifying existing tested code. For instance, to support a new payment method, create a new class (e.g., PayPalPaymentProcessor) instead of changing an existing PaymentProcessor classã€.</li>
+  <li><strong>Liskov Substitution Principle (LSP):</strong> Objects of a superclass should be replaceable with objects of a subclass without affecting the program's correctnessã€. In simple terms, subclasses should behave in ways consistent with the parent class contract. A classic violation: making Square extend Rectangle can break expectations if code expects to change width and height independentlyã€.</li>
+  <li><strong>Interface Segregation Principle (ISP):</strong> Clients should not be forced to depend on methods they do not useã€. This means create small, specific interfaces rather than one large interface. For example, instead of one Menu interface with all items, split into VegetarianMenu, NonVegetarianMenu, etc., so a vegetarian customer isn't given unrelated methodsã€.</li>
+  <li><strong>Dependency Inversion Principle (DIP):</strong> High-level modules should not depend on low-level modules; both should depend on abstractionsã€. In practice, depend on interfaces or abstract classes, not concrete implementations. For example, a DevelopmentTeam class should use an IVersionControl interface, not directly couple to GitVersionControl. This way, you can swap in a different IVersionControl (like SVN) without changing the team's codeã€.</li></ol>
+<p>These principles lead to <strong>looser coupling and higher cohesion</strong>ã€. Each guideline has many tutorials and examples (see G4G's SOLID series). Keep them in mind when designing classes and modules.</p>
 
-<div class="cbt-callout cbt-callout-tip"><strong>Interview Tip:</strong> Be prepared to name and explain SOLID principles. For example, say <strong>Open/Closed</strong>: "we should add features by extending code, not changing it, to minimize risk"ã€50"&nbsp;L300-L304ã€‘. Or <strong>DIP</strong>: "we should code to interfaces, so changes in low-level classes don't break high-level logic"ã€56"&nbsp;L1088-L1096ã€‘.</div>
+<div class="cbt-callout cbt-callout-tip"><strong>Interview Tip:</strong> Be prepared to name and explain SOLID principles. For example, say <strong>Open/Closed</strong>: "we should add features by extending code, not changing it, to minimize risk"ã€. Or <strong>DIP</strong>: "we should code to interfaces, so changes in low-level classes don't break high-level logic"ã€.</div>
 <h2><a id="composition-vs-inheritance"></a>Composition vs Inheritance</h2>
 
 <p><strong>Inheritance</strong> and <strong>composition</strong> are two ways to reuse code between classes.</p>
 
 <ul>
   <li><strong>Inheritance (is-a):</strong> A class extends another class, meaning it <em>is a</em> subtype. Use inheritance when there is a true hierarchical relationship. E.g., a Cat is-an Animal (so class Cat extends Animal).</li>
-  <li><strong>Composition (has-a):</strong> A class contains a reference to another class. Use composition when a class <em>has-a</em> part. For example, a Car has-an Engine (so class Car { Engine engine; })ã€58"&nbsp;L168-L176ã€‘.</li>
+  <li><strong>Composition (has-a):</strong> A class contains a reference to another class. Use composition when a class <em>has-a</em> part. For example, a Car has-an Engine (so class Car { Engine engine; })ã€.</li>
 </ul>
 
-<p><strong>When to use which?</strong> A common guideline is <strong>prefer composition</strong> over inheritanceã€58"&nbsp;L218-L226ã€‘. Inheritance creates tight coupling: if the parent changes, children may break. Composition keeps classes loosely coupled (the contained object can be swapped easily).</p>
+<p><strong>When to use which?</strong> A common guideline is <strong>prefer composition</strong> over inheritanceã€. Inheritance creates tight coupling: if the parent changes, children may break. Composition keeps classes loosely coupled (the contained object can be swapped easily).</p>
 
 <p>Comparison:</p>
 <div class="cbt-table-responsive">
@@ -787,7 +787,7 @@ public final class Circle extends Shape { ... } // sealed-&gt;final
 </td></tr></tbody></table>
 </div>
 </div>
-<p>The DigitalOcean guide notes: <em>"Inheritance is tightly coupled whereas composition is loosely coupled"</em>ã€58"&nbsp;L218-L226ã€‘. For example, if ClassB extends ClassA and ClassA changes a method signature, ClassB breaks. With composition (ClassB has a ClassA field), you avoid that issue.</p>
+<p>The DigitalOcean guide notes: <em>"Inheritance is tightly coupled whereas composition is loosely coupled"</em>ã€. For example, if ClassB extends ClassA and ClassA changes a method signature, ClassB breaks. With composition (ClassB has a ClassA field), you avoid that issue.</p>
 
 <p>In practice, consider using composition for code reuse (e.g., one class holds another as a field) unless you have a clear "is-a" relationship. Also, Java forbids multiple class inheritance, but you can often achieve similar reuse via composition or interfaces.</p>
 <h2><a id="has-a-vs-is-a"></a>HAS-A vs IS-A</h2>
@@ -816,10 +816,10 @@ class Teacher extends Person implies <em>Teacher is a Person</em> (IS-A).
 class School { List&lt;Teacher&gt; teachers; } implies <em>School has Teachers</em> (HAS-A).
 </code></pre></li>
   <li><pre><code class="language-java">
-class Car { Engine engine; } "“ Car has an engine.
+class Car { Engine engine; } "\" Car has an engine.
 </code></pre></li>
   <li><pre><code class="language-java">
-class Square extends Rectangle "“ Square is a Rectangle (but watch LSP!).
+class Square extends Rectangle "\" Square is a Rectangle (but watch LSP!).
 </code></pre></li>
 </ul>
 
@@ -833,9 +833,9 @@ class Square extends Rectangle "“ Square is a Rectangle (but watch LSP!).
   <li><em>Example:</em> A Teacher object can exist without a specific School, and a School can exist without a particular Teacher.</li>
   <li><strong>Aggregation:</strong> A special form of association often described as a "weak has-a." It implies one class has a reference to another, but both can exist independently.</li>
   <li><em>Example:</em> A Company and its Employees: if a company is deleted, the employee objects might still exist (and get reassigned). Aggregation is sometimes illustrated by open diamonds in UML.</li>
-  <li>In code: class Company { List&lt;Employee&gt; employees; }ã€14"&nbsp;L165-L170ã€‘.</li>
+  <li>In code: class Company { List&lt;Employee&gt; employees; }ã€.</li>
   <li><strong>Composition:</strong> A strong form of aggregation with ownership. One class <em>owns</em> another, and the contained object's lifecycle depends on the container.</li>
-  <li><em>Example:</em> A House and Rooms: if the house is destroyed, its rooms cease to existã€14"&nbsp;L170-L179ã€‘. Rooms aren't meaningful without the house. Composition is depicted by filled diamonds in UML.</li>
+  <li><em>Example:</em> A House and Rooms: if the house is destroyed, its rooms cease to existã€. Rooms aren't meaningful without the house. Composition is depicted by filled diamonds in UML.</li>
   <li>In code, you might have:</li>
   <li><pre><code class="language-java">
 class House {
@@ -845,14 +845,14 @@ class House {
   <li>If House is garbage-collected, its Room objects typically have no other references.</li>
 </ul>
 
-<p>In summary, <strong>association</strong> is general linkage, <strong>aggregation</strong> is a whole/part without ownership, and <strong>composition</strong> is whole/part with ownershipã€14"&nbsp;L163-L170ã€‘ã€14"&nbsp;L170-L179ã€‘. These concepts help in modeling relationships in class diagrams and in code architecture.</p>
+<p>In summary, <strong>association</strong> is general linkage, <strong>aggregation</strong> is a whole/part without ownership, and <strong>composition</strong> is whole/part with ownershipã€. These concepts help in modeling relationships in class diagrams and in code architecture.</p>
 <h2><a id="immutability"></a>Immutability</h2>
 
 <p>An <strong>immutable object</strong> is one whose state cannot change after creation. This means all fields are final or private without setters, and no methods alter the data.</p>
 
 <ul>
-  <li><strong>Benefits:</strong> Immutable objects are inherently thread-safe (no synchronization needed) and simple to reason about. They can be freely shared. Strings are a classic exampleã€60"&nbsp;L28-L35ã€‘.</li>
-  <li><strong>Example:</strong> String in Java is immutable. Any modification (e.g., concat) produces a new String objectã€60"&nbsp;L28-L35ã€‘. Once you set String s = "Hello";, that exact object stays "Hello" forever. This allows string interning and safe sharing between threads.</li>
+  <li><strong>Benefits:</strong> Immutable objects are inherently thread-safe (no synchronization needed) and simple to reason about. They can be freely shared. Strings are a classic exampleã€.</li>
+  <li><strong>Example:</strong> String in Java is immutable. Any modification (e.g., concat) produces a new String objectã€. Once you set String s = "Hello";, that exact object stays "Hello" forever. This allows string interning and safe sharing between threads.</li>
   <li><strong>Use Cases:</strong> Use immutability for value objects (e.g., currency amounts, points). The record feature (Java 16+) helps here by making simple data classes immutable with very little boilerplate.</li>
   <li><strong>Drawbacks:</strong> If you need to modify, immutability leads to creating many objects (possible performance overhead). But often this is worth the safety and clarity.</li>
 </ul>
@@ -935,7 +935,7 @@ class Person {
 
 <p><em>Architecture Overview:</em></p>
 
-<p>Library (Singleton)<br> â”œâ”€ Catalog (manages collection of Books)<br> â”œâ”€ List&lt;Member&gt;<br> â”œâ”€ List&lt;Librarian&gt;</p>
+<p>Library (Singleton)<br> â\"œâ\"€ Catalog (manages collection of Books)<br> â\"œâ\"€ List&lt;Member&gt;<br> â\"œâ\"€ List&lt;Librarian&gt;</p>
 
 <pre><code class="language-java">
 class Book {
@@ -961,13 +961,13 @@ abstract class User {
 <p>This case study shows how OOP structures a real application: classes map to domain entities, OOP principles enforce good design, and patterns support scalability.</p>
 <h2><a id="memory-management-in-java"></a>Memory Management in Java</h2>
 
-<p>Java's memory model includes several areasã€24"&nbsp;L31-L35ã€‘ã€63"&nbsp;L53-L61ã€‘:</p>
+<p>Java's memory model includes several areasã€:</p>
 
 <ul>
-  <li><strong>Heap:</strong> Stores all <strong>objects</strong>. Managed by Garbage Collector (GC). Divided into Young/Old generations (tuning matters for performance). Example: all new allocations go hereã€24"&nbsp;L31-L35ã€‘.</li>
-  <li><strong>Stack:</strong> Each thread's stack holds primitive local variables and object references (not the objects themselves)ã€24"&nbsp;L31-L35ã€‘. When a method is called, its locals are pushed; pop when it returns.</li>
-  <li><strong>String Pool:</strong> A special area in the heap (method area) for interned Stringsã€60"&nbsp;L28-L35ã€‘.</li>
-  <li><strong>Method Area (Metaspace):</strong> Stores class metadata, static variablesã€63"&nbsp;L53-L61ã€‘. Introduced as Metaspace (replacing PermGen) in Java 8.</li>
+  <li><strong>Heap:</strong> Stores all <strong>objects</strong>. Managed by Garbage Collector (GC). Divided into Young/Old generations (tuning matters for performance). Example: all new allocations go hereã€.</li>
+  <li><strong>Stack:</strong> Each thread's stack holds primitive local variables and object references (not the objects themselves)ã€. When a method is called, its locals are pushed; pop when it returns.</li>
+  <li><strong>String Pool:</strong> A special area in the heap (method area) for interned Stringsã€.</li>
+  <li><strong>Method Area (Metaspace):</strong> Stores class metadata, static variablesã€. Introduced as Metaspace (replacing PermGen) in Java 8.</li>
   <li><strong>Native Method Stack / PC Registers:</strong> Used for JVM execution, JNI calls (advanced, typically not manipulated in Java code).</li>
 </ul>
 
@@ -987,13 +987,13 @@ abstract class User {
 
 <p>Below are professional best practices for Java OOP development (not exhaustive, but key guidelines):</p>
 <ol>
-  <li><strong>Use Clear Naming Conventions:</strong> Follow Java naming (PascalCase for classes, camelCase for methods/vars, UPPER_SNAKE for constants)ã€66"&nbsp;L77-L85ã€‘ã€66"&nbsp;L106-L110ã€‘.</li>
+  <li><strong>Use Clear Naming Conventions:</strong> Follow Java naming (PascalCase for classes, camelCase for methods/vars, UPPER_SNAKE for constants)ã€.</li>
   <li><strong>Single Responsibility:</strong> Each class should have one focus (SRP). Avoid classes that do too much.</li>
-  <li><strong>Encapsulate Fields:</strong> Always make fields private. Use getters/setters to access themã€21"&nbsp;L19-L24ã€‘.</li>
-  <li><strong>Prefer Composition over Inheritance:</strong> Use has-a relationships when possible to avoid tight couplingã€58"&nbsp;L218-L226ã€‘.</li>
+  <li><strong>Encapsulate Fields:</strong> Always make fields private. Use getters/setters to access themã€.</li>
+  <li><strong>Prefer Composition over Inheritance:</strong> Use has-a relationships when possible to avoid tight couplingã€.</li>
   <li><strong>Code to Interfaces:</strong> Write methods in terms of interface types, not concrete classes (DIP).</li>
-  <li><strong>Override equals and hashCode:</strong> If class instances will be used in collections, override both consistentlyã€46"&nbsp;L90-L98ã€‘ã€46"&nbsp;L223-L231ã€‘.</li>
-  <li><strong>Override toString():</strong> Provide meaningful output for debuggingã€46"&nbsp;L90-L98ã€‘.</li>
+  <li><strong>Override equals and hashCode:</strong> If class instances will be used in collections, override both consistentlyã€.</li>
+  <li><strong>Override toString():</strong> Provide meaningful output for debuggingã€.</li>
   <li><strong>Avoid Excessive Mutability:</strong> Favor immutable classes for value objects to reduce bugs.</li>
   <li><strong>Minimize Static State:</strong> Use stateless classes where possible. Overusing static fields can lead to tight coupling and testing difficulties.</li>
   <li><strong>Close Resources in finally or Try-with-Resources:</strong> Prevent resource leaks (files, streams, sockets).</li>
@@ -1004,7 +1004,7 @@ abstract class User {
   <li><strong>Comments and Javadocs:</strong> Write clear comments/Javadocs for public APIs, especially in libraries.</li>
   <li><strong>Thread-Safety:</strong> Design thread-safe classes if needed. Use volatile, synchronized, or high-level concurrency libraries appropriately.</li>
   <li><strong>Lazy Loading vs Eager:</strong> Load expensive resources lazily if not always needed.</li>
-  <li><strong>Use Annotation @Override:</strong> Always annotate overridden methods "“ helps catch errors.</li>
+  <li><strong>Use Annotation @Override:</strong> Always annotate overridden methods "\" helps catch errors.</li>
   <li><strong>Deprecate Safely:</strong> If changing APIs, use @Deprecated to guide users before removal.</li>
   <li><strong>Validate Inputs:</strong> Check method parameters (throw IllegalArgumentException if invalid) to fail fast.</li>
   <li><strong>Avoid Magic Numbers/Strings:</strong> Use constants or enums.</li>
@@ -1030,7 +1030,7 @@ abstract class User {
   <li><strong>Incorrect equals Implementation:</strong> Not checking instanceof before casting in equals() (can cause ClassCastException).</li>
   <li><strong>Null Pointer:</strong> Dereferencing objects without null checks or initialization.</li>
   <li><strong>Infinite Recursion:</strong> In getters/setters or toString(), accidentally calling this method again.</li>
-  <li><strong>Static vs Instance:</strong> Misusing static "“ e.g., expecting instance-specific data in a static context.</li>
+  <li><strong>Static vs Instance:</strong> Misusing static "\" e.g., expecting instance-specific data in a static context.</li>
   <li><strong>Final Field Reassignment:</strong> Trying to reassign a final field after construction.</li>
   <li><strong>Incorrect Constructor Overloading:</strong> Not initializing all fields in each constructor or forgetting to call another constructor.</li>
   <li><strong>Mutable Shared Objects:</strong> Exposing internal mutable fields (e.g., returning a reference to a mutable list).</li>
@@ -1086,7 +1086,7 @@ abstract class User {
 <p>These are high-level tips; real performance tuning often requires understanding the specific JVM and workload.</p>
 <h2><a id="coding-standards"></a>Coding Standards</h2>
 
-<p>Follow <strong>Oracle's Java coding conventions</strong>ã€66"&nbsp;L77-L85ã€‘ã€66"&nbsp;L106-L110ã€‘ and team guidelines:</p>
+<p>Follow <strong>Oracle's Java coding conventions</strong>ã€:</p>
 
 <ul>
   <li><strong>Naming:</strong></li>
@@ -1109,27 +1109,27 @@ abstract class User {
 
 <p>Here are some common Java OOP interview questions (basic to advanced) with concise answers:</p>
 <ol>
-  <li><strong>Q:</strong> What is OOP?<br><strong>A:</strong> A paradigm where code is organized as objects (combining data and behavior). It uses classes to model real-world entitiesã€14"&nbsp;L26-L34ã€‘.</li>
+  <li><strong>Q:</strong> What is OOP?<br><strong>A:</strong> A paradigm where code is organized as objects (combining data and behavior). It uses classes to model real-world entitiesã€.</li>
   <li><strong>Q:</strong> Why Java is considered object-oriented?<br><strong>A:</strong> Almost everything in Java is an object. Even primitive operations use classes (e.g., Integer). Java enforces OOP through classes/objects and has no global functions.</li>
-  <li><strong>Q:</strong> Explain class vs object.<br><strong>A:</strong> A class is a blueprint, an object is an instance of that blueprintã€14"&nbsp;L43-L47ã€‘ã€14"&nbsp;L58-L62ã€‘. Class = template; object = concrete entity in memory.</li>
+  <li><strong>Q:</strong> Explain class vs object.<br><strong>A:</strong> A class is a blueprint, an object is an instance of that blueprintã€. Class = template; object = concrete entity in memory.</li>
   <li><strong>Q:</strong> What is a constructor? Types?<br><strong>A:</strong> A special method to initialize new objects. Types: default (no args), parameterized, copy constructor (manual), static initializer (for static fields).</li>
   <li><strong>Q:</strong> What is method overloading vs overriding?<br><strong>A:</strong> Overloading = same method name, different parameters within a class (compile-time polymorphism). Overriding = subclass provides its own version of a superclass method (runtime polymorphism).</li>
-  <li><strong>Q:</strong> Explain super and this.<br><strong>A:</strong> this refers to the current objectã€38"&nbsp;L25-L33ã€‘; used for accessing fields/constructors in the same class. super refers to parent classã€41"&nbsp;L32-L34ã€‘; used to call superclass methods/constructors.</li>
-  <li><strong>Q:</strong> What is final used for?<br><strong>A:</strong> To make classes, methods, or variables unchangeable. final class can't be subclassed; final method can't be overridden; final variable can't be reassignedã€43"&nbsp;L37-L43ã€‘.</li>
+  <li><strong>Q:</strong> Explain super and this.<br><strong>A:</strong> this refers to the current objectã€; used for accessing fields/constructors in the same class. super refers to parent classã€; used to call superclass methods/constructors.</li>
+  <li><strong>Q:</strong> What is final used for?<br><strong>A:</strong> To make classes, methods, or variables unchangeable. final class can't be subclassed; final method can't be overridden; final variable can't be reassignedã€.</li>
   <li><strong>Q:</strong> What is inheritance? Benefits?<br><strong>A:</strong> Mechanism where a class acquires properties/methods of another. Benefits: code reuse, polymorphism, hierarchical classification. E.g., class Dog extends Animal.</li>
-  <li><strong>Q:</strong> What is polymorphism?<br><strong>A:</strong> Ability to take multiple forms. In Java: method overloading (compile-time) and overriding (runtime). It allows a parent reference to refer to child objectsã€52"&nbsp;L544-L547ã€‘.</li>
-  <li><strong>Q:</strong> What is encapsulation?<br><strong>A:</strong> Bundling data (fields) and methods in a class, hiding internals. Achieved by private fields and public getters/settersã€21"&nbsp;L19-L24ã€‘.</li>
+  <li><strong>Q:</strong> What is polymorphism?<br><strong>A:</strong> Ability to take multiple forms. In Java: method overloading (compile-time) and overriding (runtime). It allows a parent reference to refer to child objectsã€.</li>
+  <li><strong>Q:</strong> What is encapsulation?<br><strong>A:</strong> Bundling data (fields) and methods in a class, hiding internals. Achieved by private fields and public getters/settersã€.</li>
   <li><strong>Q:</strong> What is abstraction?<br><strong>A:</strong> Hiding complex reality while exposing essential features. Done via abstract classes/interfaces to show what operations an object can do, without details.</li>
-  <li><strong>Q:</strong> Interface vs abstract class?<br><strong>A:</strong> Abstract classes can have implemented methods and state; interfaces (pre-Java 8) could only declare methods. Java 8+ allows default methods in interfaces. Abstract classes use extends (single inheritance); interfaces use implements (multiple inheritance of type)ã€32"&nbsp;L149-L154ã€‘.</li>
+  <li><strong>Q:</strong> Interface vs abstract class?<br><strong>A:</strong> Abstract classes can have implemented methods and state; interfaces (pre-Java 8) could only declare methods. Java 8+ allows default methods in interfaces. Abstract classes use extends (single inheritance); interfaces use implements (multiple inheritance of type)ã€.</li>
   <li><strong>Q:</strong> Can you have multiple inheritance in Java?<br><strong>A:</strong> Not with classes (to avoid ambiguity), but a class can implement multiple interfaces.</li>
   <li><strong>Q:</strong> What are default methods in interfaces?<br><strong>A:</strong> Methods in interfaces with a default implementation (Java 8+), allowing interfaces to evolve without breaking implementors.</li>
   <li><strong>Q:</strong> What are marker interfaces? Give examples.<br><strong>A:</strong> Interfaces with no methods, used to mark classes for some property. E.g., Serializable, Cloneable.</li>
   <li><strong>Q:</strong> Explain instanceof.<br><strong>A:</strong> A binary operator to check object's type at runtime. E.g., if (obj instanceof String).</li>
-  <li><strong>Q:</strong> What is the Object class? Name some methods.<br><strong>A:</strong> Root of Java class hierarchyã€46"&nbsp;L90-L98ã€‘. Key methods: toString(), equals(), hashCode(), clone(), finalize(), getClass(), wait(), notify(), notifyAll().</li>
+  <li><strong>Q:</strong> What is the Object class? Name some methods.<br><strong>A:</strong> Root of Java class hierarchyã€. Key methods: toString(), equals(), hashCode(), clone(), finalize(), getClass(), wait(), notify(), notifyAll().</li>
   <li><strong>Q:</strong> Difference between == and equals().<br><strong>A:</strong> == checks reference equality (same object). equals() checks logical equality (often overridden). For strings, use equals() to compare content.</li>
   <li><strong>Q:</strong> Why override hashCode() with equals()?<br><strong>A:</strong> Contract: equal objects must have equal hash codes (essential for HashMap/HashSet to work correctly).</li>
   <li><strong>Q:</strong> What is a Java package?<br><strong>A:</strong> A namespace for organizing classes (package com.codebytushu;). Helps avoid name conflicts and controls access.</li>
-  <li><strong>Q:</strong> Difference between public, private, protected, default.<br><strong>A:</strong> See Access Modifiers tableã€34"&nbsp;L32-L39ã€‘ above.</li>
+  <li><strong>Q:</strong> Difference between public, private, protected, default.<br><strong>A:</strong> See Access Modifiers tableã€.</li>
   <li><strong>Q:</strong> Can a private member be accessed from a subclass?<br><strong>A:</strong> No, private members are only accessible within the same class.</li>
   <li><strong>Q:</strong> What is this() and super()?<br><strong>A:</strong> this() calls another constructor in the same class; super() calls parent class's constructor. They must be the first statement in a constructor.</li>
   <li><strong>Q:</strong> What does static mean for methods/fields?<br><strong>A:</strong> Static fields/methods belong to the class, not instances. Access them via ClassName.member.</li>
@@ -1174,7 +1174,7 @@ abstract class User {
   <li><strong>Q:</strong> Explain Lazy Initialization.<br><strong>A:</strong> Deferring object creation until needed, e.g., if(instance == null) instance = new Foo();. Useful in singletons or heavy resources.</li>
   <li><strong>Q:</strong> Why are wrapper classes used?<br><strong>A:</strong> To treat primitives as Objects (for generics, collections) and provide utility methods.</li>
   <li><strong>Q:</strong> How do final classes improve security?<br><strong>A:</strong> By preventing subclassing, you avoid untrusted code altering behavior (e.g., String is final).</li>
-  <li><strong>Q:</strong> What is Autoboxing/Unboxing?<br><strong>A:</strong> Automatic conversion between primitives and their wrapper classes (e.g., int â†” Integer).</li>
+  <li><strong>Q:</strong> What is Autoboxing/Unboxing?<br><strong>A:</strong> Automatic conversion between primitives and their wrapper classes (e.g., int â†\" Integer).</li>
   <li><strong>Q:</strong> Difference between deep copy and shallow copy?<br><strong>A:</strong> Shallow copy replicates field values (references still point to same objects); deep copy duplicates all objects recursively.</li>
   <li><strong>Q:</strong> What is the purpose of transient?<br><strong>A:</strong> Marks fields to be skipped during serialization.</li>
   <li><strong>Q:</strong> Explain volatile with example.<br><strong>A:</strong> Ensures the variable's value is read from main memory, not cache. E.g., volatile boolean done; to safely share a flag between threads.</li>
@@ -1189,7 +1189,7 @@ abstract class User {
 
 <p>Below are sample Java programs illustrating core OOP concepts. Each snippet is commented and explained.</p>
 <ol>
-  <li><strong>Hello World Class</strong> "“ Basic class and main():</li></ol>
+  <li><strong>Hello World Class</strong> "\" Basic class and main():</li></ol>
 <pre><code class="language-java">
 public class HelloWorld {
     public static void main(String[] args) {
@@ -1200,7 +1200,7 @@ public class HelloWorld {
 
 <p><em>Explanation:</em> Defines a class and prints text. No objects created here, but this is the entry point.</p>
 <ol>
-  <li><strong>Class and Object</strong> "“ Person example:</li></ol>
+  <li><strong>Class and Object</strong> "\" Person example:</li></ol>
 <pre><code class="language-java">
 class Person {
     String name;
@@ -1225,7 +1225,7 @@ p.sayHello(); // "Hi, I'm Alice"
 class Animal { void makeSound() { System.out.println("Some sound"); } }
 class Dog extends Animal { @Override void makeSound() { System.out.println("Bark"); } }
 Animal a = new Dog();
-a.makeSound(); // "Bark" "“ runtime polymorphism
+a.makeSound(); // "Bark" "\" runtime polymorphism
 </code></pre>
 
 <p><em>Explanation:</em> Dog inherits makeSound() from Animal and overrides it.</p>
@@ -1360,9 +1360,9 @@ new Child().demo();
 </th></tr></thead><tbody><tr><td>
 <p>Definition</p>
 </td><td>
-<p>Blueprint/Template for objectsã€14"&nbsp;L43-L47ã€‘</p>
+<p>Blueprint/Template for objectsã€</p>
 </td><td>
-<p>Instance of a classã€14"&nbsp;L58-L62ã€‘</p>
+<p>Instance of a classã€</p>
 </td></tr><tr><td>
 <p>Declaration</p>
 </td><td>
@@ -1382,7 +1382,7 @@ class MyClass { ... }
 </td><td>
 <p>Exists once loaded</p>
 </td><td>
-<p>Lifetime: creation (new) â†’ GC</p>
+<p>Lifetime: creation (new) â†' GC</p>
 </td></tr><tr><td>
 <p>Usage</p>
 </td><td>
@@ -1668,13 +1668,13 @@ class Car { Engine engine; }
 </th></tr></thead><tbody><tr><td>
 <p>Stores</p>
 </td><td>
-<p>Objects and instance variablesã€24"&nbsp;L31-L35ã€‘</p>
+<p>Objects and instance variablesã€</p>
 </td><td>
-<p>Primitives, references, call framesã€24"&nbsp;L31-L35ã€‘</p>
+<p>Primitives, references, call framesã€</p>
 </td></tr><tr><td>
 <p>Memory Management</p>
 </td><td>
-<p>Manual + GC (dynamic)ã€24"&nbsp;L129-L132ã€‘</p>
+<p>Manual + GC (dynamic)ã€</p>
 </td><td>
 <p>Automatic LIFO (last-in-first-out)</p>
 </td></tr><tr><td>
@@ -1686,7 +1686,7 @@ class Car { Engine engine; }
 </td></tr><tr><td>
 <p>Thread Visibility</p>
 </td><td>
-<p>Shared by all threadsã€24"&nbsp;L31-L35ã€‘</p>
+<p>Shared by all threadsã€</p>
 </td><td>
 <p>Each thread has its own stack</p>
 </td></tr></tbody></table>
@@ -1697,30 +1697,30 @@ class Car { Engine engine; }
   <li><strong>OOP Definition:</strong> Paradigm using classes &amp; objects to model real-world.</li>
   <li><strong>4 Pillars:</strong> Encapsulation, Inheritance, Polymorphism, Abstraction.</li>
   <li><strong>Class:</strong> Blueprint; <strong>Object:</strong> instance of class.</li>
-  <li><strong>Encapsulation:</strong> Private fields, public getters/settersã€21"&nbsp;L19-L24ã€‘.</li>
+  <li><strong>Encapsulation:</strong> Private fields, public getters/settersã€.</li>
   <li><strong>Inheritance:</strong> class Sub extends Super. Reuse &amp; polymorphism.</li>
-  <li><strong>Polymorphism:</strong> Method overloading (compile-time), overriding (runtime)ã€52"&nbsp;L544-L547ã€‘.</li>
+  <li><strong>Polymorphism:</strong> Method overloading (compile-time), overriding (runtime)ã€.</li>
   <li><strong>Abstraction:</strong> abstract class or interface to define behavior without details.</li>
-  <li><strong>Interface:</strong> interface I {}, default/static methods allowedã€30"&nbsp;L30-L33ã€‘.</li>
-  <li><strong>Abstract vs Interface:</strong> Abstract can have state; interface cannotã€32"&nbsp;L35-L38ã€‘.</li>
-  <li><strong>Access Modifiers:</strong> public, protected, default, private (restrict access)ã€34"&nbsp;L32-L39ã€‘.</li>
-  <li><strong>Keywords:</strong> this (current object)ã€38"&nbsp;L25-L33ã€‘, super (parent)ã€41"&nbsp;L32-L34ã€‘, final (no change)ã€43"&nbsp;L37-L43ã€‘, static (class-level), instanceof, etc.</li>
-  <li><strong>Object Class:</strong> Root of all classes, methods: equals(), hashCode(), toString(), clone(), wait/notifyã€46"&nbsp;L90-L98ã€‘.</li>
-  <li><strong>SOLID:</strong> Single Responsibility, Open/Closed, Liskov, Interface Segregation, Dependency Inversionã€48"&nbsp;L28-L34ã€‘ã€52"&nbsp;L544-L547ã€‘.</li>
-  <li><strong>Composition vs Inheritance:</strong> Favor composition (has-a) over inheritance (is-a)ã€58"&nbsp;L218-L226ã€‘.</li>
-  <li><strong>String Immutability:</strong> String is immutableã€60"&nbsp;L28-L35ã€‘ (thread-safe, interned).</li>
-  <li><strong>Best Practices:</strong> Follow naming conventionsã€66"&nbsp;L77-L85ã€‘, encapsulation, small classes, code to interfaces, proper error handling, etc.</li>
+  <li><strong>Interface:</strong> interface I {}, default/static methods allowedã€.</li>
+  <li><strong>Abstract vs Interface:</strong> Abstract can have state; interface cannotã€.</li>
+  <li><strong>Access Modifiers:</strong> public, protected, default, private (restrict access)ã€.</li>
+  <li><strong>Keywords:</strong> this (current object)ã€, super (parent)ã€, final (no change)ã€, static (class-level), instanceof, etc.</li>
+  <li><strong>Object Class:</strong> Root of all classes, methods: equals(), hashCode(), toString(), clone(), wait/notifyã€.</li>
+  <li><strong>SOLID:</strong> Single Responsibility, Open/Closed, Liskov, Interface Segregation, Dependency Inversionã€.</li>
+  <li><strong>Composition vs Inheritance:</strong> Favor composition (has-a) over inheritance (is-a)ã€.</li>
+  <li><strong>String Immutability:</strong> String is immutableã€(thread-safe, interned).</li>
+  <li><strong>Best Practices:</strong> Follow naming conventionsã€, encapsulation, small classes, code to interfaces, proper error handling, etc.</li>
   <li><strong>Common Pitfalls:</strong> Misusing ==, not overriding hashCode(), exposing internals, violating LSP.</li>
-  <li><strong>Java Memory:</strong> Stack = method frames (locals, refs)ã€24"&nbsp;L31-L35ã€‘; Heap = objects (new)ã€24"&nbsp;L31-L35ã€‘; GC clears unreachableã€24"&nbsp;L129-L132ã€‘.</li>
+  <li><strong>Java Memory:</strong> Stack = method frames (locals, refs)ã€; Heap = objects (new)ã€; GC clears unreachableã€.</li>
   <li><strong>Thread Communication:</strong> Use wait()/notify() (from Object) carefully; prefer high-level concurrency APIs.</li>
   <li><strong>Exceptions:</strong> Use checked for recoverable errors; unchecked for programming bugs.</li>
   <li><strong>Design Patterns:</strong> Singleton, Factory, Builder, Strategy, Observer, Adapter, Decorator, Template, Dependency Injection are OOP staples.</li>
 </ul>
 <h2><a id="faqs"></a>FAQs</h2>
 
-<p><strong>Q: What is the main advantage of OOP?</strong><br>A: OOP improves code modularity, reusability, and maintainability. By modeling real-world entities as objects, programs become easier to understand, extend, and testã€19"&nbsp;L49-L52ã€‘ã€14"&nbsp;L30-L34ã€‘.</p>
+<p><strong>Q: What is the main advantage of OOP?</strong><br>A: OOP improves code modularity, reusability, and maintainability. By modeling real-world entities as objects, programs become easier to understand, extend, and testã€.</p>
 
-<p><strong>Q: Why should I use classes in Java?</strong><br>A: Classes let you define your own types with encapsulated data and behavior. They form the blueprint for creating objects, enabling abstraction and reuseã€14"&nbsp;L43-L47ã€‘.</p>
+<p><strong>Q: Why should I use classes in Java?</strong><br>A: Classes let you define your own types with encapsulated data and behavior. They form the blueprint for creating objects, enabling abstraction and reuseã€.</p>
 
 <p><strong>Q: How does inheritance help in Java?</strong><br>A: Inheritance lets a class reuse fields and methods from a parent class (promoting code reuse) and establishes a natural hierarchy (e.g., Child extends Parent). It also enables polymorphism at runtime.</p>
 
@@ -1728,19 +1728,19 @@ class Car { Engine engine; }
 
 <p><strong>Q: What is the difference between method overloading and overriding?</strong><br>A: Overloading: same method name, different parameters (compile-time polymorphism). Overriding: subclass provides a new version of a parent's method (runtime polymorphism).</p>
 
-<p><strong>Q: What is encapsulation, and why is it important?</strong><br>A: Encapsulation is hiding an object's internal state by making fields private and controlling access via methodsã€21"&nbsp;L19-L24ã€‘. It protects integrity and makes code easier to maintain.</p>
+<p><strong>Q: What is encapsulation, and why is it important?</strong><br>A: Encapsulation is hiding an object's internal state by making fields private and controlling access via methodsã€. It protects integrity and makes code easier to maintain.</p>
 
 <p><strong>Q: How do you achieve abstraction in Java?</strong><br>A: By using abstract classes and interfaces. They let you define <em>what</em> an object can do without specifying <em>how</em>. For instance, an interface Drivable might declare drive(), and different classes implement the details.</p>
 
-<p><strong>Q: When should I use an interface instead of an abstract class?</strong><br>A: Use an interface to define a role that multiple unrelated classes can adopt. Use an abstract class when you have a common base with some shared code or stateã€32"&nbsp;L35-L38ã€‘ã€32"&nbsp;L149-L154ã€‘.</p>
+<p><strong>Q: When should I use an interface instead of an abstract class?</strong><br>A: Use an interface to define a role that multiple unrelated classes can adopt. Use an abstract class when you have a common base with some shared code or stateã€.</p>
 
-<p><strong>Q: Explain the super keyword in Java.</strong><br>A: super refers to the immediate parent class. You use it to call a parent constructor (super(args)) or access a parent's field/method that was overriddenã€41"&nbsp;L32-L34ã€‘.</p>
+<p><strong>Q: Explain the super keyword in Java.</strong><br>A: super refers to the immediate parent class. You use it to call a parent constructor (super(args)) or access a parent's field/method that was overriddenã€.</p>
 
 <p><strong>Q: What is a constructor chaining?</strong><br>A: It's calling one constructor from another within the same class using this(). This avoids duplicate code. Example: a no-arg constructor calling a parameterized constructor with default values.</p>
 
 <p><strong>Q: Can you override a private method?</strong><br>A: No. Private methods are not visible to subclasses, so they cannot be overridden.</p>
 
-<p><strong>Q: What is the purpose of the final keyword on a method?</strong><br>A: It prevents subclasses from overriding that method. It locks the method behavior in placeã€43"&nbsp;L37-L43ã€‘.</p>
+<p><strong>Q: What is the purpose of the final keyword on a method?</strong><br>A: It prevents subclasses from overriding that method. It locks the method behavior in placeã€.</p>
 
 <p><strong>Q: How do you make a class immutable?</strong><br>A: Mark it final, make all fields private and final, don't provide setters, and ensure any mutable fields are safely copied.</p>
 
@@ -1764,7 +1764,7 @@ class Car { Engine engine; }
 
 <p><strong>Q: How do finally blocks relate to OOP?</strong><br>A: Not directly OOP, but in Java error handling, the finally block executes regardless of exceptions, useful for cleanup.</p>
 
-<p><strong>Q: What is SOLID in OOP?</strong><br>A: A mnemonic for five key design principles: Single responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversionã€48"&nbsp;L28-L34ã€‘.</p>
+<p><strong>Q: What is SOLID in OOP?</strong><br>A: A mnemonic for five key design principles: Single responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversionã€.</p>
 
 <p><strong>Q: What is strictfp used for?</strong><br>A: It forces floating-point calculations to adhere strictly to IEEE 754 standards, ensuring portability of results across platforms.</p>
 
@@ -1772,7 +1772,7 @@ class Car { Engine engine; }
 
 <p><strong>Q: What is double-checked locking?</strong><br>A: A pattern to lazily initialize singletons in a thread-safe manner. You check if instance is null before and inside a synchronized block.</p>
 
-<p><strong>Q: Explain an example of method overloading in Java.</strong><br>A: print(int x), print(String s), print(int x, int y) are overloaded methods "“ same name, different parameters.</p>
+<p><strong>Q: Explain an example of method overloading in Java.</strong><br>A: print(int x), print(String s), print(int x, int y) are overloaded methods "\" same name, different parameters.</p>
 
 <p><strong>Q: Can private methods be final?</strong><br>A: Final on private methods is redundant (they are already not visible to subclasses), but allowed.</p>
 
@@ -1789,45 +1789,45 @@ class Car { Engine engine; }
 <p><em>("¦ and more, tailored to common queries)</em></p>
 <h2><a id="summary"></a>Summary</h2>
 
-<p>In this guide, we explored Object-Oriented Programming (OOP) in Java <strong>from the ground up</strong>. We defined OOP and its pillars, and saw why Java champions this paradigmã€9"&nbsp;L91-L99ã€‘ã€19"&nbsp;L49-L52ã€‘. We examined how classes form blueprintsã€14"&nbsp;L43-L47ã€‘ and objects embody themã€14"&nbsp;L58-L62ã€‘, with memory managed by the JVM (heap vs stack)ã€24"&nbsp;L31-L35ã€‘. We covered constructors, this/super, and access control, stressing encapsulation for robust designã€21"&nbsp;L19-L24ã€‘ã€34"&nbsp;L32-L39ã€‘.</p>
+<p>In this guide, we explored Object-Oriented Programming (OOP) in Java <strong>from the ground up</strong>. We defined OOP and its pillars, and saw why Java champions this paradigmã€. We examined how classes form blueprintsã€, with memory managed by the JVM (heap vs stack)ã€. We covered constructors, this/super, and access control, stressing encapsulation for robust designã€.</p>
 
-<p>Inheritance allows creating type hierarchies, while composition (has-a) provides flexible reuseã€58"&nbsp;L218-L226ã€‘. Polymorphism "“ overloading and overriding "“ enables writing general code that works with many types. Abstraction via interfaces and abstract classes lets us focus on <em>what</em> rather than <em>how</em>. We compared abstract classes vs interfacesã€32"&nbsp;L35-L38ã€‘, explored default/static methods in interfacesã€30"&nbsp;L30-L33ã€‘, and reinforced the principles with examples and code.</p>
+<p>Inheritance allows creating type hierarchies, while composition (has-a) provides flexible reuseã€. Polymorphism "\" overloading and overriding "\" enables writing general code that works with many types. Abstraction via interfaces and abstract classes lets us focus on <em>what</em> rather than <em>how</em>. We compared abstract classes vs interfacesã€, explored default/static methods in interfacesã€, and reinforced the principles with examples and code.</p>
 
-<p>We emphasized <strong>SOLID</strong> principles for clean designã€48"&nbsp;L28-L34ã€‘ã€52"&nbsp;L544-L547ã€‘, and listed practical best practices (naming conventionsã€66"&nbsp;L77-L85ã€‘, unit testing, documentation, etc.). We saw common mistakes to avoid and tips for performance and memory management (automatic GC vs stack/heap allocation).</p>
+<p>We emphasized <strong>SOLID</strong> principles for clean designã€, and listed practical best practices (naming conventionsã€, unit testing, documentation, etc.). We saw common mistakes to avoid and tips for performance and memory management (automatic GC vs stack/heap allocation).</p>
 
 <p>For interview prep, we provided many Q&amp;As covering key OOP concepts. The comprehensive <strong>cheat sheet</strong> and <strong>comparison tables</strong> above distill critical differences (e.g., Class vs Object, Encapsulation vs Abstraction, etc.).</p>
 
 <p>Ultimately, mastering OOP in Java means understanding <strong>why</strong> each concept exists and <strong>how</strong> to use it effectively. Whether you're defining a simple Person class or architecting a large-scale library system, the OOP principles guide you to clear, modular, and maintainable code.</p>
 <h2><a id="conclusion"></a>Conclusion</h2>
 
-<p>Object-Oriented Programming is more than just a language feature "” it's a powerful mindset for software design. In Java, OOP brings structure and clarity to coding, mirroring how we think about real-world problems. As a Java developer, embracing OOP means writing code that is reusable, scalable, and robust.</p>
+<p>Object-Oriented Programming is more than just a language feature "\" it's a powerful mindset for software design. In Java, OOP brings structure and clarity to coding, mirroring how we think about real-world problems. As a Java developer, embracing OOP means writing code that is reusable, scalable, and robust.</p>
 
 <p>Remember: always question <em>why</em> you use a concept (Does this need to be a subclass? Do I need this class at all?) and <em>how</em> you implement it (Are my classes cohesive? Am I hiding complexity?). With practice and reflection, each class you write will be better than the last.</p>
 
 <p>Whether you're preparing for interviews or building your next app, the principles and practices outlined here will serve as your compass in the world of Java OOP. Keep this guide handy for reference and continue to deepen your understanding through real coding. The journey of mastering OOP is ongoing, but with solid foundations, you're well on your way to writing elegant, object-oriented Java programs. Happy coding!</p>
 
-<p><strong>SEO Checklist:</strong> All recommended tags and keywords are integrated naturally above.<br><strong>Meta Title:</strong> Mastering Object-Oriented Programming (OOP) in Java "“ Complete Guide<br><strong>Meta Description:</strong> (as above)<br><strong>SEO URL:</strong> mastering-object-oriented-programming-java<br><strong>Focus Keyword:</strong> Object-Oriented Programming in Java<br><strong>Primary Keyword:</strong> Java OOP<br><strong>Secondary Keywords:</strong> (as above in metadata)<br><strong>Long Tail Keywords:</strong> (as above)<br><strong>Semantic Keywords:</strong> (as above)<br><strong>LSI Keywords:</strong> (as above)<br><strong>Search Tags:</strong> OOP, Java, Programming, Interview, Tutorial<br><strong>Suggested Internal Links:</strong> Java Tutorial, Java Basics, Java Classes, Java Objects, Java Inheritance, Java Polymorphism, Java Interfaces, Java Design Patterns, Java Interview Questions, Java Memory Management.<br><strong>Suggested External References:</strong> Official Oracle Java documentation; Oracle Java Language Specification; official Java tutorials (https://docs.oracle.com/javase/tutorial/); Oracle JVM documentation; OpenJDK guides.</p>
+<p><strong>SEO Checklist:</strong> All recommended tags and keywords are integrated naturally above.<br><strong>Meta Title:</strong> Mastering Object-Oriented Programming (OOP) in Java "\" Complete Guide<br><strong>Meta Description:</strong> (as above)<br><strong>SEO URL:</strong> mastering-object-oriented-programming-java<br><strong>Focus Keyword:</strong> Object-Oriented Programming in Java<br><strong>Primary Keyword:</strong> Java OOP<br><strong>Secondary Keywords:</strong> (as above in metadata)<br><strong>Long Tail Keywords:</strong> (as above)<br><strong>Semantic Keywords:</strong> (as above)<br><strong>LSI Keywords:</strong> (as above)<br><strong>Search Tags:</strong> OOP, Java, Programming, Interview, Tutorial<br><strong>Suggested Internal Links:</strong> Java Tutorial, Java Basics, Java Classes, Java Objects, Java Inheritance, Java Polymorphism, Java Interfaces, Java Design Patterns, Java Interview Questions, Java Memory Management.<br><strong>Suggested External References:</strong> Official Oracle Java documentation; Oracle Java Language Specification; official Java tutorials (https://docs.oracle.com/javase/tutorial/); Oracle JVM documentation; OpenJDK guides.</p>
 
 <p><strong>LinkedIn Post:</strong><br>Unlock the power of Java with our <em>Mastering OOP</em> guide! ðŸ¦‰ Dive into classes, objects, inheritance, polymorphism, interfaces and more, complete with examples and interview tips. Whether you're a beginner or seasoned dev, this comprehensive resource will sharpen your OOP skills. Read now on CodeByTushu: [link] #Java #OOP #Programming #CodeByTushu</p>
 
-<p><strong>Twitter/X Post:</strong><br>Master Java OOP with this ultimate guide! ðŸš€ From classes/objects to SOLID principles and design patterns, we cover it all with examples. Perfect for beginners and interview prep. ðŸ‘‰ [link] #Java #OOP #Coding #Developer</p>
+<p><strong>Twitter/X Post:</strong><br>Master Java OOP with this ultimate guide! ðŸš€ From classes/objects to SOLID principles and design patterns, we cover it all with examples. Perfect for beginners and interview prep. ðŸ'‰ [link] #Java #OOP #Coding #Developer</p>
 
 <p><strong>Facebook Post:</strong><br>ðŸ›&nbsp;ï¸ Master Object-Oriented Programming in Java! Our complete guide covers everything from basics (classes, objects) to advanced topics (design patterns, SOLID principles) with clear examples and expert tips. Ideal for students and developers prepping for interviews. Check it out: [link] #Java #OOP #Programming</p>
 
-<p><strong>Instagram Caption:</strong><br>Diving into Java OOP! ðŸ“˜âœ¨ Our latest article breaks down classes, objects, inheritance, polymorphism, and more. Perfect for anyone learning Java or preparing for interviews. Link in bio! #Java #OOP #CodingTutorial #DeveloperLife</p>
+<p><strong>Instagram Caption:</strong><br>Diving into Java OOP! ðŸ\"˜âœ¨ Our latest article breaks down classes, objects, inheritance, polymorphism, and more. Perfect for anyone learning Java or preparing for interviews. Link in bio! #Java #OOP #CodingTutorial #DeveloperLife</p>
 
 <p><strong>Pinterest Description:</strong><br>A comprehensive guide to mastering Object-Oriented Programming (OOP) in Java. Learn classes, inheritance, interfaces, design patterns, and more with clear examples. Perfect for beginners and pros. #Java #OOP #ProgrammingTutorial</p>
 
-<p><strong>YouTube Community Post:</strong><br>New on CodeByTushu: An <em>in-depth</em> guide to Java OOP! ðŸ’¡ Learn everything from classes and objects to interfaces and SOLID principles, plus tons of examples. Don't miss it if you want to ace Java interviews and build better apps! [link]</p>
+<p><strong>YouTube Community Post:</strong><br>New on CodeByTushu: An <em>in-depth</em> guide to Java OOP! ðŸ'¡ Learn everything from classes and objects to interfaces and SOLID principles, plus tons of examples. Don't miss it if you want to ace Java interviews and build better apps! [link]</p>
 
-<p><strong>Medium Description:</strong><br>Object-oriented programming is the foundation of Java. In this exhaustive guide, we explore Java OOP concepts in detail "” classes, objects, the 4 OOP pillars (encapsulation, inheritance, polymorphism, abstraction), interfaces vs abstract classes, SOLID design principles, and more. With real-world analogies, code examples, and interview insights, you'll gain a solid understanding of Java's OOP paradigm. #Java #OOP #Programming</p>
+<p><strong>Medium Description:</strong><br>Object-oriented programming is the foundation of Java. In this exhaustive guide, we explore Java OOP concepts in detail "\" classes, objects, the 4 OOP pillars (encapsulation, inheritance, polymorphism, abstraction), interfaces vs abstract classes, SOLID design principles, and more. With real-world analogies, code examples, and interview insights, you'll gain a solid understanding of Java's OOP paradigm. #Java #OOP #Programming</p>
 
 <p><strong>Hashtags:</strong></p>
 <h1><a id="Xd19384340f32cff1fdb3441e771c85d1fb9d122"></a>Java #ObjectOrientedProgramming #OOP #Programming #SoftwareEngineering #Coding #Tech #Tutorial #JavaTutorial #ProgrammingGuide #LearnJava #JavaDeveloper #BackendDeveloper #InterviewPrep #StudyJava #CleanCode #DesignPatterns</h1>
 
 <p>{<br>  "@context": "https://schema.org",<br>  "@type": "Article",<br>  "headline": "Mastering Object-Oriented Programming in Java: A Complete Guide",<br>  "description": "A comprehensive Java OOP tutorial covering classes, objects, encapsulation, inheritance, polymorphism, interfaces, SOLID principles, and design patterns, with examples.",<br>  "image": "https://codebytushu.com/images/java-oop-diagram.png",<br>  "author": {<br>    "@type": "Person",<br>    "name": "CodeByTushu"<br>  },<br>  "publisher": {<br>    "@type": "Organization",<br>    "name": "CodeByTushu",<br>    "logo": {<br>      "@type": "ImageObject",<br>      "url": "https://codebytushu.com/logo.png"<br>    }<br>  },<br>  "datePublished": "2026-07-27",<br>  "mainEntityOfPage": {<br>    "@type": "WebPage",<br>    "@id": "https://codebytushu.com/mastering-object-oriented-programming-java"<br>  }<br>}</p>
 
-<p>{<br>  "@context": "https://schema.org",<br>  "@type": "FAQPage",<br>  "mainEntity": [<br>    {<br>      "@type": "Question",<br>      "name": "What is Object-Oriented Programming (OOP)-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Object-Oriented Programming is a programming paradigm based on the concept of \"objects\" that contain data and behavior. It uses classes to model real-world entities, making code modular and maintainable."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "Why is Java known for OOP-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Java is inherently object-oriented: almost everything is a class or object. This enforces OOP principles, and the language is built around classes, inheritance, and polymorphismã€9"&nbsp;L91-L99ã€‘."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "What are the four pillars of OOP-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "The four pillars are Encapsulation, Inheritance, Polymorphism, and Abstraction. They form the core principles of object-oriented design."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "How do I encapsulate data in Java-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "By making fields private and providing public getter/setter methods. This hides internal representation and allows controlled accessã€21"&nbsp;L19-L24ã€‘."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "When should I use an interface instead of an abstract class-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Use an interface when unrelated classes need to implement the same contract. Use an abstract class when you want to share code or state between related classesã€32"&nbsp;L35-L38ã€‘."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "What is the difference between composition and inheritance-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Inheritance (is-a) means a class extends another. Composition (has-a) means a class contains an instance of another. Composition is looser coupling and often preferredã€58"&nbsp;L218-L226ã€‘."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "How does Java manage memory for objects-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Objects are stored in the heap (managed by GC). Local variables and references live on the stackã€24"&nbsp;L31-L35ã€‘. The JVM's Garbage Collector cleans up unreachable objectsã€24"&nbsp;L129-L132ã€‘."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "What is a final class or final method in Java-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "A final class cannot be extended. A final method cannot be overridden. Final variables cannot be reassignedã€43"&nbsp;L37-L43ã€‘."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "Why should I override equals() and hashCode() together-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Objects that are equal (per equals()) must have the same hash code. Failing to override hashCode() when equals() is overridden can break hash-based collections like HashMap."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "What is an immutable class in Java-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "An immutable class cannot change state after creation (all fields are final/private, no setters). Example: String is immutableã€60"&nbsp;L28-L35ã€‘, which makes it thread-safe and shareable."<br>      }<br>    }<br>  ]<br>}</p>
+<p>{<br>  "@context": "https://schema.org",<br>  "@type": "FAQPage",<br>  "mainEntity": [<br>    {<br>      "@type": "Question",<br>      "name": "What is Object-Oriented Programming (OOP)-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Object-Oriented Programming is a programming paradigm based on the concept of \"objects\" that contain data and behavior. It uses classes to model real-world entities, making code modular and maintainable."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "Why is Java known for OOP-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Java is inherently object-oriented: almost everything is a class or object. This enforces OOP principles, and the language is built around classes, inheritance, and polymorphismã€."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "What are the four pillars of OOP-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "The four pillars are Encapsulation, Inheritance, Polymorphism, and Abstraction. They form the core principles of object-oriented design."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "How do I encapsulate data in Java-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "By making fields private and providing public getter/setter methods. This hides internal representation and allows controlled accessã€."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "When should I use an interface instead of an abstract class-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Use an interface when unrelated classes need to implement the same contract. Use an abstract class when you want to share code or state between related classesã€."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "What is the difference between composition and inheritance-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Inheritance (is-a) means a class extends another. Composition (has-a) means a class contains an instance of another. Composition is looser coupling and often preferredã€."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "How does Java manage memory for objects-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Objects are stored in the heap (managed by GC). Local variables and references live on the stackã€. The JVM's Garbage Collector cleans up unreachable objectsã€."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "What is a final class or final method in Java-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "A final class cannot be extended. A final method cannot be overridden. Final variables cannot be reassignedã€."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "Why should I override equals() and hashCode() together-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "Objects that are equal (per equals()) must have the same hash code. Failing to override hashCode() when equals() is overridden can break hash-based collections like HashMap."<br>      }<br>    },<br>    {<br>      "@type": "Question",<br>      "name": "What is an immutable class in Java-,<br>      "acceptedAnswer": {<br>        "@type": "Answer",<br>        "text": "An immutable class cannot change state after creation (all fields are final/private, no setters). Example: String is immutableã€, which makes it thread-safe and shareable."<br>      }<br>    }<br>  ]<br>}</p>
 
 <p>{<br>  "@context": "https://schema.org",<br>  "@type": "BreadcrumbList",<br>  "itemListElement": [<br>    {<br>      "@type": "ListItem",<br>      "position": 1,<br>      "name": "Home",<br>      "item": "https://codebytushu.com/"<br>    },<br>    {<br>      "@type": "ListItem",<br>      "position": 2,<br>      "name": "Java Tutorials",<br>      "item": "https://codebytushu.com/java"<br>    },<br>    {<br>      "@type": "ListItem",<br>      "position": 3,<br>      "name": "Mastering OOP in Java",<br>      "item": "https://codebytushu.com/mastering-object-oriented-programming-java"<br>    }<br>  ]<br>}</p>
 

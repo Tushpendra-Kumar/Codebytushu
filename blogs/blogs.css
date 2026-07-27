@@ -7,6 +7,18 @@
     --blog-card-hover: rgba(255, 196, 0, 0.3);
 }
 
+/* ── Desktop Navbar Perfect Center ──────────────────────────────── */
+@media (min-width: 1024px) {
+    .cbt-nav-inner {
+        position: relative;
+    }
+    .cbt-center-nav {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
 /* Base Adjustments */
 body {
     background-color: var(--bg-dark);
@@ -14,6 +26,7 @@ body {
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
 }
+
 
 /* Hero Section */
 .cbt-blog-hero {

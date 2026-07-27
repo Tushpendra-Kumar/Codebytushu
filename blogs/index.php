@@ -20,7 +20,7 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <link rel="stylesheet" href="../styles.css?v=40">
-    <link rel="stylesheet" href="./blogs.css?v=1">
+    <link rel="stylesheet" href="./blogs.css?v=5">
 </head>
 <body>
     <!-- Futuristic Animated Background (Global for Blogs) -->
@@ -298,8 +298,8 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
     </footer>
 
     <!-- JS files -->
-    <script src="js/data.js"></script>
-    <script src="js/blogs.js"></script>
+    <script src="js/data.js?v=5"></script>
+    <script src="js/blogs.js?v=5"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Newsletter Subscription Logic (Reused)
