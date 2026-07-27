@@ -425,7 +425,9 @@ $yearDescs = [
                 drawerIsOpen = false;
                 mobOverlay.classList.remove('active');
                 mobDrawer.classList.remove('is-open');
+                mobDrawer.setAttribute('aria-hidden', 'true');
                 mobHamBtn.setAttribute('aria-expanded', 'false');
+                    mobHamBtn.focus();
                 setTimeout(function () { if (!drawerIsOpen) mobOverlay.style.display='none'; }, 350);
             }
             if (mobHamBtn && mobDrawer) {
@@ -440,4 +442,5 @@ $yearDescs = [
 
 </body>
 </html>
+
 

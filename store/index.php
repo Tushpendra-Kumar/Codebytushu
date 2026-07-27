@@ -163,9 +163,11 @@ Auth::requireLogin();
                 drawerIsOpen = false;
                 mobOverlay.classList.remove('active');
                 mobDrawer.classList.remove('is-open');
+                mobDrawer.setAttribute('aria-hidden', 'true');
                 if (mobHamBtn) {
                     mobHamBtn.classList.remove('is-open');
                     mobHamBtn.setAttribute('aria-expanded', 'false');
+                    mobHamBtn.focus();
                 }
                 document.body.style.overflow = '';
                 setTimeout(function () {
@@ -434,3 +436,4 @@ Auth::requireLogin();
     </script>
 </body>
 </html>
+

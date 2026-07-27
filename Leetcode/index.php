@@ -543,6 +543,7 @@ Auth::requireLogin();
                 mobDrawer.classList.remove('is-open');
                 mobHamBtn.classList.remove('is-open');
                 mobHamBtn.setAttribute('aria-expanded', 'false');
+                    mobHamBtn.focus();
                 mobDrawer.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
                 setTimeout(function () {
@@ -571,6 +572,7 @@ Auth::requireLogin();
 </body>
 
 </html>
+
 
 
 
