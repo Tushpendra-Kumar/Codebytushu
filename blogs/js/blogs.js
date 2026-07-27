@@ -255,28 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const wrapper = document.createElement('div');
                     wrapper.className = 'cbt-code-wrapper';
                     
-                    const header = document.createElement('div');
-                    header.className = 'cbt-code-header';
-                    
-                    const lang = document.createElement('span');
-                    lang.className = 'cbt-code-lang';
-                    lang.textContent = code.className ? code.className.replace('language-', '').toUpperCase() : 'JAVA';
-                    
-                    const copyBtn = document.createElement('button');
-                    copyBtn.className = 'cbt-copy-btn';
-                    copyBtn.textContent = 'Copy';
-                    copyBtn.onclick = function() {
-                        navigator.clipboard.writeText(code.textContent).then(() => {
-                            copyBtn.textContent = 'Copied!';
-                            setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
-                        });
-                    };
-                    
-                    header.appendChild(lang);
-                    header.appendChild(copyBtn);
-                    
                     pre.parentNode.insertBefore(wrapper, pre);
-                    wrapper.appendChild(header);
                     wrapper.appendChild(pre);
                 });
             }
