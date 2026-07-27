@@ -2,9 +2,9 @@
 #   CodeByTushu — .gitignore
 # ─────────────────────────────────────────────
 
-# NOTE: firebase-config.js is SAFE to commit.
-# Firebase API keys are public project identifiers — not secrets.
-# Real security = Firebase Auth rules (server-side).
+# Firebase (legacy — fully removed from project)
+firebase-config.js
+firebase-config.example.js
 
 # Environment secrets (if ever added)
 .env
@@ -37,10 +37,15 @@ desktop.ini
 /dist/
 /build/
 
-# ─── PHP Migration additions ──────────────────
+# ─── PHP Infrastructure ──────────────────────
 # PHP Composer
 /vendor/
 composer.lock
+composer.phar
+
+# Node.js (only used for dev scripts — no longer needed)
+package.json
+package-lock.json
 
 # Uploaded user files (never commit)
 /uploads/images/
