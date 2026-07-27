@@ -213,6 +213,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
+            const commentDatesMap = {
+                "blog-1": ["Jan 12, 2026", "Jan 18, 2026"],
+                "blog-2": ["Feb 05, 2026", "Feb 14, 2026"],
+                "blog-3": ["Mar 03, 2026", "Mar 15, 2026"],
+                "blog-4": ["Jan 22, 2026", "Feb 10, 2026"],
+                "blog-5": ["Feb 18, 2026", "Mar 08, 2026"],
+                "blog-6": ["Mar 12, 2026", "Mar 25, 2026"]
+            };
+            const defaultDates = commentDatesMap[blogId] || ["Jan 15, 2026", "Feb 20, 2026"];
+            const commentSpans = document.querySelectorAll('#commentList > .cbt-comment > .cbt-comment-body > span');
+            if(commentSpans.length >= 2) {
+                commentSpans[0].textContent = defaultDates[0];
+                commentSpans[1].textContent = defaultDates[1];
+            }
+
+
         } else {
             // Not found
             const layout = document.querySelector('.cbt-blog-layout');
