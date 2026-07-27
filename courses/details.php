@@ -65,8 +65,9 @@ if ($is_logged_in) {
         .course-container { 
             max-width: 1000px; 
             margin: 140px auto 50px auto; 
-            padding: 30px; 
+            padding: 40px; 
             display: flex; 
+            align-items: flex-start;
             gap: 40px; 
             background: rgba(17, 17, 17, 0.7);
             backdrop-filter: blur(16px);
@@ -87,12 +88,25 @@ if ($is_logged_in) {
             }
         }
         
-        .course-image { flex: 1; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .course-image { 
+            flex: 1; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            position: sticky; 
+            top: 120px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
         .course-image img { width: 100%; height: auto; display: block; }
-        .course-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .course-info h1 { color: #ffc400; font-size: 2.2rem; margin-bottom: 15px; }
-        .course-info p { color: #ddd; line-height: 1.6; margin-bottom: 25px; }
-        .price { font-size: 2rem; font-weight: bold; color: #fff; margin-bottom: 25px; }
+        .course-info { 
+            flex: 1.2; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start; 
+        }
+        .course-info h1 { color: #ffc400; font-size: 2.6rem; font-weight: 700; line-height: 1.2; margin-bottom: 20px; letter-spacing: -0.5px; }
+        .course-info p { color: #ccc; line-height: 1.7; font-size: 1.05rem; }
+        .price { font-size: 2rem; font-weight: bold; color: #fff; margin: 30px 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
         .btn { padding: 14px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: inline-block; border: none; font-size: 1.1rem; transition: 0.3s; }
         .btn-primary { background: linear-gradient(90deg, #ffc400, #ff9100); color: #000; }
         .btn-primary:hover { box-shadow: 0 0 15px rgba(255, 196, 0, 0.4); transform: translateY(-2px); }
