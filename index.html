@@ -32,6 +32,9 @@
          PHP MIGRATION NOTE: /theme.js is a shared static file, stays as-is. -->
     <script src="./theme.js"></script>
 
+    <!-- Preload critical above-the-fold images -->
+    <link rel="preload" as="image" href="./image1/Black%20Logo.PNG">
+
     <!-- PHP MIGRATION NOTE: /styles.css is a static asset, stays as-is. -->
     <link rel="stylesheet" href="./styles.css?v=40">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
@@ -322,7 +325,7 @@
 
                 <div class="cbt-about-right">
                     <!-- Using Black Logo.PNG with mix-blend-mode: screen so the black background disappears -->
-                    <img src="./image1/Black Logo.PNG" alt="CodeByTushu 3D" class="cbt-about-image">
+                    <img src="./image1/Black Logo.PNG" alt="CodeByTushu 3D" class="cbt-about-image" loading="lazy">
                 </div>
             </div>
 
@@ -886,13 +889,13 @@
             };
         }
     </script>
-    <!-- pre loader js  -->
     <script>
         var loader = document.getElementById("preloader");
         if (loader) {
-            window.addEventListener("load", function () {
-                loader.style.display = "none";
-            });
+            var hideLoader = function() { loader.style.display = "none"; };
+            window.addEventListener("DOMContentLoaded", hideLoader);
+            window.addEventListener("load", hideLoader);
+            setTimeout(hideLoader, 500); // Failsafe timeout to prevent infinite blocking
         }
     </script>
 
@@ -1167,3 +1170,4 @@
 </body>
 
 </html>
+
