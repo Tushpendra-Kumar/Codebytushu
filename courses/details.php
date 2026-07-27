@@ -210,6 +210,7 @@ if ($is_logged_in) {
                 requestAnimationFrame(function () {
                     mobOverlay.classList.add('active');
                     mobDrawer.classList.add('is-open');
+                    mobDrawer.setAttribute('aria-hidden', 'false');
                     mobHamBtn.classList.add('is-open');
                     mobHamBtn.setAttribute('aria-expanded', 'true');
                     document.body.style.overflow = 'hidden';
@@ -221,9 +222,12 @@ if ($is_logged_in) {
                 drawerIsOpen = false;
                 mobOverlay.classList.remove('active');
                 mobDrawer.classList.remove('is-open');
+                mobDrawer.setAttribute('aria-hidden', 'true');
                 if (mobHamBtn) {
                     mobHamBtn.classList.remove('is-open');
                     mobHamBtn.setAttribute('aria-expanded', 'false');
+                    // Shift focus back to the toggle button to prevent aria-hidden focus warning
+                    mobHamBtn.focus();
                 }
                 document.body.style.overflow = '';
                 setTimeout(function () {
