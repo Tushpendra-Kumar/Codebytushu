@@ -198,6 +198,89 @@ document.addEventListener('DOMContentLoaded', () => {
             if(bannerEl) bannerEl.src = blog.thumbnail;
             if(contentEl) contentEl.innerHTML = blog.content;
             
+            if (blog.seo) {
+                if (blog.seo['Meta Title']) document.title = blog.seo['Meta Title'];
+                if (blog.seo['Meta Description']) {
+                    let metaDesc = document.querySelector('meta[name="description"]');
+                    if (!metaDesc) {
+                        metaDesc = document.createElement('meta');
+                        metaDesc.name = 'description';
+                        document.head.appendChild(metaDesc);
+                    }
+                    metaDesc.content = blog.seo['Meta Description'];
+                }
+                if (blog.seo['Canonical URL Suggestion']) {
+                    let linkCanon = document.querySelector('link[rel="canonical"]');
+                    if (!linkCanon) {
+                        linkCanon = document.createElement('link');
+                        linkCanon.rel = 'canonical';
+                        document.head.appendChild(linkCanon);
+                    }
+                    linkCanon.href = blog.seo['Canonical URL Suggestion'];
+                }
+            }
+
+            if (contentEl) {
+                const headings = contentEl.querySelectorAll('h2, h3');
+                if (headings.length > 0) {
+                    const tocContainer = document.createElement('div');
+                    tocContainer.className = 'cbt-toc';
+                    tocContainer.innerHTML = '<h3>Table of Contents</h3><ul id="cbt-toc-list"></ul>';
+                    const tocList = tocContainer.querySelector('#cbt-toc-list');
+                    
+                    headings.forEach((heading, index) => {
+                        if (!heading.id) {
+                            heading.id = 'heading-' + index;
+                        }
+                        const li = document.createElement('li');
+                        li.style.paddingLeft = heading.tagName.toLowerCase() === 'h3' ? '20px' : '0';
+                        const a = document.createElement('a');
+                        a.href = '#' + heading.id;
+                        a.textContent = heading.textContent;
+                        li.appendChild(a);
+                        tocList.appendChild(li);
+                    });
+                    
+                    const firstH2 = contentEl.querySelector('h2');
+                    if (firstH2) {
+                        contentEl.insertBefore(tocContainer, firstH2);
+                    } else {
+                        contentEl.prepend(tocContainer);
+                    }
+                }
+                
+                const codeBlocks = contentEl.querySelectorAll('pre code');
+                codeBlocks.forEach(code => {
+                    const pre = code.parentElement;
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'cbt-code-wrapper';
+                    
+                    const header = document.createElement('div');
+                    header.className = 'cbt-code-header';
+                    
+                    const lang = document.createElement('span');
+                    lang.className = 'cbt-code-lang';
+                    lang.textContent = code.className ? code.className.replace('language-', '').toUpperCase() : 'JAVA';
+                    
+                    const copyBtn = document.createElement('button');
+                    copyBtn.className = 'cbt-copy-btn';
+                    copyBtn.textContent = 'Copy';
+                    copyBtn.onclick = function() {
+                        navigator.clipboard.writeText(code.textContent).then(() => {
+                            copyBtn.textContent = 'Copied!';
+                            setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+                        });
+                    };
+                    
+                    header.appendChild(lang);
+                    header.appendChild(copyBtn);
+                    
+                    pre.parentNode.insertBefore(wrapper, pre);
+                    wrapper.appendChild(header);
+                    wrapper.appendChild(pre);
+                });
+            }
+
             if(metaEl) {
                 metaEl.innerHTML = `
                     <div class="author"><div style="width:30px; height:30px; border-radius:50%; background:var(--primary); display:flex; justify-content:center; align-items:center; color:#111;">T</div> ${blog.author}</div>
@@ -228,6 +311,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 commentSpans[1].textContent = defaultDates[1];
             }
 
+            // Reading Progress & TOC Scroll Spy
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (height > 0) {
+                    const scrolled = (winScroll / height) * 100;
+                    const progressBar = document.getElementById('cbt-reading-progress');
+                    if (progressBar) {
+                        progressBar.style.width = scrolled + '%';
+                    }
+                }
+
+                const headings = document.querySelectorAll('#b-content h2, #b-content h3');
+                const tocLinks = document.querySelectorAll('.cbt-toc a');
+                if (headings.length > 0 && tocLinks.length > 0) {
+                    let passedHeading = null;
+                    headings.forEach(h => {
+                        if (window.scrollY >= h.offsetTop - 100) {
+                            passedHeading = h.id;
+                        }
+                    });
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (passedHeading && link.getAttribute('href') === '#' + passedHeading) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
 
         } else {
             // Not found
