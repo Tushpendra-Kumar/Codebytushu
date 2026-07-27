@@ -268,7 +268,7 @@ if (Auth::check()) {
                 <?php 
                     $cat = strtolower($course['cat_slug'] ?? 'all');
                 ?>
-                <div class="cbt-course-card" 
+                <div class="cbt-course-card" style="cursor:pointer; position:relative;" onclick="window.location.href='/courses/<?= urlencode($course['slug']) ?>'"
                      data-title="<?= htmlspecialchars(strtolower($course['title'])) ?>"
                      data-category="<?= htmlspecialchars($cat) ?>"
                      data-price="<?= (float)$currentPrice ?>">
@@ -289,7 +289,7 @@ if (Auth::check()) {
                             <?= $priceDisplay ?>
                         </div>
 
-                        <div class="cbt-course-actions">
+                        <div class="cbt-course-actions" onclick="event.stopPropagation();">
                             <a href="/courses/<?= urlencode($course['slug']) ?>" class="cbt-btn cbt-btn-outline">View Details</a>
                             
                             <?php
