@@ -13,7 +13,7 @@ const BLOG_TAGS = [
 const BLOG_POSTS = [
     {
         id: "blog-1",
-        title: "Mastering Object-Oriented Programming in Java",
+        title: "Master Object-Oriented Programming in Java",
         category: "Java",
         tags: ["Backend", "Tips & Tricks"],
         author: "Tushpendra Kumar",
@@ -52,7 +52,7 @@ const BLOG_POSTS = [
     },
     {
         id: "blog-2",
-        title: "Top 10 React Hooks Every Developer Should Know",
+        title: "React Frontend Development Complete Guide",
         category: "React",
         tags: ["Frontend", "React Hooks"],
         author: "Tushpendra Kumar",
@@ -78,7 +78,7 @@ const BLOG_POSTS = [
     },
     {
         id: "blog-3",
-        title: "Cracking the Coding Interview: Graph Algorithms",
+        title: "Data Structures & Algorithms Interview Guide",
         category: "DSA",
         tags: ["Algorithms", "Interview Preparation"],
         author: "Tushpendra Kumar",
@@ -109,11 +109,11 @@ function DFS(node):
     },
     {
         id: "blog-4",
-        title: "Building RESTful APIs with Node.js and Express",
+        title: "Node.js Backend Development Guide",
         category: "Node.js",
         tags: ["Backend", "Tips & Tricks"],
         author: "Tushpendra Kumar",
-        date: "Oct 15, 2025",
+        date: "Oct 17, 2025",
         readTime: "10 Min Read",
         thumbnail: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         shortDesc: "A complete step-by-step guide to setting up a production-ready RESTful API using Node.js, Express, and MongoDB.",
@@ -135,7 +135,7 @@ app.listen(3000, () => console.log('Server running'));
     },
     {
         id: "blog-5",
-        title: "Getting Started with AI: How to use ChatGPT APIs",
+        title: "Artificial Intelligence Complete Guide",
         category: "AI",
         tags: ["AI Tools", "Tips & Tricks"],
         author: "Tushpendra Kumar",
@@ -150,11 +150,11 @@ app.listen(3000, () => console.log('Server running'));
     },
     {
         id: "blog-6",
-        title: "Advanced SQL: Window Functions Explained",
+        title: "Complete SQL & Database Guide",
         category: "SQL",
         tags: ["Database", "Backend"],
         author: "Tushpendra Kumar",
-        date: "Oct 17, 2025",
+        date: "Oct 15, 2025",
         readTime: "9 Min Read",
         thumbnail: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         shortDesc: "Stop writing complex self-joins. Learn how SQL Window Functions can simplify your complex data analysis queries.",
