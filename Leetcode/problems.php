@@ -37,15 +37,16 @@ if ($selectedYear) {
     }
 
     // Fetch months only if it's not 2028 (Future Archive)
-    if ((int)$yearRow['year'] !== 2028) {
-        $stmtM = $pdo->prepare(
-            "SELECT id, month_num, month_name, total_days, published_solutions
-             FROM leetcode_months
-             WHERE year_id = ?
-             ORDER BY month_num ASC"
-        );
-        $stmtM->execute([$yearRow['id']]);
-        $months = $stmtM->fetchAll();
+        if ((int)$yearRow['year'] !== 2028) {
+            $stmtM = $pdo->prepare(
+                "SELECT m.id, m.month_num, m.month_name, m.total_days, 
+                        (SELECT COUNT(*) FROM leetcode_solutions s WHERE s.month_id = m.id AND s.is_published = 1) AS published_solutions
+                 FROM leetcode_months m
+                 WHERE m.year_id = ?
+                 ORDER BY m.month_num ASC"
+            );
+            $stmtM->execute([$yearRow['id']]);
+            $months = $stmtM->fetchAll();
 
         // Auto-seed months if missing from database (e.g. migration failed on shared hosting)
         if (empty($months)) {

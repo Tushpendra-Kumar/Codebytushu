@@ -225,13 +225,11 @@ if ($isNew) {
     $dup->execute([$slug, $id]);
     if ($dup->fetch()) jsonError('This slug is already taken by another solution.', 409);
 
-    // Set published_at if transitioning to published
-    $wasPublished = (int)($pdo->prepare('SELECT is_published FROM leetcode_solutions WHERE id=? LIMIT 1')
-        ->execute([$id]) ? 0 : 0);
-    $stmt = $pdo->prepare('SELECT is_published, published_at FROM leetcode_solutions WHERE id=? LIMIT 1');
+    // Fetch previous values including month_id
+    $stmt = $pdo->prepare('SELECT month_id, is_published, published_at FROM leetcode_solutions WHERE id=? LIMIT 1');
     $stmt->execute([$id]);
     $prev = $stmt->fetch();
-    if ($isPublished && !$prev['published_at']) $data['published_at'] = date('Y-m-d H:i:s');
+    if ($isPublished && empty($prev['published_at'])) $data['published_at'] = date('Y-m-d H:i:s');
 
     $sets = implode(', ', array_map(fn($k) => "$k=?", array_keys($data)));
     $vals = array_values($data);
@@ -240,7 +238,14 @@ if ($isNew) {
 
     saveSolutionCodes($pdo, $id, $_POST['codes'] ?? []);
     saveSolutionTags($pdo, $id, $_POST['tags'] ?? []);
+    
+    // Update count for the new month
     updateMonthCount($pdo, $monthId);
+    
+    // If the month changed, update the count for the old month as well
+    if (!empty($prev['month_id']) && $prev['month_id'] != $monthId) {
+        updateMonthCount($pdo, (int)$prev['month_id']);
+    }
 
     jsonSuccess(['id' => $id], 'Solution updated successfully.');
 }
