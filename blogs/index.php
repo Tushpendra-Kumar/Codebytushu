@@ -59,19 +59,14 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
                     <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
                 </a>
             </div>
-            
             <ul class="cbt-center-nav" id="cbt-center-nav">
                 <li><a href="#home" class="cbt-nav-link active">Home</a></li>
-                <li><a href="#categories" class="cbt-nav-link">Categories</a></li>
-                <li><a href="#tags" class="cbt-nav-link">Tags</a></li>
                 <li><a href="#all-blogs" class="cbt-nav-link">All Blogs</a></li>
                 <li><a href="#faq" class="cbt-nav-link">FAQ</a></li>
             </ul>
 
             <div class="cbt-nav-right">
-                <button class="cbt-nav-cart-btn" aria-label="Search" style="background:none; border:none; color:#fff; cursor:pointer;" onclick="document.getElementById('blogSearch').scrollIntoView({behavior: 'smooth', block: 'center'}); setTimeout(() => document.getElementById('blogSearch').focus(), 500);">
-                    <span class="material-symbols-rounded">search</span>
-                </button>
+                <!-- Search icon removed -->
             </div>
 
             <!-- ── Mobile Right: Hamburger (<1024px) ─────── -->
@@ -101,8 +96,6 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
             <div class="cbt-drawer-body">
                 <ul class="cbt-drawer-primary" role="menu" aria-label="Main navigation">
                     <li role="none"><a href="#home" class="cbt-drawer-link" role="menuitem">Home</a></li>
-                    <li role="none"><a href="#categories" class="cbt-drawer-link" role="menuitem">Categories</a></li>
-                    <li role="none"><a href="#tags" class="cbt-drawer-link" role="menuitem">Tags</a></li>
                     <li role="none"><a href="#all-blogs" class="cbt-drawer-link" role="menuitem">All Blogs</a></li>
                     <li role="none"><a href="#faq" class="cbt-drawer-link" role="menuitem">FAQ</a></li>
                 </ul>
@@ -199,30 +192,7 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
     <header class="cbt-blog-hero" id="home">
         <h1>Learn Programming Through <br><span style="color:var(--primary);">Practical Articles</span></h1>
         <p>Explore in-depth tutorials, interview guides, and best practices tailored to help you understand complex concepts easily.</p>
-        
-        <div class="cbt-blog-search">
-            <i class="fa-solid fa-search search-icon"></i>
-            <input type="text" id="blogSearch" placeholder="Search for React, Java, Interview tips..." autocomplete="off">
-            <div id="blogSearchDropdown" class="cbt-search-dropdown" style="display:none;"></div>
-        </div>
     </header>
-
-    <!-- ===================== CATEGORIES SECTION ===================== -->
-    <section class="cbt-blog-container" id="categories" style="margin-bottom: 40px; padding-top: 20px;">
-        <h2 class="cbt-section-title" style="font-size: 1.8rem; text-align: center;">Filter by Category</h2>
-        <div class="cbt-blog-filters" id="categoryFilters">
-            <!-- Categories injected via JS -->
-        </div>
-    </section>
-
-    <!-- ===================== TAGS SECTION ===================== -->
-    <section class="cbt-blog-container" id="tags" style="margin-bottom: 50px; padding-top: 20px;">
-        <h2 class="cbt-section-title" style="font-size: 1.8rem; text-align: center;">Popular Tags</h2>
-        <div class="cbt-blog-filters" id="tagFilters">
-            <button class="cbt-filter-chip active" id="btn-all-tags" onclick="resetTags()">All Tags</button>
-            <!-- Tags injected via JS -->
-        </div>
-    </section>
 
     <!-- ===================== ALL BLOGS SECTION ===================== -->
     <section class="cbt-blog-container" id="all-blogs" style="margin-bottom: 60px; padding-top: 20px;">
@@ -281,9 +251,7 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
                 <h3><i class="fa-solid fa-link"></i> QUICK LINKS</h3>
                 <ul class="cbt-ft-links">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="#categories">Categories</a></li>
                     <li><a href="#all-blogs">All Blogs</a></li>
-                    <li><a href="#tags">Tags</a></li>
                     <li><a href="#faq">FAQ</a></li>
                 </ul>
             </div>
