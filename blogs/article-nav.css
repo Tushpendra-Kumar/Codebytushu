@@ -1,0 +1,227 @@
+/* article-nav.css - CodeByTushu */
+.article-navbar {
+    position: sticky;
+    top: 70px; /* Accounts for main navbar */
+    z-index: 990;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    font-family: 'Ubuntu', sans-serif;
+    color: #fff;
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.article-nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.article-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.article-nav-link {
+    color: #aaaaaa;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.article-nav-link:hover {
+    color: #ffc400;
+}
+
+.article-nav-separator {
+    color: #444;
+    font-size: 14px;
+}
+
+.article-nav-link.current-category {
+    color: #ffc400;
+    font-weight: 600;
+}
+
+.article-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.article-nav-dropdown {
+    position: relative;
+}
+
+.article-nav-btn {
+    background: none;
+    border: none;
+    color: #dddddd;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.article-nav-btn:hover {
+    background: rgba(255, 196, 0, 0.1);
+    color: #ffc400;
+}
+
+.article-nav-btn .arrow {
+    font-size: 11px;
+    transition: transform 0.3s ease;
+}
+
+.article-nav-dropdown.active .article-nav-btn .arrow {
+    transform: rotate(180deg);
+}
+
+.article-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    min-width: 240px;
+    padding: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+}
+
+.article-dropdown-menu.right-align {
+    left: auto;
+    right: 0;
+}
+
+.article-nav-dropdown.active .article-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.toc-header {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    padding: 8px 12px;
+    font-weight: 600;
+}
+
+.toc-list {
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.toc-list::-webkit-scrollbar {
+    width: 4px;
+}
+.toc-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.toc-item {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.toc-item.level-h3 { padding-left: 24px; font-size: 12.5px; color: #aaa; }
+.toc-item.level-h4 { padding-left: 36px; font-size: 12px; color: #888; }
+
+.toc-item:hover, .toc-item.active {
+    background: rgba(255, 196, 0, 0.1);
+    color: #ffc400;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover:not(.disabled) {
+    background: rgba(255, 196, 0, 0.1);
+    color: #ffc400;
+}
+
+.dropdown-item.disabled {
+    color: #666;
+    cursor: not-allowed;
+}
+
+.dropdown-item.disabled span {
+    font-size: 10px;
+    background: rgba(255,255,255,0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .article-navbar {
+        padding: 0 16px;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .article-nav-right {
+        gap: 5px;
+    }
+    .article-nav-btn {
+        padding: 6px 8px;
+        font-size: 13px;
+    }
+    .article-dropdown-menu.right-align {
+        left: auto;
+        right: 0;
+    }
+}

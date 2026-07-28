@@ -15,6 +15,7 @@
     
     <link rel="stylesheet" href="../../styles.css?v=41">
     <link rel="stylesheet" href="../blogs.css?v=2">
+    <link rel="stylesheet" href="../article-nav.css">
 </head>
 <body>
     <!-- Reading Progress Bar -->
@@ -184,6 +185,60 @@
         });
     </script>
 
+    <!-- ===================== ARTICLE NAVBAR ===================== -->
+    <nav class="article-navbar" id="articleNavbar">
+        <div class="article-nav-inner">
+            <div class="article-nav-left">
+                <a href="/blogs/" class="article-nav-link" title="Back to All Blogs">
+                    <i class="fa-solid fa-arrow-left"></i> All Blogs
+                </a>
+                <span class="article-nav-separator">/</span>
+                <button class="article-nav-link current-category" id="navCategoryBtn">Java</button>
+            </div>
+            
+            <div class="article-nav-right">
+                <!-- TOC Dropdown -->
+                <div class="article-nav-dropdown" id="tocDropdownWrapper">
+                    <button class="article-nav-btn dropdown-toggle" id="tocBtn">
+                        <i class="fa-solid fa-list-ul"></i> Table of Contents <i class="fa-solid fa-chevron-down arrow"></i>
+                    </button>
+                    <div class="article-dropdown-menu" id="tocMenu">
+                        <div class="toc-header">On this page</div>
+                        <div class="toc-list" id="tocList">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Practice Dropdown -->
+                <div class="article-nav-dropdown">
+                    <button class="article-nav-btn dropdown-toggle">
+                        <i class="fa-solid fa-laptop-code"></i> Practice <i class="fa-solid fa-chevron-down arrow"></i>
+                    </button>
+                    <div class="article-dropdown-menu right-align">
+                        <a href="#" class="dropdown-item disabled" onclick="event.preventDefault()"><i class="fa-regular fa-circle-question"></i> Quiz <span>(Coming Soon)</span></a>
+                        <a href="#" class="dropdown-item disabled" onclick="event.preventDefault()"><i class="fa-solid fa-code"></i> Practice Questions <span>(Coming Soon)</span></a>
+                        <a href="#" class="dropdown-item disabled" onclick="event.preventDefault()"><i class="fa-solid fa-user-tie"></i> Interview Questions <span>(Coming Soon)</span></a>
+                        <a href="#" class="dropdown-item disabled" onclick="event.preventDefault()"><i class="fa-solid fa-trophy"></i> Coding Challenges <span>(Coming Soon)</span></a>
+                    </div>
+                </div>
+
+                <!-- Resources Dropdown -->
+                <div class="article-nav-dropdown">
+                    <button class="article-nav-btn dropdown-toggle">
+                        <i class="fa-solid fa-box-archive"></i> Resources <i class="fa-solid fa-chevron-down arrow"></i>
+                    </button>
+                    <div class="article-dropdown-menu right-align">
+                        <a href="#" class="dropdown-item disabled" onclick="event.preventDefault()"><i class="fa-regular fa-file-pdf"></i> Download PDF <span>(Coming Soon)</span></a>
+                        <a href="#" class="dropdown-item disabled" onclick="event.preventDefault()"><i class="fa-solid fa-scroll"></i> Cheat Sheet <span>(Coming Soon)</span></a>
+                        <a href="#" class="dropdown-item disabled" onclick="event.preventDefault()"><i class="fa-brands fa-github"></i> Source Code <span>(Coming Soon)</span></a>
+                        <a href="#" class="dropdown-item disabled" onclick="event.preventDefault()"><i class="fa-solid fa-book-open"></i> Notes <span>(Coming Soon)</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <!-- ===================== BLOG DETAILS ===================== -->
     <main class="cbt-blog-container cbt-blog-layout">
         <!-- Main Content Area -->
@@ -320,6 +375,7 @@
     <!-- JS files -->
     <script src="../js/data.js?v=5"></script>
     <script src="../js/blogs.js?v=5"></script>
+    <script src="../js/article-nav.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const subscribeForms = document.querySelectorAll('.cbt-course-subscribe-form');
