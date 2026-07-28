@@ -19,7 +19,7 @@ const BLOG_POSTS = [
         author: "Tushpendra Kumar",
         date: "Oct 12, 2025",
         readTime: "8 Min Read",
-        thumbnail: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        thumbnail: "/image1/oop_java_featured.jpg",
         shortDesc: "Understand the core concepts of OOPs in Java with real-world examples and practical code snippets. Perfect for beginners and interview prep.",
         seo: {
         "SEO Title": "Mastering Object-Oriented Programming in Java: A Complete Guide",
