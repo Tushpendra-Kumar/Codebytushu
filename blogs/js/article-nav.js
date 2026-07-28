@@ -4,7 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const articleNavbar = document.getElementById('articleNavbar');
     if (!articleNavbar) return;
 
-    // 1. Dropdown Toggles
+    const articleNavRight = document.getElementById('articleNavRight');
+    const mobileToggleBtn = document.getElementById('articleNavMobileToggle');
+
+    // 1. Mobile Menu Toggle
+    if (mobileToggleBtn && articleNavRight) {
+        mobileToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            articleNavRight.classList.toggle('mobile-open');
+        });
+    }
+
+    // 2. Dropdown Toggles
     const dropdowns = document.querySelectorAll('.article-nav-dropdown');
     
     dropdowns.forEach(dropdown => {
@@ -25,9 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Close dropdowns on outside click
+    // Close dropdowns and mobile menu on outside click
     document.addEventListener('click', () => {
         dropdowns.forEach(d => d.classList.remove('active'));
+        if (articleNavRight) {
+            articleNavRight.classList.remove('mobile-open');
+        }
     });
 
     // Prevent closing when clicking inside dropdown menu
@@ -87,8 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             a.addEventListener('click', (e) => {
                 e.preventDefault();
-                // Close dropdown
+                // Close dropdown & mobile menu
                 dropdowns.forEach(d => d.classList.remove('active'));
+                if (articleNavRight) articleNavRight.classList.remove('mobile-open');
                 
                 // Smooth scroll calculation: 
                 // Main navbar (~80px) + Article navbar (~56px) + small padding (20px) = 156px offset

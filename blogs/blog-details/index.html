@@ -190,13 +190,17 @@
         <div class="article-nav-inner">
             <div class="article-nav-left">
                 <a href="/blogs/" class="article-nav-link" title="Back to All Blogs">
-                    <i class="fa-solid fa-arrow-left"></i> All Blogs
+                    <i class="fa-solid fa-arrow-left"></i> <span class="hide-mobile">All Blogs</span><span class="show-mobile">Back</span>
                 </a>
                 <span class="article-nav-separator">/</span>
                 <button class="article-nav-link current-category" id="navCategoryBtn">Java</button>
             </div>
             
-            <div class="article-nav-right">
+            <button class="article-nav-mobile-toggle" id="articleNavMobileToggle">
+                <i class="fa-solid fa-bars"></i> Menu
+            </button>
+            
+            <div class="article-nav-right" id="articleNavRight">
                 <!-- TOC Dropdown -->
                 <div class="article-nav-dropdown" id="tocDropdownWrapper">
                     <button class="article-nav-btn dropdown-toggle" id="tocBtn">
@@ -240,7 +244,7 @@
     </nav>
 
     <!-- ===================== BLOG DETAILS ===================== -->
-    <main class="cbt-blog-container cbt-blog-layout">
+    <main class="cbt-blog-container cbt-blog-layout" style="margin-top: 30px;">
         <!-- Main Content Area -->
         <article class="cbt-article">
             <header class="cbt-article-header">

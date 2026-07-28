@@ -206,22 +206,102 @@
     margin-left: auto;
 }
 
+.article-nav-mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #dddddd;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.article-nav-mobile-toggle:hover {
+    background: rgba(255, 196, 0, 0.1);
+    color: #ffc400;
+}
+
+.show-mobile { 
+    display: none; 
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .article-navbar {
         padding: 0 16px;
-        overflow-x: auto;
-        white-space: nowrap;
+        overflow: visible; /* Prevent clipping of dropdown */
     }
+    
+    .hide-mobile { display: none; }
+    .show-mobile { display: inline; }
+    
+    .article-nav-mobile-toggle {
+        display: flex;
+    }
+    
     .article-nav-right {
-        gap: 5px;
-    }
-    .article-nav-btn {
-        padding: 6px 8px;
-        font-size: 13px;
-    }
-    .article-dropdown-menu.right-align {
-        left: auto;
+        position: absolute;
+        top: 100%;
+        left: 0;
         right: 0;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(12px);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        gap: 5px;
+        display: none; /* Hidden by default */
+        box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+    }
+    
+    .article-nav-right.mobile-open {
+        display: flex; /* Show when toggled */
+    }
+    
+    .article-nav-dropdown {
+        width: 100%;
+    }
+    
+    .article-nav-btn {
+        width: 100%;
+        justify-content: space-between;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.03);
+        font-size: 14px;
+        border-radius: 8px;
+    }
+    
+    .article-dropdown-menu {
+        position: static; /* Flow naturally within the flex container */
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        padding: 5px 0 10px 15px;
+        margin-top: 0;
+        display: none; /* Hide by default */
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+    
+    .article-nav-dropdown.active .article-dropdown-menu {
+        display: block; /* Show when parent dropdown is active */
+    }
+    
+    .dropdown-item {
+        padding: 12px;
+    }
+    
+    .toc-list {
+        max-height: 250px;
     }
 }
