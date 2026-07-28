@@ -4,7 +4,7 @@
 > Approach: Full-Stack PHP + MySQL (Migration Complete from Static Frontend-First)
 > Backend & Auth: ✅ LIVE & Implemented
 > Admin Panel: ✅ LIVE & Fully Functional
-> Project Cleanup: ✅ Completed — Legacy files, Firebase, one-time scripts removed (pending final review)
+> Project Cleanup: ✅ Phase 2 Complete — One-time scripts, empty dirs, temp files, and misplaced assets removed
 
 ---
 
@@ -335,25 +335,33 @@
 
 | Item | Notes |
 |---|---|
-| `update_lesson_counts.php` (root) | One-time data fix script — explicitly says "you can now delete this file" |
-| `update_thumbnails.php` (root) | One-time data fix script — explicitly says "you can now delete this file" |
-| `blogs/js/data.js` (134KB) | Legacy static mock data from old frontend-only approach, no longer used in active pages |
-| `blogs/blog-details/index.html` | Legacy static blog detail page, replaced by `/blog-detail.php` |
-| `courses/js/data.js` | Legacy static mock data, replaced by DB-powered `/courses/index.php` |
-| `courses/course-details/index.html` | Legacy static course detail page, replaced by `/courses/details.php` |
-| `cart/index.html` | Legacy static cart page, replaced by `/cart/index.php` |
-| `store/js/data.js` | Hardcoded store product data — will be obsolete once Store backend is implemented |
-| `store/cart/index.html` | Static store cart (Store backend not yet implemented) |
-| `store/product-details/index.html` | Static store product detail (Store backend not yet implemented) |
-| `temp_mammoth/` (root) | Empty directory — was used for a temporary tool, now empty |
-| `Master Object-Oriented Programming in Java.docx` (root) | Word document in project root — likely source material for a blog post |
-| `image1/` (root) | Image folder with non-standard naming |
-| `image2/` (root) | Image folder with non-standard naming |
-| `private/execute_migration.php` | One-time LeetCode data migration tool (migrated old HTML files to DB) |
-| `private/preview_migration.php` | Companion preview tool for above migration |
-| `database/patch_add_months.sql` | One-time patch SQL file — may already be applied |
-| `database/auth_supplement.sql` | Supplemental auth SQL — check if already merged into main schema |
-| `Leetcode/auth.css` | Auth-specific CSS inside Leetcode module — may be a leftover |
+| `blogs/js/data.js` (134KB) | Legacy static mock data still actively loaded by `blogs/index.php` and `blogs/blog-details/index.html`. Will be obsolete once blog detail page is migrated to PHP. |
+| `blogs/blog-details/index.html` | Legacy static blog detail page still active — `blogs.js` redirects to it. Keep until PHP migration is done. |
+| `blogs/js/blogs.js` | Still loaded by `blogs/index.php` (handles search, filtering UI). Keep for now. |
+| `courses/js/data.js` | Old hardcoded mock data, still loaded by `store/cart/index.html`. Keep until Store backend is built. |
+| `courses/course-details/index.html` | Old static course detail page — no URL links to it in active PHP pages, but it still internally links to old `cart/index.html`. Keep for now. |
+| `cart/index.html` | Old static cart — still referenced internally by `courses/course-details/index.html`. Keep until that page is cleaned up. |
+| `store/js/data.js` | Hardcoded store product data — active, will be obsolete once Store backend is implemented. |
+| `store/cart/index.html` | Active static store cart (Store backend not yet implemented). Keep. |
+| `store/product-details/index.html` | Active static store product detail. Keep. |
+| `database/auth_supplement.sql` | Supplemental auth SQL (login_attempts, user_sessions tables). Keep as documentation — may need to re-run. |
+| `database/patch_add_months.sql` | LeetCode months data patch. Keep as documentation — useful for adding future year/month data. |
+| `image1/` and `image2/` | Non-standard folder names — actively used by navbar, styles.css, and many pages. Keep. |
+
+### ✅ Items Removed in Cleanup (July 28, 2026)
+
+| Item | Reason Removed |
+|---|---|
+| `update_lesson_counts.php` | One-time data fix script — data already applied to DB |
+| `update_thumbnails.php` | One-time data fix script — data already applied to DB |
+| `temp_mammoth/` | Empty directory — no longer needed |
+| `database/backups/pre_migration_008.sql` | Pre-migration backup — migration 008 already applied |
+| `database/backups/` (folder) | Became empty after removing the only backup file |
+| `Master Object-Oriented Programming in Java.docx` | Word document in project root — not linked from any code |
+| `private/execute_migration.php` | One-time LeetCode data migration tool — migration complete |
+| `private/preview_migration.php` | Companion preview tool — no longer needed |
+
+
 
 ---
 
