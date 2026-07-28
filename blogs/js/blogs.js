@@ -221,6 +221,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (contentEl) {
+                /*
+                // Legacy inline Table of Contents (Removed as we now have the sticky navbar TOC)
                 const headings = contentEl.querySelectorAll('h2, h3');
                 if (headings.length > 0) {
                     const tocContainer = document.createElement('div');
@@ -248,6 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         contentEl.prepend(tocContainer);
                     }
                 }
+                */
                 
                 // 2. Wrap Code Blocks
                 const codeBlocks = contentEl.querySelectorAll('pre code');
@@ -312,6 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         prevBtn.style.visibility = 'hidden';
                     }
                     
+                    /*
                     const tocBtn = document.createElement('a');
                     tocBtn.className = 'cbt-section-nav-btn';
                     tocBtn.innerHTML = '📑 Table of Contents';
@@ -321,6 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const toc = document.querySelector('.cbt-toc');
                         if (toc) toc.scrollIntoView({behavior: 'smooth', block: 'center'});
                     };
+                    */
                     
                     const nextBtn = document.createElement('a');
                     nextBtn.className = 'cbt-section-nav-btn primary';
@@ -340,9 +345,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             document.querySelector('.cbt-comments-section')?.scrollIntoView({behavior: 'smooth'});
                         };
                     }
-                    
                     nav.appendChild(prevBtn);
-                    nav.appendChild(tocBtn);
+                    // nav.appendChild(tocBtn); // Removed legacy TOC button
                     nav.appendChild(nextBtn);
                     
                     sec.appendChild(nav);
