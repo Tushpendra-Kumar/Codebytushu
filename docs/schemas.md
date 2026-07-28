@@ -1,9 +1,9 @@
 # CodeByTushu - Database Schemas
 
-This document outlines the core tables used in the MySQL database based on the `database/schema.sql` architecture (last updated with migrations 001–012).
+This document outlines the core tables used in the MySQL database based on the `database/schema.sql` architecture (last updated with migrations 002–012, 13 migration files total).
 
 > [!NOTE]
-> The complete schema is in `database/schema.sql`. Incremental changes are in `database/migrations/` (files 002–012). Always run new migrations via `database/run_migrations.php` or apply SQL directly.
+> The complete schema is in `database/schema.sql`. Incremental changes are in `database/migrations/` (files 002–012, 13 files total). Always run new migrations via `database/run_migrations.php` or apply SQL directly. A pre-migration backup exists in `database/backups/pre_migration_008.sql`.
 
 ## 1. Users Table (`users`)
 The central table for all authentication and user profiles.
@@ -45,6 +45,8 @@ Stores dynamic website settings (managed via `/admin/settings.php`).
 - **`blog_post_tags`**: Pivot table linking blog_articles and blog_tags.
   - `article_id`, `tag_id`
 
+> Migration `003_blog_cms_v2.sql` added extended blog CMS fields.
+
 ## 4. Courses & Purchasing
 - **`categories`**: Shared categories for courses.
   - `id`, `name`, `slug`, `icon`, `created_at`
@@ -58,10 +60,14 @@ Stores dynamic website settings (managed via `/admin/settings.php`).
 - **`order_items`**: Items within each order.
   - `id`, `order_id` (FK → orders), `course_id` (FK → courses), `price` (DECIMAL)
 
+> Migration `011_course_store_v1.sql` added store/cart tables. Migration `012_pdf_course_fields.sql` added PDF metadata fields.
+
 ## 5. LeetCode Solutions (`leetcode_solutions`)
 Stores daily DSA solutions managed via Admin CMS.
 - `id`, `problem_title`, `problem_url`, `problem_number`, `difficulty` (ENUM: Easy/Medium/Hard), `solution_content` (LONGTEXT — supports code blocks, explanations), `language`, `month`, `year`, `solve_date`, `created_at`, `updated_at`
 - Additional fields (from migrations 002, 004): `approach_type`, `time_complexity`, `space_complexity`, `video_url`, `tags`
+
+> Migration `002_leetcode_cms_v2.sql` and `004_leetcode_missing_columns.sql` added extended fields.
 
 ## 6. Contact & Newsletters
 - **`contact_messages`**: Stores messages from the "Contact Us" form.
@@ -71,20 +77,47 @@ Stores daily DSA solutions managed via Admin CMS.
 - **`video_editing_subscribers`**: Video editing newsletter subscribers.
   - `id`, `email` (UNIQUE), `subscribed_at`, `is_active`
 
+> Migrations `009_newsletter_subscribers.sql` and `010_video_editing_subscribers.sql` created these tables.
+
 ## 7. Media Library (`media_library`)
 Tracks all files uploaded by admins via `/admin/uploads.php`.
 - `id`, `filename`, `original_name`, `file_path`, `file_url`, `mime_type`, `file_size`, `uploaded_by` (FK → users), `created_at`
+
+> Migration `005_media_library_v2.sql` created this table.
 
 ## 8. Analytics (`analytics_events`)
 Tracks page views and visitor data for the analytics dashboard.
 - `id`, `page_url`, `device_type` (ENUM: desktop/mobile/tablet), `referrer`, `browser`, `ip_hash`, `user_id` (FK, NULL for guests), `created_at`
 
+> Migration `008_analytics_performance.sql` added performance indexes.
+
 ## 9. Rate Limiting (`rate_limit_log`)
 Used for contact form and login rate limiting.
 - `id`, `action_key` (VARCHAR — e.g., `contact_ip`, `login_email`), `ip_address`, `created_at`
+
+## 10. Site Settings (`site_config`)
+Managed via Admin Panel → Settings page. Stores key-value pairs for dynamic site configuration (tagline, maintenance mode, social links, etc.).
 
 ## Security Audit & Data Leak Check
 - Passwords are securely hashed using PHP `password_hash()` (bcrypt).
 - The schema uses InnoDB engine with Foreign Keys for referential integrity.
 - Sensitive columns (`password_hash`, `google_uid`, `remember_token`, `email_verify_token`) are excluded from all JSON API responses.
 - No visible data leaks in the schema design.
+
+## Migration File Index
+
+| File | Purpose |
+|---|---|
+| `002_leetcode_cms_v2.sql` | Extended LeetCode solution fields |
+| `003_blog_cms_v2.sql` | Extended Blog CMS fields |
+| `004_courses_cms_v2.sql` | Extended Course CMS fields |
+| `004_leetcode_missing_columns.sql` | Additional LeetCode columns (patch) |
+| `005_media_library_v2.sql` | Created `media_library` table |
+| `005_migrate_may2026_solutions.sql` | Migrated May 2026 LeetCode solutions to DB |
+| `006_contact_messages_v2.sql` | Created `contact_messages` table |
+| `007_settings_v2.sql` | Created `site_config` table with default values |
+| `008_analytics_performance.sql` | Added indexes for analytics performance |
+| `009_newsletter_subscribers.sql` | Created `newsletter_subscribers` table |
+| `010_video_editing_subscribers.sql` | Created `video_editing_subscribers` table |
+| `011_course_store_v1.sql` | Created `cart_items`, `orders`, `order_items` tables |
+| `012_pdf_course_fields.sql` | Added PDF metadata fields to `courses` table |

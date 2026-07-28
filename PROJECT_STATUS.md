@@ -1,10 +1,10 @@
 # 📊 PROJECT STATUS — CodeByTushu
 
-> Last Updated: July 27, 2026
+> Last Updated: July 28, 2026
 > Approach: Full-Stack PHP + MySQL (Migration Complete from Static Frontend-First)
 > Backend & Auth: ✅ LIVE & Implemented
 > Admin Panel: ✅ LIVE & Fully Functional
-> Project Cleanup: ✅ Completed — Legacy files, Firebase, one-time scripts removed
+> Project Cleanup: ✅ Completed — Legacy files, Firebase, one-time scripts removed (pending final review)
 
 ---
 
@@ -28,6 +28,7 @@
 | Desktop Responsiveness | ✅ Done |
 | Mobile Responsiveness | ✅ Done |
 | Dynamic PHP Navbar (Auth-Aware) | ✅ Done |
+| Static Legal Pages (Terms, Privacy, Disclaimer, Support) | ✅ Done |
 
 > **Note:** `index.html` is the public-facing landing page. Internal modules (LeetCode, Blogs, Courses, Video Editing) require login.
 
@@ -90,6 +91,8 @@
 | Comments System | ⏳ Pending |
 | Social Share Buttons | ⏳ Pending |
 
+> **Note:** `blogs/js/data.js` (134KB, 1969 lines) and `blogs/blog-details/index.html` are **legacy static files** from the old frontend-first approach. Active blog content is now 100% DB-powered via `/blogs/index.php` and `/blog-detail.php`.
+
 ---
 
 ### 4. 🎓 Courses Module (`/courses/`)
@@ -120,23 +123,25 @@
 |---|---|
 | Payment Gateway Webhook Verification | ⏳ Pending |
 | Auto-Enrollment on Payment Success | ⏳ Pending |
-| Video-Based Course Lessons | ⏳ Pending |
-| Progress Tracking | ⏳ Pending |
-| Certificates | ⏳ Pending |
+| Video-Based Course Lessons | ❌ Not Started |
+| Progress Tracking | ❌ Not Started |
+| Certificates | ❌ Not Started |
+
+> **Note:** `courses/js/data.js` and `courses/course-details/index.html` are **legacy static files** from the old frontend-first approach. Active course data is now 100% DB-powered.
 
 ---
 
 ### 5. 🛍️ Store Module (`/store/`)
 
-> **Status: Frontend Complete — Backend Store Integration Pending**
+> **Status: Frontend-Only (Static) — Backend Integration Pending**
 
 | Feature | Status |
 |---|---|
-| Store Landing Page | ✅ Done |
-| Product Listing | ✅ Done |
-| Product Detail Page | ✅ Done |
-| Categories & Search (UI) | ✅ Done |
-| Cart UI | ✅ Done |
+| Store Landing Page (Static HTML) | ✅ Done |
+| Product Listing (Hardcoded JS data) | ✅ Done |
+| Product Detail Page (Static HTML) | ✅ Done |
+| Categories & Search (UI Only) | ✅ Done |
+| Cart UI (Static HTML) | ✅ Done |
 | Empty Cart State | ✅ Done |
 | Desktop Responsive | ✅ Done |
 | Mobile Responsive | ✅ Done |
@@ -145,12 +150,14 @@
 
 | Feature | Status |
 |---|---|
-| Backend Product Management | ⏳ Pending |
-| Add to Cart (DB-connected) | ⏳ Pending |
-| Order History | ⏳ Pending |
-| Payment Gateway (Store Products) | ⏳ Pending |
-| Inventory Management | ⏳ Pending |
-| Admin Store Management | ⏳ Pending |
+| Backend Product Management (DB-powered) | ❌ Not Started |
+| Add to Cart (DB-connected) | ❌ Not Started |
+| Order History | ❌ Not Started |
+| Payment Gateway (Store Products) | ❌ Not Started |
+| Inventory Management | ❌ Not Started |
+| Admin Store Management | ❌ Not Started |
+
+> **Note:** Store currently uses hardcoded JS data (`store/js/data.js`) and static HTML files. The backend migration for Store is the largest pending task.
 
 ---
 
@@ -199,7 +206,7 @@
 
 ### 8. 👤 User Dashboard (`/user/`)
 
-> **Status: IMPLEMENTED — Core Features Live**
+> **Status: IMPLEMENTED — Core Features Live, Stub Pages Present**
 
 | Feature | Status |
 |---|---|
@@ -210,13 +217,13 @@
 | Account Settings (`settings.php`) | ✅ Done |
 | Account Deletion | ✅ Done |
 
-**Pending:**
+**Stub Pages (Exist but show empty-state placeholders):**
 
 | Feature | Status |
 |---|---|
-| Order History Page (`orders.php`) | ⏳ Stub/Incomplete |
-| Downloads Page (`downloads.php`) | ⏳ Stub/Incomplete |
-| Certificates Page (`certificates.php`) | ⏳ Stub/Incomplete |
+| Order History Page (`orders.php`) | ⏳ Stub — Empty State Only |
+| Downloads Page (`downloads.php`) | ⏳ Stub — Empty State Only |
+| Certificates Page (`certificates.php`) | ⏳ Stub — Empty State Only |
 
 ---
 
@@ -240,6 +247,7 @@
 | Categories Management | ✅ Done |
 | PDF Import Tool | ✅ Done |
 | Role-Based Access Control (Admin, Super Admin) | ✅ Done |
+| Run Course Import Tool (`run_course_import.php`) | ✅ Done |
 
 ---
 
@@ -256,14 +264,15 @@
 | Upload Class (`classes/Upload.php`) | ✅ Done |
 | Environment Config (`config/app.php`, `.env`) | ✅ Done |
 | Database Config (`config/database.php`) | ✅ Done |
-| Shared Includes (Navbar, Footer, Functions) | ✅ Done |
+| Shared Includes (Navbar, Footer, Functions, Analytics) | ✅ Done |
 | Database Schema (`database/schema.sql`) | ✅ Done |
-| Database Migrations (001–012) | ✅ Done |
+| Database Migrations (002–012) | ✅ Done (13 migration files) |
 | Rate Limiting | ✅ Done |
 | CSRF Protection | ✅ Done |
 | Google OAuth Integration | ✅ Done |
 | Error Logging (`private/logs/`) | ✅ Done |
 | File Upload Handling (Images, PDFs, ZIPs, Videos) | ✅ Done |
+| `.htaccess` Security (Admin, API, Private dirs) | ✅ Done |
 
 ---
 
@@ -272,10 +281,10 @@
 | Page | Status |
 |---|---|
 | About Platform (`about-platform.html`) | ✅ Done |
-| Privacy Policy (`/privacy-policy/`) | ✅ Done |
-| Terms of Service (`/terms/`) | ✅ Done |
-| Disclaimer (`/disclaimer/`) | ✅ Done |
-| Support Page (`/support/`) | ✅ Done |
+| Privacy Policy (`/privacy-policy/index.html`) | ✅ Done |
+| Terms of Service (`/terms/index.html`) | ✅ Done |
+| Disclaimer (`/disclaimer/index.html`) | ✅ Done |
+| Support Page (`/support/index.html`) | ✅ Done |
 | 404 Page (`404.php`) | ✅ Done |
 
 ---
@@ -311,24 +320,62 @@
 
 ---
 
+### 14. 🛍️ Store Backend Migration
+
+| Feature | Status |
+|---|---|
+| DB-Powered Product Listings | ❌ Not Started |
+| Admin Panel for Store Products | ❌ Not Started |
+| Store Cart (DB-connected) | ❌ Not Started |
+| Store Checkout & Orders | ❌ Not Started |
+
+---
+
+## ⚠️ Known Technical Debt / Cleanup Needed
+
+| Item | Notes |
+|---|---|
+| `update_lesson_counts.php` (root) | One-time data fix script — explicitly says "you can now delete this file" |
+| `update_thumbnails.php` (root) | One-time data fix script — explicitly says "you can now delete this file" |
+| `blogs/js/data.js` (134KB) | Legacy static mock data from old frontend-only approach, no longer used in active pages |
+| `blogs/blog-details/index.html` | Legacy static blog detail page, replaced by `/blog-detail.php` |
+| `courses/js/data.js` | Legacy static mock data, replaced by DB-powered `/courses/index.php` |
+| `courses/course-details/index.html` | Legacy static course detail page, replaced by `/courses/details.php` |
+| `cart/index.html` | Legacy static cart page, replaced by `/cart/index.php` |
+| `store/js/data.js` | Hardcoded store product data — will be obsolete once Store backend is implemented |
+| `store/cart/index.html` | Static store cart (Store backend not yet implemented) |
+| `store/product-details/index.html` | Static store product detail (Store backend not yet implemented) |
+| `temp_mammoth/` (root) | Empty directory — was used for a temporary tool, now empty |
+| `Master Object-Oriented Programming in Java.docx` (root) | Word document in project root — likely source material for a blog post |
+| `image1/` (root) | Image folder with non-standard naming |
+| `image2/` (root) | Image folder with non-standard naming |
+| `private/execute_migration.php` | One-time LeetCode data migration tool (migrated old HTML files to DB) |
+| `private/preview_migration.php` | Companion preview tool for above migration |
+| `database/patch_add_months.sql` | One-time patch SQL file — may already be applied |
+| `database/auth_supplement.sql` | Supplemental auth SQL — check if already merged into main schema |
+| `Leetcode/auth.css` | Auth-specific CSS inside Leetcode module — may be a leftover |
+
+---
+
 ## 📈 Overall Progress Summary
 
 | Area | Progress |
 |---|---|
 | **Frontend UI/UX** | ~100% Complete ✅ |
-| **Backend (PHP + MySQL)** | ~80% Complete ✅ |
+| **Backend (PHP + MySQL)** | ~85% Complete ✅ |
 | **Authentication (Full Auth Flow)** | ~95% Complete ✅ |
 | **Admin Panel** | ~95% Complete ✅ |
 | **Courses (Purchase + Download)** | ~80% Complete ✅ |
 | **Blogs (CMS-Powered)** | ~90% Complete ✅ |
-| **LeetCode (CMS-Powered)** | ~90% Complete ✅ |
+| **LeetCode (CMS-Powered)** | ~95% Complete ✅ |
 | **Video Editing Module** | ~80% Complete ✅ |
-| **Store Module (Backend)** | ~20% Complete ⏳ |
+| **Store Module (Backend)** | ~15% Complete ⏳ |
 | **Payment Webhooks** | ~30% Complete ⏳ |
 | **Advanced Course Features** | Not Started ❌ |
+| **User Dashboard (Stub Pages)** | ~70% Complete ⏳ |
 
 ---
 
 > **Note:** Project has migrated from the original static HTML/JavaScript + Firebase approach to a full PHP + MySQL server-side architecture.
 > The Auth system, Admin Panel, Blog CMS, Course CMS, LeetCode CMS are all live and functional.
-> Remaining work is primarily: Store backend, payment webhook verification, and advanced course features (video player, progress tracking, certificates).
+> Remaining work is primarily: Store backend, payment webhook verification, advanced course features (video player, progress tracking, certificates), and cleanup of legacy static files.

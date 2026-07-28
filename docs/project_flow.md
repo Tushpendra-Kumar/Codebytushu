@@ -55,7 +55,7 @@ When a user visits any `/admin/*.php` page:
 1. **Browse**: User visits `/courses/index.php` (login required).
 2. **Details**: User clicks a course → `/courses/details.php?slug=...`.
 3. **Buy/Add to Cart**: User clicks "Add to Cart" → AJAX to `POST /api/cart/add.php`.
-4. **Cart Review**: User visits `/cart/index.php` or `/checkout/index.php`.
+4. **Cart Review**: User visits `/cart/index.php`.
 5. **Checkout**: User submits order → `POST /api/checkout/submit.php` or `submit_single.php` → Order created in `orders` + `order_items` tables.
 6. **Payment**: UPI payment shown. After payment, user uploads screenshot or references transaction ID.
 7. **Verification**: Admin manually verifies in `/admin/payments.php` → marks order as `verified`.
@@ -82,3 +82,25 @@ The `Mailer` class (`classes/Mailer.php`) wraps PHPMailer and is used for:
 - **Email Verification** — Sent on new signup.
 - **Password Reset** — Sent on forgot-password request.
 - Configured via SMTP constants from `config/app.php` (SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS).
+
+## 8. PDF Course Import Flow (Admin)
+When admin imports a course from a PDF:
+1. Admin visits `/admin/run_course_import.php`.
+2. PDF file is uploaded and parsed by `/api/admin/import_pdf.php`.
+3. PDF metadata (page count, topics JSON) is extracted and stored in the `courses` table.
+4. Course download file is stored securely in `/private/courses/` (never publicly accessible).
+5. Users can only download the PDF via `/api/courses/download.php` after purchase verification.
+
+## 9. Store Flow (Current — Static Only)
+> [!WARNING]
+> The store is currently frontend-only. No backend integration exists yet.
+
+1. User browses `/store/index.php` (publicly accessible, no login required).
+2. Products are loaded from hardcoded JavaScript data (`store/js/data.js`).
+3. Cart and product detail pages are static HTML (`store/cart/index.html`, `store/product-details/index.html`).
+4. **No actual purchase/order flow exists yet for store products.**
+
+The planned backend flow (not yet implemented):
+1. DB-powered product listings via Admin CMS
+2. Store cart connected to `cart_items` table (separate from course cart)
+3. Checkout → Order creation → Payment → Fulfillment
