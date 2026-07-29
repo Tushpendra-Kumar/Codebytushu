@@ -21,6 +21,9 @@ Auth::requireLogin();
 
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet">
     <style>.material-symbols-rounded{font-size:inherit;vertical-align:middle;line-height:1;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;}</style>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Main Site Styles -->
     <link rel="stylesheet" href="../styles.css?v=40">
@@ -526,7 +529,7 @@ Auth::requireLogin();
 
     <!-- ===================== PREMIUM FOOTER ===================== -->
     <footer class="cbt-footer">
-        <div class="cbt-footer-container">
+        <div class="cbt-footer-container cbt-footer-4col">
             <!-- Brand Column -->
             <div class="cbt-ft-col cbt-ft-brand">
                 <a href="../index.html" class="cbt-logo">

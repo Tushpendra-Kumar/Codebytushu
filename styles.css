@@ -2609,6 +2609,10 @@ textarea:focus{
     align-items: start;
 }
 
+.cbt-footer-container.cbt-footer-4col {
+    grid-template-columns: 1.8fr 1fr 1fr 1fr;
+}
+
 /* Columns */
 .cbt-ft-col h3 {
     display: flex;
