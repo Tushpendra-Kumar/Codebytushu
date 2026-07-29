@@ -403,6 +403,11 @@ body {
     }
 }
 
+/* Fix CSS Grid blowout issue to maintain consistent sidebar width */
+.cbt-article, .cbt-sidebar {
+    min-width: 0;
+}
+
 .cbt-article-header {
     margin-bottom: 30px;
 }
@@ -564,7 +569,25 @@ body {
 /* Sidebar */
 .cbt-sidebar {
     position: sticky;
-    top: 100px;
+    top: 140px;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    /* Hide scrollbar for a cleaner look */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 196, 0, 0.3) transparent;
+}
+.cbt-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+.cbt-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.cbt-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 196, 0, 0.3);
+    border-radius: 10px;
+}
+[data-theme="light"] .cbt-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(212, 144, 10, 0.3);
 }
 
 .cbt-sidebar-widget {
