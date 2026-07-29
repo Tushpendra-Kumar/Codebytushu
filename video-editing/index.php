@@ -568,6 +568,7 @@ Auth::requireLogin();
                     <li><a href="https://youtube.com/@codebytushu" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
                     <li><a href="https://linkedin.com/company/codebytushu" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a></li>
                     <li><a href="https://instagram.com/codebytushu" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+                    <li><a href="https://github.com/CodeByTushu" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a></li>
                 </ul>
             </div>
         </div>
