@@ -92,8 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Add To Cart Global Function for Products
-    window.addToCart = function(productId, qty = 1) {
+    window.executeAddToCart = function(productId, qty = 1) {
         const product = getProductById(productId);
         if (!product) return;
 
@@ -123,5 +122,46 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show temporary alert or toast (Simple alert for now)
         alert(`${product.title} added to cart!`);
     };
+
+    window.addToCart = function(productId, qty = 1) {
+        fetch('/api/auth/status.php', { credentials: 'same-origin' })
+            .then(r => r.json())
+            .then(data => {
+                if (data.logged_in) {
+                    executeAddToCart(productId, qty);
+                } else {
+                    document.getElementById('store-auth-modal').style.display = 'flex';
+                    const signinBtn = document.getElementById('store-google-signin-btn');
+                    signinBtn.onclick = function() {
+                        localStorage.setItem('cbt_pending_cart_main', JSON.stringify({id: productId, qty: qty}));
+                        window.location.href = "../auth/login.php?redirect=" + encodeURIComponent(window.location.pathname + window.location.search);
+                    };
+                }
+            })
+            .catch(() => {
+                // Fallback if network fails
+                executeAddToCart(productId, qty);
+            });
+    };
+
+    // Auto-add logic on load for the main store page
+    document.addEventListener('DOMContentLoaded', () => {
+        const pending = localStorage.getItem('cbt_pending_cart_main');
+        if (pending) {
+            try {
+                const parsed = JSON.parse(pending);
+                fetch('/api/auth/status.php', { credentials: 'same-origin' })
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.logged_in) {
+                            setTimeout(() => {
+                                executeAddToCart(parsed.id, parsed.qty);
+                                localStorage.removeItem('cbt_pending_cart_main');
+                            }, 500); // Small delay to ensure UI is ready
+                        }
+                    });
+            } catch(e) {}
+        }
+    });
 
 });
