@@ -336,7 +336,7 @@ if (Auth::check()) {
                   <div style="display:flex; align-items:center; gap:10px;">
                       <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">H</div>
                       <div>
-                          <h4 style="color:var(--text-heading); font-size:1rem;">Harshita Sahu</h4>
+                          <h4 style="color:var(--text-heading); font-size:1rem;">Harshita Sahu <span style="font-size:0.75rem; color:rgba(255,255,255,0.6); font-weight:400;">&mdash; from Lucknow</span></h4>
                         <span style="color:#ffc400; font-size:0.95rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                     </div>
                 </div>
@@ -346,7 +346,7 @@ if (Auth::check()) {
                   <div style="display:flex; align-items:center; gap:10px;">
                       <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">D</div>
                       <div>
-                          <h4 style="color:var(--text-heading); font-size:1rem;">Deepanshu Gaur</h4>
+                          <h4 style="color:var(--text-heading); font-size:1rem;">Deepanshu Gaur <span style="font-size:0.75rem; color:rgba(255,255,255,0.6); font-weight:400;">&mdash; from Aligarh</span></h4>
                         <span style="color:#ffc400; font-size:0.95rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                     </div>
                 </div>
@@ -356,7 +356,7 @@ if (Auth::check()) {
                   <div style="display:flex; align-items:center; gap:10px;">
                       <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">K</div>
                       <div>
-                          <h4 style="color:var(--text-heading); font-size:1rem;">Kumar Devanshu</h4>
+                          <h4 style="color:var(--text-heading); font-size:1rem;">Kumar Devanshu <span style="font-size:0.75rem; color:rgba(255,255,255,0.6); font-weight:400;">&mdash; from New Delhi</span></h4>
                         <span style="color:#ffc400; font-size:0.95rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                     </div>
                 </div>
