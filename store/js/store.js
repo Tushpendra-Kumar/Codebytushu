@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="cbt-product-desc">${product.description.substring(0, 80)}...</p>
                     
                     <div class="cbt-product-meta">
-                        <div class="cbt-product-price">$${product.price}</div>
+                        <div class="cbt-product-price">₹${product.price}</div>
                         <div class="cbt-product-rating">
                             <i class="fa-solid fa-star"></i> ${product.rating} <span>(${product.reviews})</span>
                         </div>
