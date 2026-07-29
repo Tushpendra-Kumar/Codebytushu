@@ -237,29 +237,44 @@ Auth::requireLogin();
             
             <!-- Card 1 -->
             <div class="cbt-testimonial-card-simple">
-                <div class="cbt-testimonial-rating">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <p class="cbt-testimonial-text">"The Java Masterclass completely changed my understanding of OOP. Highly recommended!"</p>
+                <div class="cbt-testimonial-user">
+                    <div class="cbt-testimonial-avatar-letter">A</div>
+                    <div class="cbt-testimonial-user-info">
+                        <h4 class="cbt-testimonial-name">Amit Kumar</h4>
+                        <div class="cbt-testimonial-rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
                 </div>
-                <p class="cbt-testimonial-text">"Excellent quality. Worth every rupee!"</p>
-                <h4 class="cbt-testimonial-name">- Rahul Sharma</h4>
             </div>
 
             <!-- Card 2 -->
             <div class="cbt-testimonial-card-simple">
-                <div class="cbt-testimonial-rating">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <p class="cbt-testimonial-text">"React Front to Back was practical and easy to follow. The projects are actually useful."</p>
+                <div class="cbt-testimonial-user">
+                    <div class="cbt-testimonial-avatar-letter">S</div>
+                    <div class="cbt-testimonial-user-info">
+                        <h4 class="cbt-testimonial-name">Sneha Sharma</h4>
+                        <div class="cbt-testimonial-rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
                 </div>
-                <p class="cbt-testimonial-text">"Loved the premium finish and fast delivery."</p>
-                <h4 class="cbt-testimonial-name">- Ananya Patel</h4>
             </div>
 
             <!-- Card 3 -->
             <div class="cbt-testimonial-card-simple">
-                <div class="cbt-testimonial-rating">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                <p class="cbt-testimonial-text">"Best DSA prep material out there. Helped me clear my Google phone screen!"</p>
+                <div class="cbt-testimonial-user">
+                    <div class="cbt-testimonial-avatar-letter">R</div>
+                    <div class="cbt-testimonial-user-info">
+                        <h4 class="cbt-testimonial-name">Rahul Verma</h4>
+                        <div class="cbt-testimonial-rating">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
                 </div>
-                <p class="cbt-testimonial-text">"Highly recommended for every developer."</p>
-                <h4 class="cbt-testimonial-name">- Vikram Singh</h4>
             </div>
 
         </div>
