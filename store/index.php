@@ -241,7 +241,7 @@ Auth::requireLogin();
                 <div class="cbt-testimonial-user">
                     <div class="cbt-testimonial-avatar-letter">K</div>
                     <div class="cbt-testimonial-user-info">
-                        <h4 class="cbt-testimonial-name">Kumar Devanshu</h4>
+                        <h4 class="cbt-testimonial-name">Kumar Devanshu <span style="font-size:0.75rem; color:rgba(255,255,255,0.6); font-weight:400; margin-left:5px;">&mdash; from New Delhi</span></h4>
                         <div class="cbt-testimonial-rating">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
@@ -255,7 +255,7 @@ Auth::requireLogin();
                 <div class="cbt-testimonial-user">
                     <div class="cbt-testimonial-avatar-letter">K</div>
                     <div class="cbt-testimonial-user-info">
-                        <h4 class="cbt-testimonial-name">Kavita Lodhi</h4>
+                        <h4 class="cbt-testimonial-name">Kavita Lodhi <span style="font-size:0.75rem; color:rgba(255,255,255,0.6); font-weight:400; margin-left:5px;">&mdash; from Gurugram</span></h4>
                         <div class="cbt-testimonial-rating">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
@@ -269,7 +269,7 @@ Auth::requireLogin();
                 <div class="cbt-testimonial-user">
                     <div class="cbt-testimonial-avatar-letter">H</div>
                     <div class="cbt-testimonial-user-info">
-                        <h4 class="cbt-testimonial-name">Harshita Sahu</h4>
+                        <h4 class="cbt-testimonial-name">Harshita Sahu <span style="font-size:0.75rem; color:rgba(255,255,255,0.6); font-weight:400; margin-left:5px;">&mdash; from Lucknow</span></h4>
                         <div class="cbt-testimonial-rating">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
