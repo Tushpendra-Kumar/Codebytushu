@@ -129,6 +129,9 @@
                     const priceDisplay = item.price === 0 ? 'Free' : `$${item.price}`;
                     const categoryTag = item.isCourse ? 'Course' : item.category;
 
+                    const fixPath = (path) => path.startsWith('../') ? '../' + path : path;
+                    const itemImage = fixPath(item.image);
+
                     let quantityControl = '';
                     if (!item.isCourse) {
                         quantityControl = `
@@ -142,7 +145,7 @@
 
                     listHTML += `
                         <div class="cbt-cart-item">
-                            <img src="${item.image}" alt="${item.title}" class="cbt-cart-item-img">
+                            <img src="${itemImage}" alt="${item.title}" class="cbt-cart-item-img">
                             <div class="cbt-cart-item-info">
                                 <span style="font-size:0.75rem; background:rgba(255,196,0,0.1); color:var(--primary); padding:2px 6px; border-radius:4px; margin-bottom:5px; display:inline-block;">${categoryTag}</span>
                                 <h3 class="cbt-cart-item-title">${item.title}</h3>

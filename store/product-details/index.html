@@ -122,17 +122,21 @@
 
             // Generate gallery HTML
             let galleryHtml = '';
+            
+            // Fix path relative to product-details (one level deeper than store/)
+            const fixPath = (path) => path.startsWith('../') ? '../' + path : path;
+
             if (product.gallery && product.gallery.length > 0) {
-                galleryHtml += `<img src="${product.gallery[0]}" class="cbt-main-image" id="main-image" alt="${product.title}">`;
+                galleryHtml += `<img src="${fixPath(product.gallery[0])}" class="cbt-main-image" id="main-image" alt="${product.title}">`;
                 if (product.gallery.length > 1) {
                     galleryHtml += '<div class="cbt-thumbnail-list">';
                     product.gallery.forEach((imgUrl, idx) => {
-                        galleryHtml += `<img src="${imgUrl}" class="cbt-thumbnail ${idx === 0 ? 'active' : ''}" onclick="changeImage(this, '${imgUrl}')">`;
+                        galleryHtml += `<img src="${fixPath(imgUrl)}" class="cbt-thumbnail ${idx === 0 ? 'active' : ''}" onclick="changeImage(this, '${fixPath(imgUrl)}')">`;
                     });
                     galleryHtml += '</div>';
                 }
             } else {
-                galleryHtml = `<img src="${product.image}" class="cbt-main-image" alt="${product.title}">`;
+                galleryHtml = `<img src="${fixPath(product.image)}" class="cbt-main-image" alt="${product.title}">`;
             }
 
             // Generate features HTML

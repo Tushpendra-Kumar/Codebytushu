@@ -208,10 +208,12 @@ Auth::requireLogin();
                 <button class="cbt-filter-btn" data-filter="t-shirts">T-Shirts</button>
                 <button class="cbt-filter-btn" data-filter="hoodies">Hoodies</button>
                 <button class="cbt-filter-btn" data-filter="mugs">Mugs</button>
+                <button class="cbt-filter-btn" data-filter="accessories">Accessories</button>
                 <button class="cbt-filter-btn" data-filter="stickers">Stickers</button>
                 <button class="cbt-filter-btn" data-filter="digital templates">Digital Templates</button>
-                <button class="cbt-filter-btn" data-filter="presets">Presets</button>
                 <button class="cbt-filter-btn" data-filter="e-books">E-books</button>
+                <button class="cbt-filter-btn" data-filter="courses">Courses</button>
+                <button class="cbt-filter-btn" data-filter="services">Services</button>
             </div>
         </div>
     </header>
