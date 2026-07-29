@@ -207,15 +207,15 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
         <h2 class="cbt-section-title">Frequently Asked Questions</h2>
         <div style="display:flex; flex-direction:column; gap:15px;">
             <div style="background:rgba(22, 22, 22, 0.5); padding:20px; border-radius:8px; border:1px solid var(--border-color); backdrop-filter: blur(5px);">
-                <h3 style="color:var(--text-heading); font-size:1.1rem; margin-bottom:10px;">Are the blogs free to read?</h3>
+                <h3 style="color:#FFFFFF; font-size:1.1rem; margin-bottom:10px;">Are the blogs free to read?</h3>
                 <p style="color:var(--text-muted);">Yes, all our blog articles, tutorials, and guides are completely free and open to everyone.</p>
             </div>
             <div style="background:rgba(22, 22, 22, 0.5); padding:20px; border-radius:8px; border:1px solid var(--border-color); backdrop-filter: blur(5px);">
-                <h3 style="color:var(--text-heading); font-size:1.1rem; margin-bottom:10px;">How often is new content published?</h3>
+                <h3 style="color:#FFFFFF; font-size:1.1rem; margin-bottom:10px;">How often is new content published?</h3>
                 <p style="color:var(--text-muted);">We publish new articles every week. Subscribe to our newsletter to never miss an update.</p>
             </div>
             <div style="background:rgba(22, 22, 22, 0.5); padding:20px; border-radius:8px; border:1px solid var(--border-color); backdrop-filter: blur(5px);">
-                <h3 style="color:var(--text-heading); font-size:1.1rem; margin-bottom:10px;">Can I request a specific topic?</h3>
+                <h3 style="color:#FFFFFF; font-size:1.1rem; margin-bottom:10px;">Can I request a specific topic?</h3>
                 <p style="color:var(--text-muted);">Absolutely! Feel free to reach out to us via our contact form or social media handles to request tutorials.</p>
             </div>
         </div>
