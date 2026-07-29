@@ -451,21 +451,6 @@ Auth::boot();
     </script>
     <!-- Global Scroll to Top (shared across all pages) -->
     <script src="/scroll-to-top.js"></script>
-    <!-- Store Auth Modal -->
-    <div id="store-auth-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:99999; justify-content:center; align-items:center; backdrop-filter:blur(5px);">
-        <div style="background:#1a1a1a; padding:40px; border-radius:16px; border:1px solid #333; max-width:400px; text-align:center; box-shadow:0 20px 50px rgba(0,0,0,0.5); position:relative; margin: 20px;">
-            <button onclick="document.getElementById('store-auth-modal').style.display='none'" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#888; font-size:1.5rem; cursor:pointer;">&times;</button>
-            <div style="width:60px; height:60px; background:rgba(255,196,0,0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#ffc400; font-size:1.5rem; margin:0 auto 20px;">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </div>
-            <h3 style="color:#fff; font-size:1.25rem; margin-bottom:10px;">Sign In Required</h3>
-            <p style="color:#aaa; font-size:0.95rem; line-height:1.5; margin-bottom:25px;">Please sign in with Google to add products to your cart and proceed with checkout.</p>
-            <button id="store-google-signin-btn" style="width:100%; padding:12px; background:#fff; color:#000; border:none; border-radius:8px; font-weight:600; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:background 0.2s;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G" style="width:20px; height:20px;">
-                Sign in with Google
-            </button>
-        </div>
-    </div>
 </body>
 </html>
 

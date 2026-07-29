@@ -130,12 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.logged_in) {
                     executeAddToCart(productId, qty);
                 } else {
-                    document.getElementById('store-auth-modal').style.display = 'flex';
-                    const signinBtn = document.getElementById('store-google-signin-btn');
-                    signinBtn.onclick = function() {
-                        localStorage.setItem('cbt_pending_cart_main', JSON.stringify({id: productId, qty: qty}));
-                        window.location.href = "../auth/login.php?redirect=" + encodeURIComponent(window.location.pathname + window.location.search);
-                    };
+                    localStorage.setItem('cbt_pending_cart_main', JSON.stringify({id: productId, qty: qty}));
+                    window.location.href = "../auth/login.php?redirect=" + encodeURIComponent(window.location.pathname + window.location.search);
                 }
             })
             .catch(() => {
