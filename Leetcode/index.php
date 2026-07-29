@@ -385,9 +385,9 @@ Auth::boot();
         <div class="cbt-footer-container cbt-footer-4col">
             <!-- Brand Column -->
             <div class="cbt-ft-col cbt-ft-brand">
-                <a href="#home" class="cbt-ft-logo">
+                <a href="#home" class="cbt-logo" aria-label="CodeByTushu Home">
                     <span class="cbt-logo-bracket">&lt;/&gt;</span>
-                    CodeBy<span class="cbt-logo-accent">Tushu</span>
+                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
                 </a>
                 <p class="cbt-ft-desc">
                     LEETCODE <span style="color: #ffc400; font-weight: bold;">UNLOCKED</span><br><br>
