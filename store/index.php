@@ -62,7 +62,6 @@ Auth::requireLogin();
             <!-- Dedicated Store Navbar -->
             <ul class="cbt-center-nav" id="cbt-center-nav">
                 <li><a href="index.html" class="cbt-nav-link active">Home</a></li>
-                <li><a href="#categories" class="cbt-nav-link">Categories</a></li>
                 <li><a href="#all-products" class="cbt-nav-link">All Products</a></li>
                 <li><a href="cart/index.html" class="cbt-nav-link">My Cart</a></li>
                 <li><a href="#faq" class="cbt-nav-link">FAQ</a></li>
@@ -100,7 +99,6 @@ Auth::requireLogin();
             <div class="cbt-drawer-body">
                 <ul class="cbt-drawer-primary" role="menu" aria-label="Main navigation">
                     <li role="none"><a href="index.html" class="cbt-drawer-link" role="menuitem">Home</a></li>
-                    <li role="none"><a href="#categories" class="cbt-drawer-link" role="menuitem">Categories</a></li>
                     <li role="none"><a href="#all-products" class="cbt-drawer-link" role="menuitem">All Products</a></li>
                     <li role="none"><a href="cart/index.html" class="cbt-drawer-link" role="menuitem">My Cart</a></li>
                     <li role="none"><a href="#faq" class="cbt-drawer-link" role="menuitem">FAQ</a></li>
