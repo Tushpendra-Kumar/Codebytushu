@@ -260,18 +260,7 @@ Auth::requireLogin();
         </div>
     </section>
 
-    <!-- ===================== STAY UPDATED ===================== -->
-    <section class="cbt-store-container">
-        <div style="background:rgba(255, 196, 0, 0.15); padding:40px; border-radius:12px; text-align:center; border: 1px solid rgba(255,196,0,0.3); backdrop-filter: blur(10px);">
-            <h2 style="color:var(--primary); font-size:2rem; margin-bottom:10px;">Stay Updated!</h2>
-            <p style="color:#eee; margin-bottom:20px; font-weight:500;">Get the latest updates on new store drops, discount coupons, and free resources.</p>
-            <form class="cbt-course-subscribe-form" style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-                <input type="email" class="newsletter-email" name="email" placeholder="Enter your email address" required style="padding:12px 20px; border-radius:8px; border:none; width:100%; max-width:350px; outline:none; font-family:inherit; background: rgba(0,0,0,0.6); color: #fff;">
-                <button type="submit" class="newsletter-btn-text" style="padding:12px 24px; border-radius:8px; border:none; background:var(--primary); color:#111; font-weight:bold; cursor:pointer;">Subscribe</button>
-            </form>
-            <div class="newsletter-message" style="margin-top: 15px; font-size: 14px; display: none; padding: 10px; border-radius: 6px; max-width: 400px; margin-left: auto; margin-right: auto; text-align: center;"></div>
-        </div>
-    </section>
+
 
     <!-- ===================== FOOTER ===================== -->
     <footer class="cbt-footer">
@@ -320,34 +309,21 @@ Auth::requireLogin();
                 </ul>
             </div>
 
-            <!-- Newsletter & Connect -->
-            <div class="cbt-ft-col cbt-ft-newsletter">
-                <h3><i class="fa-regular fa-paper-plane"></i> STAY UPDATED</h3>
-                <p>Subscribe to get the latest updates on new drops and exclusive discounts.</p>
-                <form class="cbt-ft-form cbt-course-subscribe-form">
-                    <div class="cbt-ft-input-group">
-                        <i class="fa-regular fa-envelope"></i>
-                        <input type="email" class="newsletter-email" name="email" placeholder="Enter your email" required aria-label="Email Address">
-                    </div>
-                    <button type="submit" class="cbt-ft-btn">
-                        <span class="newsletter-btn-text">Subscribe</span> 
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </form>
-                <div class="newsletter-message" style="margin-top: 15px; font-size: 14px; display: none; padding: 10px; border-radius: 6px;"></div>
-                
-                <h3 style="margin-top: 25px;"><i class="fa-regular fa-user"></i> CONNECT</h3>
-                <ul class="cbt-ft-links" style="display: flex; gap: 15px; font-size: 1.3rem;">
-                    <li><a href="https://github.com/Tushpendra-Kumar" target="_blank"><i class="fa-brands fa-github"></i></a></li>
-                    <li><a href="https://linkedin.com/company/codebytushu" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                    <li><a href="https://youtube.com/@codebytushu" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
-                    <li><a href="https://instagram.com/codebytushu" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+            <!-- Connect -->
+            <div class="cbt-ft-col cbt-ft-connect-col">
+                <h3><i class="fa-regular fa-envelope"></i> CONNECT</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="https://youtube.com/@codebytushu" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
+                    <li><a href="https://linkedin.com/company/codebytushu" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a></li>
+                    <li><a href="https://instagram.com/codebytushu" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="cbt-copyright-strip" style="text-align: center; border-top: 1px solid var(--border-color); padding: 20px 0; margin-top: 20px; background: transparent !important;">
-            <p>&copy; 2025 CodeByTushu. All rights reserved.</p>
+        <!-- Centered Copyright Strip -->
+        <div class="cbt-copyright-strip">
+            &copy; 2025 <span class="cbt-logo-accent">CodeByTushu</span>. All rights reserved.
+        </div>
         </div>
     </footer>
 

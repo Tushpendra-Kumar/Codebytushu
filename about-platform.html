@@ -443,57 +443,60 @@
     </section>
 
     <!-- FOOTER SECTION -->
-    <footer class="cbt-about-footer">
-        <div class="max-width cbt-footer-container">
-            <!-- Brand -->
-            <div class="cbt-footer-col brand-col">
-                <a href="index.html" class="cbt-footer-logo">
-                    <img src="./image1/Black Logo.PNG" alt="Logo">
+    <footer class="cbt-footer">
+        <div class="cbt-footer-container">
+            <!-- Brand Column -->
+            <div class="cbt-ft-col cbt-ft-brand">
+                <a href="index.html#home" class="cbt-logo" aria-label="CodeByTushu Home">
+                    <span class="cbt-logo-bracket">&lt;/&gt;</span>
                     <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
                 </a>
-                <p class="cbt-footer-tagline">INNOVATE. DEVELOP. SUCCEED</p>
+                <div class="cbt-tagline">
+                    Learn <span>•</span> Build <span>•</span> Share <span>•</span> Grow
+                </div>
+                <p>Empowering developers with quality content, tutorials, and projects. Let's grow together.</p>
             </div>
+
             <!-- Quick Links -->
-            <div class="cbt-footer-col">
-                <h4>Quick Links</h4>
-                <a href="index.html#home">Home</a>
-                <a href="index.html#leetcode">LeetCode</a>
-                <a href="blogs.php">Blogs</a>
-                <a href="index.html#courses">Courses</a>
-                <a href="video-editing/">Video Editing</a>
+            <div class="cbt-ft-col">
+                <h3><i class="fa-solid fa-link"></i> QUICK LINKS</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#leetcode">LeetCode</a></li>
+                    <li><a href="blogs.php">Blogs</a></li>
+                    <li><a href="index.html#courses">Courses</a></li>
+                    <li><a href="video-editing/">Video Editing</a></li>
+                    <li><a href="index.html#store">Store</a></li>
+                    <li><a href="/Leetcode/donate.php">Donate</a></li>
+                </ul>
             </div>
+
             <!-- Resources -->
-            <div class="cbt-footer-col">
-                <h4>Resources</h4>
-                <a href="index.html#store">Store</a>
-                <a href="index.html#donate">Donate</a>
-                <a href="about-platform.html">About</a>
-                <a href="index.html#contact">Contact</a>
-                <a href="privacy-policy">Privacy Policy</a>
+            <div class="cbt-ft-col">
+                <h3><i class="fa-regular fa-folder-open"></i> RESOURCES</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="about-platform.html">About</a></li>
+                    <li><a href="privacy-policy/">Privacy Policy</a></li>
+                    <li><a href="terms/">Terms &amp; Conditions</a></li>
+                    <li><a href="disclaimer/">Disclaimer</a></li>
+                    <li><a href="index.html#support">Support</a></li>
+                </ul>
             </div>
-            <!-- Newsletter -->
-            <div class="cbt-footer-col newsletter-col">
-                <h4>Stay Connected</h4>
-                <p id="cbt-newsletter-note">Subscribe to get updates and latest content.</p>
-                <form class="cbt-newsletter-form" id="cbtNewsletterForm">
-                    <input type="hidden" name="name" value="New Subscriber">
-                    <input type="hidden" name="subject" value="CodeByTushu Newsletter Subscription">
-                    <input type="hidden" name="message" value="A new user has subscribed to the CodeByTushu newsletter.">
-                    <input type="email" name="email" placeholder="Enter your email" required>
-                    <button type="submit" aria-label="Subscribe"><span class="material-symbols-rounded">send</span></button>
-                </form>
+
+            <!-- Connect -->
+            <div class="cbt-ft-col cbt-ft-connect-col">
+                <h3><i class="fa-regular fa-envelope"></i> CONNECT</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="https://youtube.com/@codebytushu" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
+                    <li><a href="https://linkedin.com/company/codebytushu" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a></li>
+                    <li><a href="https://instagram.com/codebytushu" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+                </ul>
             </div>
         </div>
-        <div class="cbt-footer-bottom max-width">
-            <div class="cbt-bottom-inner" style="width: 100%;">
-                <div class="cbt-copyright" style="grid-column: 1 / -1; width: 100%; text-align: center;">
-                    &copy; 2025 CodeByTushu. All rights reserved.
-                </div>
 
-                <a href="#" class="cbt-back-to-top" aria-label="Back to top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
-                    <span class="cbt-btt-icon"><i class="fas fa-arrow-up"></i></span>
-                </a>
-            </div>
+        <!-- Centered Copyright Strip -->
+        <div class="cbt-copyright-strip">
+            &copy; 2025 <span class="cbt-logo-accent">CodeByTushu</span>. All rights reserved.
         </div>
     </footer>
 

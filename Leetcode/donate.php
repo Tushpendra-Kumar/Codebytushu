@@ -200,11 +200,11 @@ Auth::boot();
 
             <div class="footer-divider"></div>
 
-            <p class="footer-copy">
-                &copy; 2025 <a href="/" aria-label="CodeByTushu homepage">CodeByTushu</a> &nbsp;&bull;&nbsp; All Rights Reserved
-            </p>
+            <div class="cbt-copyright-strip" style="background: transparent; border: none; padding: 10px 0;">
+                &copy; 2025 <span class="cbt-logo-accent">CodeByTushu</span>. All rights reserved.
+            </div>
 
-            <nav class="footer-links" aria-label="Footer navigation">
+            <nav class="footer-links" aria-label="Footer navigation" style="margin-top: 15px;">
                 <a href="/privacy-policy/" class="footer-link" id="footer-privacy">
                     <i class="fa-solid fa-shield-halved"></i>
                     Privacy Policy
@@ -212,7 +212,7 @@ Auth::boot();
                 <span class="footer-dot" aria-hidden="true">&#x2022;</span>
                 <a href="/terms/" class="footer-link" id="footer-terms">
                     <i class="fa-regular fa-file-lines"></i>
-                    Terms of Service
+                    Terms &amp; Conditions
                 </a>
                 <span class="footer-dot" aria-hidden="true">&#x2022;</span>
                 <a href="mailto:codebytushu@gmail.com" class="footer-link" id="footer-contact">

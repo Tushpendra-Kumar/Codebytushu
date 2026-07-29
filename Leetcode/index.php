@@ -416,35 +416,19 @@ Auth::boot();
             </div>
 
             <!-- Social Connect -->
-            <div class="cbt-ft-col cbt-ft-social">
+            <div class="cbt-ft-col cbt-ft-connect-col">
                 <h3><i class="fa-regular fa-envelope"></i> CONNECT</h3>
                 <ul class="cbt-ft-links">
                     <li><a href="https://youtube.com/@codebytushu" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
-                    <li><a href="https://github.com/Tushpendra-Kumar" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a></li>
                     <li><a href="https://linkedin.com/company/codebytushu" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a></li>
                     <li><a href="https://instagram.com/codebytushu" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
-                    <li><a href="mailto:contact@codebytushu.com"><i class="fa-solid fa-envelope"></i> Email</a></li>
                 </ul>
             </div>
-
-            <!-- Removed Newsletter Section -->
-            
         </div>
 
-        <!-- Bottom Bar -->
-        <div class="cbt-footer-bottom">
-            <div class="cbt-bottom-inner">
-                <div class="cbt-copyright">
-                    &copy; 2025 <span>CodeByTushu</span>. All Rights Reserved.
-                </div>
-                <div class="cbt-bottom-links">
-                    <a href="../privacy-policy/">Privacy Policy</a>
-                    <span>|</span>
-                    <a href="../terms/">Terms &amp; Conditions</a>
-                    <span>|</span>
-                    <a href="../disclaimer/">Disclaimer</a>
-                </div>
-            </div>
+        <!-- Centered Copyright Strip -->
+        <div class="cbt-copyright-strip">
+            &copy; 2025 <span class="cbt-logo-accent">CodeByTushu</span>. All rights reserved.
         </div>
     </footer>
 

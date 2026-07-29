@@ -526,20 +526,19 @@ Auth::requireLogin();
 
     <!-- ===================== PREMIUM FOOTER ===================== -->
     <footer class="cbt-footer">
-        <div class="cbt-container cbt-footer-container">
-            
-            <!-- Column 1: Brand Info -->
-            <div class="cbt-ft-brand">
-                <div class="cbt-ft-logo">
-                    <span class="cbt-ft-logo-bracket">&lt;/&gt;</span>
-                    CodeBy<span class="cbt-gold">Tushu</span>
-                </div>
-                <p class="cbt-ft-desc">Premium Video Editing & Content Creation Services. Elevate your brand with cinematic visuals and engaging storytelling.</p>
+        <div class="cbt-footer-container">
+            <!-- Brand Column -->
+            <div class="cbt-ft-col cbt-ft-brand">
+                <a href="../index.html" class="cbt-logo">
+                    <span class="cbt-logo-bracket">&lt;/&gt;</span>
+                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                </a>
+                <p style="margin-top: 15px; color: var(--text-muted); line-height: 1.6;">Premium Video Editing & Content Creation Services. Elevate your brand with cinematic visuals and engaging storytelling.</p>
             </div>
-            
-            <!-- Column 2: Quick Links -->
+
+            <!-- Quick Links -->
             <div class="cbt-ft-col">
-                <h4 class="cbt-ft-heading">Quick Links</h4>
+                <h3><i class="fa-solid fa-link"></i> QUICK LINKS</h3>
                 <ul class="cbt-ft-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#services">Services</a></li>
@@ -547,47 +546,32 @@ Auth::requireLogin();
                     <li><a href="#guide">Editing Guide</a></li>
                 </ul>
             </div>
-            
-            <!-- Column 3: Resources -->
+
+            <!-- Resources -->
             <div class="cbt-ft-col">
-                <h4 class="cbt-ft-heading">Resources</h4>
+                <h3><i class="fa-regular fa-folder-open"></i> RESOURCES</h3>
                 <ul class="cbt-ft-links">
-                    <li><a href="../privacy-policy/">Privacy Policy</a></li>
-                    <li><a href="../terms/">Terms &amp; Conditions</a></li>
-                    <li><a href="../disclaimer/">Disclaimer</a></li>
-                    <li><a href="../support/">Support</a></li>
+                    <li><a href="../privacy-policy/index.html">Privacy Policy</a></li>
+                    <li><a href="../terms/index.html">Terms &amp; Conditions</a></li>
+                    <li><a href="../disclaimer/index.html">Disclaimer</a></li>
+                    <li><a href="../#support">Support</a></li>
                 </ul>
             </div>
 
-            <!-- Column 4: Connect -->
-            <div class="cbt-ft-col">
-                <h4 class="cbt-ft-heading">Connect</h4>
+            <!-- Connect -->
+            <div class="cbt-ft-col cbt-ft-connect-col">
+                <h3><i class="fa-regular fa-envelope"></i> CONNECT</h3>
                 <ul class="cbt-ft-links">
-                    <li><a href="https://youtube.com/@codebytushu" target="_blank">YouTube</a></li>
-                    <li><a href="https://www.linkedin.com/company/codebytushu/" target="_blank">LinkedIn</a></li>
-                    <li><a href="https://www.instagram.com/codebytushu" target="_blank">Instagram</a></li>
-                    <li><a href="https://github.com/Tushpendra-Kumar" target="_blank">GitHub</a></li>
+                    <li><a href="https://youtube.com/@codebytushu" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
+                    <li><a href="https://linkedin.com/company/codebytushu" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a></li>
+                    <li><a href="https://instagram.com/codebytushu" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
                 </ul>
             </div>
-            
-            <!-- Column 5: Stay Updated -->
-            <div class="cbt-ft-col cbt-ft-newsletter">
-                <h4 class="cbt-ft-heading">Stay Updated</h4>
-                <p>Join our newsletter for the latest editing tips and free resources.</p>
-                <form class="cbt-ft-form" id="newsletterForm">
-                    <div class="cbt-ft-input-group">
-                        <i class="material-symbols-rounded" style="font-size: 20px;">mail</i>
-                        <input type="email" id="subscriberEmail" placeholder="Enter your email" required>
-                    </div>
-                    <button type="submit" id="subscribeBtn" class="cbt-ft-btn">Subscribe Now <span class="material-symbols-rounded">arrow_right_alt</span></button>
-                </form>
-                <div id="newsletterMessage" style="margin-top: 1rem; font-size: 0.95rem; font-weight: 500; display: none; border-radius: 8px; padding: 0.8rem;"></div>
-            </div>
         </div>
-        
+
         <!-- Centered Copyright Strip -->
         <div class="cbt-copyright-strip">
-            &copy; 2025 <span>CodeByTushu</span>. All rights reserved.
+            &copy; 2025 <span class="cbt-logo-accent">CodeByTushu</span>. All rights reserved.
         </div>
     </footer>
 
