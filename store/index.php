@@ -61,7 +61,7 @@ Auth::requireLogin();
 
             <!-- Dedicated Store Navbar -->
             <ul class="cbt-center-nav" id="cbt-center-nav">
-                <li><a href="index.html" class="cbt-nav-link active">Home</a></li>
+                <li><a href="index.php" class="cbt-nav-link active">Home</a></li>
                 <li><a href="#all-products" class="cbt-nav-link">All Products</a></li>
                 <li><a href="cart/index.html" class="cbt-nav-link">My Cart</a></li>
                 <li><a href="#faq" class="cbt-nav-link">FAQ</a></li>
@@ -98,7 +98,7 @@ Auth::requireLogin();
             </div>
             <div class="cbt-drawer-body">
                 <ul class="cbt-drawer-primary" role="menu" aria-label="Main navigation">
-                    <li role="none"><a href="index.html" class="cbt-drawer-link" role="menuitem">Home</a></li>
+                    <li role="none"><a href="index.php" class="cbt-drawer-link" role="menuitem">Home</a></li>
                     <li role="none"><a href="#all-products" class="cbt-drawer-link" role="menuitem">All Products</a></li>
                     <li role="none"><a href="cart/index.html" class="cbt-drawer-link" role="menuitem">My Cart</a></li>
                     <li role="none"><a href="#faq" class="cbt-drawer-link" role="menuitem">FAQ</a></li>
@@ -120,11 +120,17 @@ Auth::requireLogin();
                 }, { passive: true });
             }
 
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('.cbt-nav-link, .cbt-drawer-link').forEach(link => {
+            // Smooth scrolling and active state for navigation links
+            const navLinks = document.querySelectorAll('.cbt-nav-link, .cbt-drawer-link');
+            navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
+                    // Remove active from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Add active to clicked link
+                    this.classList.add('active');
+
                     const targetId = this.getAttribute('href');
-                    if (targetId.startsWith('#') && targetId.length > 1) {
+                    if (targetId && targetId.startsWith('#') && targetId.length > 1) {
                         e.preventDefault();
                         const targetElement = document.querySelector(targetId);
                         if (targetElement) {
@@ -278,7 +284,7 @@ Auth::requireLogin();
             <div class="cbt-ft-col">
                 <h3><i class="fa-solid fa-link"></i> QUICK LINKS</h3>
                 <ul class="cbt-ft-links">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <li><a href="#all-products">Categories</a></li>
                     <li><a href="#all-products">All Products</a></li>
                     <li><a href="cart/index.html">My Cart</a></li>
