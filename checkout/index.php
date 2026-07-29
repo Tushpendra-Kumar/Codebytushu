@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../classes/Auth.php';
 require_once __DIR__ . '/../config/database.php';
@@ -69,7 +69,7 @@ $qr_url = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" . url
         <p style="color:#aaa;">You are paying for <?= count($items) ?> course(s).</p>
         
         <div class="amount-display">
-            â‚¹<?= number_format($total, 2) ?>
+            ₹<?= number_format($total, 2) ?>
         </div>
         
         <div class="upi-box">

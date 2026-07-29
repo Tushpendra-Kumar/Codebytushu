@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 ?>
@@ -368,7 +368,7 @@ Auth::boot();
                     </div>
                 </div>
 
-                <a href="donate.php" class="dp-support-btn" style="text-decoration:none; display:block; text-align:center; box-sizing:border-box;">Support â‚¹100</a>
+                <a href="donate.php" class="dp-support-btn" style="text-decoration:none; display:block; text-align:center; box-sizing:border-box;">Support ₹100</a>
 
             </div>
 

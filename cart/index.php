@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../classes/Auth.php';
 
@@ -309,7 +309,7 @@ Auth::requireLogin('/cart/index.php');
                             <h3 class="cart-item-title">${item.title}</h3>
                             <div class="cart-item-qty">Qty: 1</div>
                         </div>
-                        <div class="cart-item-price">â‚¹${parseFloat(item.price).toFixed(2)}</div>
+                        <div class="cart-item-price">₹${parseFloat(item.price).toFixed(2)}</div>
                         <button class="cart-item-remove" onclick="removeItem(${item.cart_id}, ${item.course_id})" title="Remove from cart">
                             <span class="material-symbols-rounded">delete</span>
                         </button>
@@ -323,15 +323,15 @@ Auth::requireLogin('/cart/index.php');
                     <h3 style="margin-top:0; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:15px;">Order Summary</h3>
                     <div class="summary-row">
                         <span>Original Price</span>
-                        <span>â‚¹${parseFloat(data.total).toFixed(2)}</span>
+                        <span>₹${parseFloat(data.total).toFixed(2)}</span>
                     </div>
                     <div class="summary-row">
                         <span>Discount</span>
-                        <span style="color:#4caf50;">-â‚¹0.00</span>
+                        <span style="color:#4caf50;">-₹0.00</span>
                     </div>
                     <div class="summary-total">
                         <span>Total</span>
-                        <span>â‚¹${parseFloat(data.total).toFixed(2)}</span>
+                        <span>₹${parseFloat(data.total).toFixed(2)}</span>
                     </div>
                     <a href="/checkout/" class="cbt-btn btn-checkout-full">Proceed to Checkout</a>
                     <div style="text-align:center; margin-top:20px;">

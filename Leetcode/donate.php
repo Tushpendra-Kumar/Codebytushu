@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 ?>
@@ -60,8 +60,8 @@ Auth::boot();
 
     <!-- ===== CURRENCY SIDEBAR ===== -->
     <div class="currency-sidebar" id="currencySidebar">
-        <div class="currency-option active" data-currency="INR" data-symbol="â‚¹" data-rate="1" data-base="10">
-            <span class="c-symbol">â‚¹</span><span class="c-name">INR</span>
+        <div class="currency-option active" data-currency="INR" data-symbol="₹" data-rate="1" data-base="10">
+            <span class="c-symbol">₹</span><span class="c-name">INR</span>
         </div>
         <div class="currency-option" data-currency="USD" data-symbol="$" data-rate="0.012" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">USD</span>
@@ -152,7 +152,7 @@ Auth::boot();
             <div class="amount-row">
                 <button id="btnMinus" class="qty-btn" aria-label="Decrease amount">&#8722;</button>
                 <div class="amount-display">
-                    <span class="amount-symbol" id="currencySymbolPrefix">â‚¹</span>
+                    <span class="amount-symbol" id="currencySymbolPrefix">₹</span>
                     <input
                         type="number"
                         id="amountInput"
@@ -166,7 +166,7 @@ Auth::boot();
 
             <!-- Support Button -->
             <button class="support-btn" id="supportBtn" aria-label="Proceed to payment">
-                Support <span id="supportAmount">â‚¹10</span>
+                Support <span id="supportAmount">₹10</span>
             </button>
 
             <!-- Secure Notes -->
@@ -235,7 +235,7 @@ Auth::boot();
             <div id="qrcode"></div>
 
             <p class="modal-amount-display">
-                Amount: <span id="modalAmount">â‚¹10</span>
+                Amount: <span id="modalAmount">₹10</span>
             </p>
 
             <!-- Deep link for mobile users -->
@@ -266,7 +266,7 @@ Auth::boot();
     }
 
     // ---- State ----
-    let currentCurrency = { symbol: 'â‚¹', rate: 1, base: 10, name: 'INR' };
+    let currentCurrency = { symbol: '₹', rate: 1, base: 10, name: 'INR' };
     let currentAmount   = 10;
 
     // ---- Sidebar toggle ----
