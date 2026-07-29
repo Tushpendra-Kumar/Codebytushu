@@ -54,6 +54,7 @@ The platform uses a strict design system defined globally in `styles.css`:
 - **Color Palette**: Dark background (`#0a0a0a`), slightly lighter cards (`#111111`), with vibrant gold/yellow accents (`#ffc400`).
 - **Typography**: Inter/Poppins font families (Google Fonts).
 - **Interactions**: Smooth hover states, micro-animations, and glassmorphism (translucent backgrounds with backdrop blur).
+- **Global Consistency**: A unified 4/5 column footer layout across all pages, and a global "Scroll-to-Top" button for seamless navigation.
 - **No External UI Frameworks**: Pure Vanilla CSS — no Bootstrap, no Tailwind.
 
 ## 5. Key Module States (July 2026)
