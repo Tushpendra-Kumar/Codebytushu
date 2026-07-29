@@ -461,7 +461,7 @@
 /* ===================== TESTIMONIAL CARDS ===================== */
 .cbt-testimonials-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 25px;
     margin-top: 30px;
 }
@@ -552,4 +552,25 @@
     line-height: 1.6;
     font-style: italic;
     margin: 0;
+}
+
+.cbt-testimonial-card-simple {
+    background: rgba(22, 22, 22, 0.6);
+    border: 1px solid rgba(255, 196, 0, 0.15);
+    border-radius: 12px;
+    padding: 30px 25px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    align-items: center;
+}
+
+.cbt-testimonial-card-simple:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 196, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 196, 0, 0.1);
 }

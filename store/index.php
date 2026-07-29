@@ -236,99 +236,30 @@ Auth::requireLogin();
         <div class="cbt-testimonials-grid">
             
             <!-- Card 1 -->
-            <div class="cbt-testimonial-card">
-                <div class="cbt-testimonial-header">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Sharma" class="cbt-testimonial-avatar" loading="lazy">
-                    <div class="cbt-testimonial-meta">
-                        <h4 class="cbt-testimonial-name">Rahul Sharma <span class="cbt-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span></h4>
-                        <span class="cbt-testimonial-location">Noida, India &bull; 2 weeks ago</span>
-                        <div class="cbt-testimonial-product">Purchased: Oversized T-Shirt</div>
-                    </div>
-                </div>
+            <div class="cbt-testimonial-card-simple">
                 <div class="cbt-testimonial-rating">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
-                <p class="cbt-testimonial-text">"The fabric quality is absolutely premium. It's incredibly comfortable for long coding sessions and the print hasn't faded even after multiple washes. The packaging was top-notch too!"</p>
+                <p class="cbt-testimonial-text">"Excellent quality. Worth every rupee!"</p>
+                <h4 class="cbt-testimonial-name">- Rahul Sharma</h4>
             </div>
 
             <!-- Card 2 -->
-            <div class="cbt-testimonial-card">
-                <div class="cbt-testimonial-header">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ananya Patel" class="cbt-testimonial-avatar" loading="lazy">
-                    <div class="cbt-testimonial-meta">
-                        <h4 class="cbt-testimonial-name">Ananya Patel <span class="cbt-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span></h4>
-                        <span class="cbt-testimonial-location">Bengaluru, India &bull; 1 month ago</span>
-                        <div class="cbt-testimonial-product">Purchased: Full Stack Bootcamp</div>
-                    </div>
-                </div>
+            <div class="cbt-testimonial-card-simple">
                 <div class="cbt-testimonial-rating">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
-                <p class="cbt-testimonial-text">"This course is a goldmine. The way complex concepts are broken down into digestible chunks is amazing. I landed a frontend role just 2 months after completing it."</p>
+                <p class="cbt-testimonial-text">"Loved the premium finish and fast delivery."</p>
+                <h4 class="cbt-testimonial-name">- Ananya Patel</h4>
             </div>
 
             <!-- Card 3 -->
-            <div class="cbt-testimonial-card">
-                <div class="cbt-testimonial-header">
-                    <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="David Chen" class="cbt-testimonial-avatar" loading="lazy">
-                    <div class="cbt-testimonial-meta">
-                        <h4 class="cbt-testimonial-name">David Chen <span class="cbt-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span></h4>
-                        <span class="cbt-testimonial-location">San Francisco, USA &bull; 3 weeks ago</span>
-                        <div class="cbt-testimonial-product">Purchased: Extended Mouse Pad</div>
-                    </div>
-                </div>
+            <div class="cbt-testimonial-card-simple">
                 <div class="cbt-testimonial-rating">
                     <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
-                <p class="cbt-testimonial-text">"Perfect addition to my workspace. The stitching on the edges is very clean, and the surface provides excellent precision for my mouse. Plus, it just looks sleek on my desk."</p>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="cbt-testimonial-card">
-                <div class="cbt-testimonial-header">
-                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Vikram Singh" class="cbt-testimonial-avatar" loading="lazy">
-                    <div class="cbt-testimonial-meta">
-                        <h4 class="cbt-testimonial-name">Vikram Singh <span class="cbt-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span></h4>
-                        <span class="cbt-testimonial-location">Pune, India &bull; 1 week ago</span>
-                        <div class="cbt-testimonial-product">Purchased: Developer Stickers Pack</div>
-                    </div>
-                </div>
-                <div class="cbt-testimonial-rating">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p class="cbt-testimonial-text">"Super high-quality vinyl stickers. I've plastered them all over my laptop. They leave no residue when removed and have a really nice matte finish. Love the witty quotes!"</p>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="cbt-testimonial-card">
-                <div class="cbt-testimonial-header">
-                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Johnson" class="cbt-testimonial-avatar" loading="lazy">
-                    <div class="cbt-testimonial-meta">
-                        <h4 class="cbt-testimonial-name">Sarah Johnson <span class="cbt-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span></h4>
-                        <span class="cbt-testimonial-location">London, UK &bull; 2 months ago</span>
-                        <div class="cbt-testimonial-product">Purchased: Ceramic Coffee Mug</div>
-                    </div>
-                </div>
-                <div class="cbt-testimonial-rating">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p class="cbt-testimonial-text">"My new favorite mug for those early morning deployments. It holds heat well and the developer joke printed on it always brings a smile to my face. Fast delivery as well."</p>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="cbt-testimonial-card">
-                <div class="cbt-testimonial-header">
-                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Rohan Desai" class="cbt-testimonial-avatar" loading="lazy">
-                    <div class="cbt-testimonial-meta">
-                        <h4 class="cbt-testimonial-name">Rohan Desai <span class="cbt-verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span></h4>
-                        <span class="cbt-testimonial-location">Mumbai, India &bull; 5 days ago</span>
-                        <div class="cbt-testimonial-product">Purchased: Node.js PDF Notes</div>
-                    </div>
-                </div>
-                <div class="cbt-testimonial-rating">
-                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                </div>
-                <p class="cbt-testimonial-text">"These visual notes saved my life during interviews. Everything is beautifully organized, making revision extremely quick and effective. Highly recommended for any backend dev."</p>
+                <p class="cbt-testimonial-text">"Highly recommended for every developer."</p>
+                <h4 class="cbt-testimonial-name">- Vikram Singh</h4>
             </div>
 
         </div>
