@@ -28,7 +28,7 @@ const storeData = [
         ]
     },
     {
-        "id": "tshirt-02",
+        "id": "long-sleeve-tshirt-01",
         "title": "Tshirt 2",
         "category": "T-Shirts",
         "price": 499,
@@ -37,9 +37,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/tshirt-02.png",
+        "image": "../Store Product Images/long-sleeve-tshirt-01.png",
         "gallery": [
-            "../Store Product Images/tshirt-02.png"
+            "../Store Product Images/long-sleeve-tshirt-01.png"
         ],
         "description": "Premium quality Tshirt for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -212,7 +212,7 @@ const storeData = [
         ]
     },
     {
-        "id": "water-bottle-01",
+        "id": "sweatshirt-01",
         "title": "Water Bottle",
         "category": "Accessories",
         "price": 349,
@@ -221,9 +221,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/water-bottle-01.png",
+        "image": "../Store Product Images/sweatshirt-01.png",
         "gallery": [
-            "../Store Product Images/water-bottle-01.png"
+            "../Store Product Images/sweatshirt-01.png"
         ],
         "description": "Premium quality Water Bottle for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -603,7 +603,7 @@ const storeData = [
         ]
     },
     {
-        "id": "poster-01",
+        "id": "baseball-cap-01",
         "title": "Poster",
         "category": "Accessories",
         "price": 249,
@@ -612,9 +612,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/poster-01.png",
+        "image": "../Store Product Images/baseball-cap-01.png",
         "gallery": [
-            "../Store Product Images/poster-01.png"
+            "../Store Product Images/baseball-cap-01.png"
         ],
         "description": "Premium quality Poster for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -649,7 +649,7 @@ const storeData = [
         ]
     },
     {
-        "id": "wall-art-01",
+        "id": "bomber-jacket-01",
         "title": "Wall Art",
         "category": "Accessories",
         "price": 899,
@@ -658,9 +658,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": true,
-        "image": "../Store Product Images/wall-art-01.png",
+        "image": "../Store Product Images/bomber-jacket-01.png",
         "gallery": [
-            "../Store Product Images/wall-art-01.png"
+            "../Store Product Images/bomber-jacket-01.png"
         ],
         "description": "Premium quality Wall Art for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -672,7 +672,7 @@ const storeData = [
         ]
     },
     {
-        "id": "pen-drive-01",
+        "id": "desk-calendar-01",
         "title": "Pen Drive",
         "category": "Accessories",
         "price": 499,
@@ -681,9 +681,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/pen-drive-01.png",
+        "image": "../Store Product Images/desk-calendar-01.png",
         "gallery": [
-            "../Store Product Images/pen-drive-01.png"
+            "../Store Product Images/desk-calendar-01.png"
         ],
         "description": "Premium quality Pen Drive for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -695,7 +695,7 @@ const storeData = [
         ]
     },
     {
-        "id": "hard-drive-01",
+        "id": "desk-clock-01",
         "title": "Hard Drive",
         "category": "Accessories",
         "price": 3999,
@@ -704,9 +704,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": true,
         "newArrival": false,
-        "image": "../Store Product Images/hard-drive-01.png",
+        "image": "../Store Product Images/desk-clock-01.png",
         "gallery": [
-            "../Store Product Images/hard-drive-01.png"
+            "../Store Product Images/desk-clock-01.png"
         ],
         "description": "Premium quality Hard Drive for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -718,7 +718,7 @@ const storeData = [
         ]
     },
     {
-        "id": "power-bank-01",
+        "id": "laptop-skin-01",
         "title": "Power Bank",
         "category": "Accessories",
         "price": 1299,
@@ -727,9 +727,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/power-bank-01.png",
+        "image": "../Store Product Images/laptop-skin-01.png",
         "gallery": [
-            "../Store Product Images/power-bank-01.png"
+            "../Store Product Images/laptop-skin-01.png"
         ],
         "description": "Premium quality Power Bank for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -787,7 +787,7 @@ const storeData = [
         ]
     },
     {
-        "id": "headphones-stand-01",
+        "id": "laptop-sleeve-01",
         "title": "Headphones Stand",
         "category": "Accessories",
         "price": 599,
@@ -796,9 +796,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/headphones-stand-01.png",
+        "image": "../Store Product Images/laptop-sleeve-01.png",
         "gallery": [
-            "../Store Product Images/headphones-stand-01.png"
+            "../Store Product Images/laptop-sleeve-01.png"
         ],
         "description": "Premium quality Headphones Stand for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -856,7 +856,7 @@ const storeData = [
         ]
     },
     {
-        "id": "monitor-lamp-01",
+        "id": "laptop-stickers-01",
         "title": "Monitor Lamp",
         "category": "Accessories",
         "price": 1499,
@@ -865,9 +865,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/monitor-lamp-01.png",
+        "image": "../Store Product Images/laptop-stickers-01.png",
         "gallery": [
-            "../Store Product Images/monitor-lamp-01.png"
+            "../Store Product Images/laptop-stickers-01.png"
         ],
         "description": "Premium quality Monitor Lamp for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -879,7 +879,7 @@ const storeData = [
         ]
     },
     {
-        "id": "ring-light-01",
+        "id": "tote-bag-01",
         "title": "Ring Light",
         "category": "Accessories",
         "price": 899,
@@ -888,9 +888,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/ring-light-01.png",
+        "image": "../Store Product Images/tote-bag-01.png",
         "gallery": [
-            "../Store Product Images/ring-light-01.png"
+            "../Store Product Images/tote-bag-01.png"
         ],
         "description": "Premium quality Ring Light for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -902,7 +902,7 @@ const storeData = [
         ]
     },
     {
-        "id": "microphone-01",
+        "id": "premium-pen-01",
         "title": "Microphone",
         "category": "Accessories",
         "price": 2499,
@@ -911,9 +911,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/microphone-01.png",
+        "image": "../Store Product Images/premium-pen-01.png",
         "gallery": [
-            "../Store Product Images/microphone-01.png"
+            "../Store Product Images/premium-pen-01.png"
         ],
         "description": "Premium quality Microphone for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -925,7 +925,7 @@ const storeData = [
         ]
     },
     {
-        "id": "mechanical-keyboard-01",
+        "id": "premium-pen-set-01",
         "title": "Mechanical Keyboard",
         "category": "Accessories",
         "price": 4999,
@@ -934,9 +934,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": true,
         "newArrival": false,
-        "image": "../Store Product Images/mechanical-keyboard-01.png",
+        "image": "../Store Product Images/premium-pen-set-01.png",
         "gallery": [
-            "../Store Product Images/mechanical-keyboard-01.png"
+            "../Store Product Images/premium-pen-set-01.png"
         ],
         "description": "Premium quality Mechanical Keyboard for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -948,7 +948,7 @@ const storeData = [
         ]
     },
     {
-        "id": "wireless-mouse-01",
+        "id": "sql-notes-pdf-01",
         "title": "Wireless Mouse",
         "category": "Accessories",
         "price": 999,
@@ -957,9 +957,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/wireless-mouse-01.png",
+        "image": "../Store Product Images/sql-notes-pdf-01.png",
         "gallery": [
-            "../Store Product Images/wireless-mouse-01.png"
+            "../Store Product Images/sql-notes-pdf-01.png"
         ],
         "description": "Premium quality Wireless Mouse for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -994,7 +994,7 @@ const storeData = [
         ]
     },
     {
-        "id": "blue-light-glasses-01",
+        "id": "nodejs-notes-pdf-01",
         "title": "Blue Light Glasses",
         "category": "Accessories",
         "price": 899,
@@ -1003,9 +1003,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/blue-light-glasses-01.png",
+        "image": "../Store Product Images/nodejs-notes-pdf-01.png",
         "gallery": [
-            "../Store Product Images/blue-light-glasses-01.png"
+            "../Store Product Images/nodejs-notes-pdf-01.png"
         ],
         "description": "Premium quality Blue Light Glasses for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -1040,7 +1040,7 @@ const storeData = [
         ]
     },
     {
-        "id": "standing-desk-01",
+        "id": "javascript-notes-pdf-01",
         "title": "Standing Desk",
         "category": "Accessories",
         "price": 14999,
@@ -1049,9 +1049,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": true,
         "newArrival": false,
-        "image": "../Store Product Images/standing-desk-01.png",
+        "image": "../Store Product Images/javascript-notes-pdf-01.png",
         "gallery": [
-            "../Store Product Images/standing-desk-01.png"
+            "../Store Product Images/javascript-notes-pdf-01.png"
         ],
         "description": "Premium quality Standing Desk for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -1063,7 +1063,7 @@ const storeData = [
         ]
     },
     {
-        "id": "foot-rest-01",
+        "id": "cover-letter-templates-01",
         "title": "Foot Rest",
         "category": "Accessories",
         "price": 999,
@@ -1072,9 +1072,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/foot-rest-01.png",
+        "image": "../Store Product Images/cover-letter-templates-01.png",
         "gallery": [
-            "../Store Product Images/foot-rest-01.png"
+            "../Store Product Images/cover-letter-templates-01.png"
         ],
         "description": "Premium quality Foot Rest for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -1086,7 +1086,7 @@ const storeData = [
         ]
     },
     {
-        "id": "coffee-coasters-01",
+        "id": "interview-preparation-guide-01",
         "title": "Coffee Coasters",
         "category": "Accessories",
         "price": 199,
@@ -1095,9 +1095,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/coffee-coasters-01.png",
+        "image": "../Store Product Images/interview-preparation-guide-01.png",
         "gallery": [
-            "../Store Product Images/coffee-coasters-01.png"
+            "../Store Product Images/interview-preparation-guide-01.png"
         ],
         "description": "Premium quality Coffee Coasters for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -1132,7 +1132,7 @@ const storeData = [
         ]
     },
     {
-        "id": "neon-sign-01",
+        "id": "interview-preparation-course-01",
         "title": "Neon Sign",
         "category": "Accessories",
         "price": 1999,
@@ -1141,9 +1141,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": true,
-        "image": "../Store Product Images/neon-sign-01.png",
+        "image": "../Store Product Images/interview-preparation-course-01.png",
         "gallery": [
-            "../Store Product Images/neon-sign-01.png"
+            "../Store Product Images/interview-preparation-course-01.png"
         ],
         "description": "Premium quality Neon Sign for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -1155,7 +1155,7 @@ const storeData = [
         ]
     },
     {
-        "id": "java-notes-pdf-01",
+        "id": "career-roadmaps-01",
         "title": "Java Notes (PDF)",
         "category": "E-books",
         "price": 199,
@@ -1164,9 +1164,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": true,
         "newArrival": false,
-        "image": "../Store Product Images/java-notes-pdf-01.png",
+        "image": "../Store Product Images/career-roadmaps-01.png",
         "gallery": [
-            "../Store Product Images/java-notes-pdf-01.png"
+            "../Store Product Images/career-roadmaps-01.png"
         ],
         "description": "Premium quality Java Notes Pdf for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -1270,7 +1270,7 @@ const storeData = [
         ]
     },
     {
-        "id": "api-collection-01",
+        "id": "developer-quote-stickers-01",
         "title": "Api Collection",
         "category": "Digital Templates",
         "price": 399,
@@ -1279,9 +1279,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": true,
         "newArrival": false,
-        "image": "../Store Product Images/api-collection-01.png",
+        "image": "../Store Product Images/developer-quote-stickers-01.png",
         "gallery": [
-            "../Store Product Images/api-collection-01.png"
+            "../Store Product Images/developer-quote-stickers-01.png"
         ],
         "description": "Premium quality Api Collection for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -1293,7 +1293,7 @@ const storeData = [
         ]
     },
     {
-        "id": "html-css-templates-01",
+        "id": "extended-mouse-pad-03",
         "title": "Html Css Templates",
         "category": "Digital Templates",
         "price": 199,
@@ -1302,9 +1302,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": true,
-        "image": "../Store Product Images/html-css-templates-01.png",
+        "image": "../Store Product Images/extended-mouse-pad-03.png",
         "gallery": [
-            "../Store Product Images/html-css-templates-01.png"
+            "../Store Product Images/extended-mouse-pad-03.png"
         ],
         "description": "Premium quality Html Css Templates for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -1523,7 +1523,7 @@ const storeData = [
         ]
     },
     {
-        "id": "interview-preparation-01",
+        "id": "resume-review-02",
         "title": "Interview Preparation",
         "category": "Courses",
         "price": 899,
@@ -1532,9 +1532,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/interview-preparation-01.png",
+        "image": "../Store Product Images/resume-review-02.png",
         "gallery": [
-            "../Store Product Images/interview-preparation-01.png"
+            "../Store Product Images/resume-review-02.png"
         ],
         "description": "Premium quality Interview Preparation for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -1661,7 +1661,7 @@ const storeData = [
         ]
     },
     {
-        "id": "thumbnail-templates-02",
+        "id": "sticky-notes-set-01",
         "title": "Thumbnail Templates 2",
         "category": "Digital Templates",
         "price": 299,
@@ -1670,9 +1670,9 @@ const storeData = [
         "stockStatus": "in-stock",
         "featured": false,
         "newArrival": false,
-        "image": "../Store Product Images/thumbnail-templates-02.png",
+        "image": "../Store Product Images/sticky-notes-set-01.png",
         "gallery": [
-            "../Store Product Images/thumbnail-templates-02.png"
+            "../Store Product Images/sticky-notes-set-01.png"
         ],
         "description": "Premium quality Thumbnail Templates for developers, designers, and tech enthusiasts. Boost your productivity and style with CodeByTushu.",
         "features": [
@@ -2093,3 +2093,6 @@ function getFeaturedProducts() {
 function getNewArrivals() {
     return storeData.filter(p => p.newArrival);
 }
+
+
+
