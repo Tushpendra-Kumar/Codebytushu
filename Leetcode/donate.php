@@ -182,48 +182,47 @@ Auth::boot();
             </div>
 
         </div><!-- /.donate-card -->
-
-        <!-- ===== FOOTER ===== -->
-        <footer class="donate-footer" role="contentinfo">
-
-            <div class="footer-heart-wrap">
-                <div class="footer-heart-icon">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-            </div>
-
-            <p class="footer-thankyou">Thank you for supporting free education.</p>
-            <p class="footer-sub">
-                Your support helps thousands of developers<br>
-                learn and grow every single day.
-            </p>
-
-            <div class="footer-divider"></div>
-
-            <div class="cbt-copyright-strip" style="background: transparent; border: none; padding: 10px 0;">
-                &copy; 2025 <span class="cbt-logo-accent">CodeByTushu</span>. All rights reserved.
-            </div>
-
-            <nav class="footer-links" aria-label="Footer navigation" style="margin-top: 15px;">
-                <a href="/privacy-policy/" class="footer-link" id="footer-privacy">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    Privacy Policy
-                </a>
-                <span class="footer-dot" aria-hidden="true">&#x2022;</span>
-                <a href="/terms/" class="footer-link" id="footer-terms">
-                    <i class="fa-regular fa-file-lines"></i>
-                    Terms &amp; Conditions
-                </a>
-                <span class="footer-dot" aria-hidden="true">&#x2022;</span>
-                <a href="mailto:codebytushu@gmail.com" class="footer-link" id="footer-contact">
-                    <i class="fa-regular fa-envelope"></i>
-                    Contact Us
-                </a>
-            </nav>
-
-        </footer>
-
     </div><!-- /.donate-page-wrapper -->
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="cbt-footer donate-footer" role="contentinfo" style="padding: 50px 20px 40px; text-align: center; width: 100%; max-width: 100%; margin-top: 0;">
+
+        <div class="footer-heart-wrap">
+            <div class="footer-heart-icon">
+                <i class="fa-regular fa-heart"></i>
+            </div>
+        </div>
+
+        <p class="footer-thankyou">Thank you for supporting free education.</p>
+        <p class="footer-sub">
+            Your support helps thousands of developers<br>
+            learn and grow every single day.
+        </p>
+
+        <div class="footer-divider" style="margin: 0 auto 30px;"></div>
+
+        <div class="cbt-copyright-strip" style="background: transparent; border: none; padding: 0 0 15px 0;">
+            &copy; 2025 <span class="cbt-logo-accent">CodeByTushu</span>. All rights reserved.
+        </div>
+
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="/privacy-policy/" class="footer-link" id="footer-privacy">
+                <i class="fa-solid fa-shield-halved"></i>
+                Privacy Policy
+            </a>
+            <span class="footer-dot" aria-hidden="true">&#x2022;</span>
+            <a href="/terms/" class="footer-link" id="footer-terms">
+                <i class="fa-regular fa-file-lines"></i>
+                Terms &amp; Conditions
+            </a>
+            <span class="footer-dot" aria-hidden="true">&#x2022;</span>
+            <a href="mailto:codebytushu@gmail.com" class="footer-link" id="footer-contact">
+                <i class="fa-regular fa-envelope"></i>
+                Contact Us
+            </a>
+        </nav>
+
+    </footer>
 
     <!-- ===== UPI QR MODAL ===== -->
     <div id="upiModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
