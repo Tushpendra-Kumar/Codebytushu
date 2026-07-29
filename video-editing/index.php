@@ -727,50 +727,8 @@ Auth::requireLogin();
             });
         }
     </script>
-    <style>
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-    </style>
-    <script>
-        // Back to Top circle
-        (function(){
-            var style = document.createElement('style');
-            style.textContent = `
-                .main-top-btn {
-                    position: fixed; bottom: 24px; right: 24px; z-index: 99999;
-                    width: 46px; height: 46px; border-radius: 50%;
-                    background: #111; border: 2px solid #ffc400; color: #ffc400;
-                    font-size: 22px; cursor: pointer;
-                    display: flex; align-items: center; justify-content: center;
-                    box-shadow: 0 4px 18px rgba(255,196,0,0.3);
-                    transition: all 0.3s ease;
-                    opacity: 0; transform: translateY(20px); pointer-events: none;
-                }
-                .main-top-btn.show {
-                    opacity: 1; transform: translateY(0); pointer-events: auto;
-                }
-                .main-top-btn:hover {
-                    background: #ffc400; color: #000;
-                    transform: translateY(-4px);
-                    box-shadow: 0 8px 24px rgba(255,196,0,0.55);
-                }
-                @media(max-width:480px){
-                    .main-top-btn { bottom:24px; right:20px; width:36px; height:36px; font-size:16px; }
-                }
-            `;
-            document.head.appendChild(style);
-
-            var btn = document.createElement('button');
-            btn.className = 'main-top-btn';
-            btn.setAttribute('aria-label', 'Back to top');
-            btn.innerHTML = '<span class="material-symbols-rounded">arrow_upward</span>';
-            document.body.appendChild(btn);
-
-            btn.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
-            window.addEventListener('scroll', function(){
-                btn.classList.toggle('show', window.scrollY > 400);
-            });
-        })();
-    </script>
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

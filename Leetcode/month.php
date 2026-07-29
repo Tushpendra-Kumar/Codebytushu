@@ -1,11 +1,11 @@
-<?php
+﻿<?php
 declare(strict_types=1);
 
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 
 /**
- * CodeByTushu — LeetCode Month Timeline
+ * CodeByTushu â€” LeetCode Month Timeline
  * Displays all daily problems for a given month dynamically.
  */
 
@@ -36,7 +36,7 @@ $days = $stmtDays->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<?= e($month['month_name']) ?> <?= e($month['y_year']) ?> LeetCode Solutions — CodeByTushu">
+    <meta name="description" content="<?= e($month['month_name']) ?> <?= e($month['y_year']) ?> LeetCode Solutions â€” CodeByTushu">
     <title><?= e($month['month_name']) ?> <?= e($month['y_year']) ?> Problems | CodeByTushu</title>
 
     <link rel="icon"             href="/favicon.ico?v=6"                 sizes="any">
@@ -63,7 +63,7 @@ $days = $stmtDays->fetchAll();
         #cbt-auth-overlay * { filter: none !important; -webkit-filter: none !important; }
         .cbt-auth-modal { filter: none !important; -webkit-filter: none !important; }
 
-        /* â”€â”€ Day Grid â”€â”€ */
+        /* Ã¢â€â‚¬Ã¢â€â‚¬ Day Grid Ã¢â€â‚¬Ã¢â€â‚¬ */
         .days-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -76,7 +76,7 @@ $days = $stmtDays->fetchAll();
             align-items: stretch;
         }
 
-        /* â”€â”€ Day Card â”€â”€ */
+        /* Ã¢â€â‚¬Ã¢â€â‚¬ Day Card Ã¢â€â‚¬Ã¢â€â‚¬ */
         .day-card {
             background: #111118;
             border: 1px solid rgba(255,196,0,0.15);
@@ -88,7 +88,7 @@ $days = $stmtDays->fetchAll();
             align-items: center;
             justify-content: flex-start;  /* always top-align so heights stay equal */
             text-align: center;
-            height: 100%;                 /* fill entire grid cell â†’ equal heights */
+            height: 100%;                 /* fill entire grid cell Ã¢â€ â€™ equal heights */
             box-sizing: border-box;
             transition: all 0.3s ease;
             overflow: hidden;
@@ -132,7 +132,7 @@ $days = $stmtDays->fetchAll();
         .diff-medium { background: rgba(255,196,0,0.12);  color: #ffc400; }
         .diff-hard   { background: rgba(255,55,95,0.12);  color: #ff375f; }
 
-        /* â”€â”€ Back btn â”€â”€ */
+        /* Ã¢â€â‚¬Ã¢â€â‚¬ Back btn Ã¢â€â‚¬Ã¢â€â‚¬ */
         .month-back-btn {
             display: inline-flex;
             align-items: center;
@@ -153,12 +153,12 @@ $days = $stmtDays->fetchAll();
             transform: translateX(-3px);
         }
 
-        /* â”€â”€ Problems Page Wrapper â”€â”€ */
+        /* Ã¢â€â‚¬Ã¢â€â‚¬ Problems Page Wrapper Ã¢â€â‚¬Ã¢â€â‚¬ */
         .problems-page {
             flex-direction: column;
         }
 
-        /* â”€â”€ Section heading â”€â”€ */
+        /* Ã¢â€â‚¬Ã¢â€â‚¬ Section heading Ã¢â€â‚¬Ã¢â€â‚¬ */
         .month-section-head {
             text-align: center;
             max-width: 900px;
@@ -175,7 +175,7 @@ $days = $stmtDays->fetchAll();
             font-size: 15px;
         }
 
-        /* â”€â”€ Mobile: Stack header & 1-col grid â”€â”€ */
+        /* Ã¢â€â‚¬Ã¢â€â‚¬ Mobile: Stack header & 1-col grid Ã¢â€â‚¬Ã¢â€â‚¬ */
         @media (max-width: 640px) {
             .problems-page {
                 margin-top: 40px;
@@ -205,7 +205,7 @@ $days = $stmtDays->fetchAll();
             .days-grid { gap: 8px; padding: 12px 3%; }
         }
 
-        /* â”€â”€ Prevent horizontal overflow â”€â”€ */
+        /* Ã¢â€â‚¬Ã¢â€â‚¬ Prevent horizontal overflow Ã¢â€â‚¬Ã¢â€â‚¬ */
         html, body {
             max-width: 100%;
             overflow-x: hidden;
@@ -362,6 +362,8 @@ $days = $stmtDays->fetchAll();
         });
     </script>
 
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 </html>
 

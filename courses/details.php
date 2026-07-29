@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../classes/Auth.php';
 require_once __DIR__ . '/../config/database.php';
@@ -172,7 +172,7 @@ if ($is_logged_in) {
             </div>
         </div>
 
-        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- â•â• Mobile Full Drawer â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
         <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
         <div class="cbt-mobile-drawer" id="cbt-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile menu" aria-hidden="true">
             <div class="cbt-drawer-header">
@@ -266,12 +266,12 @@ if ($is_logged_in) {
                     FREE
                 <?php elseif ($hasDiscount): ?>
                     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                        <span style="font-size:2.4rem;">₹<?= number_format($currentPrice, 2) ?></span>
-                        <span style="text-decoration:line-through;color:rgba(255,255,255,0.5);font-size:1.4rem;">₹<?= number_format($course['price'], 2) ?></span>
+                        <span style="font-size:2.4rem;">â‚¹<?= number_format($currentPrice, 2) ?></span>
+                        <span style="text-decoration:line-through;color:rgba(255,255,255,0.5);font-size:1.4rem;">â‚¹<?= number_format($course['price'], 2) ?></span>
                         <span style="background:rgba(34,197,94,0.15);color:#22c55e;padding:4px 10px;border-radius:6px;font-size:1rem;font-weight:700;border:1px solid rgba(34,197,94,0.3);"><?= round((($course['price'] - $course['discount_price']) / $course['price']) * 100) ?>% OFF</span>
                     </div>
                 <?php else: ?>
-                    ₹<?= number_format($course['price'], 2) ?>
+                    â‚¹<?= number_format($course['price'], 2) ?>
                 <?php endif; ?>
             </div>
             
@@ -299,5 +299,7 @@ if ($is_logged_in) {
     
     <?php include __DIR__ . '/payment_modal.php'; ?>
     <script src="/auth-ui.js"></script>
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 declare(strict_types=1);
 
 require_once __DIR__ . '/../classes/Auth.php';
@@ -6,11 +6,11 @@ Auth::boot();
 $isLoggedIn = Auth::check() ? 'true' : 'false';
 
 /**
- * CodeByTushu — LeetCode Dynamic Solution Page
+ * CodeByTushu â€” LeetCode Dynamic Solution Page
  * Single template rendering ALL problem pages from the database.
  *
  * Routes:
- *   /leetcode/problem/{slug}   → ?slug=...  (primary SEO URL)
+ *   /leetcode/problem/{slug}   â†’ ?slug=...  (primary SEO URL)
  *   /leetcode/problem/?date=YYYY-MM-DD      (legacy redirect)
  *
  * This file requires NO hardcoded HTML per problem.
@@ -24,9 +24,9 @@ require_once __DIR__ . '/../includes/functions.php';
 
 $pdo = db();
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
    1. Resolve the solution from month/day, slug, or date
-   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+   Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 $monthId = isset($_GET['month']) ? (int)$_GET['month'] : 0;
 $day     = isset($_GET['day']) ? (int)$_GET['day'] : 0;
 $slug    = trim($_GET['slug'] ?? '');
@@ -89,15 +89,15 @@ if ($monthId > 0 && $day > 0) {
     }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
    2. Handle not-found / upcoming state
-   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+   Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 if (!$sol && !$notFound) {
     http_response_code(404);
     $notFound = true;
 } elseif (!$notFound) {
 
-    /* â”€â”€â”€ Is this an upcoming / unpublished problem? â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Is this an upcoming / unpublished problem? Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     $currentDate = new \DateTime('today');
     $problemDate = new \DateTime($sol['solution_date']);
     
@@ -117,7 +117,7 @@ if (!$sol && !$notFound) {
         // Removed custom cutoff for 2026 since we now dynamically show placeholders based on database absence.
     }
 
-    /* â”€â”€â”€ Track view count (only for published, real visits) â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Track view count (only for published, real visits) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     if (!$isUpcoming) {
         try {
             $pdo->prepare(
@@ -126,7 +126,7 @@ if (!$sol && !$notFound) {
         } catch (\Throwable) { /* non-fatal */ }
     }
 
-    /* â”€â”€â”€ Load code blocks â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Load code blocks Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     $codeBlocks = [];
     if (!$isUpcoming && $sol['id'] > 0) {
         $stmtCode = $pdo->prepare(
@@ -149,7 +149,7 @@ if (!$sol && !$notFound) {
         ];
     }
 
-    /* â”€â”€â”€ Map language keys â†’ display names & IDs â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Map language keys Ã¢â€ â€™ display names & IDs Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     $languageMap = [
         'java'       => ['label' => 'Java',       'id' => 'java'],
         'python'     => ['label' => 'Python',      'id' => 'python'],
@@ -192,10 +192,10 @@ if (!$sol && !$notFound) {
         }
     }
 
-    /* â”€â”€â”€ First available language (default active tab) â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ First available language (default active tab) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     $firstLangKey = array_key_first($availableLangs) ?? null;
 
-    /* â”€â”€â”€ Load tags â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Load tags Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     $tags = [];
     if ($sol['id'] == 0) {
         $tags = [['name' => 'Placeholder', 'color_hex' => '#ffc400']];
@@ -213,7 +213,7 @@ if (!$sol && !$notFound) {
         } catch (\Throwable) { /* non-fatal */ }
     }
 
-    /* â”€â”€â”€ Prev / Next solutions â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Prev / Next solutions Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     $prevSol = null;
     $nextSol = null;
     try {
@@ -238,7 +238,7 @@ if (!$sol && !$notFound) {
         $nextSol = $stmtNext->fetch() ?: null;
     } catch (\Throwable) { /* non-fatal */ }
 
-    /* â”€â”€â”€ Convert YouTube watch URL â†’ embed URL â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Convert YouTube watch URL Ã¢â€ â€™ embed URL Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     $youtubeEmbed = null;
     if (!empty($sol['youtube_url'])) {
         $ytUrl = $sol['youtube_url'];
@@ -256,7 +256,7 @@ if (!$sol && !$notFound) {
         }
     }
 
-    /* â”€â”€â”€ Difficulty badge class â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Difficulty badge class Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     $diffClass = match(strtolower($sol['difficulty'] ?? '')) {
         'easy'   => 'badge-easy',
         'medium' => 'badge-medium',
@@ -264,15 +264,15 @@ if (!$sol && !$notFound) {
         default  => 'badge-medium',
     };
 
-    /* â”€â”€â”€ Page title â”€â”€â”€ */
+    /* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Page title Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
     $numberPrefix = $sol['problem_number'] ? $sol['problem_number'] . '. ' : '';
     $pageTitle    = $numberPrefix . $sol['problem_title'];
-    $metaDesc     = $sol['meta_description'] ?: ('LeetCode ' . $pageTitle . ' — Solution in Java, Python, C++, JavaScript with time and space complexity analysis.');
+    $metaDesc     = $sol['meta_description'] ?: ('LeetCode ' . $pageTitle . ' â€” Solution in Java, Python, C++, JavaScript with time and space complexity analysis.');
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
    3. HTML Output
-   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+   Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -281,16 +281,16 @@ if (!$sol && !$notFound) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <?php if ($notFound): ?>
-    <title>Problem Not Found — CodeByTushu LeetCode</title>
+    <title>Problem Not Found â€” CodeByTushu LeetCode</title>
     <meta name="robots" content="noindex,nofollow">
     <?php else: ?>
-    <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?> — LeetCode Solution | CodeByTushu</title>
+    <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?> â€” LeetCode Solution | CodeByTushu</title>
     <meta name="description" content="<?= htmlspecialchars($metaDesc, ENT_QUOTES, 'UTF-8') ?>">
     <meta name="robots" content="<?= $isUpcoming ? 'noindex,nofollow' : 'index,follow' ?>">
     <link rel="canonical" href="<?= SITE_URL ?>/leetcode/problem/<?= htmlspecialchars($sol['slug'], ENT_QUOTES, 'UTF-8') ?>">
     <!-- Open Graph -->
     <meta property="og:type"        content="article">
-    <meta property="og:title"       content="<?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?> — LeetCode Solution">
+    <meta property="og:title"       content="<?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?> â€” LeetCode Solution">
     <meta property="og:description" content="<?= htmlspecialchars($metaDesc, ENT_QUOTES, 'UTF-8') ?>">
     <meta property="og:url"         content="<?= SITE_URL ?>/leetcode/problem/<?= htmlspecialchars($sol['slug'], ENT_QUOTES, 'UTF-8') ?>">
     <?php if (!empty($sol['og_image_url'])): ?>
@@ -430,9 +430,9 @@ if (!$sol && !$notFound) {
 
     <section class="problem-section">
 
-        <!-- ————————————
+        <!-- â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
              LEFT PANEL
-        ———————————— -->
+        â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€” -->
         <div class="left-content">
 
             <h1><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></h1>
@@ -461,34 +461,34 @@ if (!$sol && !$notFound) {
                 <?php if ($isFutureYear): ?>
                 <!-- Future Year Message -->
                 <div class="upcoming-message">
-                    <span class="lock-icon">🔒</span>
+                    <span class="lock-icon">ðŸ”’</span>
                     This solution has not been published yet. Please check back later.
                 </div>
 
                 <?php elseif ($isComingSoon2026): ?>
                 <!-- 2026 Custom Coming Soon Message -->
                 <div class="upcoming-message" style="text-align: left;">
-                    <h3 style="color: #ffc400; margin-bottom: 15px;">⏳ Solution Coming Soon</h3>
+                    <h3 style="color: #ffc400; margin-bottom: 15px;">â³ Solution Coming Soon</h3>
                     <p style="margin-bottom: 10px;">Sorry! This solution has not been added yet.</p>
                     <p style="margin-bottom: 10px; color: #aaa; line-height: 1.6;">I am gradually uploading all previous LeetCode solutions along with detailed explanations, optimized code, video tutorials, time complexity, and space complexity analysis.</p>
                     <p style="margin-bottom: 15px; color: #aaa;">Please check back later. This page will be updated soon.</p>
-                    <p style="color: #fff;">Thank you for your patience and support. ❤️ <br>— CodeByTushu</p>
+                    <p style="color: #fff;">Thank you for your patience and support. â¤ï¸ <br>â€” CodeByTushu</p>
                 </div>
 
                 <?php elseif ($isUpcoming): ?>
                 <!-- Upcoming / locked -->
                 <div class="upcoming-message">
-                    <span class="lock-icon">🔒</span>
+                    <span class="lock-icon">ðŸ”’</span>
                     Solution will be available on
                     <strong><?= date('d F Y', strtotime($sol['solution_date'])) ?></strong>.
                     <br><br>
-                    Check back on the problem date — it will appear here automatically.
+                    Check back on the problem date â€” it will appear here automatically.
                 </div>
 
                 <?php elseif (empty($availableLangs)): ?>
                 <!-- Published but no code added yet -->
                 <div class="upcoming-message">
-                    <span class="lock-icon">⌛</span>
+                    <span class="lock-icon">âŒ›</span>
                     Code solution is being added to the database. Check back shortly.
                 </div>
 
@@ -507,7 +507,7 @@ if (!$sol && !$notFound) {
                     <button class="copy-btn" onclick="copyCode()"><i class="fa-regular fa-copy"></i> Copy</button>
                 </div>
 
-                <!-- Code blocks — only rendered for languages that have code -->
+                <!-- Code blocks â€” only rendered for languages that have code -->
                 <?php $isFirst = true; foreach ($availableLangs as $key => $meta): ?>
                 <pre id="code-<?= htmlspecialchars($meta['id'], ENT_QUOTES, 'UTF-8') ?>"
                      class="code-content"
@@ -520,9 +520,9 @@ if (!$sol && !$notFound) {
         </div><!-- /.left-content -->
 
 
-        <!-- ————————————
+        <!-- â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
              RIGHT PANEL
-        ———————————— -->
+        â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€” -->
         <div class="right-content">
 
             <!-- YouTube Video -->
@@ -573,9 +573,9 @@ if (!$sol && !$notFound) {
     </section><!-- /.problem-section -->
 
 
-    <!-- ————————————————————————————————————————————————————————————————————————
+    <!-- â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
          PREV / NEXT NAVIGATION
-    ———————————————————————————————————————————————————————————————————————— -->
+    â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€” -->
     <?php if ($prevSol || $nextSol): ?>
     <nav class="solution-nav" aria-label="Problem navigation">
 
@@ -616,11 +616,11 @@ if (!$sol && !$notFound) {
 
 
 <?php if (!$notFound && !$isUpcoming && !empty($availableLangs)): ?>
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
      JAVASCRIPT
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
 <script>
-/* â”€â”€ Language tab switching â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Language tab switching Ã¢â€â‚¬Ã¢â€â‚¬ */
 function showCode(langId, event) {
     // Hide all code blocks
     document.querySelectorAll('.code-content').forEach(function(el) {
@@ -640,7 +640,7 @@ function showCode(langId, event) {
     }
 }
 
-/* â”€â”€ Copy active code to clipboard â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ Copy active code to clipboard Ã¢â€â‚¬Ã¢â€â‚¬ */
 function copyCode() {
     var isLoggedIn = <?php echo $isLoggedIn; ?>;
     if (!isLoggedIn) {
@@ -710,6 +710,8 @@ function copyCode() {
     });
 </script>
 
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 </html>
 

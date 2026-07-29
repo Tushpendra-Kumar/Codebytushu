@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 /**
- * CodeByTushu — Premium Single Blog Detail Page
- * URL: /blog/{slug}  (via .htaccess → blog-detail.php?slug=)
+ * CodeByTushu â€” Premium Single Blog Detail Page
+ * URL: /blog/{slug}  (via .htaccess â†’ blog-detail.php?slug=)
  */
 declare(strict_types=1);
 
@@ -14,7 +14,7 @@ if (!$slug) { header('HTTP/1.0 404 Not Found'); require __DIR__ . '/404.php'; ex
 
 $pdo = db();
 
-// ── Fetch the blog post ──────────────────────────────────────────────────────
+// â”€â”€ Fetch the blog post â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $stmt = $pdo->prepare("
     SELECT b.*, c.name as category_name, c.slug as category_slug,
            u.name as author_name
@@ -29,11 +29,11 @@ $blog = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$blog) { header('HTTP/1.0 404 Not Found'); require __DIR__ . '/404.php'; exit; }
 
-// ── Update view count ────────────────────────────────────────────────────────
+// â”€â”€ Update view count â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $pdo->prepare("UPDATE blog_articles SET view_count = view_count + 1 WHERE id = ?")
     ->execute([$blog['id']]);
 
-// ── Fetch tags for this post ─────────────────────────────────────────────────
+// â”€â”€ Fetch tags for this post â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $postTags = [];
 try {
     $ts = $pdo->prepare("
@@ -46,7 +46,7 @@ try {
     $postTags = $ts->fetchAll(PDO::FETCH_ASSOC);
 } catch (\Throwable) {}
 
-// ── Related posts (same category, exclude current) ──────────────────────────
+// â”€â”€ Related posts (same category, exclude current) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $related = [];
 if (!empty($blog['category_id'])) {
     try {
@@ -61,7 +61,7 @@ if (!empty($blog['category_id'])) {
     } catch (\Throwable) {}
 }
 
-// ── Prev / Next posts ────────────────────────────────────────────────────────
+// â”€â”€ Prev / Next posts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 try {
     $prevPost = $pdo->prepare("
         SELECT title, slug FROM blog_articles
@@ -80,7 +80,7 @@ try {
     $nextPost = $nextPost->fetch(PDO::FETCH_ASSOC) ?: null;
 } catch (\Throwable) { $prevPost = $nextPost = null; }
 
-// ── Markdown → HTML Parser (zero dependencies) ───────────────────────────────
+// â”€â”€ Markdown â†’ HTML Parser (zero dependencies) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function parseMarkdown(string $text): string {
     // Protect code blocks first
     $codeBlocks = [];
@@ -115,8 +115,8 @@ function parseMarkdown(string $text): string {
     $text = preg_replace_callback('/^(> \[!(NOTE|WARNING|TIP|IMPORTANT|CAUTION)\]\n(?:^>.*\n?)*)/m',
         function($m) {
             $type = strtolower($m[2]);
-            $icons = ['note'=>'ℹ️','warning'=>'⚠️','tip'=>'💡','important'=>'❗','caution'=>'🚨'];
-            $icon = $icons[$type] ?? 'ℹ️';
+            $icons = ['note'=>'â„¹ï¸','warning'=>'âš ï¸','tip'=>'ðŸ’¡','important'=>'â—','caution'=>'ðŸš¨'];
+            $icon = $icons[$type] ?? 'â„¹ï¸';
             $content = preg_replace('/^> ?/m', '', trim($m[0]));
             $content = preg_replace('/^\[!.*?\]\n?/m', '', $content);
             return "<div class=\"callout callout-$type\"><span class=\"callout-icon\">$icon</span><div class=\"callout-body\">$content</div></div>";
@@ -175,7 +175,7 @@ function parseMarkdown(string $text): string {
         return $html;
     }, $text);
 
-    // Paragraphs — wrap lines not already wrapped in HTML
+    // Paragraphs â€” wrap lines not already wrapped in HTML
     $lines  = explode("\n", $text);
     $output = '';
     $inHtml = false;
@@ -199,7 +199,7 @@ function parseMarkdown(string $text): string {
     return $output;
 }
 
-// ── Generate Table of Contents ───────────────────────────────────────────────
+// â”€â”€ Generate Table of Contents â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function generateTOC(string $content): array {
     preg_match_all('/^#{2,3}\s+(.+)$/m', $content, $matches);
     $toc = [];
@@ -215,7 +215,7 @@ function generateTOC(string $content): array {
 $parsedContent = parseMarkdown($blog['content'] ?? '');
 $toc           = generateTOC($blog['content'] ?? '');
 
-// ── SEO ──────────────────────────────────────────────────────────────────────
+// â”€â”€ SEO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $seoTitle = $blog['seo_title'] ?: $blog['title'] . ' | CodeByTushu';
 $seoDesc  = $blog['meta_description'] ?: mb_strimwidth(strip_tags($blog['excerpt'] ?? ''), 0, 160, '...');
 $ogImage  = $blog['og_image_url'] ?: $blog['thumbnail_path'] ?: '';
@@ -251,9 +251,9 @@ $heroImg  = $blog['cover_image_path'] ?: $blog['thumbnail_path'] ?: '';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" defer></script>
 <style>
-/* ═══════════════════════════════════════════════════
-   BLOG DETAIL — PREMIUM DARK THEME
-   ═══════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   BLOG DETAIL â€” PREMIUM DARK THEME
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -277,7 +277,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 
-/* ── NAVBAR ── */
+/* â”€â”€ NAVBAR â”€â”€ */
 .navbar {
     position: sticky; top: 0; z-index: 200;
     background: rgba(10,10,10,0.92);
@@ -300,7 +300,7 @@ img { max-width: 100%; display: block; }
 .nav-link { color: var(--muted); font-size: 14px; font-weight: 500; padding: 6px 12px; border-radius: 8px; transition: all .2s; }
 .nav-link:hover { color: var(--text); background: rgba(255,255,255,.06); }
 
-/* ── HERO COVER ── */
+/* â”€â”€ HERO COVER â”€â”€ */
 .blog-cover {
     position: relative;
     width: 100%;
@@ -325,7 +325,7 @@ img { max-width: 100%; display: block; }
     background: linear-gradient(135deg, #111, #1a1a0a);
 }
 
-/* ── BLOG META HEADER ── */
+/* â”€â”€ BLOG META HEADER â”€â”€ */
 .blog-header-wrap {
     max-width: 1280px; margin: 0 auto; padding: 40px 24px 0;
 }
@@ -378,7 +378,7 @@ img { max-width: 100%; display: block; }
 .share-btn.copy-link { cursor: pointer; }
 .share-btn.copy-link.copied { border-color: #22c55e; color: #22c55e; }
 
-/* ── MAIN LAYOUT ── */
+/* â”€â”€ MAIN LAYOUT â”€â”€ */
 .blog-body {
     max-width: 1280px; margin: 0 auto;
     padding: 0 24px 80px;
@@ -388,10 +388,10 @@ img { max-width: 100%; display: block; }
     align-items: start;
 }
 
-/* ── CONTENT AREA ── */
+/* â”€â”€ CONTENT AREA â”€â”€ */
 .blog-content-area { max-width: var(--content-w); }
 
-/* ── MARKDOWN STYLES ── */
+/* â”€â”€ MARKDOWN STYLES â”€â”€ */
 .md-content { font-size: 17px; line-height: 1.85; color: #ccc; }
 .md-content .md-h1 { font-size: 32px; font-weight: 800; color: var(--text); margin: 40px 0 16px; }
 .md-content .md-h2 { font-size: 26px; font-weight: 700; color: var(--text); margin: 36px 0 12px; padding-top: 8px; border-top: 1px solid var(--border); }
@@ -514,7 +514,7 @@ img { max-width: 100%; display: block; }
 .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
 .callout-body { font-size: 14px; line-height: 1.6; color: #ccc; }
 
-/* ── STICKY SIDEBAR ── */
+/* â”€â”€ STICKY SIDEBAR â”€â”€ */
 .blog-sidebar-right {
     position: sticky; top: 80px;
     display: flex; flex-direction: column; gap: 20px;
@@ -543,7 +543,7 @@ img { max-width: 100%; display: block; }
 .toc-item.active a { color: var(--accent); border-left-color: var(--accent); background: rgba(255,196,0,.05); }
 .toc-item.level-3 a { padding-left: 20px; font-size: 12px; }
 
-/* ── ARTICLE END SECTIONS ── */
+/* â”€â”€ ARTICLE END SECTIONS â”€â”€ */
 .article-end { max-width: var(--content-w); }
 
 /* Share at end */
@@ -635,7 +635,7 @@ img { max-width: 100%; display: block; }
 .comment-coming-soon h4 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
 .comment-coming-soon p { font-size: 13px; color: var(--muted); }
 
-/* ── FOOTER ── */
+/* â”€â”€ FOOTER â”€â”€ */
 .blog-footer { background: #060606; border-top: 1px solid var(--border); padding: 40px 24px 24px; }
 .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
 .footer-brand-sm { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 800; }
@@ -644,7 +644,7 @@ img { max-width: 100%; display: block; }
 .footer-links a:hover { color: var(--accent); }
 .footer-cr { font-size: 12px; color: var(--dim); }
 
-/* ── RESPONSIVE ── */
+/* â”€â”€ RESPONSIVE â”€â”€ */
 @media (max-width: 1024px) {
     .blog-body { grid-template-columns: 1fr; }
     .blog-sidebar-right { position: static; }
@@ -666,7 +666,7 @@ img { max-width: 100%; display: block; }
     .share-btn { padding: 6px 10px; font-size: 12px; }
 }
 
-/* ── ANIMATIONS ── */
+/* â”€â”€ ANIMATIONS â”€â”€ */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -674,7 +674,7 @@ img { max-width: 100%; display: block; }
 .blog-header { animation: fadeIn 0.5s ease both; }
 .blog-content-area { animation: fadeIn 0.6s ease 0.1s both; }
 
-/* ── READING PROGRESS ── */
+/* â”€â”€ READING PROGRESS â”€â”€ */
 .reading-progress {
     position: fixed; top: 0; left: 0; z-index: 9999;
     height: 3px; background: var(--accent);
@@ -687,7 +687,7 @@ img { max-width: 100%; display: block; }
 <!-- Reading Progress -->
 <div class="reading-progress" id="readingProgress"></div>
 
-<!-- ── NAVBAR ─────────────────────────────────────────────────────────────── -->
+<!-- â”€â”€ NAVBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <nav class="navbar">
     <div class="navbar-inner">
         <a href="/" class="nav-logo">
@@ -703,7 +703,7 @@ img { max-width: 100%; display: block; }
     </div>
 </nav>
 
-<!-- ── COVER IMAGE ────────────────────────────────────────────────────────── -->
+<!-- â”€â”€ COVER IMAGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <?php if ($heroImg): ?>
 <div class="blog-cover">
     <img src="<?= e($heroImg) ?>" alt="<?= e($blog['title']) ?>" class="cover-img" loading="eager">
@@ -715,7 +715,7 @@ img { max-width: 100%; display: block; }
 </div>
 <?php endif; ?>
 
-<!-- ── BLOG HEADER ────────────────────────────────────────────────────────── -->
+<!-- â”€â”€ BLOG HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <div class="blog-header-wrap">
     <div class="blog-header">
         <!-- Badges -->
@@ -784,7 +784,7 @@ img { max-width: 100%; display: block; }
     </div>
 </div>
 
-<!-- ── BLOG BODY ───────────────────────────────────────────────────────────── -->
+<!-- â”€â”€ BLOG BODY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <div class="blog-body">
 
     <!-- CONTENT COLUMN -->
@@ -799,16 +799,16 @@ img { max-width: 100%; display: block; }
 
             <!-- Share Section -->
             <div class="share-section">
-                <h3>📢 Share This Article</h3>
+                <h3>ðŸ“¢ Share This Article</h3>
                 <p>If you found this helpful, share it with your developer friends!</p>
                 <div class="share-buttons">
                     <a href="https://twitter.com/intent/tweet?url=<?= urlencode($fullUrl) ?>&text=<?= urlencode($blog['title']) ?>"
-                       target="_blank" rel="noopener" class="share-btn twitter">🐦 Twitter</a>
+                       target="_blank" rel="noopener" class="share-btn twitter">ðŸ¦ Twitter</a>
                     <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?= urlencode($fullUrl) ?>"
-                       target="_blank" rel="noopener" class="share-btn linkedin">💼 LinkedIn</a>
+                       target="_blank" rel="noopener" class="share-btn linkedin">ðŸ’¼ LinkedIn</a>
                     <a href="https://wa.me/?text=<?= urlencode($blog['title'] . ' ' . $fullUrl) ?>"
-                       target="_blank" rel="noopener" class="share-btn whatsapp">💬 WhatsApp</a>
-                    <button onclick="copyBlogUrl()" class="share-btn copy-link">🔗 Copy Link</button>
+                       target="_blank" rel="noopener" class="share-btn whatsapp">ðŸ’¬ WhatsApp</a>
+                    <button onclick="copyBlogUrl()" class="share-btn copy-link">ðŸ”— Copy Link</button>
                 </div>
             </div>
 
@@ -839,7 +839,7 @@ img { max-width: 100%; display: block; }
                             <?php if (!empty($r['thumbnail_path'])): ?>
                                 <img src="<?= e($r['thumbnail_path']) ?>" alt="<?= e($r['title']) ?>" loading="lazy">
                             <?php else: ?>
-                                <?= e($r['icon_name'] ?? '📝') ?>
+                                <?= e($r['icon_name'] ?? 'ðŸ“') ?>
                             <?php endif; ?>
                         </div>
                         <div class="related-body">
@@ -879,9 +879,9 @@ img { max-width: 100%; display: block; }
 
             <!-- Comments (Future Ready) -->
             <div class="comments-section">
-                <h3>💬 Comments (0)</h3>
+                <h3>ðŸ’¬ Comments (0)</h3>
                 <div class="comment-coming-soon">
-                    <span>🚀</span>
+                    <span>ðŸš€</span>
                     <h4>Comments Coming Soon</h4>
                     <p>We're working on the comment system. Stay tuned!</p>
                 </div>
@@ -922,24 +922,24 @@ img { max-width: 100%; display: block; }
             </div>
             <div class="sb-body" style="display:flex;flex-direction:column;gap:8px;">
                 <a href="https://twitter.com/intent/tweet?url=<?= urlencode($fullUrl) ?>&text=<?= urlencode($blog['title']) ?>"
-                   target="_blank" rel="noopener" class="share-btn" style="justify-content:center;">🐦 Twitter</a>
+                   target="_blank" rel="noopener" class="share-btn" style="justify-content:center;">ðŸ¦ Twitter</a>
                 <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?= urlencode($fullUrl) ?>"
-                   target="_blank" rel="noopener" class="share-btn" style="justify-content:center;">💼 LinkedIn</a>
+                   target="_blank" rel="noopener" class="share-btn" style="justify-content:center;">ðŸ’¼ LinkedIn</a>
                 <a href="https://wa.me/?text=<?= urlencode($blog['title'] . ' ' . $fullUrl) ?>"
-                   target="_blank" rel="noopener" class="share-btn" style="justify-content:center;">💬 WhatsApp</a>
-                <button onclick="copyBlogUrl()" class="share-btn" style="justify-content:center;">🔗 Copy Link</button>
+                   target="_blank" rel="noopener" class="share-btn" style="justify-content:center;">ðŸ’¬ WhatsApp</a>
+                <button onclick="copyBlogUrl()" class="share-btn" style="justify-content:center;">ðŸ”— Copy Link</button>
             </div>
         </div>
 
         <!-- Back to Blog -->
         <a href="/blogs.php" class="share-btn" style="justify-content:center;padding:12px;border-radius:var(--radius);text-align:center;">
-            ← Back to All Blogs
+            â† Back to All Blogs
         </a>
 
     </aside>
 </div>
 
-<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<!-- â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <footer class="blog-footer">
     <div class="footer-inner">
         <div class="footer-brand-sm">
@@ -957,7 +957,7 @@ img { max-width: 100%; display: block; }
 </footer>
 
 <script>
-// ── Reading Progress Bar ─────────────────────────────────────────────────────
+// â”€â”€ Reading Progress Bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 window.addEventListener('scroll', () => {
     const prog = document.getElementById('readingProgress');
     if (!prog) return;
@@ -965,14 +965,14 @@ window.addEventListener('scroll', () => {
     prog.style.width = docH > 0 ? (window.scrollY / docH * 100) + '%' : '0%';
 });
 
-// ── Heading IDs (re-tag headings for TOC links) ──────────────────────────────
+// â”€â”€ Heading IDs (re-tag headings for TOC links) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('.md-content h2, .md-content h3').forEach(h => {
     if (!h.id) {
         h.id = h.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
     }
 });
 
-// ── TOC Active State on Scroll ───────────────────────────────────────────────
+// â”€â”€ TOC Active State on Scroll â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const tocItems = document.querySelectorAll('.toc-item');
 const headings = document.querySelectorAll('.md-content h2, .md-content h3');
 
@@ -990,25 +990,25 @@ if (tocItems.length && headings.length) {
     headings.forEach(h => observer.observe(h));
 }
 
-// ── Copy Blog URL ────────────────────────────────────────────────────────────
+// â”€â”€ Copy Blog URL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function copyBlogUrl() {
     navigator.clipboard.writeText(window.location.href).then(() => {
         document.querySelectorAll('.copy-link').forEach(btn => {
             btn.classList.add('copied');
-            btn.textContent = '✅ Copied!';
+            btn.textContent = 'âœ… Copied!';
             setTimeout(() => {
                 btn.classList.remove('copied');
-                btn.innerHTML = '🔗 Copy Link';
+                btn.innerHTML = 'ðŸ”— Copy Link';
             }, 2000);
         });
     });
 }
 
-// ── Copy Code Button ─────────────────────────────────────────────────────────
+// â”€â”€ Copy Code Button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function copyCode(btn) {
     const code = btn.closest('.code-block-wrap').querySelector('code');
     navigator.clipboard.writeText(code.innerText).then(() => {
-        btn.textContent = '✅ Copied!';
+        btn.textContent = 'âœ… Copied!';
         btn.classList.add('copied');
         setTimeout(() => {
             btn.textContent = 'Copy';
@@ -1017,7 +1017,7 @@ function copyCode(btn) {
     });
 }
 
-// ── Smooth TOC Scroll ────────────────────────────────────────────────────────
+// â”€â”€ Smooth TOC Scroll â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.querySelectorAll('.toc-item a').forEach(a => {
     a.addEventListener('click', e => {
         e.preventDefault();
@@ -1028,7 +1028,7 @@ document.querySelectorAll('.toc-item a').forEach(a => {
     });
 });
 
-// ── Syntax Highlighting ──────────────────────────────────────────────────────
+// â”€â”€ Syntax Highlighting â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.addEventListener('DOMContentLoaded', () => {
     if (window.hljs) {
         document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
@@ -1036,5 +1036,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
@@ -84,7 +84,7 @@ Auth::requireLogin();
             </div>
         </div>
 
-        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- â•â• Mobile Full Drawer â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
         <!-- Overlay -->
         <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
         <!-- Drawer -->
@@ -434,6 +434,8 @@ Auth::requireLogin();
             });
         });
     </script>
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 </html>
 

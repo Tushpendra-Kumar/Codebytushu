@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../classes/Auth.php';
 require_once __DIR__ . '/../config/database.php';
@@ -30,7 +30,7 @@ if (Auth::check()) {
     $purchasedCourses = $purchStmt->fetchAll(PDO::FETCH_COLUMN);
 }
 ?>
-﻿
+ï»¿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,7 +126,7 @@ if (Auth::check()) {
             </div>
         </div>
 
-        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- â•â• Mobile Full Drawer â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
         <!-- Overlay -->
         <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
         <!-- Drawer -->
@@ -259,13 +259,13 @@ if (Auth::check()) {
                         $discountPct = round((($course['price'] - $course['discount_price']) / $course['price']) * 100);
                         $priceDisplay = '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
                                             <div style="display:flex;align-items:baseline;gap:6px;">
-                                                <span class="cbt-course-price" style="font-size:1.4rem;">₹' . number_format($currentPrice, 2) . '</span>
-                                                <span style="text-decoration:line-through;color:var(--text-dim);font-size:0.9rem;">₹' . number_format($course['price'], 2) . '</span>
+                                                <span class="cbt-course-price" style="font-size:1.4rem;">â‚¹' . number_format($currentPrice, 2) . '</span>
+                                                <span style="text-decoration:line-through;color:var(--text-dim);font-size:0.9rem;">â‚¹' . number_format($course['price'], 2) . '</span>
                                             </div>
                                             <span style="background:rgba(34,197,94,0.15);color:#22c55e;padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:700;border:1px solid rgba(34,197,94,0.3);letter-spacing:0.5px;">' . $discountPct . '% OFF</span>
                                          </div>';
                     } else {
-                        $priceDisplay = '<span class="cbt-course-price">₹' . number_format($course['price'], 2) . '</span>';
+                        $priceDisplay = '<span class="cbt-course-price">â‚¹' . number_format($course['price'], 2) . '</span>';
                     }
                     $thumb = $course['thumbnail_path'] ?: '/assets/images/default-course.jpg';
                 ?>
@@ -683,5 +683,7 @@ if (Auth::check()) {
             });
         });
     </script>
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 /**
- * CodeByTushu — Premium Blog Listing Page
+ * CodeByTushu â€” Premium Blog Listing Page
  * URL: /blogs.php  (or /blog via .htaccess)
  */
 declare(strict_types=1);
@@ -11,17 +11,17 @@ require_once __DIR__ . '/includes/functions.php';
 
 $pdo = db();
 
-// ── Pagination ──────────────────────────────────────────────────────────────
+// â”€â”€ Pagination â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $perPage     = 6;
 $currentPage = max(1, (int)($_GET['page'] ?? 1));
 $offset      = ($currentPage - 1) * $perPage;
 
-// ── Filters ─────────────────────────────────────────────────────────────────
+// â”€â”€ Filters â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $search   = trim($_GET['q']   ?? '');
 $catSlug  = trim($_GET['cat'] ?? '');
 $tagSlug  = trim($_GET['tag'] ?? '');
 
-// ── Build WHERE clause ───────────────────────────────────────────────────────
+// â”€â”€ Build WHERE clause â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $where  = ['b.is_published = 1'];
 $params = [];
 
@@ -41,7 +41,7 @@ if ($tagSlug !== '') {
 
 $whereSQL = 'WHERE ' . implode(' AND ', $where);
 
-// ── Total count ──────────────────────────────────────────────────────────────
+// â”€â”€ Total count â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $countSQL  = "SELECT COUNT(*) FROM blog_articles b LEFT JOIN categories c ON b.category_id = c.id $whereSQL";
 $countStmt = $pdo->prepare($countSQL);
 $countStmt->execute($params);
@@ -49,7 +49,7 @@ $totalPosts = (int)$countStmt->fetchColumn();
 $totalPages = max(1, (int)ceil($totalPosts / $perPage));
 $currentPage = min($currentPage, $totalPages);
 
-// ── Fetch posts ──────────────────────────────────────────────────────────────
+// â”€â”€ Fetch posts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $postsSQL = "
     SELECT b.id, b.title, b.slug, b.excerpt, b.thumbnail_path, b.icon_name,
            b.published_at, b.read_time_mins, b.view_count,
@@ -66,7 +66,7 @@ $postsStmt = $pdo->prepare($postsSQL);
 $postsStmt->execute($params);
 $posts = $postsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-// ── Sidebar: Categories ──────────────────────────────────────────────────────
+// â”€â”€ Sidebar: Categories â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 try {
     $cats = $pdo->query("
         SELECT c.name, c.slug, COUNT(b.id) as cnt
@@ -77,7 +77,7 @@ try {
     ")->fetchAll(PDO::FETCH_ASSOC);
 } catch (\Throwable) { $cats = []; }
 
-// ── Sidebar: Popular Tags ────────────────────────────────────────────────────
+// â”€â”€ Sidebar: Popular Tags â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 try {
     $tags = $pdo->query("
         SELECT bt.name, bt.slug, bt.color_hex, COUNT(btm.article_id) as cnt
@@ -89,7 +89,7 @@ try {
     ")->fetchAll(PDO::FETCH_ASSOC);
 } catch (\Throwable) { $tags = []; }
 
-// ── Sidebar: Latest posts ─────────────────────────────────────────────────────
+// â”€â”€ Sidebar: Latest posts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 try {
     $latest = $pdo->query("
         SELECT title, slug, thumbnail_path, icon_name, published_at, read_time_mins
@@ -98,7 +98,7 @@ try {
     ")->fetchAll(PDO::FETCH_ASSOC);
 } catch (\Throwable) { $latest = []; }
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function blogUrl(string $slug): string {
     return '/blog/' . rawurlencode($slug);
 }
@@ -109,7 +109,7 @@ function tagUrl(string $slug): string {
     return '/blogs.php?tag=' . urlencode($slug);
 }
 
-$pageTitle = $search ? "Search: $search — Blog" : ($catSlug ? "Category — Blog" : 'Blog | CodeByTushu');
+$pageTitle = $search ? "Search: $search â€” Blog" : ($catSlug ? "Category â€” Blog" : 'Blog | CodeByTushu');
 $metaDesc  = 'Tutorials, guides, and insights to help you become a better developer. Programming, Web Dev, LeetCode and more.';
 ?>
 <!DOCTYPE html>
@@ -130,9 +130,9 @@ $metaDesc  = 'Tutorials, guides, and insights to help you become a better develo
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css?v=40">
 <style>
-/* ═══════════════════════════════════════════════════
-   BLOG LISTING — PREMIUM DARK THEME
-   ═══════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   BLOG LISTING â€” PREMIUM DARK THEME
+   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -162,7 +162,7 @@ body {
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 
-/* ── HERO ── */
+/* â”€â”€ HERO â”€â”€ */
 .blog-hero {
     position: relative;
     background: linear-gradient(135deg, #0a0a0a 0%, #0f0f0f 50%, #0a0a0a 100%);
@@ -219,7 +219,7 @@ img { max-width: 100%; display: block; }
 .hero-stat-n { font-size: 24px; font-weight: 800; color: var(--accent); }
 .hero-stat-l { font-size: 12px; color: var(--muted); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
 
-/* ── LAYOUT ── */
+/* â”€â”€ LAYOUT â”€â”€ */
 .blog-layout {
     max-width: 1280px;
     margin: 0 auto;
@@ -230,7 +230,7 @@ img { max-width: 100%; display: block; }
     align-items: start;
 }
 
-/* ── SECTION HEADER ── */
+/* â”€â”€ SECTION HEADER â”€â”€ */
 .section-header {
     display: flex;
     align-items: center;
@@ -261,7 +261,7 @@ img { max-width: 100%; display: block; }
     color: var(--muted);
 }
 
-/* ── BLOG CARDS ── */
+/* â”€â”€ BLOG CARDS â”€â”€ */
 .blog-grid {
     display: grid;
     gap: 24px;
@@ -382,7 +382,7 @@ img { max-width: 100%; display: block; }
     gap: 4px;
 }
 
-/* ── EMPTY STATE ── */
+/* â”€â”€ EMPTY STATE â”€â”€ */
 .empty-state {
     text-align: center;
     padding: 80px 40px;
@@ -392,7 +392,7 @@ img { max-width: 100%; display: block; }
 .empty-state h3 { font-size: 20px; color: var(--text); margin-bottom: 8px; }
 .empty-state p { font-size: 14px; }
 
-/* ── SEARCH RESULTS HEADER ── */
+/* â”€â”€ SEARCH RESULTS HEADER â”€â”€ */
 .results-header {
     background: rgba(255,196,0,0.05);
     border: 1px solid var(--border);
@@ -407,7 +407,7 @@ img { max-width: 100%; display: block; }
 }
 .results-header strong { color: var(--accent); }
 
-/* ── PAGINATION ── */
+/* â”€â”€ PAGINATION â”€â”€ */
 .pagination {
     display: flex;
     align-items: center;
@@ -433,7 +433,7 @@ img { max-width: 100%; display: block; }
 .page-btn.disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
 .page-btn-text { padding: 0 14px; width: auto; }
 
-/* ── SIDEBAR ── */
+/* â”€â”€ SIDEBAR â”€â”€ */
 .sidebar { display: flex; flex-direction: column; gap: 24px; }
 .sidebar-card {
     background: var(--bg-card);
@@ -588,7 +588,7 @@ img { max-width: 100%; display: block; }
 }
 .newsletter-btn:hover { opacity: 0.85; }
 
-/* ── ACTIVE FILTER PILLS ── */
+/* â”€â”€ ACTIVE FILTER PILLS â”€â”€ */
 .active-filters {
     display: flex;
     align-items: center;
@@ -617,7 +617,7 @@ img { max-width: 100%; display: block; }
 }
 .filter-pill-remove:hover { opacity: 1; }
 
-/* ── FOOTER ── */
+/* â”€â”€ FOOTER â”€â”€ */
 .blog-footer {
     background: #060606;
     border-top: 1px solid var(--border);
@@ -651,7 +651,7 @@ img { max-width: 100%; display: block; }
     gap: 10px;
 }
 
-/* ── RESPONSIVE ── */
+/* â”€â”€ RESPONSIVE â”€â”€ */
 @media (max-width: 1024px) {
     .blog-layout { grid-template-columns: 1fr; }
     .sidebar { order: -1; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -673,7 +673,7 @@ img { max-width: 100%; display: block; }
     .page-btn { width: 34px; height: 34px; font-size: 13px; }
 }
 
-/* ── ANIMATIONS ── */
+/* â”€â”€ ANIMATIONS â”€â”€ */
 @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -689,10 +689,10 @@ img { max-width: 100%; display: block; }
 </head>
 <body>
 
-<!-- ── NAVBAR ─────────────────────────────────────────────────────────────── -->
+<!-- â”€â”€ NAVBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <?php include __DIR__ . '/includes/navbar.php'; ?>
 
-<!-- ── HERO ───────────────────────────────────────────────────────────────── -->
+<!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <section class="blog-hero">
     <div class="hero-badge">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
@@ -702,7 +702,7 @@ img { max-width: 100%; display: block; }
         Tutorials, Guides &<br><span>Dev Insights</span>
     </h1>
     <p class="hero-desc">
-        Real-world programming knowledge — JavaScript, DSA, Web Dev, and everything in between.
+        Real-world programming knowledge â€” JavaScript, DSA, Web Dev, and everything in between.
     </p>
     <?php if ($totalPosts > 0): ?>
     <div class="hero-stats">
@@ -711,18 +711,18 @@ img { max-width: 100%; display: block; }
             <div class="hero-stat-l">Articles</div>
         </div>
         <div class="hero-stat">
-            <div class="hero-stat-n"><?= count($cats) ?: '—' ?></div>
+            <div class="hero-stat-n"><?= count($cats) ?: 'â€”' ?></div>
             <div class="hero-stat-l">Categories</div>
         </div>
         <div class="hero-stat">
-            <div class="hero-stat-n"><?= count($tags) ?: '—' ?></div>
+            <div class="hero-stat-n"><?= count($tags) ?: 'â€”' ?></div>
             <div class="hero-stat-l">Topics</div>
         </div>
     </div>
     <?php endif; ?>
 </section>
 
-<!-- ── MAIN LAYOUT ─────────────────────────────────────────────────────────── -->
+<!-- â”€â”€ MAIN LAYOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <div class="blog-layout">
 
     <!-- MAIN COLUMN -->
@@ -746,13 +746,13 @@ img { max-width: 100%; display: block; }
             <?php if ($search): ?>
             <span class="filter-pill">
                 "<?= htmlspecialchars($search) ?>"
-                <a href="/blogs.php" class="filter-pill-remove">×</a>
+                <a href="/blogs.php" class="filter-pill-remove">Ã—</a>
             </span>
             <?php endif; ?>
             <?php if ($catSlug): ?>
             <span class="filter-pill">
                 Category: <?= htmlspecialchars($catSlug) ?>
-                <a href="/blogs.php<?= $search ? '?q='.urlencode($search) : '' ?>" class="filter-pill-remove">×</a>
+                <a href="/blogs.php<?= $search ? '?q='.urlencode($search) : '' ?>" class="filter-pill-remove">Ã—</a>
             </span>
             <?php endif; ?>
         </div>
@@ -769,9 +769,9 @@ img { max-width: 100%; display: block; }
         <!-- Blog Cards -->
         <?php if (empty($posts)): ?>
         <div class="empty-state">
-            <div class="empty-icon">📝</div>
+            <div class="empty-icon">ðŸ“</div>
             <h3><?= $search ? 'No results found' : 'No posts yet' ?></h3>
-            <p><?= $search ? 'Try different keywords or browse all articles.' : 'Check back soon — amazing content is coming!' ?></p>
+            <p><?= $search ? 'Try different keywords or browse all articles.' : 'Check back soon â€” amazing content is coming!' ?></p>
             <?php if ($search || $catSlug || $tagSlug): ?>
             <a href="/blogs.php" style="display:inline-block;margin-top:20px;padding:10px 20px;background:var(--accent);color:#000;border-radius:8px;font-weight:600;font-size:14px;">View All Posts</a>
             <?php endif; ?>
@@ -787,7 +787,7 @@ img { max-width: 100%; display: block; }
                              loading="lazy">
                     <?php else: ?>
                         <div class="blog-thumb-placeholder">
-                            <?= htmlspecialchars($post['icon_name'] ?? '📝') ?>
+                            <?= htmlspecialchars($post['icon_name'] ?? 'ðŸ“') ?>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -842,14 +842,14 @@ img { max-width: 100%; display: block; }
             ?>
             <a href="?page=<?= $prevPage . $qBase ?>"
                class="page-btn page-btn-text <?= $currentPage <= 1 ? 'disabled' : '' ?>">
-                ← Prev
+                â† Prev
             </a>
             <?php
             $start = max(1, $currentPage - 2);
             $end   = min($totalPages, $currentPage + 2);
             if ($start > 1): ?>
                 <a href="?page=1<?= $qBase ?>" class="page-btn">1</a>
-                <?php if ($start > 2): ?><span style="color:var(--muted);padding:0 4px;">…</span><?php endif; ?>
+                <?php if ($start > 2): ?><span style="color:var(--muted);padding:0 4px;">â€¦</span><?php endif; ?>
             <?php endif;
             for ($i = $start; $i <= $end; $i++): ?>
                 <a href="?page=<?= $i . $qBase ?>"
@@ -858,12 +858,12 @@ img { max-width: 100%; display: block; }
                 </a>
             <?php endfor;
             if ($end < $totalPages): ?>
-                <?php if ($end < $totalPages - 1): ?><span style="color:var(--muted);padding:0 4px;">…</span><?php endif; ?>
+                <?php if ($end < $totalPages - 1): ?><span style="color:var(--muted);padding:0 4px;">â€¦</span><?php endif; ?>
                 <a href="?page=<?= $totalPages . $qBase ?>" class="page-btn"><?= $totalPages ?></a>
             <?php endif; ?>
             <a href="?page=<?= $nextPage . $qBase ?>"
                class="page-btn page-btn-text <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
-                Next →
+                Next â†’
             </a>
         </nav>
         <?php endif; ?>
@@ -957,7 +957,7 @@ img { max-width: 100%; display: block; }
                                      alt="<?= htmlspecialchars($l['title']) ?>"
                                      loading="lazy">
                             <?php else: ?>
-                                <?= htmlspecialchars($l['icon_name'] ?? '📝') ?>
+                                <?= htmlspecialchars($l['icon_name'] ?? 'ðŸ“') ?>
                             <?php endif; ?>
                         </div>
                         <div class="latest-info">
@@ -986,10 +986,10 @@ img { max-width: 100%; display: block; }
                     <form class="newsletter-form" onsubmit="return false;">
                         <input type="email" class="newsletter-input" placeholder="your@email.com">
                         <button type="submit" class="newsletter-btn">
-                            Subscribe — It's Free ✨
+                            Subscribe â€” It's Free âœ¨
                         </button>
                     </form>
-                    <p style="font-size:11px;color:var(--dim);text-align:center;">Coming soon · We respect your privacy</p>
+                    <p style="font-size:11px;color:var(--dim);text-align:center;">Coming soon Â· We respect your privacy</p>
                 </div>
             </div>
         </div>
@@ -997,7 +997,7 @@ img { max-width: 100%; display: block; }
     </aside>
 </div>
 
-<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<!-- â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <footer class="blog-footer">
     <div class="footer-inner">
         <div class="footer-brand">
@@ -1037,9 +1037,11 @@ img { max-width: 100%; display: block; }
     </div>
     <div class="footer-bottom">
         <span>&copy; <?= date('Y') ?> CodeByTushu. All rights reserved.</span>
-        <span>Made with ❤️ for developers</span>
+        <span>Made with â¤ï¸ for developers</span>
     </div>
 </footer>
 
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 </html>

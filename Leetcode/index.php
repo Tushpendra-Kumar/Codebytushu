@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 ?>
@@ -8,11 +8,11 @@ Auth::boot();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="LeetCode Unlocked — Daily DSA solutions by CodeByTushu.">
+    <meta name="description" content="LeetCode Unlocked â€” Daily DSA solutions by CodeByTushu.">
 
     <title>LeetCode Unlocked | CodeByTushu</title>
 
-    <!-- FAVICON — generated from Black Logo.PNG (root-level, cache-busted) -->
+    <!-- FAVICON â€” generated from Black Logo.PNG (root-level, cache-busted) -->
     <link rel="icon"             href="/favicon.ico?v=6"                 sizes="any">
     <link rel="icon"             href="/favicon-32x32.png?v=6"           type="image/png" sizes="32x32">
     <link rel="icon"             href="/favicon-48x48.png?v=6"           type="image/png" sizes="48x48">
@@ -36,7 +36,7 @@ Auth::boot();
     <!-- LeetCode Specific Overrides -->
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="auth.css">
-    <!-- Fonts — Material Symbols (auth modal icon) + Poppins (typography) -->
+    <!-- Fonts â€” Material Symbols (auth modal icon) + Poppins (typography) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -50,7 +50,7 @@ Auth::boot();
     <nav class="cbt-navbar navbar" id="mainNavbar" role="navigation" aria-label="Main navigation">
         <div class="cbt-nav-inner">
 
-            <!-- â”€â”€ Logo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+            <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Logo Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
             <div class="cbt-logo" id="cbt-logo">
                 <a href="#home" id="cbt-logo-link" aria-label="CodeByTushu Home" style="display: flex; align-items: center; gap: 7px; text-decoration: none;">
                     <img src="../image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
@@ -64,14 +64,14 @@ Auth::boot();
                 </a>
             </div>
 
-            <!-- â”€â”€ Center Navigation (Desktop â‰¥1024px only) â”€â”€â”€â”€â”€â”€â”€â”€ -->
+            <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Center Navigation (Desktop Ã¢â€°Â¥1024px only) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
             <ul class="cbt-center-nav" id="cbt-center-nav" role="menubar" aria-label="Primary navigation">
                 <li role="none"><a href="#home"                class="cbt-nav-link active" id="nav-home"         role="menuitem" tabindex="0">Home</a></li>
                 <li role="none"><a href="#explore"            class="cbt-nav-link"        id="nav-explore"      role="menuitem" tabindex="0">Problems</a></li>
                 <li role="none"><a href="#donate"              class="cbt-nav-link"        id="nav-donate"        role="menuitem" tabindex="0">Donate</a></li>
             </ul>
 
-            <!-- â”€â”€ Right Side: Hamburger (Desktop â‰¥1024px) â”€â”€ -->
+            <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Right Side: Hamburger (Desktop Ã¢â€°Â¥1024px) Ã¢â€â‚¬Ã¢â€â‚¬ -->
             <div class="cbt-nav-right" id="cbt-nav-right">
                 <button class="cbt-hamburger-btn" id="cbt-hamburger-btn"
                         aria-label="Open more links" aria-expanded="false" aria-controls="cbt-ham-panel">
@@ -81,7 +81,7 @@ Auth::boot();
                 </button>
             </div>
 
-            <!-- â”€â”€ Mobile Right: Hamburger (<1024px) â”€â”€â”€â”€â”€â”€â”€ -->
+            <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Mobile Right: Hamburger (<1024px) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
             <div class="cbt-mobile-right" id="cbt-mobile-right">
                 <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn"
                         aria-label="Open mobile menu" aria-expanded="false" aria-controls="cbt-mobile-drawer">
@@ -93,7 +93,7 @@ Auth::boot();
 
         </div><!-- /.cbt-nav-inner -->
 
-        <!-- â•â• Desktop Hamburger Panel (right slide-in) â•â•â•â•â•â•â•â•â•â•â•â• -->
+        <!-- Ã¢â€¢ÂÃ¢â€¢Â Desktop Hamburger Panel (right slide-in) Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
         <!-- Overlay -->
         <div class="cbt-panel-overlay" id="cbt-panel-overlay" aria-hidden="true"></div>
         <!-- Panel -->
@@ -108,7 +108,7 @@ Auth::boot();
             </nav>
         </div>
 
-        <!-- â•â• Mobile Full Drawer â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+        <!-- Ã¢â€¢ÂÃ¢â€¢Â Mobile Full Drawer Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
         <!-- Overlay -->
         <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
         <!-- Drawer -->
@@ -327,7 +327,7 @@ Auth::boot();
             <h2>Support <span class="gold-highlight">CodeByTushu</span></h2>
 
             <p>
-                CodeByTushu is dedicated to providing high-quality programming content, daily LeetCode solutions, and practical development resources — completely free for everyone.
+                CodeByTushu is dedicated to providing high-quality programming content, daily LeetCode solutions, and practical development resources â€” completely free for everyone.
             </p>
             <p style="margin-top: 15px;">
                 If our content has helped you learn, grow, or prepare for interviews, your support helps us continue creating better tutorials, maintaining the platform, and delivering new content consistently.
@@ -360,7 +360,7 @@ Auth::boot();
 
                 <div class="dp-boba-row">
                     <span class="dp-boba-icon"><i class="fa-solid fa-heart"></i></span>
-                    <span class="dp-x">×</span>
+                    <span class="dp-x">Ã—</span>
                     <div class="dp-qty-wrap">
                         <span class="dp-qty active">1</span>
                         <span class="dp-qty">3</span>
@@ -368,7 +368,7 @@ Auth::boot();
                     </div>
                 </div>
 
-                <a href="donate.php" class="dp-support-btn" style="text-decoration:none; display:block; text-align:center; box-sizing:border-box;">Support ₹100</a>
+                <a href="donate.php" class="dp-support-btn" style="text-decoration:none; display:block; text-align:center; box-sizing:border-box;">Support â‚¹100</a>
 
             </div>
 
@@ -451,9 +451,9 @@ Auth::boot();
     <script src="/Leetcode/JS/main.js"></script>
     <script src="/back-home.js"></script>
 
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         CBT NAVBAR JS — Theme + Hamburger Panel + Mobile Drawer
-         â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+         CBT NAVBAR JS â€” Theme + Hamburger Panel + Mobile Drawer
+         Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var cbtNav = document.getElementById('mainNavbar');
@@ -568,6 +568,8 @@ Auth::boot();
         });
     </script>
 
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 
 </html>

@@ -57,5 +57,7 @@ function showSaveToast(message) {
   }, 3000);
 }
 </script>
+<!-- Global Scroll to Top (shared across all pages) -->
+<script src="/scroll-to-top.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -47,7 +47,7 @@
     <nav class="cbt-navbar navbar" id="mainNavbar" role="navigation" aria-label="Main navigation">
         <div class="cbt-nav-inner">
 
-            <!-- ── Logo ───────────────────────────────────────────── -->
+            <!-- â”€â”€ Logo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
             <div class="cbt-logo" id="cbt-logo">
                 <a href="index.html" id="cbt-logo-link" aria-label="CodeByTushu Home">
                     <img src="./image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
@@ -55,7 +55,7 @@
                 </a>
             </div>
 
-            <!-- ── Center Navigation (About Platform Links) ──────── -->
+            <!-- â”€â”€ Center Navigation (About Platform Links) â”€â”€â”€â”€â”€â”€â”€â”€ -->
             <ul class="cbt-center-nav" id="cbt-center-nav" role="menubar" aria-label="About Platform navigation">
                 <li role="none"><a href="#story"      class="cbt-nav-link" role="menuitem" tabindex="0">Story</a></li>
                 <li role="none"><a href="#purpose"    class="cbt-nav-link" role="menuitem" tabindex="0">Purpose</a></li>
@@ -65,7 +65,7 @@
                 <li role="none"><a href="#faq"        class="cbt-nav-link" role="menuitem" tabindex="0">FAQ</a></li>
             </ul>
 
-            <!-- ── Right Side: Login (Desktop ≥1024px) ── -->
+            <!-- â”€â”€ Right Side: Login (Desktop â‰¥1024px) â”€â”€ -->
             <div class="cbt-nav-right" id="cbt-nav-right">
                 <div id="cbt-auth-area" style="display:inline-flex;align-items:center;gap:8px;">
                     <a href="auth/login.php" class="cbt-login-btn" id="cbt-login-btn" aria-label="Login to your account">
@@ -74,7 +74,7 @@
                 </div>
             </div>
 
-            <!-- ── Mobile Right: Hamburger (<1024px) ─────── -->
+            <!-- â”€â”€ Mobile Right: Hamburger (<1024px) â”€â”€â”€â”€â”€â”€â”€ -->
             <div class="cbt-mobile-right" id="cbt-mobile-right">
                 <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn"
                         aria-label="Open mobile menu" aria-expanded="false" aria-controls="cbt-mobile-drawer">
@@ -86,7 +86,7 @@
 
         </div><!-- /.cbt-nav-inner -->
 
-        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- â•â• Mobile Full Drawer â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
         <!-- Overlay -->
         <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
         <!-- Drawer -->
@@ -136,7 +136,7 @@
                 </p>
                 <p class="cbt-story-text">
                     CodeByTushu was born to solve that problem.<br>
-                    A platform created with one simple belief —<br>
+                    A platform created with one simple belief â€”<br>
                     learning should be practical, structured and free.<br>
                     For everyone.
                 </p>
@@ -504,11 +504,11 @@
         </div>
     </footer>
 
-        <!-- ═══════════════════════════════════════════════════════
-         CBT NAVBAR JS — Theme + Hamburger Panel + Mobile Drawer
-         ═══════════════════════════════════════════════════════ -->
+        <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+         CBT NAVBAR JS â€” Theme + Hamburger Panel + Mobile Drawer
+         â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <script>
-        /* ── Theme helpers (preserved for compatibility) ──────── */
+        /* â”€â”€ Theme helpers (preserved for compatibility) â”€â”€â”€â”€â”€â”€â”€â”€ */
         function cbtSetTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('cbt-theme', theme);
@@ -520,10 +520,10 @@
             document.documentElement.setAttribute('data-theme', saved);
         })();
 
-        /* ── Navbar interactions ──────────────────────────────── */
+        /* â”€â”€ Navbar interactions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         document.addEventListener('DOMContentLoaded', function () {
 
-            /* ── Sticky navbar (also handled by main.js jQuery,
+            /* â”€â”€ Sticky navbar (also handled by main.js jQuery,
                but this vanilla fallback ensures it works)       */
             var cbtNav = document.getElementById('mainNavbar');
             window.addEventListener('scroll', function () {
@@ -534,7 +534,7 @@
                 }
             }, { passive: true });
 
-            /* ── Desktop Hamburger Panel ──────────────────────── */
+            /* â”€â”€ Desktop Hamburger Panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
             var deskHamBtn    = document.getElementById('cbt-hamburger-btn');
             var hamPanel      = document.getElementById('cbt-ham-panel');
             var panelOverlay  = document.getElementById('cbt-panel-overlay');
@@ -594,7 +594,7 @@
                 });
             }
 
-            /* ── Mobile Drawer ─────────────────────────────────── */
+            /* â”€â”€ Mobile Drawer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
             var mobHamBtn     = document.getElementById('cbt-mobile-ham-btn');
             var mobDrawer     = document.getElementById('cbt-mobile-drawer');
             var mobOverlay    = document.getElementById('cbt-mobile-overlay');
@@ -651,7 +651,7 @@
                 });
             }
 
-            /* ── Escape key closes both panel and drawer ──────── */
+            /* â”€â”€ Escape key closes both panel and drawer â”€â”€â”€â”€â”€â”€â”€â”€ */
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape' || e.keyCode === 27) {
                     if (panelIsOpen) closePanel();
@@ -659,7 +659,7 @@
                 }
             });
 
-            /* ── Active nav link highlight ─────────────────────── */
+            /* â”€â”€ Active nav link highlight â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
             // Detect current page and highlight matching nav link
             (function () {
                 var currentPath = window.location.pathname.replace(/\/$/, '');
@@ -686,7 +686,7 @@
                 }
             })();
 
-            /* ── Scroll-spy: update active on anchor hash change ─ */
+            /* â”€â”€ Scroll-spy: update active on anchor hash change â”€ */
             window.addEventListener('hashchange', function () {
                 var hash = window.location.hash;
                 var navLinks = document.querySelectorAll('.cbt-nav-link');
@@ -719,12 +719,12 @@
             if (form) {
                 form.addEventListener("submit", function(e) {
                     e.preventDefault();
-                    note.textContent = "⏳ Subscribing...";
+                    note.textContent = "â³ Subscribing...";
                     note.style.color = "#ffc400"; // gold color for loading
                     
                     emailjs.sendForm("service_2n2zsep", "template_c15b3pa", this)
                     .then(() => {
-                        note.textContent = "✅ Subscribed successfully!";
+                        note.textContent = "âœ… Subscribed successfully!";
                         note.style.color = "#4caf50"; // green color for success
                         form.reset();
                         
@@ -735,7 +735,7 @@
                         }, 4000);
                     })
                     .catch((error) => {
-                        note.textContent = "❌ Failed to subscribe. Please try again.";
+                        note.textContent = "âŒ Failed to subscribe. Please try again.";
                         note.style.color = "#f44336"; // red color for error
                         console.error("EmailJS Error:", error);
                         
@@ -749,6 +749,8 @@
             }
         })();
     </script>    <script src="/auth-ui.js"></script>
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 </html>
 

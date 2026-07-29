@@ -1,7 +1,8 @@
 /**
  * back-home.js
- * Injects a "Back to Home" pill + "Back to Top" circle button
- * on every sub-page that includes this script.
+ * Injects a "Back to Home" pill on every sub-page that includes this script.
+ * The "Back to Top" circle button is now handled globally by /scroll-to-top.js
+ * which is included on every page — no duplication needed here.
  *
  * SHARED UTILITY: Used by all sub-pages under /Leetcode/ and /video-editing/
  * Located at root (/back-home.js) so all sub-pages can load via absolute path.
@@ -58,55 +59,8 @@
             line-height: 1;
         }
 
-        /* Back to Top circle */
-        .bth-top-btn {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 99999;
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            background: #111;
-            border: 2px solid #f5a623;
-            color: #f5a623;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.4);
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none;
-        }
-        .bth-top-btn.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-        .bth-top-btn:hover {
-            background: #f5a623;
-            color: #000;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(245,166,35,0.5);
-        }
-
-        /* Light mode overrides */
-        [data-theme="light"] .bth-top-btn {
-            background: #fff;
-            border-color: #d4900a;
-            color: #d4900a;
-        }
-        [data-theme="light"] .bth-top-btn:hover {
-            background: #d4900a;
-            color: #fff;
-        }
-
         @media (max-width: 480px) {
             .bth-home-btn { bottom: 82px; right: 14px; font-size: 12px; padding: 8px 14px; }
-            .bth-top-btn  { bottom: 14px; right: 14px; width: 40px; height: 40px; font-size: 17px; }
         }
     `;
     // Load Material Symbols font if not already loaded
@@ -126,22 +80,14 @@
     homeBtn.innerHTML = '<span class="bth-arrow"><span class="material-symbols-rounded" style="font-size:16px">home</span></span> Back to Home';
     document.body.appendChild(homeBtn);
 
-    /* ---------- BACK TO TOP BUTTON ---------- */
-    const topBtn = document.createElement('button');
-    topBtn.className = 'bth-top-btn';
-    topBtn.setAttribute('aria-label', 'Back to top');
-    topBtn.innerHTML = '<span class="material-symbols-rounded">arrow_upward</span>';
-    document.body.appendChild(topBtn);
-
-    topBtn.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
     /* ---------- SHOW / HIDE ON SCROLL ---------- */
     window.addEventListener('scroll', function () {
         const scrolled = window.scrollY > 300;
         homeBtn.classList.toggle('visible', scrolled);
-        topBtn.classList.toggle('visible', scrolled);
     });
+
+    // NOTE: The "Back to Top" circle button was previously injected here.
+    // It is now handled globally by /scroll-to-top.js (included on every page).
+    // scroll-to-top.js has its own deduplication guard, so no double buttons appear.
 
 })();

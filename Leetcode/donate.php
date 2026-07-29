@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 ?>
@@ -7,7 +7,7 @@ Auth::boot();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Support CodeByTushu — Help keep programming education free for everyone.">
+    <meta name="description" content="Support CodeByTushu â€” Help keep programming education free for everyone.">
     <title>Support CodeByTushu | Donate</title>
 
     <!-- Favicon -->
@@ -60,8 +60,8 @@ Auth::boot();
 
     <!-- ===== CURRENCY SIDEBAR ===== -->
     <div class="currency-sidebar" id="currencySidebar">
-        <div class="currency-option active" data-currency="INR" data-symbol="₹" data-rate="1" data-base="10">
-            <span class="c-symbol">₹</span><span class="c-name">INR</span>
+        <div class="currency-option active" data-currency="INR" data-symbol="â‚¹" data-rate="1" data-base="10">
+            <span class="c-symbol">â‚¹</span><span class="c-name">INR</span>
         </div>
         <div class="currency-option" data-currency="USD" data-symbol="$" data-rate="0.012" data-base="1">
             <span class="c-symbol">$</span><span class="c-name">USD</span>
@@ -69,14 +69,14 @@ Auth::boot();
         <div class="currency-option" data-currency="AUD" data-symbol="A$" data-rate="0.018" data-base="1">
             <span class="c-symbol">A$</span><span class="c-name">AUD</span>
         </div>
-        <div class="currency-option" data-currency="GBP" data-symbol="£" data-rate="0.0095" data-base="1">
-            <span class="c-symbol">£</span><span class="c-name">GBP</span>
+        <div class="currency-option" data-currency="GBP" data-symbol="Â£" data-rate="0.0095" data-base="1">
+            <span class="c-symbol">Â£</span><span class="c-name">GBP</span>
         </div>
         <div class="currency-option" data-currency="CAD" data-symbol="C$" data-rate="0.016" data-base="1">
             <span class="c-symbol">C$</span><span class="c-name">CAD</span>
         </div>
-        <div class="currency-option" data-currency="EUR" data-symbol="€" data-rate="0.011" data-base="1">
-            <span class="c-symbol">€</span><span class="c-name">EUR</span>
+        <div class="currency-option" data-currency="EUR" data-symbol="â‚¬" data-rate="0.011" data-base="1">
+            <span class="c-symbol">â‚¬</span><span class="c-name">EUR</span>
         </div>
         <div class="currency-option" data-currency="SGD" data-symbol="S$" data-rate="0.016" data-base="1">
             <span class="c-symbol">S$</span><span class="c-name">SGD</span>
@@ -118,7 +118,7 @@ Auth::boot();
 
             <!-- Description -->
             <p class="donate-desc">
-                CodeByTushu is dedicated to providing high-quality programming content, daily LeetCode solutions, and practical development resources — completely free for everyone.
+                CodeByTushu is dedicated to providing high-quality programming content, daily LeetCode solutions, and practical development resources â€” completely free for everyone.
             </p>
 
             <!-- Feature Cards -->
@@ -152,7 +152,7 @@ Auth::boot();
             <div class="amount-row">
                 <button id="btnMinus" class="qty-btn" aria-label="Decrease amount">&#8722;</button>
                 <div class="amount-display">
-                    <span class="amount-symbol" id="currencySymbolPrefix">₹</span>
+                    <span class="amount-symbol" id="currencySymbolPrefix">â‚¹</span>
                     <input
                         type="number"
                         id="amountInput"
@@ -166,7 +166,7 @@ Auth::boot();
 
             <!-- Support Button -->
             <button class="support-btn" id="supportBtn" aria-label="Proceed to payment">
-                Support <span id="supportAmount">₹10</span>
+                Support <span id="supportAmount">â‚¹10</span>
             </button>
 
             <!-- Secure Notes -->
@@ -235,7 +235,7 @@ Auth::boot();
             <div id="qrcode"></div>
 
             <p class="modal-amount-display">
-                Amount: <span id="modalAmount">₹10</span>
+                Amount: <span id="modalAmount">â‚¹10</span>
             </p>
 
             <!-- Deep link for mobile users -->
@@ -254,7 +254,7 @@ Auth::boot();
 
     <script>
     /* =============================================
-       DONATE PAGE — Full JS
+       DONATE PAGE â€” Full JS
        ============================================= */
 
     // ---- Toast ----
@@ -266,7 +266,7 @@ Auth::boot();
     }
 
     // ---- State ----
-    let currentCurrency = { symbol: '₹', rate: 1, base: 10, name: 'INR' };
+    let currentCurrency = { symbol: 'â‚¹', rate: 1, base: 10, name: 'INR' };
     let currentAmount   = 10;
 
     // ---- Sidebar toggle ----
@@ -377,7 +377,7 @@ Auth::boot();
         if (e.target === modal) modal.classList.remove('show');
     });
 
-    // ---- Support button → UPI QR ----
+    // ---- Support button â†’ UPI QR ----
     document.getElementById('supportBtn').addEventListener('click', function () {
         // Validate
         if (isNaN(currentAmount) || currentAmount < currentCurrency.base) {
@@ -392,7 +392,7 @@ Auth::boot();
         const upiId  = 'tushpendrakum@slc';
         const name   = 'Tushpendra Kumar';
 
-        // Clean UPI deep link — integer amount, no decimals
+        // Clean UPI deep link â€” integer amount, no decimals
         const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}&am=${inrAmount}&cu=INR&tn=${encodeURIComponent('CodeByTushu Donation')}`;
 
         // Update modal
@@ -426,5 +426,7 @@ Auth::boot();
     </script>
 
     <script src="/back-home.js"></script>
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 </html>

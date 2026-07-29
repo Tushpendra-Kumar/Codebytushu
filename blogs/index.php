@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 $isLoggedIn = Auth::check() ? 'true' : 'false';
@@ -69,7 +69,7 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
                 <!-- Search icon removed -->
             </div>
 
-            <!-- ── Mobile Right: Hamburger (<1024px) ─────── -->
+            <!-- â”€â”€ Mobile Right: Hamburger (<1024px) â”€â”€â”€â”€â”€â”€â”€ -->
             <div class="cbt-mobile-right" id="cbt-mobile-right">
                 <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn"
                         aria-label="Open mobile menu" aria-expanded="false" aria-controls="cbt-mobile-drawer">
@@ -80,7 +80,7 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
             </div>
         </div>
 
-        <!-- ══ Mobile Full Drawer ═══════════════════════════════════ -->
+        <!-- â•â• Mobile Full Drawer â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
         <!-- Overlay -->
         <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
         <!-- Drawer -->
@@ -350,5 +350,7 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
             });
         });
     </script>
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
 </body>
 </html>
