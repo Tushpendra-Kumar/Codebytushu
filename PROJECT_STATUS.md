@@ -340,16 +340,24 @@
 | `blogs/blog-details/index.html` | Legacy static blog detail page still active — `blogs.js` redirects to it. Keep until PHP migration is done. |
 | `blogs/js/blogs.js` | Still loaded by `blogs/index.php` (handles search, filtering UI). Keep for now. |
 | `courses/js/data.js` | Old hardcoded mock data, still loaded by `store/cart/index.html`. Keep until Store backend is built. |
-| `courses/course-details/index.html` | Old static course detail page — no URL links to it in active PHP pages, but it still internally links to old `cart/index.html`. Keep for now. |
-| `cart/index.html` | Old static cart — still referenced internally by `courses/course-details/index.html`. Keep until that page is cleaned up. |
 | `store/js/data.js` | Hardcoded store product data — active, will be obsolete once Store backend is implemented. |
 | `store/cart/index.html` | Active static store cart (Store backend not yet implemented). Keep. |
 | `store/product-details/index.html` | Active static store product detail. Keep. |
-| `database/auth_supplement.sql` | Supplemental auth SQL (login_attempts, user_sessions tables). Keep as documentation — may need to re-run. |
-| `database/patch_add_months.sql` | LeetCode months data patch. Keep as documentation — useful for adding future year/month data. |
 | `image1/` and `image2/` | Non-standard folder names — actively used by navbar, styles.css, and many pages. Keep. |
 
-### ✅ Items Removed in Cleanup (July 28, 2026)
+### ✅ Items Removed in Phase 3 Cleanup (July 29, 2026)
+
+| Item | Reason Removed |
+|---|---|
+| `cart/index.html` | Old static HTML cart — completely replaced by `/cart/index.php` and orphaned. |
+| `courses/course-details/` | Old static HTML course details directory — entirely replaced by `/courses/details.php` and orphaned. |
+| `database/auth_supplement.sql` | One-time manual SQL patch — already applied, no longer needed. |
+| `database/patch_add_months.sql` | One-time manual SQL patch — already applied, no longer needed. |
+| Node.js Scripts (`fix_data.js`, `test_dom.js`, `update_data.js`) | One-time execution scripts for processing docs; not needed in PHP backend. |
+| `package.json`, `package-lock.json`, `node_modules/` | Node.js dependencies used purely for the one-time doc preprocessing; obsolete in production. |
+| `.docx` Guide Files (4 files) | Raw word documents sitting in root; never linked or served by the app. |
+
+### ✅ Items Removed in Phase 2 Cleanup (July 28, 2026)
 
 | Item | Reason Removed |
 |---|---|
