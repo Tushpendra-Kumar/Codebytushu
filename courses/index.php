@@ -30,7 +30,6 @@ if (Auth::check()) {
     $purchasedCourses = $purchStmt->fetchAll(PDO::FETCH_COLUMN);
 }
 ?>
-ï»¿
 <!DOCTYPE html>
 <html lang="en">
 <head>
