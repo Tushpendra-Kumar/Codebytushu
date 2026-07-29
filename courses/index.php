@@ -333,30 +333,30 @@ if (Auth::check()) {
         <div class="cbt-course-grid">
             <div class="cbt-course-card" style="padding: 20px;">
                 <p style="color:var(--text-main); font-style:italic; margin-bottom:15px;">"The Java Masterclass completely changed my understanding of OOP. Highly recommended!"</p>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">A</div>
-                    <div>
-                        <h4 style="color:var(--text-heading); font-size:1rem;">Amit Kumar</h4>
+                  <div style="display:flex; align-items:center; gap:10px;">
+                      <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">H</div>
+                      <div>
+                          <h4 style="color:var(--text-heading); font-size:1rem;">Harshita Sahu</h4>
                         <span style="color:#ffc400; font-size:0.95rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                     </div>
                 </div>
             </div>
             <div class="cbt-course-card" style="padding: 20px;">
                 <p style="color:var(--text-main); font-style:italic; margin-bottom:15px;">"React Front to Back was practical and easy to follow. The projects are actually useful."</p>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">S</div>
-                    <div>
-                        <h4 style="color:var(--text-heading); font-size:1rem;">Sneha Sharma</h4>
+                  <div style="display:flex; align-items:center; gap:10px;">
+                      <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">D</div>
+                      <div>
+                          <h4 style="color:var(--text-heading); font-size:1rem;">Deepanshu Gaur</h4>
                         <span style="color:#ffc400; font-size:0.95rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                     </div>
                 </div>
             </div>
             <div class="cbt-course-card" style="padding: 20px;">
                 <p style="color:var(--text-main); font-style:italic; margin-bottom:15px;">"Best DSA prep material out there. Helped me clear my Google phone screen!"</p>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">R</div>
-                    <div>
-                        <h4 style="color:var(--text-heading); font-size:1rem;">Rahul Verma</h4>
+                  <div style="display:flex; align-items:center; gap:10px;">
+                      <div style="width:40px; height:40px; background:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#111; font-weight:bold;">K</div>
+                      <div>
+                          <h4 style="color:var(--text-heading); font-size:1rem;">Kumar Devanshu</h4>
                         <span style="color:#ffc400; font-size:0.95rem;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
                     </div>
                 </div>
