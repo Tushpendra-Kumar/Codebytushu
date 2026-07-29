@@ -2080,3 +2080,21 @@ const storeData = [
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = storeData;
 }
+
+// --- Helper Functions ----------------------------------------------------------
+
+function getProductById(id) {
+    return storeData.find(p => p.id === id);
+}
+
+function getAllProducts() {
+    return storeData;
+}
+
+function getFeaturedProducts() {
+    return storeData.filter(p => p.featured);
+}
+
+function getNewArrivals() {
+    return storeData.filter(p => p.newArrival);
+}
