@@ -457,3 +457,99 @@
         display: none !important;
     }
 }
+
+/* ===================== TESTIMONIAL CARDS ===================== */
+.cbt-testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.cbt-testimonial-card {
+    background: rgba(22, 22, 22, 0.6);
+    border: 1px solid rgba(255, 196, 0, 0.15);
+    border-radius: 16px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cbt-testimonial-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 196, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 196, 0, 0.1);
+}
+
+.cbt-testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cbt-testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+}
+
+.cbt-testimonial-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cbt-testimonial-name {
+    color: var(--text-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.cbt-verified-badge {
+    color: #4CAF50;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(76, 175, 80, 0.1);
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.cbt-testimonial-location {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.cbt-testimonial-product {
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.cbt-testimonial-rating {
+    color: var(--primary);
+    font-size: 0.9rem;
+    display: flex;
+    gap: 2px;
+}
+
+.cbt-testimonial-text {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-style: italic;
+    margin: 0;
+}
