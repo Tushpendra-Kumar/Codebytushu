@@ -5,6 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const storeFilters = document.getElementById('storeFilters');
     const storeSearch = document.getElementById('storeSearch');
 
+    // ---- Cart Counter ----
+    function updateCartCount() {
+        const counters = document.querySelectorAll('.cbt-cart-counter');
+        const cart = JSON.parse(localStorage.getItem('cbt_cart')) || [];
+        let totalItems = 0;
+        cart.forEach(item => { totalItems += (item.quantity || 1); });
+        counters.forEach(el => {
+            el.textContent = totalItems;
+            el.style.display = totalItems > 0 ? 'flex' : 'none';
+        });
+    }
+    updateCartCount();
+    window.addEventListener('cartUpdated', updateCartCount);
+
+    // ---- Render Products ----
     function renderProducts(products) {
         if (!productGrid) return;
         
@@ -55,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderProducts(getAllProducts());
     }
 
-    // Search and Filter Logic
+    // ---- Search and Filter Logic ----
     if (storeFilters && storeSearch) {
         const filterBtns = storeFilters.querySelectorAll('.cbt-filter-btn');
         
@@ -65,12 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             let filtered = getAllProducts();
             
-            // Category Filter
             if (activeFilter !== 'all') {
                 filtered = filtered.filter(p => p.category.toLowerCase() === activeFilter);
             }
             
-            // Search Filter
             if (searchTerm) {
                 filtered = filtered.filter(p => 
                     p.title.toLowerCase().includes(searchTerm) || 
@@ -92,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ---- Add to Cart (internal) ----
     window.executeAddToCart = function(productId, qty = 1) {
         const product = getProductById(productId);
         if (!product) return;
@@ -115,14 +129,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         localStorage.setItem('cbt_cart', JSON.stringify(cartItems));
-        
-        // Dispatch event so nav icon updates
         window.dispatchEvent(new Event('cartUpdated'));
         
-        // Show temporary alert or toast (Simple alert for now)
-        alert(`${product.title} added to cart!`);
+        // Premium toast instead of alert
+        if (typeof showToast === 'function') {
+            showToast(`<strong>${product.title}</strong> added to cart! 🛒`, 'cart');
+        }
     };
 
+    // ---- Add to Cart (auth-gated) ----
     window.addToCart = function(productId, qty = 1) {
         fetch('/api/auth/status.php', { credentials: 'same-origin' })
             .then(r => r.json())
@@ -140,24 +155,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     };
 
-    // Auto-add logic on load for the main store page
-    document.addEventListener('DOMContentLoaded', () => {
-        const pending = localStorage.getItem('cbt_pending_cart_main');
-        if (pending) {
-            try {
-                const parsed = JSON.parse(pending);
-                fetch('/api/auth/status.php', { credentials: 'same-origin' })
-                    .then(r => r.json())
-                    .then(data => {
-                        if (data.logged_in) {
-                            setTimeout(() => {
-                                executeAddToCart(parsed.id, parsed.qty);
-                                localStorage.removeItem('cbt_pending_cart_main');
-                            }, 500); // Small delay to ensure UI is ready
-                        }
-                    });
-            } catch(e) {}
-        }
-    });
+    // ---- Auto-add pending cart after login (FIXED: no nested DOMContentLoaded) ----
+    const pending = localStorage.getItem('cbt_pending_cart_main');
+    if (pending) {
+        try {
+            const parsed = JSON.parse(pending);
+            fetch('/api/auth/status.php', { credentials: 'same-origin' })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.logged_in) {
+                        setTimeout(() => {
+                            executeAddToCart(parsed.id, parsed.qty || 1);
+                            localStorage.removeItem('cbt_pending_cart_main');
+                        }, 600);
+                    }
+                })
+                .catch(() => {});
+        } catch(e) {}
+    }
 
 });

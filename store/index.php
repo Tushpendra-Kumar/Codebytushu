@@ -367,6 +367,7 @@ Auth::boot();
     </footer>
 
     <!-- JS files -->
+    <script src="js/toast.js"></script>
     <script src="js/data.js"></script>
     <script src="js/store.js"></script>
     <script>

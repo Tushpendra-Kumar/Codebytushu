@@ -49,9 +49,9 @@
             </div>
             <ul class="cbt-center-nav" id="cbt-center-nav">
                 <li><a href="../index.php" class="cbt-nav-link">Home</a></li>
-                <li><a href="../index.html#all-products" class="cbt-nav-link active">All Products</a></li>
+                <li><a href="../index.php#all-products" class="cbt-nav-link active">All Products</a></li>
                 <li><a href="../cart/index.html" class="cbt-nav-link">My Cart</a></li>
-                <li><a href="../index.html#faq" class="cbt-nav-link">FAQ</a></li>
+                <li><a href="../index.php#faq" class="cbt-nav-link">FAQ</a></li>
             </ul>
             <div class="cbt-nav-right">
                 <a href="../cart/index.html" class="cbt-nav-cart-btn" aria-label="Cart">
@@ -99,6 +99,7 @@
     </footer>
 
     <!-- JS -->
+    <script src="../js/toast.js"></script>
     <script src="../js/data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -230,7 +231,10 @@
             
             localStorage.setItem('cbt_cart', JSON.stringify(cartItems));
             window.dispatchEvent(new Event('cartUpdated'));
-            alert(`${qty}x ${product.title} added to cart!`);
+            // Premium toast notification
+            if (typeof showToast === 'function') {
+                showToast(`<strong>${qty}x ${product.title}</strong> added to cart! 🛒`, 'cart');
+            }
         };
 
         window.addToCartDetailed = function(productId) {
@@ -251,8 +255,8 @@
                 });
         };
 
-        // Auto-add logic on load
-        document.addEventListener('DOMContentLoaded', () => {
+        // Auto-add logic after login (FIXED: not nested inside DOMContentLoaded)
+        (function checkPendingCart() {
             const pending = localStorage.getItem('cbt_pending_cart');
             if (pending) {
                 try {
@@ -268,27 +272,24 @@
                                         if (qtyInput) qtyInput.value = parsed.qty || 1;
                                         executeAddToCartDetailed(parsed.id);
                                         localStorage.removeItem('cbt_pending_cart');
-                                    }, 500); // Small delay to ensure UI is fully rendered
+                                    }, 700);
                                 }
                             });
                     }
                 } catch(e) {}
             }
-        });
+        })();
 
-        // Header logics
+        // ---- Cart Counter (FIXED: use class selector not ID) ----
         function updateCartCount() {
-            const countElem = document.getElementById('cart-count');
-            if (countElem) {
-                const cart = JSON.parse(localStorage.getItem('cbt_cart')) || [];
-                let totalItems = 0;
-                cart.forEach(item => {
-                    totalItems += (item.quantity || 1);
-                });
-                countElem.textContent = totalItems;
-                if(totalItems > 0) countElem.style.display = 'flex';
-                else countElem.style.display = 'none';
-            }
+            const counters = document.querySelectorAll('.cbt-cart-counter');
+            const cart = JSON.parse(localStorage.getItem('cbt_cart')) || [];
+            let totalItems = 0;
+            cart.forEach(item => { totalItems += (item.quantity || 1); });
+            counters.forEach(el => {
+                el.textContent = totalItems;
+                el.style.display = totalItems > 0 ? 'flex' : 'none';
+            });
         }
         updateCartCount();
         window.addEventListener('cartUpdated', updateCartCount);

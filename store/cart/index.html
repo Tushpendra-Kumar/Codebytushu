@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="../../courses/courses.css?v=3">
     <link rel="stylesheet" href="../store.css?v=1">
 
+    <script src="../js/toast.js"></script>
+
     <style>
         .material-symbols-rounded {
             font-size: inherit;
@@ -125,7 +127,7 @@
                     const itemTotal = item.price * (item.quantity || 1);
                     total += itemTotal;
                     
-                    const priceDisplay = item.price === 0 ? 'Free' : `$${item.price}`;
+                    const priceDisplay = item.price === 0 ? 'Free' : `₹${item.price}`;
                     const categoryTag = item.isCourse ? 'Course' : item.category;
 
                     const fixPath = (path) => path.startsWith('../') ? '../' + path : path;
@@ -150,7 +152,7 @@
                                 <h3 class="cbt-cart-item-title">${item.title}</h3>
                                 ${quantityControl}
                             </div>
-                            <div class="cbt-cart-item-price">$${itemTotal} <br><small style="font-size:0.8rem; color:var(--text-muted);">(${item.quantity || 1} x ${priceDisplay})</small></div>
+                            <div class="cbt-cart-item-price">₹${itemTotal} <br><small style="font-size:0.8rem; color:var(--text-muted);">(${item.quantity || 1} x ${priceDisplay})</small></div>
                             <button class="cbt-cart-remove" onclick="removeAndRender('${item.id}')" title="Remove">
                                 <span class="material-symbols-rounded">delete</span>
                             </button>
@@ -162,7 +164,7 @@
 
                 const summaryHTML = `
                     <div class="cbt-cart-summary">
-                        <div class="cbt-cart-total">Total: <span>$${total}</span></div>
+                        <div class="cbt-cart-total">Total: <span>₹${total}</span></div>
                         <button class="cbt-btn cbt-btn-primary" onclick="checkout()">Proceed to Checkout</button>
                     </div>
                 `;
@@ -189,7 +191,24 @@
             };
 
             window.checkout = function() {
-                alert("Coming Soon! Payment integration (Razorpay/Stripe) will be enabled after deployment.");
+                // Check if user is logged in before proceeding
+                fetch('/api/auth/status.php', { credentials: 'same-origin' })
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.logged_in) {
+                            window.location.href = '../checkout/index.php';
+                        } else {
+                            if (typeof showToast === 'function') {
+                                showToast('Please sign in to proceed to checkout.', 'info');
+                            }
+                            setTimeout(() => {
+                                window.location.href = '../../auth/login.php?redirect=/store/checkout/index.php';
+                            }, 1500);
+                        }
+                    })
+                    .catch(() => {
+                        window.location.href = '../checkout/index.php';
+                    });
             };
 
             window.addEventListener('cartUpdated', renderCartPage);

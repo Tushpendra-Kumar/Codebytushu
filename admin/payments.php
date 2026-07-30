@@ -19,6 +19,12 @@ $stmt = $pdo->prepare("
 $stmt->execute();
 $pending_orders = $stmt->fetchAll();
 
+// Generate CSRF token if not exists
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf_token = $_SESSION['csrf_token'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,6 +101,7 @@ $pending_orders = $stmt->fetchAll();
             const formData = new FormData();
             formData.append('order_id', orderId);
             formData.append('action', action);
+            formData.append('csrf_token', '<?= $csrf_token ?>');
             
             const res = await fetch('/api/admin/payments.php', { method: 'POST', body: formData });
             const data = await res.json();

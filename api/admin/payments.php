@@ -13,6 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// CSRF Protection
+$csrfToken = $_POST['csrf_token'] ?? '';
+if (empty($csrfToken) || empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $csrfToken)) {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'error' => 'CSRF token validation failed.']);
+    exit;
+}
+
 $order_id = isset($_POST['order_id']) ? (int)$_POST['order_id'] : 0;
 $action = isset($_POST['action']) ? $_POST['action'] : ''; // 'verify' or 'reject'
 
