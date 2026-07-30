@@ -474,4 +474,39 @@
         overflow-x: hidden;
         width: 100%;
     }
+
+    /* -------- Cart Mobile Layout -------- */
+    .cbt-cart-item {
+        display: grid;
+        grid-template-columns: 80px 1fr auto;
+        gap: 12px;
+        padding: 15px 0;
+        align-items: start;
+    }
+    .cbt-cart-item-img {
+        width: 80px;
+        height: 80px;
+        grid-column: 1;
+        grid-row: 1 / 3;
+    }
+    .cbt-cart-item-info {
+        grid-column: 2;
+        grid-row: 1;
+        min-width: 0;
+    }
+    .cbt-cart-remove {
+        grid-column: 3;
+        grid-row: 1;
+        padding: 6px 10px;
+    }
+    .cbt-cart-item-price {
+        grid-column: 2 / 4;
+        grid-row: 2;
+        margin-top: 5px;
+        text-align: left;
+    }
+    .cbt-cart-summary {
+        text-align: center;
+        padding: 20px;
+    }
 }
