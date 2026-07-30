@@ -411,6 +411,18 @@
     }
 }
 
+/* Base Cart Grid Layout */
+.cbt-cart-grid-mobile {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+.cbt-cart-summary .cbt-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+}
+
 @media (max-width: 768px) {
     /* Mobile Navbar Simplified */
     .cbt-center-nav,
@@ -508,5 +520,10 @@
     .cbt-cart-summary {
         text-align: center;
         padding: 20px;
+    }
+    
+    /* Cart mobile single column */
+    .cbt-cart-grid-mobile {
+        grid-template-columns: 1fr;
     }
 }
