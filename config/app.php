@@ -80,8 +80,10 @@ define('GOOGLE_CLIENT_ID',     env('GOOGLE_CLIENT_ID',     ''));
 define('GOOGLE_CLIENT_SECRET', env('GOOGLE_CLIENT_SECRET', ''));
 define('GOOGLE_REDIRECT_URI',  env('GOOGLE_REDIRECT_URI',  SITE_URL . '/api/auth/callback.php'));
 
-// ── Razorpay Payment ────────────────────────────────────────────────────
-// Removed in favor of UPI directly.
+// ── Qikink Print-On-Demand API ──────────────────────────────────────────
+define('QIKINK_CLIENT_ID', env('QIKINK_CLIENT_ID', 'sandbox_client_id_here'));
+define('QIKINK_SECRET',    env('QIKINK_SECRET',    'sandbox_secret_here'));
+define('QIKINK_API_URL',   env('QIKINK_API_URL',   'https://sandbox.qikink.com/api')); // Change to https://api.qikink.com/api in production
 
 // ── Email / SMTP ────────────────────────────────────────────────────────
 define('SMTP_HOST',       env('SMTP_HOST',       'smtp.gmail.com'));

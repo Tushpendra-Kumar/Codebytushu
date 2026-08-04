@@ -134,6 +134,17 @@ require_once __DIR__ . '/includes/head.php';
                 <input type="text" id="productThumbnail" name="thumbnail" class="form-input">
             </div>
             
+            <div class="form-row">
+                <div class="form-group" style="margin-bottom:15px;">
+                    <label class="form-label">Qikink Base SKU (e.g. MNS-RN-BLK)</label>
+                    <input type="text" id="productQikinkSku" name="qikink_base_sku" class="form-input" placeholder="Required for POD">
+                </div>
+                <div class="form-group" style="margin-bottom:15px;">
+                    <label class="form-label">Print File URL (Transparent PNG)</label>
+                    <input type="text" id="productPrintFile" name="print_file_path" class="form-input" placeholder="https://...">
+                </div>
+            </div>
+            
             <div style="display:flex; gap:15px; margin-bottom:20px;">
                 <label style="display:flex; align-items:center; gap:5px; cursor:pointer;">
                     <input type="checkbox" id="productActive" name="is_active" value="1" checked> Is Active
@@ -242,6 +253,8 @@ async function editProduct(id) {
             document.getElementById('productStock').value = p.stock_status;
             document.getElementById('productSort').value = p.sort_order;
             document.getElementById('productThumbnail').value = p.thumbnail || '';
+            document.getElementById('productQikinkSku').value = p.qikink_base_sku || '';
+            document.getElementById('productPrintFile').value = p.print_file_path || '';
             document.getElementById('productActive').checked = p.is_active == 1;
             document.getElementById('productNew').checked = p.is_new_arrival == 1;
             

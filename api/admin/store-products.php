@@ -85,6 +85,8 @@ try {
             $is_active = (int)($input['is_active'] ?? 1);
             $is_new_arrival = (int)($input['is_new_arrival'] ?? 0);
             $sort_order = (int)($input['sort_order'] ?? 0);
+            $qikink_base_sku = trim($input['qikink_base_sku'] ?? '');
+            $print_file_path = trim($input['print_file_path'] ?? '');
 
             if (empty($title)) throw new Exception('Title is required');
             if ($price <= 0) throw new Exception('Price must be positive');
@@ -93,19 +95,19 @@ try {
             if ($action === 'create') {
                 $stmt = $pdo->prepare("
                     INSERT INTO store_products 
-                    (title, description, price, category, stock_status, thumbnail, images, features, is_active, is_new_arrival, sort_order) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    (title, description, price, category, stock_status, thumbnail, images, features, is_active, is_new_arrival, sort_order, qikink_base_sku, print_file_path) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ");
-                $stmt->execute([$title, $description, $price, $category, $stock_status, $thumbnail, $images, $features, $is_active, $is_new_arrival, $sort_order]);
+                $stmt->execute([$title, $description, $price, $category, $stock_status, $thumbnail, $images, $features, $is_active, $is_new_arrival, $sort_order, $qikink_base_sku, $print_file_path]);
                 echo json_encode(['success' => true, 'message' => 'Product created successfully']);
             } else {
                 $id = (int)($input['id'] ?? 0);
                 $stmt = $pdo->prepare("
                     UPDATE store_products 
-                    SET title=?, description=?, price=?, category=?, stock_status=?, thumbnail=?, images=?, features=?, is_active=?, is_new_arrival=?, sort_order=?
+                    SET title=?, description=?, price=?, category=?, stock_status=?, thumbnail=?, images=?, features=?, is_active=?, is_new_arrival=?, sort_order=?, qikink_base_sku=?, print_file_path=?
                     WHERE id=?
                 ");
-                $stmt->execute([$title, $description, $price, $category, $stock_status, $thumbnail, $images, $features, $is_active, $is_new_arrival, $sort_order, $id]);
+                $stmt->execute([$title, $description, $price, $category, $stock_status, $thumbnail, $images, $features, $is_active, $is_new_arrival, $sort_order, $qikink_base_sku, $print_file_path, $id]);
                 echo json_encode(['success' => true, 'message' => 'Product updated successfully']);
             }
             exit;

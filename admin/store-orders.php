@@ -108,9 +108,10 @@ require_once __DIR__ . '/includes/head.php';
             </div>
             
             <div style="text-align:right;">
-                <button type="button" class="btn btn-secondary" onclick="closeOrderModal()">Cancel</button>
-                <button type="submit" class="btn btn-primary">Update Order</button>
-            </div>
+                  <button type="button" class="btn btn-secondary" onclick="closeOrderModal()">Cancel</button>
+                  <button type="button" class="btn btn-secondary" onclick="pushToQikink()" id="btnPushQikink" style="display:none; background:#8b5cf6; border-color:#8b5cf6; color:white;">Push to Qikink</button>
+                  <button type="submit" class="btn btn-primary">Update Order</button>
+              </div>
         </form>
     </div>
 </div>
@@ -222,37 +223,52 @@ async function editOrder(id) {
             });
             itemsHtml += '</tbody></table>';
             
-            let payActions = '';
-            if (o.payment_method === 'upi' && o.payment_status === 'pending') {
-                payActions = `
-                    <div style="margin-top:10px; padding:12px; background:rgba(245,158,11,0.1); border-left:3px solid #f59e0b; border-radius:4px;">
-                        <strong style="color:#f59e0b; display:block; margin-bottom:8px;">UPI Payment Pending Verification</strong>
-                        <button type="button" class="btn btn-sm" style="background:#10b981; color:#fff; border:none; margin-right:5px;" onclick="verifyPayment(${o.id})">Verify Payment</button>
-                        <button type="button" class="btn btn-sm" style="background:#ef4444; color:#fff; border:none;" onclick="rejectPayment(${o.id})">Reject Payment</button>
-                    </div>
-                `;
-            }
+            const payActions = o.payment_status === 'pending' ? `
+                      <div style="margin-top:10px;">
+                          <button onclick="verifyPayment(${o.id})" class="btn" style="background:#10b981; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Verify Payment</button>
+                          <button onclick="rejectPayment(${o.id})" class="btn" style="background:#ef4444; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Reject Payment</button>
+                      </div>
+                  ` : (o.payment_status === 'verified' && o.fulfillment_status === 'pending') ? `
+                      <div style="margin-top:10px;">
+                          <span class="badge" style="background:#10b981; color:#fff;">Payment Verified</span>
+                      </div>
+                  ` : '';
+                  
+                  // Manage Qikink Button Visibility
+                  const btnQikink = document.getElementById('btnPushQikink');
+                  if (o.payment_status === 'verified' && (o.fulfillment_status === 'pending' || o.fulfillment_status === 'processing') && !o.qikink_order_id) {
+                      btnQikink.style.display = 'inline-block';
+                  } else {
+                      btnQikink.style.display = 'none';
+                  }
 
-            document.getElementById('orderDetails').innerHTML = `
-                <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;">
-                    <div>
-                        <p style="margin:0 0 5px;"><strong>Order ID:</strong> ${escapeHtml(o.order_number)}</p>
-                        <p style="margin:0 0 5px;"><strong>Customer:</strong> ${escapeHtml(o.full_name)}</p>
-                        <p style="margin:0 0 5px;"><strong>Email:</strong> ${escapeHtml(o.email)}</p>
-                    </div>
-                    <div>
-                        <p style="margin:0 0 5px;"><strong>Payment Method:</strong> ${escapeHtml(o.payment_method).toUpperCase()}</p>
-                        <p style="margin:0 0 5px;"><strong>Payment Status:</strong> ${getPayStatusBadge(o.payment_status)}</p>
-                    </div>
-                </div>
-                ${payActions}
-                <hr style="border-color:var(--border); margin:15px 0;">
+                  document.getElementById('orderDetails').innerHTML = `
+                      <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                          <div>
+                              <strong>Order #${escapeHtml(o.order_number)}</strong><br>
+                              Date: ${new Date(o.created_at).toLocaleString()}<br>
+                              Total: ₹${parseFloat(o.total_amount).toFixed(2)}<br>
+                              Method: ${escapeHtml(o.payment_method).toUpperCase()}<br>
+                              Status: <strong>${escapeHtml(o.payment_status)}</strong>
+                          </div>
+                          <div>
+                              <strong>Customer:</strong> ${escapeHtml(o.full_name)}<br>
+                              Email: ${escapeHtml(o.email)}<br>
+                              Phone: ${escapeHtml(o.shipping_phone)}<br>
+                              Address: ${escapeHtml(o.shipping_address)}, ${escapeHtml(o.shipping_city)}, ${escapeHtml(o.shipping_state)} - ${escapeHtml(o.shipping_pincode)}
+                          </div>
+                      </div>
+                      ${payActions}
+                      ${o.qikink_order_id ? `<div style="margin-top:10px; padding:10px; background:#f3e8ff; border:1px solid #d8b4fe; border-radius:4px; color:#6b21a8;">
+                          <strong>Qikink Integrated</strong><br>
+                          Order ID: ${escapeHtml(o.qikink_order_id)}<br>
+                      </div>` : ''}
+                      <hr style="border-color:var(--border); margin:15px 0;">
                 <strong style="display:block; margin-bottom:10px;">Order Items:</strong>
                 ${itemsHtml}
                 <div style="text-align:right; margin-top:10px;">
                     <strong>Total: ₹${parseFloat(o.total_amount).toFixed(2)}</strong>
                 </div>
-                <hr style="border-color:var(--border); margin:15px 0;">
             `;
             
             document.getElementById('orderModal').style.display = 'flex';
@@ -322,6 +338,37 @@ async function rejectPayment(id) {
             alert(data.message);
         }
     } catch(e) {}
+}
+
+async function pushToQikink() {
+    const id = document.getElementById('orderId').value;
+    if(!confirm('Are you sure you want to push this order to Qikink for production?')) return;
+    
+    try {
+        const btn = document.getElementById('btnPushQikink');
+        btn.innerText = 'Pushing...';
+        btn.disabled = true;
+        
+        const res = await fetch('/api/admin/store-orders.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({action: 'push_to_qikink', id})
+        });
+        const data = await res.json();
+        if(data.success) {
+            alert('Successfully pushed to Qikink!');
+            closeOrderModal();
+            loadOrders(currentPage);
+        } else {
+            alert(data.message);
+        }
+    } catch(e) {
+        alert('Network error pushing to Qikink.');
+    } finally {
+        const btn = document.getElementById('btnPushQikink');
+        btn.innerText = 'Push to Qikink';
+        btn.disabled = false;
+    }
 }
 
 function escapeHtml(unsafe) {
