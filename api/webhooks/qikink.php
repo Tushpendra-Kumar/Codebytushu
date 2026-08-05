@@ -7,6 +7,7 @@
 
 require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../classes/Mailer.php';
 
 // 1. Ensure this is a POST request
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -82,9 +83,27 @@ try {
         $our_fulfillment_status,
         $tracking_number,
         $courier_name,
-        $tracking_number, // We also map awb to our universal tracking_number field
+        $tracking_number,
         $qikink_order_id
     ]);
+    
+    // Phase 5: Send shipped email when Qikink notifies dispatch
+    if ($our_fulfillment_status === 'shipped') {
+        try {
+            $orderRow = $pdo->prepare("SELECT o.*, u.email FROM orders o JOIN users u ON o.user_id = u.id WHERE o.qikink_order_id = ?");
+            $orderRow->execute([$qikink_order_id]);
+            $fullOrder = $orderRow->fetch(PDO::FETCH_ASSOC);
+            if ($fullOrder) { (new Mailer())->sendOrderShipped($fullOrder); }
+        } catch (Exception $me) { error_log('Webhook email error: ' . $me->getMessage()); }
+    }
+    if ($our_fulfillment_status === 'delivered') {
+        try {
+            $orderRow = $pdo->prepare("SELECT o.*, u.email FROM orders o JOIN users u ON o.user_id = u.id WHERE o.qikink_order_id = ?");
+            $orderRow->execute([$qikink_order_id]);
+            $fullOrder = $orderRow->fetch(PDO::FETCH_ASSOC);
+            if ($fullOrder) { (new Mailer())->sendOrderDelivered($fullOrder); }
+        } catch (Exception $me) { error_log('Webhook email error: ' . $me->getMessage()); }
+    }
     
     echo json_encode(['success' => true, 'message' => 'Order updated']);
 } catch (Exception $e) {

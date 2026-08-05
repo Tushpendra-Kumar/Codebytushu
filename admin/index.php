@@ -137,6 +137,38 @@ try {
     $activityFeed = array_slice($activityFeed, 0, 15);
 } catch (\Throwable) { $activityFeed = []; }
 
+// ── Store Stats (Phase 5) ──────────────────────────────────────────
+$storeStats = [
+    'total_revenue'       => 0,
+    'pending_payment'     => 0,
+    'in_production'       => 0,
+    'shipped_today'       => 0,
+    'total_orders'        => 0,
+];
+$recentOrders = [];
+try {
+    $row = $pdo->query("SELECT 
+        COUNT(*) AS total_orders,
+        COALESCE(SUM(CASE WHEN payment_status='verified' THEN total_amount ELSE 0 END), 0) AS total_revenue,
+        SUM(CASE WHEN payment_status='pending' AND order_type='store' THEN 1 ELSE 0 END) AS pending_payment,
+        SUM(CASE WHEN fulfillment_status='processing' AND order_type='store' THEN 1 ELSE 0 END) AS in_production,
+        SUM(CASE WHEN fulfillment_status='shipped' AND DATE(created_at)=CURDATE() THEN 1 ELSE 0 END) AS shipped_today
+        FROM orders WHERE order_type='store'")->fetch(PDO::FETCH_ASSOC);
+    if ($row) $storeStats = $row;
+
+    $recentOrders = $pdo->query("
+        SELECT o.order_number, o.total_amount, o.payment_status, o.fulfillment_status, 
+               o.payment_method, o.created_at, u.full_name
+        FROM orders o
+        JOIN users u ON o.user_id = u.id
+        WHERE o.order_type = 'store'
+        ORDER BY o.created_at DESC
+        LIMIT 5
+    ")->fetchAll(PDO::FETCH_ASSOC);
+} catch (\Throwable) {}
+
+
+
 // ── Quick Actions ──────────────────────────────────────────────
 $quickActions = [
     ['icon' => 'code',    'label' => 'New Solution',   'desc' => 'Add LeetCode problem',  'url' => '/admin/leetcode-edit.php', 'color' => '#ffc400', 'bg' => 'rgba(255,196,0,.12)'],
@@ -493,6 +525,70 @@ $quickActions = [
           </div>
         </div>
 
+      </div>
+
+      <!-- ══ Store Overview (Phase 5) ══════════════════════════════ -->
+      <div class="card" style="margin-bottom:24px;">
+        <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
+          <div class="card-title">🛒 Store Overview</div>
+          <a href="/admin/store-orders.php" class="btn btn-secondary btn-sm">View All Orders →</a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:1px solid var(--border);">
+          <?php
+          $storeTiles = [
+            ['label'=>'Total Revenue','value'=>'₹'.number_format((float)$storeStats['total_revenue'],0),'color'=>'#22c55e','icon'=>'💰'],
+            ['label'=>'Pending Payment','value'=>(int)$storeStats['pending_payment'],'color'=>'#f59e0b','icon'=>'⏳'],
+            ['label'=>'In Production','value'=>(int)$storeStats['in_production'],'color'=>'#8b5cf6','icon'=>'🖨️'],
+            ['label'=>'Shipped Today','value'=>(int)$storeStats['shipped_today'],'color'=>'#3b82f6','icon'=>'🚀'],
+          ];
+          foreach ($storeTiles as $i => $tile): ?>
+          <div style="padding:18px 22px;<?= $i < 3 ? 'border-right:1px solid var(--border);' : '' ?>">
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:6px;"><?= $tile['icon'] ?> <?= $tile['label'] ?></div>
+            <div style="font-size:1.5rem;font-weight:800;color:<?= $tile['color'] ?>;"><?= $tile['value'] ?></div>
+          </div>
+          <?php endforeach; ?>
+        </div>
+        <?php if (!empty($recentOrders)): ?>
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="padding:10px 18px;text-align:left;color:var(--text-muted);font-weight:500;">Order</th>
+              <th style="padding:10px;text-align:left;color:var(--text-muted);font-weight:500;">Customer</th>
+              <th style="padding:10px;text-align:left;color:var(--text-muted);font-weight:500;">Amount</th>
+              <th style="padding:10px;text-align:left;color:var(--text-muted);font-weight:500;">Payment</th>
+              <th style="padding:10px;text-align:left;color:var(--text-muted);font-weight:500;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php foreach ($recentOrders as $ro):
+            $payBadgeColor = match($ro['payment_status']) {
+                'verified' => '#22c55e', 'rejected' => '#ef4444', default => '#f59e0b'
+            };
+            $fulBadgeColor = match($ro['fulfillment_status']) {
+                'processing' => '#8b5cf6', 'shipped' => '#3b82f6', 'delivered' => '#22c55e', 'cancelled' => '#ef4444', default => '#94a3b8'
+            };
+          ?>
+          <tr style="border-bottom:1px solid var(--border);" onclick="location.href='/admin/store-orders.php'" style="cursor:pointer;">
+            <td style="padding:10px 18px;font-family:monospace;color:var(--primary);font-weight:700;"><?= htmlspecialchars($ro['order_number']) ?></td>
+            <td style="padding:10px;color:var(--text-heading);"><?= htmlspecialchars($ro['full_name']) ?></td>
+            <td style="padding:10px;font-weight:600;">₹<?= number_format((float)$ro['total_amount'],0) ?></td>
+            <td style="padding:10px;">
+              <span style="background:<?= $payBadgeColor ?>22;color:<?= $payBadgeColor ?>;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600;">
+                <?= ucfirst($ro['payment_status']) ?> · <?= strtoupper($ro['payment_method']) ?>
+              </span>
+            </td>
+            <td style="padding:10px;">
+              <span style="background:<?= $fulBadgeColor ?>22;color:<?= $fulBadgeColor ?>;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600;">
+                <?= ucfirst($ro['fulfillment_status']) ?>
+              </span>
+            </td>
+          </tr>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+        <?php else: ?>
+        <div style="padding:24px;text-align:center;color:var(--text-muted);">No store orders yet.</div>
+        <?php endif; ?>
       </div>
 
       <!-- ══ Latest Messages + Quick Actions ════════════════════ -->

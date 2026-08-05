@@ -175,12 +175,39 @@ try {
 
     $pdo->commit();
 
+    // ── Phase 5: Send Email Notifications ────────────────────────────
+    try {
+        require_once __DIR__ . '/../../classes/Mailer.php';
+        $mailer = new Mailer();
+        
+        // Fetch full order row for email
+        $orderRow = $pdo->prepare("SELECT o.*, u.full_name, u.email FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = ?");
+        $orderRow->execute([$orderId]);
+        $fullOrder = $orderRow->fetch(PDO::FETCH_ASSOC);
+        
+        // Format items for email
+        $emailItems = array_map(fn($i) => [
+            'product_name' => $i['title'] ?? 'Product',
+            'quantity'     => intval($i['quantity'] ?? 1),
+            'price'        => floatval($i['price'] ?? 0),
+        ], $items);
+        
+        if ($fullOrder) {
+            $mailer->sendOrderPlaced($fullOrder, $emailItems);    // Customer
+            $mailer->sendAdminNewOrder($fullOrder, $emailItems);  // Admin
+        }
+    } catch (Exception $mailEx) {
+        error_log('Order email failed: ' . $mailEx->getMessage());
+        // Don't fail the order if email fails
+    }
+    // ─────────────────────────────────────────────────────────────────
+
     echo json_encode([
-        'success'      => true,
-        'message'      => 'Order placed successfully!',
-        'order_number' => $orderNumber,
-        'order_id'     => $orderId,
-        'total'        => $totalAmount,
+        'success'        => true,
+        'message'        => 'Order placed successfully!',
+        'order_number'   => $orderNumber,
+        'order_id'       => $orderId,
+        'total'          => $totalAmount,
         'payment_method' => $paymentMethod
     ]);
 

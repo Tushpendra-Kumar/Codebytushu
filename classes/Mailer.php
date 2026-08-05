@@ -185,6 +185,192 @@ class Mailer
     }
 
     // ─────────────────────────────────────────────────────────────────────
+    // STORE ORDER EMAIL TEMPLATES
+    // ─────────────────────────────────────────────────────────────────────
+
+    /** Notify customer that their order was placed successfully. */
+    public function sendOrderPlaced(array $order, array $items): bool
+    {
+        $name        = htmlspecialchars($order['shipping_name'] ?? 'Customer');
+        $orderNum    = htmlspecialchars($order['order_number']);
+        $total       = '₹' . number_format((float)($order['total_amount'] ?? 0), 2);
+        $method      = strtoupper($order['payment_method'] ?? 'UPI');
+        $trackingUrl = SITE_URL . '/store/order-tracking/?order=' . urlencode($orderNum);
+
+        $itemsHtml = '';
+        foreach ($items as $item) {
+            $pName = htmlspecialchars($item['product_name'] ?? 'Product');
+            $qty   = (int)($item['quantity'] ?? 1);
+            $price = '₹' . number_format((float)($item['price'] ?? 0), 2);
+            $itemsHtml .= "<tr>
+                <td style='padding:8px 0;color:#e0e0e0;border-bottom:1px solid #1a1a24;'>{$pName}</td>
+                <td style='padding:8px 0;text-align:center;color:#aaa;border-bottom:1px solid #1a1a24;'>{$qty}</td>
+                <td style='padding:8px 0;text-align:right;color:#ffc400;font-weight:700;border-bottom:1px solid #1a1a24;'>{$price}</td>
+            </tr>";
+        }
+
+        $paymentNote = $order['payment_method'] === 'cod'
+            ? "<p style='background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.3);border-radius:8px;padding:14px;color:#86efac;'>
+                <strong>✅ Cash on Delivery confirmed.</strong> Please keep <strong>{$total}</strong> ready at the time of delivery.
+               </p>"
+            : "<p style='background:rgba(255,196,0,0.06);border:1px solid rgba(255,196,0,0.25);border-radius:8px;padding:14px;color:#fcd34d;'>
+                <strong>⏳ UPI Payment Pending Verification.</strong> We'll verify your payment (UTR: <strong>" . htmlspecialchars($order['payment_reference'] ?? 'N/A') . "</strong>) within 24 hours and then process your order.
+               </p>";
+
+        $subject = "Order Confirmed #{$orderNum} — CodeByTushu";
+        $html = $this->layout($subject, <<<HTML
+            <h2 style="color:#ffc400;">Your Order is Confirmed! 🎉</h2>
+            <p>Hi {$name},</p>
+            <p>Thank you for your order. Here's a summary:</p>
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin:20px 0;">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;color:#888;font-weight:500;padding-bottom:8px;border-bottom:1px solid #333;">Product</th>
+                        <th style="text-align:center;color:#888;font-weight:500;padding-bottom:8px;border-bottom:1px solid #333;">Qty</th>
+                        <th style="text-align:right;color:#888;font-weight:500;padding-bottom:8px;border-bottom:1px solid #333;">Price</th>
+                    </tr>
+                </thead>
+                <tbody>{$itemsHtml}</tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="padding-top:12px;color:#aaa;">Total</td>
+                        <td style="padding-top:12px;text-align:right;color:#ffc400;font-weight:800;font-size:1.1em;">{$total}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div style="background:#111;border-radius:8px;padding:16px;margin:16px 0;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+                    <span style="color:#888;">Order Number</span>
+                    <span style="color:#ffc400;font-family:monospace;font-weight:700;">{$orderNum}</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                    <span style="color:#888;">Payment Method</span>
+                    <span style="color:#e0e0e0;">{$method}</span>
+                </div>
+            </div>
+            {$paymentNote}
+            <p style="text-align:center;margin:24px 0;">
+                <a href="{$trackingUrl}" style="background:#ffc400;color:#000;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;">
+                    Track Your Order
+                </a>
+            </p>
+        HTML);
+        return $this->send($order['email'], $name, $subject, $html);
+    }
+
+    /** Notify customer that payment has been verified. */
+    public function sendPaymentVerified(array $order): bool
+    {
+        $name        = htmlspecialchars($order['shipping_name'] ?? 'Customer');
+        $orderNum    = htmlspecialchars($order['order_number']);
+        $trackingUrl = SITE_URL . '/store/order-tracking/?order=' . urlencode($orderNum);
+        $subject     = "Payment Verified ✅ — Order #{$orderNum}";
+        $html = $this->layout($subject, <<<HTML
+            <h2 style="color:#22c55e;">Payment Verified! ✅</h2>
+            <p>Hi {$name},</p>
+            <p>Great news! We've verified your UPI payment for Order <strong style="color:#ffc400;">{$orderNum}</strong>.</p>
+            <p>Your order is now being processed and will be handed over to our print partner soon.</p>
+            <p style="text-align:center;margin:28px 0;">
+                <a href="{$trackingUrl}" style="background:#ffc400;color:#000;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;">
+                    Track Your Order
+                </a>
+            </p>
+            <p style="color:#888;font-size:13px;">You'll receive another email once your order is shipped.</p>
+        HTML);
+        return $this->send($order['email'], $name, $subject, $html);
+    }
+
+    /** Notify customer that order has been shipped. */
+    public function sendOrderShipped(array $order): bool
+    {
+        $name           = htmlspecialchars($order['shipping_name'] ?? 'Customer');
+        $orderNum       = htmlspecialchars($order['order_number']);
+        $trackingNum    = htmlspecialchars($order['tracking_number'] ?? $order['awb_number'] ?? 'N/A');
+        $courier        = htmlspecialchars($order['courier_name'] ?? 'Our Courier Partner');
+        $trackingUrl    = SITE_URL . '/store/order-tracking/?order=' . urlencode($orderNum);
+        $subject        = "Your Order is Shipped! 🚀 — #{$orderNum}";
+        $html = $this->layout($subject, <<<HTML
+            <h2 style="color:#3b82f6;">Your Order is on the Way! 🚀</h2>
+            <p>Hi {$name},</p>
+            <p>Exciting news! Your order <strong style="color:#ffc400;">{$orderNum}</strong> has been dispatched.</p>
+            <div style="background:#111;border-radius:8px;padding:16px;margin:20px 0;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                    <span style="color:#888;">Courier</span>
+                    <span style="color:#e0e0e0;font-weight:600;">{$courier}</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;">
+                    <span style="color:#888;">Tracking Number</span>
+                    <span style="color:#ffc400;font-family:monospace;font-weight:700;">{$trackingNum}</span>
+                </div>
+            </div>
+            <p style="text-align:center;margin:28px 0;">
+                <a href="{$trackingUrl}" style="background:#ffc400;color:#000;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;">
+                    Track Your Order
+                </a>
+            </p>
+            <p style="color:#888;font-size:13px;">Estimated delivery: 5–7 business days. Please keep your phone available for the delivery agent.</p>
+        HTML);
+        return $this->send($order['email'], $name, $subject, $html);
+    }
+
+    /** Notify customer that order has been delivered. */
+    public function sendOrderDelivered(array $order): bool
+    {
+        $name     = htmlspecialchars($order['shipping_name'] ?? 'Customer');
+        $orderNum = htmlspecialchars($order['order_number']);
+        $subject  = "Order Delivered! 🎁 — #{$orderNum}";
+        $html = $this->layout($subject, <<<HTML
+            <h2 style="color:#22c55e;">Your Order Has Been Delivered! 🎁</h2>
+            <p>Hi {$name},</p>
+            <p>Your CodeByTushu order <strong style="color:#ffc400;">{$orderNum}</strong> has been delivered. We hope you love it!</p>
+            <p>If you have any feedback or issues, please reply to this email or contact us.</p>
+            <p style="text-align:center;margin:28px 0;">
+                <a href="https://codebytushu.com/store/" style="background:#ffc400;color:#000;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;">
+                    Shop Again
+                </a>
+            </p>
+            <p style="color:#888;font-size:13px;">Thank you for shopping with CodeByTushu! ❤️</p>
+        HTML);
+        return $this->send($order['email'], $name, $subject, $html);
+    }
+
+    /** Notify admin of a new store order. */
+    public function sendAdminNewOrder(array $order, array $items): bool
+    {
+        $orderNum  = htmlspecialchars($order['order_number']);
+        $customer  = htmlspecialchars($order['shipping_name'] ?? 'N/A');
+        $total     = '₹' . number_format((float)($order['total_amount'] ?? 0), 2);
+        $method    = strtoupper($order['payment_method'] ?? 'N/A');
+        $adminUrl  = SITE_URL . '/admin/store-orders.php';
+
+        $itemsHtml = '';
+        foreach ($items as $item) {
+            $pName = htmlspecialchars($item['product_name'] ?? 'Product');
+            $qty   = (int)($item['quantity'] ?? 1);
+            $itemsHtml .= "<li style='color:#ccc;margin-bottom:4px;'>{$pName} × {$qty}</li>";
+        }
+
+        $subject = "🛒 New Order #{$orderNum} — Action Required";
+        $html = $this->layout($subject, <<<HTML
+            <h2 style="color:#ffc400;">New Store Order Received!</h2>
+            <div style="background:#111;border-radius:8px;padding:16px;margin:16px 0;">
+                <p style="margin:4px 0;"><strong>Order:</strong> <span style="color:#ffc400;">{$orderNum}</span></p>
+                <p style="margin:4px 0;"><strong>Customer:</strong> {$customer}</p>
+                <p style="margin:4px 0;"><strong>Total:</strong> {$total}</p>
+                <p style="margin:4px 0;"><strong>Payment:</strong> {$method}</p>
+            </div>
+            <p><strong>Items:</strong></p>
+            <ul style="padding-left:20px;">{$itemsHtml}</ul>
+            <p style="text-align:center;margin:24px 0;">
+                <a href="{$adminUrl}" style="background:#ffc400;color:#000;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:700;display:inline-block;">
+                    View in Admin Panel
+                </a>
+            </p>
+        HTML);
+        return $this->send(SMTP_TO_EMAIL, APP_NAME, $subject, $html);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
     // EMAIL LAYOUT TEMPLATE
     // ─────────────────────────────────────────────────────────────────────
 

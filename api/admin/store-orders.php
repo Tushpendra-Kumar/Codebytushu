@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../config/app.php';
 require_once __DIR__ . '/../../classes/Auth.php';
 require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../classes/Mailer.php';
 
 Auth::boot();
 Auth::requireAdmin();
@@ -89,8 +90,8 @@ try {
         if ($action === 'update_fulfillment') {
             $id = (int)($input['id'] ?? 0);
             $fulfillment_status = trim($input['fulfillment_status'] ?? '');
-            $tracking_number = trim($input['tracking_number'] ?? '');
-            $admin_notes = trim($input['admin_notes'] ?? '');
+            $tracking_number    = trim($input['tracking_number'] ?? '');
+            $admin_notes        = trim($input['admin_notes'] ?? '');
 
             $stmt = $pdo->prepare("
                 UPDATE orders 
@@ -98,12 +99,33 @@ try {
                 WHERE id=? AND order_type='store'
             ");
             $stmt->execute([$fulfillment_status, $tracking_number, $admin_notes, $id]);
+            
+            // Phase 5: Send shipped / delivered email
+            try {
+                $orderRow = $pdo->prepare("SELECT o.*, u.email FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = ?");
+                $orderRow->execute([$id]);
+                $fullOrder = $orderRow->fetch(PDO::FETCH_ASSOC);
+                if ($fullOrder) {
+                    $mailer = new Mailer();
+                    if ($fulfillment_status === 'shipped')   $mailer->sendOrderShipped($fullOrder);
+                    if ($fulfillment_status === 'delivered') $mailer->sendOrderDelivered($fullOrder);
+                }
+            } catch (Exception $me) { error_log('Email error: ' . $me->getMessage()); }
+            
             echo json_encode(['success' => true, 'message' => 'Order updated successfully']);
             exit;
         } elseif ($action === 'verify_payment') {
             $id = (int)($input['id'] ?? 0);
             $stmt = $pdo->prepare("UPDATE orders SET payment_status='verified' WHERE id=? AND order_type='store'");
             $stmt->execute([$id]);
+            
+            // Phase 5: Send payment verified email to customer
+            try {
+                $orderRow = $pdo->prepare("SELECT o.*, u.email FROM orders o JOIN users u ON o.user_id = u.id WHERE o.id = ?");
+                $orderRow->execute([$id]);
+                $fullOrder = $orderRow->fetch(PDO::FETCH_ASSOC);
+                if ($fullOrder) { (new Mailer())->sendPaymentVerified($fullOrder); }
+            } catch (Exception $me) { error_log('Email error: ' . $me->getMessage()); }
             
             // Phase 4: Automatically Push to Print Partner upon Payment Verification
             $pushRes = pushOrderToQikink($pdo, $id);
