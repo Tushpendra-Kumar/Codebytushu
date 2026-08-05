@@ -56,51 +56,60 @@ When a user visits any `/admin/*.php` page:
 2. **Details**: User clicks a course → `/courses/details.php?slug=...`.
 3. **Buy/Add to Cart**: User clicks "Add to Cart" → AJAX to `POST /api/cart/add.php`.
 4. **Cart Review**: User visits `/cart/index.php`.
-5. **Checkout**: User submits order → `POST /api/checkout/submit.php` or `submit_single.php` → Order created in `orders` + `order_items` tables.
+5. **Checkout**: User submits order → `POST /api/checkout/submit.php` or `submit_single.php` → Order created in `orders` (with `order_type = 'course'`) + `order_items` tables.
 6. **Payment**: UPI payment shown. After payment, user uploads screenshot or references transaction ID.
 7. **Verification**: Admin manually verifies in `/admin/payments.php` → marks order as `verified`.
 8. **Download**: Once verified, user sees "Download PDF" in `/user/purchases.php` → `GET /api/courses/download.php?order_id=...` streams the PDF securely.
 
 > [!NOTE]
-> Automatic webhook-based payment verification (Razorpay) is planned but not yet implemented. Current flow requires manual admin verification.
+> Automatic webhook-based payment verification (Razorpay) is planned but not yet implemented for courses. Current flow requires manual admin verification.
 
-## 5. Data Modification Flow (CSRF Protection)
+## 5. Store Purchase Flow (Phase 1 — Live)
+1. **Browse**: User visits `/store/index.php` (publicly accessible, no login required). Products loaded from DB via Admin CMS.
+2. **Product Detail**: User visits static `store/product-details/index.html` (reads from `store/js/data.js` — legacy, pending PHP migration).
+3. **Add to Cart**: Cart is managed via browser localStorage (no DB yet).
+4. **Checkout**: User goes to `store/checkout/index.php` (login required). Enters shipping details.
+5. **Order Submit**: JavaScript sends `POST /api/store/checkout.php` with cart items + shipping address.
+6. **Order Created**: Server creates order in `orders` table with `order_type = 'store'`, shipping fields, and individual `order_items` with `product_id`.
+7. **Success**: User redirected to `store/checkout/success.php` with order number.
+8. **Tracking**: User can track order at `store/order-tracking/index.php`.
+9. **Invoice**: User can view/print invoice via `GET /api/store/invoice.php?order=CBT-2026-XXXXXX`.
+10. **Admin**: Admin manages products in `/admin/store-products.php`, manages/fulfills orders in `/admin/store-orders.php`.
+
+### Qikink Print-on-Demand Sub-flow
+- If a product has a `qikink_base_sku`, it's a print-on-demand product.
+- After order is placed, admin (or future automation) dispatches the order to Qikink.
+- Qikink sends shipping status updates to `/api/webhooks/qikink.php`.
+- Webhook updates `orders` table (`qikink_status`, `awb_number`, `courier_name`, `tracking_number`).
+- Mailer sends a shipping confirmation email to the user.
+
+> [!NOTE]
+> Phase 2 will replace the static `store/product-details/index.html` with a PHP page, move cart to DB-backed storage, and add Razorpay payment gateway.
+
+## 6. Data Modification Flow (CSRF Protection)
 Whenever a user modifies data (e.g., updating profile, submitting a form):
 1. **Form**: A hidden CSRF token is embedded in the form using `<?= csrfField() ?>`.
 2. **Submission**: The token is sent alongside the POST data.
 3. **API Validation**: The receiving API endpoint calls `requireCsrf()`. If the token is missing or invalid, the request is rejected with a 403 Forbidden error.
 4. **Execution**: The database query executes securely via PDO prepared statements.
 
-## 6. Analytics Tracking Flow
+## 7. Analytics Tracking Flow
 Every PHP page includes `includes/analytics.php` which:
 1. Detects the current page URL, device type (mobile/desktop/tablet), and referrer.
 2. Inserts a row into the `analytics_events` table.
 3. This data is consumed by `/admin/analytics.php` to show visitor charts, device breakdowns, and top pages.
 
-## 7. Email Flow (via Mailer)
+## 8. Email Flow (via Mailer)
 The `Mailer` class (`classes/Mailer.php`) wraps PHPMailer and is used for:
 - **Email Verification** — Sent on new signup.
 - **Password Reset** — Sent on forgot-password request.
+- **Shipping Confirmation** — Sent when Qikink webhook updates order status to `Dispatched`.
 - Configured via SMTP constants from `config/app.php` (SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS).
 
-## 8. PDF Course Import Flow (Admin)
+## 9. PDF Course Import Flow (Admin)
 When admin imports a course from a PDF:
 1. Admin visits `/admin/run_course_import.php`.
 2. PDF file is uploaded and parsed by `/api/admin/import_pdf.php`.
 3. PDF metadata (page count, topics JSON) is extracted and stored in the `courses` table.
 4. Course download file is stored securely in `/private/courses/` (never publicly accessible).
 5. Users can only download the PDF via `/api/courses/download.php` after purchase verification.
-
-## 9. Store Flow (Current — Static Only)
-> [!WARNING]
-> The store is currently frontend-only. No backend integration exists yet.
-
-1. User browses `/store/index.php` (publicly accessible, no login required).
-2. Products are loaded from hardcoded JavaScript data (`store/js/data.js`).
-3. Cart and product detail pages are static HTML (`store/cart/index.html`, `store/product-details/index.html`).
-4. **No actual purchase/order flow exists yet for store products.**
-
-The planned backend flow (not yet implemented):
-1. DB-powered product listings via Admin CMS
-2. Store cart connected to `cart_items` table (separate from course cart)
-3. Checkout → Order creation → Payment → Fulfillment

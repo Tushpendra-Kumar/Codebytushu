@@ -1,11 +1,12 @@
 # 📊 PROJECT STATUS — CodeByTushu
 
-> Last Updated: July 29, 2026
+> Last Updated: August 5, 2026
 > Approach: Full-Stack PHP + MySQL (Migration Complete from Static Frontend-First)
 > Backend & Auth: ✅ LIVE & Implemented
 > Admin Panel: ✅ LIVE & Fully Functional
-> Project Cleanup: ✅ Phase 2 Complete — One-time scripts, empty dirs, temp files, and misplaced assets removed
+> Project Cleanup: ✅ Phase 2 & 3 Complete — One-time scripts, empty dirs, temp files, and misplaced assets removed
 > UI Polish: ✅ Phase 3 Complete — Global Footer standardization, Global Scroll-to-Top, UTF-8 BOM fixes, Blog Homepage cleanup.
+> Store Module: ✅ Phase 1 LIVE — DB-powered product listing, Admin CMS, full checkout flow with shipping, Qikink integration (print-on-demand).
 
 ---
 
@@ -92,7 +93,7 @@
 | Comments System | ⏳ Pending |
 | Social Share Buttons | ⏳ Pending |
 
-> **Note:** `blogs/js/data.js` (134KB, 1969 lines) and `blogs/blog-details/index.html` are **legacy static files** from the old frontend-first approach. Active blog content is now 100% DB-powered via `/blogs/index.php` and `/blog-detail.php`.
+> **Note:** `blogs/js/data.js` (552KB, large file) and `blogs/blog-details/index.html` are **legacy static files** from the old frontend-first approach. Active blog content is now 100% DB-powered via `/blogs/index.php` and `/blog-detail.php`.
 
 ---
 
@@ -128,37 +129,49 @@
 | Progress Tracking | ❌ Not Started |
 | Certificates | ❌ Not Started |
 
-> **Note:** `courses/js/data.js` and `courses/course-details/index.html` are **legacy static files** from the old frontend-first approach. Active course data is now 100% DB-powered.
+> **Note:** `courses/js/data.js` is **legacy static data** from the old approach. Active course data is 100% DB-powered.
 
 ---
 
 ### 5. 🛍️ Store Module (`/store/`)
 
-> **Status: Frontend-Only (Static) — Backend Integration Pending**
+> **Status: PHASE 1 LIVE — DB-Powered with Full Checkout & Qikink Print-on-Demand Integration**
 
 | Feature | Status |
 |---|---|
-| Store Landing Page (Static HTML) | ✅ Done |
-| Product Listing (Hardcoded JS data) | ✅ Done |
-| Product Detail Page (Static HTML) | ✅ Done |
-| Categories & Search (UI Only) | ✅ Done |
-| Cart UI (Static HTML) | ✅ Done |
-| Empty Cart State | ✅ Done |
+| Store Landing Page (`store/index.php` — DB-driven) | ✅ Done |
+| Product Listing (DB-powered, Admin-managed) | ✅ Done |
+| Product Detail Page (`store/product-details/index.html`) | ✅ Done (static, reads JS data) |
+| Categories & Search (UI) | ✅ Done |
+| Store Cart (localStorage-based) | ✅ Done |
+| Checkout Page (`store/checkout/index.php`) | ✅ Done |
+| Checkout API (`/api/store/checkout.php`) | ✅ Done |
+| Order Creation with Shipping Details | ✅ Done |
+| Order Success Page (`store/checkout/success.php`) | ✅ Done |
+| Order Tracking Page (`store/order-tracking/index.php`) | ✅ Done |
+| Invoice Generator (`/api/store/invoice.php`) | ✅ Done |
+| Admin Store Products Management (`admin/store-products.php`) | ✅ Done |
+| Admin Store Orders Management (`admin/store-orders.php`) | ✅ Done |
+| Admin API: Store Products CRUD (`/api/admin/store-products.php`) | ✅ Done |
+| Admin API: Store Orders (`/api/admin/store-orders.php`) | ✅ Done |
+| Qikink Webhook Integration (`/api/webhooks/qikink.php`) | ✅ Done |
+| DB Migration: `012_store_products_v1.sql` | ✅ Applied |
+| DB Migration: `013_qikink_integration.sql` | ✅ Applied |
 | Desktop Responsive | ✅ Done |
 | Mobile Responsive | ✅ Done |
 
-**Pending:**
+**Pending / Future:**
 
 | Feature | Status |
 |---|---|
-| Backend Product Management (DB-powered) | ❌ Not Started |
-| Add to Cart (DB-connected) | ❌ Not Started |
-| Order History | ❌ Not Started |
-| Payment Gateway (Store Products) | ❌ Not Started |
-| Inventory Management | ❌ Not Started |
-| Admin Store Management | ❌ Not Started |
+| Product Detail Page (PHP/DB-driven, replace static HTML) | ⏳ Pending |
+| Store Cart (DB-backed, replace localStorage) | ⏳ Pending |
+| Razorpay / Full Payment Gateway | ⏳ Pending |
+| Inventory Management (stock count tracking) | ⏳ Pending |
+| Product Reviews System | ❌ Not Started |
+| Coupon / Discount System | ❌ Not Started |
 
-> **Note:** Store currently uses hardcoded JS data (`store/js/data.js`) and static HTML files. The backend migration for Store is the largest pending task.
+> **Note:** Store `index.php` is now fully DB-powered. The old static `store/js/data.js` (71KB) is still loaded by `store/product-details/index.html` and `store/cart/index.html` (legacy static pages). These will be replaced when product-details and cart pages are migrated to PHP.
 
 ---
 
@@ -249,6 +262,8 @@
 | PDF Import Tool | ✅ Done |
 | Role-Based Access Control (Admin, Super Admin) | ✅ Done |
 | Run Course Import Tool (`run_course_import.php`) | ✅ Done |
+| **Store Products Management** (`store-products.php`) | ✅ Done |
+| **Store Orders Management** (`store-orders.php`) | ✅ Done |
 
 ---
 
@@ -267,13 +282,16 @@
 | Database Config (`config/database.php`) | ✅ Done |
 | Shared Includes (Navbar, Footer, Functions, Analytics) | ✅ Done |
 | Database Schema (`database/schema.sql`) | ✅ Done |
-| Database Migrations (002–012) | ✅ Done (13 migration files) |
+| Database Migrations (002–013) | ✅ Done (15 migration files) |
 | Rate Limiting | ✅ Done |
 | CSRF Protection | ✅ Done |
 | Google OAuth Integration | ✅ Done |
 | Error Logging (`private/logs/`) | ✅ Done |
 | File Upload Handling (Images, PDFs, ZIPs, Videos) | ✅ Done |
 | `.htaccess` Security (Admin, API, Private dirs) | ✅ Done |
+| Qikink Webhook Endpoint | ✅ Done |
+| Store API Endpoints (`/api/store/`) | ✅ Done |
+| Webhook Logging (`private/logs/webhooks.log`) | ✅ Done |
 
 ---
 
@@ -294,9 +312,9 @@
 
 ---
 
-### 12. 💳 Payment Gateway Webhooks
+### 12. 💳 Payment Gateway Webhooks (Courses)
 
-> **Status: Partially Implemented — UI/Order Creation Done, Webhook Verification Pending**
+> **Status: Partially Implemented — UI/Order Creation Done, Automated Webhook Verification Pending**
 
 | Feature | Status |
 |---|---|
@@ -306,7 +324,7 @@
 | Auto-Enrollment on Payment | ⏳ Pending |
 | Razorpay Full Integration | ⏳ Pending |
 | Refund Logic | ❌ Not Started |
-| Invoice Generation | ❌ Not Started |
+| Invoice Generation (Courses) | ❌ Not Started |
 
 ---
 
@@ -321,14 +339,16 @@
 
 ---
 
-### 14. 🛍️ Store Backend Migration
+### 14. 🛍️ Store — Remaining Items (Phase 2)
 
 | Feature | Status |
 |---|---|
-| DB-Powered Product Listings | ❌ Not Started |
-| Admin Panel for Store Products | ❌ Not Started |
-| Store Cart (DB-connected) | ❌ Not Started |
-| Store Checkout & Orders | ❌ Not Started |
+| Product Detail Page (PHP/DB-driven) | ⏳ Pending |
+| Store Cart (DB-backed, replace localStorage) | ⏳ Pending |
+| Razorpay Payment Gateway for Store | ⏳ Pending |
+| Inventory / Stock Count Tracking | ⏳ Pending |
+| Product Reviews System | ❌ Not Started |
+| Coupon / Discount Codes | ❌ Not Started |
 
 ---
 
@@ -336,14 +356,18 @@
 
 | Item | Notes |
 |---|---|
-| `blogs/js/data.js` (134KB) | Legacy static mock data still actively loaded by `blogs/index.php` and `blogs/blog-details/index.html`. Will be obsolete once blog detail page is migrated to PHP. |
-| `blogs/blog-details/index.html` | Legacy static blog detail page still active — `blogs.js` redirects to it. Keep until PHP migration is done. |
-| `blogs/js/blogs.js` | Still loaded by `blogs/index.php` (handles search, filtering UI). Keep for now. |
-| `courses/js/data.js` | Old hardcoded mock data, still loaded by `store/cart/index.html`. Keep until Store backend is built. |
-| `store/js/data.js` | Hardcoded store product data — active, will be obsolete once Store backend is implemented. |
-| `store/cart/index.html` | Active static store cart (Store backend not yet implemented). Keep. |
-| `store/product-details/index.html` | Active static store product detail. Keep. |
+| `blogs/js/data.js` (552KB) | Legacy static mock data. Active blogs come from MySQL. Still required by `blogs/blog-details/index.html`. |
+| `blogs/blog-details/index.html` | Legacy static blog detail page. Active: `/blog-detail.php`. Keep until no longer referenced. |
+| `blogs/js/blogs.js` | Handles UI search/filtering for the legacy blog-details page. Keep for now. |
+| `courses/js/data.js` | Old hardcoded mock data, may still be loaded by static pages. Keep until store cart & product-detail pages migrated. |
+| `store/js/data.js` (71KB) | Hardcoded store product data — still used by `store/product-details/index.html` and `store/cart/index.html`. Will become obsolete when those pages are migrated to PHP. |
+| `store/product-details/index.html` | Legacy static product detail page — still active until PHP version is built. |
+| `store/cart/index.html` | Legacy static store cart — still active until DB-backed cart is implemented. |
 | `image1/` and `image2/` | Non-standard folder names — actively used by navbar, styles.css, and many pages. Keep. |
+| `generate.js`, `generate_data.js` | Root-level JS utility/generator scripts — purpose unclear, possibly one-time tools. Needs review. |
+| `rename_script.ps1` | PowerShell script in project root — one-time utility, likely not needed in production. |
+| `files_list.txt` | Text file listing files — likely a one-time tool artifact. Needs review. |
+| `main.js` (root) | Small root-level JS file (1.5KB) — purpose and usage needs verification. |
 
 ### ✅ Items Removed in Phase 3 Cleanup (July 29, 2026)
 
@@ -370,8 +394,6 @@
 | `private/execute_migration.php` | One-time LeetCode data migration tool — migration complete |
 | `private/preview_migration.php` | Companion preview tool — no longer needed |
 
-
-
 ---
 
 ## 📈 Overall Progress Summary
@@ -379,15 +401,17 @@
 | Area | Progress |
 |---|---|
 | **Frontend UI/UX** | ~100% Complete ✅ |
-| **Backend (PHP + MySQL)** | ~85% Complete ✅ |
+| **Backend (PHP + MySQL)** | ~90% Complete ✅ |
 | **Authentication (Full Auth Flow)** | ~95% Complete ✅ |
-| **Admin Panel** | ~95% Complete ✅ |
+| **Admin Panel** | ~98% Complete ✅ |
 | **Courses (Purchase + Download)** | ~80% Complete ✅ |
 | **Blogs (CMS-Powered)** | ~90% Complete ✅ |
 | **LeetCode (CMS-Powered)** | ~95% Complete ✅ |
 | **Video Editing Module** | ~80% Complete ✅ |
-| **Store Module (Backend)** | ~15% Complete ⏳ |
-| **Payment Webhooks** | ~30% Complete ⏳ |
+| **Store Module (Phase 1 Backend)** | ~65% Complete ⏳ |
+| **Store Module (Phase 2 — Cart/PDP/Payment)** | ~5% Complete ⏳ |
+| **Qikink Print-on-Demand Integration** | ~60% Complete ⏳ |
+| **Payment Webhooks (Courses)** | ~30% Complete ⏳ |
 | **Advanced Course Features** | Not Started ❌ |
 | **User Dashboard (Stub Pages)** | ~70% Complete ⏳ |
 
@@ -395,4 +419,5 @@
 
 > **Note:** Project has migrated from the original static HTML/JavaScript + Firebase approach to a full PHP + MySQL server-side architecture.
 > The Auth system, Admin Panel, Blog CMS, Course CMS, LeetCode CMS are all live and functional.
-> Remaining work is primarily: Store backend, payment webhook verification, advanced course features (video player, progress tracking, certificates), and cleanup of legacy static files.
+> The Store module has completed Phase 1 (DB-powered listing, Admin CMS, checkout flow, Qikink integration).
+> Remaining work is primarily: Store Phase 2 (PHP product-details page, DB cart, Razorpay), payment webhook automation (courses), advanced course features (video player, progress tracking, certificates).

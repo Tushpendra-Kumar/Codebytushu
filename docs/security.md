@@ -35,18 +35,28 @@ This document details the security mechanisms implemented in the CodeByTushu pla
 - **Upload Directory**: The `/uploads/` directory contents are ignored in Git. A `.htaccess` in `/uploads/` prevents direct PHP execution.
 
 ## 7. Access Control
-- **Public Routes**: Only `index.html`, `about-platform.html`, `404.php`, `blogs.php` (root), and legal pages are publicly accessible.
-- **Auth-Required Routes**: `/blogs/`, `/courses/`, `/Leetcode/`, `/video-editing/` require `Auth::requireLogin()`.
+- **Public Routes**: Only `index.html`, `about-platform.html`, `404.php`, `blogs.php` (root), `store/index.php` (store listing), and legal pages are publicly accessible.
+- **Auth-Required Routes**: `/blogs/`, `/courses/`, `/Leetcode/`, `/video-editing/`, `/store/checkout/`, `/store/order-tracking/` require `Auth::requireLogin()`.
 - **Admin Routes**: All `/admin/*.php` files require `role = 'admin'` or `'super_admin'` via `Auth::requireAdmin()` inside `/admin/includes/auth_check.php`.
 - **Private Files**: `/private/courses/*.pdf` are never served directly. They are streamed exclusively through `/api/courses/download.php` after ownership verification.
 - **API `.htaccess`**: `/api/.htaccess` restricts direct directory browsing.
+- **Store Invoice**: `/api/store/invoice.php` verifies that the requesting user owns the order before generating the invoice.
 
 ## 8. Rate Limiting
 - **Contact Form**: 3 submissions per IP per 10 minutes (enforced via `rate_limit_log` table).
 - **Login Attempts**: 5 failed attempts per email triggers a 15-minute lockout.
 - Both implemented server-side in PHP — no client-side bypass possible.
 
-## 9. HTTP Security Headers
+## 9. Webhook Security
+- **Qikink Webhook** (`/api/webhooks/qikink.php`): Receives POST requests from Qikink for order status updates.
+  - All payloads are logged to `private/logs/webhooks.log` for audit trail.
+  - Only processes known order numbers (validates against `orders` table with `order_type = 'store'`).
+  - Does NOT expose internal data in the response.
+
+> [!NOTE]
+> Future enhancement: Implement Qikink webhook signature verification to prevent spoofed webhook calls.
+
+## 10. HTTP Security Headers
 Recommended headers to implement on the web server (Hostinger / Apache via `.htaccess`):
 ```
 X-Frame-Options: SAMEORIGIN
@@ -63,3 +73,4 @@ These should be set in the root `.htaccess` or server config.
 > - Never expose `.env` variables or sensitive user columns in API responses
 > - Always verify file MIME types on upload
 > - Always use `Auth::requireLogin()` or `Auth::requireAdmin()` on protected pages
+> - Always verify order ownership before serving invoice or download

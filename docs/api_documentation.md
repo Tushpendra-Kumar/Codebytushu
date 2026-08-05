@@ -31,7 +31,7 @@ All files here manage session states and OAuth flows. Note: Standard login/signu
   - **Inputs**: `csrf_token`.
   - **Output**: JSON success or error.
 
-## 2. Cart Endpoints (`/api/cart/`)
+## 2. Cart Endpoints (`/api/cart/`) — Courses Only
 
 - **`POST /api/cart/add.php`**
   - **Purpose**: Adds a course to the user's cart.
@@ -48,10 +48,10 @@ All files here manage session states and OAuth flows. Note: Standard login/signu
   - **Requires**: Login.
   - **Output**: `{ "items": [...], "total": 0 }`.
 
-## 3. Checkout Endpoints (`/api/checkout/`)
+## 3. Checkout Endpoints (`/api/checkout/`) — Courses Only
 
 - **`POST /api/checkout/submit.php`**
-  - **Purpose**: Creates an order from all cart items.
+  - **Purpose**: Creates an order from all cart items (courses).
   - **Requires**: Login. `csrf_token`, payment details.
   - **Output**: JSON with order ID or error.
 
@@ -60,14 +60,36 @@ All files here manage session states and OAuth flows. Note: Standard login/signu
   - **Requires**: Login. `course_id`, `csrf_token`.
   - **Output**: JSON with order ID or error.
 
-## 4. Course Download Endpoint (`/api/courses/`)
+## 4. Store Endpoints (`/api/store/`) — Store Products
+
+- **`POST /api/store/checkout.php`**
+  - **Purpose**: Creates a store order with shipping details from cart items (store products).
+  - **Requires**: Login. JSON body with `items[]`, `shipping` object, `payment_method`.
+  - **Note**: Creates order with `order_type = 'store'` including full shipping address.
+  - **Output**: `{ "success": true, "order_number": "CBT-2026-XXXXXX" }` or error.
+
+- **`GET /api/store/invoice.php?order=CBT-2026-XXXXXX`**
+  - **Purpose**: Generates a professional printable HTML invoice for a store order.
+  - **Requires**: Login + order ownership verification.
+  - **Output**: HTML invoice page or 403/404 error.
+
+## 5. Course Download Endpoint (`/api/courses/`)
 
 - **`GET /api/courses/download.php?order_id=...`**
   - **Purpose**: Securely streams a purchased PDF course to the user.
   - **Requires**: Login + verified order ownership check.
   - **Output**: File stream (`application/pdf`) or 403 Forbidden.
 
-## 5. Public/Contact Endpoints
+## 6. Webhook Endpoints (`/api/webhooks/`)
+
+- **`POST /api/webhooks/qikink.php`**
+  - **Purpose**: Receives order status updates from Qikink (print-on-demand fulfillment).
+  - **Triggers on**: Qikink order status changes (e.g., `In Production`, `Dispatched`, `Delivered`).
+  - **Actions**: Updates `orders` table with `qikink_status`, `awb_number`, `courier_name`; sends shipping confirmation email to user via Mailer.
+  - **Logs**: All webhook payloads are logged to `private/logs/webhooks.log`.
+  - **Output**: `{ "success": true }` or error status.
+
+## 7. Public/Contact Endpoints
 
 - **`POST /api/contact.php`**
   - **Purpose**: Handles the Contact Us form submission, stores in `contact_messages` table.
@@ -85,7 +107,7 @@ All files here manage session states and OAuth flows. Note: Standard login/signu
   - **Inputs**: `email`, `csrf_token`.
   - **Output**: JSON success or error.
 
-## 6. Admin API Endpoints (`/api/admin/`)
+## 8. Admin API Endpoints (`/api/admin/`)
 All admin endpoints require the user to have `role = 'admin'` or `'super_admin'`.
 
 | Endpoint | Methods | Purpose |
@@ -96,17 +118,20 @@ All admin endpoints require the user to have `role = 'admin'` or `'super_admin'`
 | `/api/admin/users.php` | GET, POST, PUT, DELETE | User management |
 | `/api/admin/dashboard.php` | GET | KPI stats for live refresh |
 | `/api/admin/settings.php` | GET, POST | Site settings read/write |
-| `/api/admin/payments.php` | GET, POST | Orders/payment management |
+| `/api/admin/payments.php` | GET, POST | Course orders/payment management |
 | `/api/admin/messages.php` | GET, POST | Contact messages inbox |
 | `/api/admin/categories.php` | GET, POST, DELETE | Category management |
 | `/api/admin/import_pdf.php` | POST | PDF course import/parsing |
+| `/api/admin/store-products.php` | GET, POST, PUT, DELETE | Store product CRUD |
+| `/api/admin/store-orders.php` | GET, POST | Store orders + fulfillment management |
 | `/api/upload.php` | POST | Media file upload handler |
 
-## 7. API Design Principles
-1. **JSON Only**: Unless redirecting, all API endpoints must set `header('Content-Type: application/json')` and return valid JSON.
+## 9. API Design Principles
+1. **JSON Only**: Unless redirecting or serving an HTML invoice, all API endpoints must set `header('Content-Type: application/json')` and return valid JSON.
 2. **Error Handling**: APIs catch `PDOException` and return clean error messages rather than raw SQL errors.
 3. **Security**: All `POST`, `PUT`, `DELETE` operations require a CSRF token via `requireCsrf()`. All protected actions require the session user ID (`$_SESSION['user_id']`).
 4. **HTTP Status Codes**: Return appropriate status codes (200, 201, 400, 401, 403, 404, 405, 500) — not just JSON `success: false`.
+5. **Store vs Course separation**: Course cart/checkout uses `/api/cart/` and `/api/checkout/`. Store uses `/api/store/checkout.php` (separate endpoint with shipping address support).
 
 > [!CAUTION]
 > **Data Leak Prevention Rule:**
