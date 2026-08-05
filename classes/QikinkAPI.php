@@ -22,6 +22,16 @@ class QikinkAPI
     }
 
     /**
+     * Check if Qikink integration credentials are still placeholder/not configured.
+     * Returns true if integration is pending (credentials not yet received).
+     */
+    public function isIntegrationPending(): bool
+    {
+        $placeholders = ['sandbox_client_id_here', 'sandbox_secret_here', '', 'YOUR_CLIENT_ID', 'YOUR_SECRET'];
+        return in_array($this->clientId, $placeholders) || in_array($this->clientSecret, $placeholders);
+    }
+
+    /**
      * Get Access Token (required for subsequent requests).
      * @return string|null The token, or null on failure.
      */
@@ -112,6 +122,17 @@ class QikinkAPI
      */
     public function createOrder(array $order, array $items): array
     {
+        // ── Integration Pending Guard ─────────────────────────────────────
+        if ($this->isIntegrationPending()) {
+            return [
+                'success'          => false,
+                'pending'          => true,
+                'message'          => 'Print partner integration is currently being finalized. Your order has been received and payment verified. Production will begin automatically once integration is complete.',
+                'qikink_order_id'  => null,
+            ];
+        }
+        // ─────────────────────────────────────────────────────────────────
+
         $lineItems = [];
         
         foreach ($items as $item) {

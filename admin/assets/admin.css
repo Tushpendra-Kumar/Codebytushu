@@ -1404,3 +1404,15 @@ select.form-control { appearance: none; background-image: url("data:image/svg+xm
   background: var(--border);
   margin: 20px 0;
 }
+
+/* ── Store Overview Responsive (Phase 5) ── */
+@media (max-width: 1024px) {
+  .store-kpi-grid { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 768px) {
+  .store-kpi-grid { grid-template-columns: 1fr 1fr !important; }
+  .bottom-grid    { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 480px) {
+  .store-kpi-grid { grid-template-columns: 1fr !important; }
+}

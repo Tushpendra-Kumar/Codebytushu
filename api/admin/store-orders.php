@@ -131,9 +131,16 @@ try {
             $pushRes = pushOrderToQikink($pdo, $id);
             
             if ($pushRes['success']) {
-                echo json_encode(['success' => true, 'message' => 'Payment verified and order automatically pushed to Qikink! ID: ' . $pushRes['qikink_order_id']]);
+                echo json_encode(['success' => true, 'message' => 'Payment verified and order pushed to print partner! ID: ' . $pushRes['qikink_order_id']]);
+            } elseif (!empty($pushRes['pending'])) {
+                // Integration pending — payment verified, but Qikink not connected yet
+                echo json_encode([
+                    'success' => true,
+                    'message' => '✅ Payment verified successfully! ⏳ Print partner integration is being finalized — order will be sent to production automatically once credentials are configured.',
+                    'integration_pending' => true
+                ]);
             } else {
-                echo json_encode(['success' => true, 'message' => 'Payment verified, but Qikink push failed: ' . $pushRes['message']]);
+                echo json_encode(['success' => true, 'message' => 'Payment verified. Note: ' . $pushRes['message']]);
             }
             exit;
         } elseif ($action === 'reject_payment') {
@@ -145,7 +152,15 @@ try {
         } elseif ($action === 'push_to_qikink') {
             $id = (int)($input['id'] ?? 0);
             $res = pushOrderToQikink($pdo, $id);
-            echo json_encode($res);
+            if (!empty($res['pending'])) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => '⏳ Print partner integration is currently being finalized. Your order is safe — production will start automatically once API credentials are configured. No action needed from your side.',
+                    'integration_pending' => true
+                ]);
+            } else {
+                echo json_encode($res);
+            }
             exit;
         }
     }

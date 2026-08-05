@@ -591,8 +591,105 @@ $quickActions = [
         <?php endif; ?>
       </div>
 
+      <!-- ══ Store Overview (Phase 5) ════════════════════════════ -->
+      <div style="margin-bottom:24px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <h2 style="font-size:1.05rem;font-weight:700;color:var(--text-heading);margin:0;">
+            🛍️ Store Overview
+          </h2>
+          <a href="/admin/store-orders.php" class="btn btn-ghost btn-sm">View All Orders →</a>
+        </div>
+
+        <!-- Store KPI Cards -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px;" class="store-kpi-grid">
+          <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:16px;">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Total Revenue</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#ffc400;">₹<?= number_format((float)($storeStats['total_revenue'] ?? 0), 0) ?></div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">Verified payments</div>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border-color);border-left:3px solid #f59e0b;border-radius:12px;padding:16px;cursor:pointer;" onclick="location.href='/admin/store-orders.php?status=pending'">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Pending Payment</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#f59e0b;"><?= intval($storeStats['pending_payment'] ?? 0) ?></div>
+            <div style="font-size:0.78rem;color:#f59e0b;margin-top:4px;">⚠️ Action required</div>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border-color);border-left:3px solid #8b5cf6;border-radius:12px;padding:16px;">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">In Production</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#8b5cf6;"><?= intval($storeStats['in_production'] ?? 0) ?></div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">At print partner</div>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border-color);border-left:3px solid #22c55e;border-radius:12px;padding:16px;">
+            <div style="font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Total Orders</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#22c55e;"><?= intval($storeStats['total_orders'] ?? 0) ?></div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">All time</div>
+          </div>
+        </div>
+
+        <!-- Recent Orders Table -->
+        <?php if (!empty($recentOrders)): ?>
+        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;overflow:hidden;">
+          <table style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr style="background:rgba(255,255,255,0.03);">
+                <th style="padding:10px 16px;text-align:left;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:600;">Order</th>
+                <th style="padding:10px 16px;text-align:left;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:600;">Customer</th>
+                <th style="padding:10px 16px;text-align:left;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:600;">Amount</th>
+                <th style="padding:10px 16px;text-align:left;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:600;">Payment</th>
+                <th style="padding:10px 16px;text-align:left;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted);font-weight:600;">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($recentOrders as $ro):
+                $payBadge = match($ro['payment_status']) {
+                    'verified' => ['bg'=>'rgba(34,197,94,0.12)', 'color'=>'#4ade80', 'label'=>'Verified'],
+                    'rejected' => ['bg'=>'rgba(239,68,68,0.12)', 'color'=>'#f87171', 'label'=>'Rejected'],
+                    default    => ['bg'=>'rgba(245,158,11,0.12)', 'color'=>'#fbbf24', 'label'=>'Pending'],
+                };
+                $fulfillBadge = match($ro['fulfillment_status'] ?? 'pending') {
+                    'processing' => ['bg'=>'rgba(139,92,246,0.12)', 'color'=>'#a78bfa', 'label'=>'In Production'],
+                    'shipped'    => ['bg'=>'rgba(59,130,246,0.12)',  'color'=>'#60a5fa', 'label'=>'Shipped'],
+                    'delivered'  => ['bg'=>'rgba(34,197,94,0.12)',   'color'=>'#4ade80', 'label'=>'Delivered'],
+                    'cancelled'  => ['bg'=>'rgba(239,68,68,0.12)',   'color'=>'#f87171', 'label'=>'Cancelled'],
+                    default      => ['bg'=>'rgba(255,255,255,0.05)', 'color'=>'#888',    'label'=>'Pending'],
+                };
+              ?>
+              <tr style="border-top:1px solid var(--border-color);">
+                <td style="padding:10px 16px;font-family:monospace;font-size:0.82rem;color:var(--primary);"><?= htmlspecialchars($ro['order_number']) ?></td>
+                <td style="padding:10px 16px;font-size:0.88rem;color:var(--text-heading);"><?= htmlspecialchars($ro['full_name']) ?></td>
+                <td style="padding:10px 16px;font-size:0.88rem;font-weight:700;color:var(--text-heading);">₹<?= number_format((float)$ro['total_amount'], 0) ?></td>
+                <td style="padding:10px 16px;">
+                  <span style="padding:3px 8px;border-radius:12px;font-size:0.72rem;font-weight:700;background:<?= $payBadge['bg'] ?>;color:<?= $payBadge['color'] ?>;">
+                    <?= $payBadge['label'] ?>
+                  </span>
+                </td>
+                <td style="padding:10px 16px;">
+                  <span style="padding:3px 8px;border-radius:12px;font-size:0.72rem;font-weight:700;background:<?= $fulfillBadge['bg'] ?>;color:<?= $fulfillBadge['color'] ?>;">
+                    <?= $fulfillBadge['label'] ?>
+                  </span>
+                </td>
+              </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+        <?php else: ?>
+        <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:12px;padding:28px;text-align:center;color:var(--text-muted);font-size:0.9rem;">
+          No store orders yet. <a href="/store/" style="color:var(--primary);">View Store →</a>
+        </div>
+        <?php endif; ?>
+
+        <!-- Integration Pending Notice -->
+        <div style="margin-top:12px;padding:12px 16px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-radius:10px;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:1.2rem;">⏳</span>
+          <div>
+            <strong style="color:#fbbf24;font-size:0.85rem;">Print Partner Integration: Pending Credentials</strong>
+            <p style="color:var(--text-muted);font-size:0.78rem;margin:2px 0 0;">Waiting for Qikink to enable Custom API. Orders are being stored safely — production push will auto-activate once configured.</p>
+          </div>
+        </div>
+      </div>
+
       <!-- ══ Latest Messages + Quick Actions ════════════════════ -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:24px;" class="bottom-grid">
+
 
         <!-- Latest Contact Messages -->
         <div class="card">

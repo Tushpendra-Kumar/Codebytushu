@@ -279,11 +279,17 @@ $orderItems = $itemsStmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
 
             <div class="action-buttons">
-                <a href="../index.php" class="cbt-btn cbt-btn-primary">
+                <a href="/store/order-tracking/?order=<?= urlencode($order['order_number']) ?>"
+                   class="cbt-btn cbt-btn-primary">
+                    <i class="fa-solid fa-location-dot"></i> Track My Order
+                </a>
+                <a href="../index.php" class="cbt-btn" style="border:1px solid var(--border-color); color:var(--text-heading); text-decoration:none; padding:12px 24px; border-radius:8px;">
                     <i class="fa-solid fa-store"></i> Continue Shopping
                 </a>
-                <a href="../../index.html" class="cbt-btn" style="border:1px solid var(--border-color); color:var(--text-heading); text-decoration:none; padding:12px 24px; border-radius:8px;">
-                    <i class="fa-solid fa-home"></i> Go Home
+                <a href="/api/store/invoice.php?order=<?= urlencode($order['order_number']) ?>"
+                   target="_blank"
+                   class="cbt-btn" style="border:1px solid var(--border-color); color:var(--text-heading); text-decoration:none; padding:12px 24px; border-radius:8px;">
+                    <i class="fa-solid fa-file-invoice"></i> Invoice
                 </a>
             </div>
         </div>
