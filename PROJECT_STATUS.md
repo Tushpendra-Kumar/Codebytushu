@@ -1,12 +1,13 @@
 # 📊 PROJECT STATUS — CodeByTushu
 
-> Last Updated: August 5, 2026
+> Last Updated: August 5, 2026 (Phase 4 Cleanup)
 > Approach: Full-Stack PHP + MySQL (Migration Complete from Static Frontend-First)
 > Backend & Auth: ✅ LIVE & Implemented
 > Admin Panel: ✅ LIVE & Fully Functional
 > Project Cleanup: ✅ Phase 2 & 3 Complete — One-time scripts, empty dirs, temp files, and misplaced assets removed
 > UI Polish: ✅ Phase 3 Complete — Global Footer standardization, Global Scroll-to-Top, UTF-8 BOM fixes, Blog Homepage cleanup.
 > Store Module: ✅ Phase 1 LIVE — DB-powered product listing, Admin CMS, full checkout flow with shipping, Qikink integration (print-on-demand).
+> Cleanup: ✅ Phase 4 Complete — One-time data generation scripts and utility files removed from project root.
 
 ---
 
@@ -364,10 +365,15 @@
 | `store/product-details/index.html` | Legacy static product detail page — still active until PHP version is built. |
 | `store/cart/index.html` | Legacy static store cart — still active until DB-backed cart is implemented. |
 | `image1/` and `image2/` | Non-standard folder names — actively used by navbar, styles.css, and many pages. Keep. |
-| `generate.js`, `generate_data.js` | Root-level JS utility/generator scripts — purpose unclear, possibly one-time tools. Needs review. |
-| `rename_script.ps1` | PowerShell script in project root — one-time utility, likely not needed in production. |
-| `files_list.txt` | Text file listing files — likely a one-time tool artifact. Needs review. |
-| `main.js` (root) | Small root-level JS file (1.5KB) — purpose and usage needs verification. |
+
+### ✅ Items Removed in Phase 4 Cleanup (August 5, 2026)
+
+| Item | Reason Removed |
+|---|---|
+| `generate.js` (root) | One-time Node.js script used to generate `store/js/data.js` from `Store Product Images/`. Already executed — store data.js exists. No longer needed. |
+| `generate_data.js` (root) | Companion one-time Node.js data generation script. Already executed. No longer needed. |
+| `rename_script.ps1` (root) | One-time PowerShell script that renamed ChatGPT-generated image files to product slugs. Already executed — all images are already renamed. |
+| `files_list.txt` (root) | Plain text listing of ChatGPT image filenames — a one-time reference artifact created alongside `rename_script.ps1`. No longer needed. |
 
 ### ✅ Items Removed in Phase 3 Cleanup (July 29, 2026)
 
