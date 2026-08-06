@@ -42,7 +42,7 @@
             '.cbt-stt-btn {',
             '    position: fixed;',
             '    bottom: 28px;',
-            '    right: 28px;',
+            '    left: 28px;',
             '    z-index: 999999;',
             '    width: 50px;',
             '    height: 50px;',
@@ -112,7 +112,7 @@
 
             /* === Mobile adjustments === */
             '@media (max-width: 480px) {',
-            '    .cbt-stt-btn { bottom: 18px; right: 18px; width: 44px; height: 44px; }',
+            '    .cbt-stt-btn { bottom: 18px; left: 18px; width: 44px; height: 44px; }',
             '    .cbt-stt-btn .material-symbols-rounded { font-size: 20px; }',
             '}',
 

@@ -770,7 +770,7 @@ nav.navbar { overflow: visible; }
     height: 45px;
     width: 42px;
     background: #ffc400;
-    right: 30px;
+    left: 30px;
     bottom: 10px;
     text-align: center;
     line-height: 45px;
@@ -2944,7 +2944,7 @@ textarea:focus{
 .cbt-back-to-top {
     position: fixed;
     bottom: 10px;
-    right: 30px;
+    left: 30px;
     z-index: 9999;
     opacity: 0;
     pointer-events: none;
@@ -3236,7 +3236,7 @@ textarea:focus{
     }
 
     .scroll-up-btn {
-        right: 15px;
+        left: 15px;
         bottom: 15px;
         height: 38px;
         width: 35px;
