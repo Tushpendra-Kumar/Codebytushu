@@ -1138,8 +1138,9 @@
         if(window.__cbtWidgetLoaded)return;
         window.__cbtWidgetLoaded=true;
         function load(){
-            var l=document.createElement('link');l.rel='stylesheet';l.href='/ai-widget/dist/ai-widget.css';document.head.appendChild(l);
-            var s=document.createElement('script');s.src='/ai-widget/dist/ai-widget.js';document.body.appendChild(s);
+            var b=window.location.pathname.startsWith('/Codebytushu')?'/Codebytushu':'';
+            var l=document.createElement('link');l.rel='stylesheet';l.href=b+'/ai-widget/dist/ai-widget.css';document.head.appendChild(l);
+            var s=document.createElement('script');s.src=b+'/ai-widget/dist/ai-widget.js';document.body.appendChild(s);
         }
         document.readyState==='complete'?setTimeout(load,1500):window.addEventListener('load',function(){setTimeout(load,1500);});
     })();

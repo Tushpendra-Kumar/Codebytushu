@@ -27,16 +27,19 @@ if (!$isAdminPage):
     window.__cbtWidgetLoaded = true;
 
     function loadCbtWidget() {
+        // Handle local XAMPP path (localhost/Codebytushu) vs Production (codebytushu.com)
+        var basePath = window.location.pathname.startsWith('/Codebytushu') ? '/Codebytushu' : '';
+
         // Inject CSS (non-blocking)
         var link = document.createElement('link');
         link.rel  = 'stylesheet';
         link.type = 'text/css';
-        link.href = '/ai-widget/dist/ai-widget.css';
+        link.href = basePath + '/ai-widget/dist/ai-widget.css';
         document.head.appendChild(link);
 
         // Inject JS
         var script = document.createElement('script');
-        script.src = '/ai-widget/dist/ai-widget.js';
+        script.src = basePath + '/ai-widget/dist/ai-widget.js';
         document.body.appendChild(script);
     }
 
@@ -51,3 +54,4 @@ if (!$isAdminPage):
 })();
 </script>
 <?php endif; ?>
+
