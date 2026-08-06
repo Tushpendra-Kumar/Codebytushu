@@ -19,7 +19,7 @@ export default function ChatWindow() {
   const messagesEndRef = useRef(null)
   
   // Initialize socket connection
-  const { socket, connected, sendMessage } = useSocket()
+  const { socket, connected, connectionError, sendMessage } = useSocket()
   
   // Track if we are currently receiving a stream to know when to append
   const [isStreaming, setIsStreaming] = useState(false)
@@ -74,7 +74,8 @@ export default function ChatWindow() {
     addMessage('user', text)
     
     if (!connected) {
-      addMessage('ai', "❌ **Offline:** Cannot connect to the AI Engine. Please try again later.")
+      const errorMsg = connectionError ? ` (${connectionError})` : ''
+      addMessage('ai', `❌ **Offline:** Cannot connect to the AI Engine.${errorMsg} Please make sure the Node.js server is running on port 3001.`)
       return
     }
 
