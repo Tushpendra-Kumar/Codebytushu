@@ -33,9 +33,9 @@ desktop.ini
 *.suo
 *.user
 
-# Build output (if added later)
-/dist/
-/build/
+# Build output (kept for PHP-only builds; ai-widget/dist IS committed)
+# /dist/
+# /build/
 
 # ─── PHP Infrastructure ──────────────────────
 # PHP Composer
@@ -43,9 +43,8 @@ desktop.ini
 composer.lock
 composer.phar
 
-# Node.js (only used for dev scripts — no longer needed)
-package.json
-package-lock.json
+# Node.js (only used for dev scripts — no longer needed at root)
+# package.json and package-lock.json are now inside ai-widget/ and ai-service/
 
 # Uploaded user files (never commit)
 /uploads/images/
@@ -63,3 +62,12 @@ package-lock.json
 # PHP error logs
 *.log
 error_log
+
+# ─── AI Microservice (ai-widget + ai-service) ────
+# Exclude node_modules from both sub-projects
+ai-widget/node_modules/
+ai-service/node_modules/
+# ai-widget/dist IS committed (production build served by PHP server)
+# ai-service/.env is secret — never commit
+ai-service/.env
+ai-service/.env.*
