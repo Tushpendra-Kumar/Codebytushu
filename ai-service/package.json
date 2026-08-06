@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@google/genai": "^0.1.2",
+    "@google/genai": "^2.16.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -19,3 +19,4 @@
     "socket.io": "^4.8.1"
   }
 }
+
