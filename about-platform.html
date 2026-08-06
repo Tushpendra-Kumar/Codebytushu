@@ -759,7 +759,7 @@
             var l=document.createElement('link');l.rel='stylesheet';l.href=b+'/ai-widget/dist/ai-widget.css';document.head.appendChild(l);
             var s=document.createElement('script');s.src=b+'/ai-widget/dist/ai-widget.js';document.body.appendChild(s);
         }
-        document.readyState==='complete'?setTimeout(load,1500):window.addEventListener('load',function(){setTimeout(load,1500);});
+        document.readyState==='loading'?document.addEventListener('DOMContentLoaded',load):load();
     })();
     </script>
 </body>

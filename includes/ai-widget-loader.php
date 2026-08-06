@@ -43,13 +43,11 @@ if (!$isAdminPage):
         document.body.appendChild(script);
     }
 
-    // Load 1.5s after page fully loads — zero impact on LCP / FID / CLS
-    if (document.readyState === 'complete') {
-        setTimeout(loadCbtWidget, 1500);
+    // Load immediately when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadCbtWidget);
     } else {
-        window.addEventListener('load', function() {
-            setTimeout(loadCbtWidget, 1500);
-        });
+        loadCbtWidget();
     }
 })();
 </script>
