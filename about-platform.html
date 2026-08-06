@@ -748,6 +748,19 @@
     </script>    <script src="/auth-ui.js"></script>
     <!-- Global Scroll to Top (shared across all pages) -->
     <script src="/scroll-to-top.js"></script>
+    <!-- CodeByTushu AI Widget — Lazy Loaded -->
+    <div id="cbt-ai-widget"></div>
+    <script>
+    (function(){
+        if(window.__cbtWidgetLoaded)return;
+        window.__cbtWidgetLoaded=true;
+        function load(){
+            var l=document.createElement('link');l.rel='stylesheet';l.href='/ai-widget/dist/ai-widget.css';document.head.appendChild(l);
+            var s=document.createElement('script');s.src='/ai-widget/dist/ai-widget.js';document.body.appendChild(s);
+        }
+        document.readyState==='complete'?setTimeout(load,1500):window.addEventListener('load',function(){setTimeout(load,1500);});
+    })();
+    </script>
 </body>
 </html>
 

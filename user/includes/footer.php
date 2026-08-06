@@ -59,5 +59,6 @@ function showSaveToast(message) {
 </script>
 <!-- Global Scroll to Top (shared across all pages) -->
 <script src="/scroll-to-top.js"></script>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/includes/ai-widget-loader.php'; ?>
 </body>
 </html>

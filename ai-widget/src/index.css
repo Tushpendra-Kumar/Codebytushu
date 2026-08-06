@@ -42,25 +42,56 @@
 
 /* ── Widget Root Container ───────────────────────────────────────────────── */
 .cbt-widget-root {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 999999;
-  display: flex;
+  /* ⚠️  CRITICAL: These must be !important — global CSS must NOT override them */
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 999999 !important;
+
+  /* Layout */
+  display: flex !important;
   flex-direction: column;
   align-items: flex-end;
   gap: 12px;
-  /* Prevent widget from inheriting any global styles */
-  all: initial;
-  font-family: var(--cbt-font);
+
+  /* Sizing */
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+
+  /* Font — prevent global font overrides */
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: left;
+  color: #f0f0f0;
+
+  /* Reset common inherited values that may leak from parent */
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  /* Pointer events */
+  pointer-events: none;
 }
 
+/* Re-enable pointer events on actual widget elements */
+.cbt-widget-root > * {
+  pointer-events: all;
+}
+
+/* Box model reset for all child elements */
 .cbt-widget-root *,
 .cbt-widget-root *::before,
 .cbt-widget-root *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* ════════════════════════════════════════════════════════════════════════════

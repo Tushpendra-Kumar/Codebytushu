@@ -1,4 +1,561 @@
-<?php
+﻿<?php
+require_once __DIR__ . '/../classes/Auth.php';
+Auth::boot();
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LeetCode Unlocked â€” Daily DSA solutions by CodeByTushu.">
+
+    <title>LeetCode Unlocked | CodeByTushu</title>
+
+    <!-- FAVICON â€” generated from Black Logo.PNG (root-level, cache-busted) -->
+    <link rel="icon"             href="/favicon.ico?v=6"                 sizes="any">
+    <link rel="icon"             href="/favicon-32x32.png?v=6"           type="image/png" sizes="32x32">
+    <link rel="icon"             href="/favicon-48x48.png?v=6"           type="image/png" sizes="48x48">
+    <link rel="icon"             href="/favicon-16x16.png?v=6"           type="image/png" sizes="16x16">
+    <link rel="icon"             href="/android-chrome-192x192.png?v=6"  type="image/png" sizes="192x192">
+    <link rel="icon"             href="/android-chrome-512x512.png?v=6"  type="image/png" sizes="512x512">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=6"        sizes="180x180">
+    <link rel="manifest"         href="/site.webmanifest?v=6">
+    <meta name="theme-color"     content="#ffc400">
+    <meta property="og:image"       content="https://codebytushu.com/android-chrome-512x512.png">
+    <meta property="og:title"       content="LeetCode Unlocked | CodeByTushu">
+    <meta property="og:description" content="Daily DSA solutions, optimised approaches and interview-focused content by CodeByTushu.">
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://codebytushu.com/Leetcode/">
+
+    <!-- Theme init (prevents flash) -->
+    <script src="/theme.js"></script>
+
+    <!-- Main Website Styling System -->
+    <link rel="stylesheet" href="../styles.css?v=40">
+    <!-- LeetCode Specific Overrides -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="auth.css">
+    <!-- Fonts â€” Material Symbols (auth modal icon) + Poppins (typography) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="cbt-navbar navbar" id="mainNavbar" role="navigation" aria-label="Main navigation">
+        <div class="cbt-nav-inner">
+
+            <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Logo Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
+            <div class="cbt-logo" id="cbt-logo">
+                <a href="#home" id="cbt-logo-link" aria-label="CodeByTushu Home" style="display: flex; align-items: center; gap: 7px; text-decoration: none;">
+                    <img src="../image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img">
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0px;">
+                        <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                        <span style="display: flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: #aaa; margin-top: -2px; line-height: 1;">
+                            LEETCODE <span style="color: #ffc400;">UNLOCKED</span> 
+                            <img src="assets/logo.png/unlocked.png" alt="" style="width: 13px;">
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Center Navigation (Desktop Ã¢â€°Â¥1024px only) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
+            <ul class="cbt-center-nav" id="cbt-center-nav" role="menubar" aria-label="Primary navigation">
+                <li role="none"><a href="#home"                class="cbt-nav-link active" id="nav-home"         role="menuitem" tabindex="0">Home</a></li>
+                <li role="none"><a href="#explore"            class="cbt-nav-link"        id="nav-explore"      role="menuitem" tabindex="0">Problems</a></li>
+                <li role="none"><a href="#donate"              class="cbt-nav-link"        id="nav-donate"        role="menuitem" tabindex="0">Donate</a></li>
+            </ul>
+
+            <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Right Side: Hamburger (Desktop Ã¢â€°Â¥1024px) Ã¢â€â‚¬Ã¢â€â‚¬ -->
+            <div class="cbt-nav-right" id="cbt-nav-right">
+                <button class="cbt-hamburger-btn" id="cbt-hamburger-btn"
+                        aria-label="Open more links" aria-expanded="false" aria-controls="cbt-ham-panel">
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                </button>
+            </div>
+
+            <!-- Ã¢â€â‚¬Ã¢â€â‚¬ Mobile Right: Hamburger (<1024px) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ -->
+            <div class="cbt-mobile-right" id="cbt-mobile-right">
+                <button class="cbt-mobile-ham-btn" id="cbt-mobile-ham-btn"
+                        aria-label="Open mobile menu" aria-expanded="false" aria-controls="cbt-mobile-drawer">
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                    <span class="cbt-ham-bar"></span>
+                </button>
+            </div>
+
+        </div><!-- /.cbt-nav-inner -->
+
+        <!-- Ã¢â€¢ÂÃ¢â€¢Â Desktop Hamburger Panel (right slide-in) Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+        <!-- Overlay -->
+        <div class="cbt-panel-overlay" id="cbt-panel-overlay" aria-hidden="true"></div>
+        <!-- Panel -->
+        <div class="cbt-ham-panel" id="cbt-ham-panel" role="dialog" aria-modal="true" aria-label="More links" aria-hidden="true">
+            <button class="cbt-panel-close" id="cbt-panel-close" aria-label="Close menu">&#x2715;</button>
+            <p class="cbt-panel-label">CodeByTushu</p>
+            <nav class="cbt-panel-nav" aria-label="Secondary navigation">
+                <a href="../#about"           class="cbt-panel-link" id="panel-about">About Us</a>
+                <a href="../privacy-policy/"   class="cbt-panel-link" id="panel-privacy">Privacy Policy</a>
+                <a href="../terms/"            class="cbt-panel-link" id="panel-terms">Terms &amp; Conditions</a>
+                <a href="../disclaimer/"       class="cbt-panel-link" id="panel-disclaimer">Disclaimer</a>
+            </nav>
+        </div>
+
+        <!-- Ã¢â€¢ÂÃ¢â€¢Â Mobile Full Drawer Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+        <!-- Overlay -->
+        <div class="cbt-mobile-overlay" id="cbt-mobile-overlay" aria-hidden="true"></div>
+        <!-- Drawer -->
+        <div class="cbt-mobile-drawer" id="cbt-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile menu" aria-hidden="true">
+            <!-- Drawer Header -->
+            <div class="cbt-drawer-header">
+                <div class="cbt-logo">
+                    <a href="#home" aria-label="CodeByTushu Home" tabindex="-1" style="display: flex; align-items: center; gap: 7px; text-decoration: none;">
+                        <img src="../image1/Black%20Logo.PNG" alt="Logo" class="cbt-main-logo-img" style="height: 35px;">
+                        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0px;">
+                            <span class="cbt-logo-text" style="font-size: 18px;">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                            <span style="display: flex; align-items: center; gap: 4px; font-size: 9px; font-weight: 700; letter-spacing: 1px; color: #aaa; margin-top: -2px; line-height: 1;">
+                                LEETCODE <span style="color: #ffc400;">UNLOCKED</span> 
+                                <img src="assets/logo.png/unlocked.png" alt="" style="width: 10px;">
+                            </span>
+                        </div>
+                    </a>
+                </div>
+                <button class="cbt-drawer-close" id="cbt-drawer-close" aria-label="Close menu">&#x2715;</button>
+            </div>
+            <!-- Drawer Body -->
+            <div class="cbt-drawer-body">
+                <!-- Primary Links -->
+                <ul class="cbt-drawer-primary" role="menu" aria-label="Main navigation">
+                    <li role="none"><a href="#home"                class="cbt-drawer-link"          id="drawer-home"        role="menuitem">Home</a></li>
+                    <li role="none"><a href="#explore"            class="cbt-drawer-link"          id="drawer-explore"    role="menuitem">Problems</a></li>
+                    <li role="none"><a href="#donate"              class="cbt-drawer-link"          id="drawer-donate"      role="menuitem">Donate</a></li>
+                </ul>
+                <!-- Divider -->
+                <div class="cbt-drawer-divider" role="separator"></div>
+                <p class="cbt-drawer-label">More</p>
+                <!-- Secondary Links -->
+                <ul class="cbt-drawer-secondary" role="menu" aria-label="Secondary navigation">
+                    <li role="none"><a href="../#about"          class="cbt-drawer-link cbt-drawer-link-sm" id="drawer-about"      role="menuitem">About Us</a></li>
+                    <li role="none"><a href="../privacy-policy/"  class="cbt-drawer-link cbt-drawer-link-sm" id="drawer-privacy"    role="menuitem">Privacy Policy</a></li>
+                    <li role="none"><a href="../terms/"           class="cbt-drawer-link cbt-drawer-link-sm" id="drawer-terms"      role="menuitem">Terms &amp; Conditions</a></li>
+                    <li role="none"><a href="../disclaimer/"      class="cbt-drawer-link cbt-drawer-link-sm" id="drawer-disclaimer" role="menuitem">Disclaimer</a></li>
+                </ul>
+            </div><!-- /.cbt-drawer-body -->
+        </div><!-- /.cbt-mobile-drawer -->
+
+    </nav><!-- /.cbt-navbar -->
+
+    <!-- GLOBAL CONTINUOUS PREMIUM BACKGROUND -->
+    <div class="cbt-hero-bg" style="position: fixed; width: 100vw; height: 100vh; z-index: -1;">
+        <div class="cbt-glow-center"></div>
+        <div class="cbt-streak cbt-streak-1"></div>
+        <div class="cbt-streak cbt-streak-2"></div>
+        <div class="cbt-streak cbt-streak-3"></div>
+        <div class="cbt-streak cbt-streak-4"></div>
+        <div class="cbt-circle cbt-circle-left"></div>
+        <div class="cbt-circle cbt-circle-right"></div>
+        <div class="cbt-dots cbt-dots-top-left"></div>
+        <div class="cbt-dots cbt-dots-bottom-right"></div>
+        <div class="cbt-particles">
+            <span class="cbt-particle p-1"></span>
+            <span class="cbt-particle p-2"></span>
+            <span class="cbt-particle p-3"></span>
+            <span class="cbt-particle p-4"></span>
+            <span class="cbt-particle p-5"></span>
+            <span class="cbt-particle p-6"></span>
+            <span class="cbt-particle p-7"></span>
+            <span class="cbt-particle p-8"></span>
+            <span class="cbt-particle p-9"></span>
+            <span class="cbt-particle p-10"></span>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="home">
+
+        <div class="hero-content">
+
+            <div class="tag">NEWEST RELEASE</div>
+
+            <h2>DAILY <br> DSA</h2>
+
+            <p class="hero-text">
+                Daily LeetCode solutions, optimized approaches,
+                and interview-focused DSA content by CodeByTushu.
+            </p>
+
+            <div class="stats">
+
+                <div>
+                    <span>MEMORY</span>
+                    <h3>O(1)</h3>
+                </div>
+
+                <div>
+                    <span>SPACE</span>
+                    <h3>O(1)</h3>
+                </div>
+
+            </div>
+
+            <a href="#explore" class="hero-btn">
+                DAILY LEETCODE SERIES
+            </a>
+
+        </div>
+
+    </section>
+
+
+<!-- =========================
+     YEAR EXPLORE SECTION
+========================= -->
+
+<section class="year-explore-section" id="explore">
+
+    <div class="explore-heading">
+
+        <h2>LEETCODE DAILY ARCHIVE</h2>
+
+        <p>
+            Explore all LeetCode daily solutions from 2026, 2027, and 2028.
+            Every archive contains organized monthly coding problems,
+            optimized solutions, and multiple programming languages.
+        </p>
+
+    </div>
+
+
+    <div class="year-card-container">
+
+        <!-- =========================
+             2026 CARD
+        ========================== -->
+
+        <div class="year-card">
+
+            <span class="year-badge">
+                ACTIVE YEAR
+            </span>
+
+            <h3>2026 DAILY PROBLEMS</h3>
+
+            <p>
+                Explore all LeetCode daily challenge solutions from January
+                to December 2026 with Java, Python, C++, and JavaScript
+                implementations.
+            </p>
+
+            <a href="problems.php?year=2026" class="explore-btn">Explore 2026 <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             2027 CARD
+        ========================== -->
+
+        <div class="year-card">
+
+            <span class="year-badge">
+                UPCOMING ARCHIVE
+            </span>
+
+            <h3>2027 DAILY PROBLEMS</h3>
+
+            <p>
+                Access organized LeetCode solutions for the complete year
+                2027 including daily coding challenges, optimized approaches,
+                and multi-language code support.
+            </p>
+
+            <a href="problems.php?year=2027" class="explore-btn">Explore 2027 <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             2028 CARD
+        ========================== -->
+
+        <div class="year-card">
+
+            <span class="year-badge">
+                FUTURE ARCHIVE
+            </span>
+
+            <h3>2028 DAILY PROBLEMS</h3>
+
+            <p>
+                Browse the complete 2028 coding archive containing daily
+                LeetCode solutions with clean implementations in Java,
+                Python, C++, and JavaScript.
+            </p>
+
+            <a href="problems.php?year=2028" class="explore-btn">Explore 2028 <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     DONATE SECTION
+========================= -->
+
+<section class="donate-section" id="donate">
+
+    <div class="donate-section-inner">
+
+        <!-- Left: Text Content -->
+        <div class="donate-text-block">
+
+            <span class="donate-badge">SUPPORT US</span>
+
+            <h2>Support <span class="gold-highlight">CodeByTushu</span></h2>
+
+            <p>
+                CodeByTushu is dedicated to providing high-quality programming content, daily LeetCode solutions, and practical development resources â€” completely free for everyone.
+            </p>
+            <p style="margin-top: 15px;">
+                If our content has helped you learn, grow, or prepare for interviews, your support helps us continue creating better tutorials, maintaining the platform, and delivering new content consistently.
+            </p>
+
+            <ul class="donate-perks">
+                <li><i class="fa-solid fa-graduation-cap"></i> Supports free educational content</li>
+                <li><i class="fa-solid fa-code"></i> Helps us publish daily LeetCode solutions</li>
+                <li><i class="fa-solid fa-laptop-code"></i> Improves the platform and future features</li>
+                <li><i class="fa-solid fa-heart"></i> Every contribution makes a difference</li>
+            </ul>
+
+            <a href="donate.php" class="donate-go-btn">
+                Support CodeByTushu <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+        <!-- Right: Visual Card -->
+        <div class="donate-visual">
+
+            <div class="donate-card-preview">
+
+                <div class="dp-logo-ring">
+                    <span class="dp-arrow"><i class="fa-solid fa-arrow-up" style="font-size:inherit;"></i></span><span class="dp-d">D</span>
+                </div>
+
+                <h3>Support CodeByTushu</h3>
+                <p>Help us keep programming education free.</p>
+
+                <div class="dp-boba-row">
+                    <span class="dp-boba-icon"><i class="fa-solid fa-heart"></i></span>
+                    <span class="dp-x">Ã—</span>
+                    <div class="dp-qty-wrap">
+                        <span class="dp-qty active">1</span>
+                        <span class="dp-qty">3</span>
+                        <span class="dp-qty">5</span>
+                    </div>
+                </div>
+
+                <a href="donate.php" class="dp-support-btn" style="text-decoration:none; display:block; text-align:center; box-sizing:border-box;">Support ₹100</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- FOOTER SECTION -->
+    <footer class="cbt-footer">
+
+        <div class="cbt-footer-container cbt-footer-4col">
+            <!-- Brand Column -->
+            <div class="cbt-ft-col cbt-ft-brand">
+                <a href="#home" class="cbt-logo" aria-label="CodeByTushu Home">
+                    <span class="cbt-logo-bracket">&lt;/&gt;</span>
+                    <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
+                </a>
+                <p class="cbt-ft-desc">
+                    LEETCODE <span style="color: #ffc400; font-weight: bold;">UNLOCKED</span><br><br>
+                    Daily LeetCode solutions, optimized approaches, and interview-focused DSA content. Your ultimate guide to cracking technical interviews.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="cbt-ft-col">
+                <h3><i class="fa-solid fa-link"></i> QUICK LINKS</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="#home"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#explore"><i class="fa-solid fa-chevron-right"></i> Problems</a></li>
+                    <li><a href="#donate"><i class="fa-solid fa-chevron-right"></i> Donate</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="cbt-ft-col">
+                <h3><i class="fa-regular fa-folder-open"></i> RESOURCES</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="../privacy-policy/"><i class="fa-solid fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="../terms/"><i class="fa-solid fa-chevron-right"></i> Terms &amp; Conditions</a></li>
+                    <li><a href="../disclaimer/"><i class="fa-solid fa-chevron-right"></i> Disclaimer</a></li>
+                </ul>
+            </div>
+
+            <!-- Social Connect -->
+            <div class="cbt-ft-col cbt-ft-connect-col">
+                <h3><i class="fa-regular fa-envelope"></i> CONNECT</h3>
+                <ul class="cbt-ft-links">
+                    <li><a href="https://youtube.com/@codebytushu" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a></li>
+                    <li><a href="https://linkedin.com/company/codebytushu" target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a></li>
+                    <li><a href="https://instagram.com/codebytushu" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+                    <li><a href="https://github.com/CodeByTushu" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Centered Copyright Strip -->
+        <div class="cbt-copyright-strip">
+            &copy; 2025 <span class="cbt-logo-accent">CodeByTushu</span>. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="/Leetcode/JS/main.js"></script>
+    <script src="/back-home.js"></script>
+
+    <!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+         CBT NAVBAR JS â€” Theme + Hamburger Panel + Mobile Drawer
+         Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var cbtNav = document.getElementById('mainNavbar');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 20) {
+                    cbtNav.classList.add('sticky');
+                } else {
+                    cbtNav.classList.remove('sticky');
+                }
+            }, { passive: true });
+
+            var deskHamBtn    = document.getElementById('cbt-hamburger-btn');
+            var hamPanel      = document.getElementById('cbt-ham-panel');
+            var panelOverlay  = document.getElementById('cbt-panel-overlay');
+            var panelClose    = document.getElementById('cbt-panel-close');
+            var panelIsOpen   = false;
+
+            function openPanel() {
+                if (!hamPanel) return;
+                panelIsOpen = true;
+                panelOverlay.style.display = 'block';
+                hamPanel.style.display     = 'flex';
+                requestAnimationFrame(function () {
+                    panelOverlay.classList.add('active');
+                    hamPanel.classList.add('is-open');
+                });
+                deskHamBtn.classList.add('is-open');
+                deskHamBtn.setAttribute('aria-expanded', 'true');
+                hamPanel.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closePanel() {
+                if (!hamPanel) return;
+                panelIsOpen = false;
+                panelOverlay.classList.remove('active');
+                hamPanel.classList.remove('is-open');
+                deskHamBtn.classList.remove('is-open');
+                deskHamBtn.setAttribute('aria-expanded', 'false');
+                hamPanel.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                setTimeout(function () {
+                    if (!panelIsOpen) {
+                        panelOverlay.style.display = 'none';
+                        hamPanel.style.display     = 'none';
+                    }
+                }, 350);
+            }
+
+            if (deskHamBtn && hamPanel) {
+                hamPanel.style.display    = 'none';
+                panelOverlay.style.display = 'none';
+
+                deskHamBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    panelIsOpen ? closePanel() : openPanel();
+                });
+                if (panelClose)   panelClose.addEventListener('click', closePanel);
+                if (panelOverlay) panelOverlay.addEventListener('click', closePanel);
+            }
+
+            var mobHamBtn     = document.getElementById('cbt-mobile-ham-btn');
+            var mobDrawer     = document.getElementById('cbt-mobile-drawer');
+            var mobOverlay    = document.getElementById('cbt-mobile-overlay');
+            var drawerClose   = document.getElementById('cbt-drawer-close');
+            var drawerIsOpen  = false;
+
+            function openDrawer() {
+                if (!mobDrawer) return;
+                drawerIsOpen = true;
+                mobOverlay.style.display = 'block';
+                requestAnimationFrame(function () {
+                    mobOverlay.classList.add('active');
+                    mobDrawer.classList.add('is-open');
+                });
+                mobHamBtn.classList.add('is-open');
+                mobHamBtn.setAttribute('aria-expanded', 'true');
+                mobDrawer.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeDrawer() {
+                if (!mobDrawer) return;
+                drawerIsOpen = false;
+                mobOverlay.classList.remove('active');
+                mobDrawer.classList.remove('is-open');
+                mobHamBtn.classList.remove('is-open');
+                mobHamBtn.setAttribute('aria-expanded', 'false');
+                    mobHamBtn.focus();
+                mobDrawer.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                setTimeout(function () {
+                    if (!drawerIsOpen) {
+                        mobOverlay.style.display = 'none';
+                    }
+                }, 350);
+            }
+
+            if (mobHamBtn && mobDrawer) {
+                mobOverlay.style.display = 'none';
+                mobHamBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    drawerIsOpen ? closeDrawer() : openDrawer();
+                });
+                if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+                if (mobOverlay)  mobOverlay.addEventListener('click', closeDrawer);
+
+                mobDrawer.querySelectorAll('.cbt-drawer-link').forEach(function (link) {
+                    link.addEventListener('click', closeDrawer);
+                });
+            }
+        });
+    </script>
+
+    <!-- Global Scroll to Top (shared across all pages) -->
+    <script src="/scroll-to-top.js"></script>
+<?php require_once <?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 ?>
@@ -558,6 +1115,19 @@ Auth::boot();
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+SERVER['DOCUMENT_ROOT'] . '/includes/ai-widget-loader.php'; ?>
+</body>
+
+</html>
+
 
 
 

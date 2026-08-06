@@ -241,39 +241,4 @@
     });
 </script>
 
-<?php
-// ─── AI Widget Lazy Loader ────────────────────────────────────────────────
-// Load the React AI chat widget after the page is fully loaded.
-// Excluded on Admin Panel pages to keep the admin environment clean.
-// ─────────────────────────────────────────────────────────────────────────
-$isAdminPage = strpos($_SERVER['REQUEST_URI'], '/admin') === 0;
-if (!$isAdminPage):
-?>
-<div id="cbt-ai-widget"></div>
-<script>
-(function() {
-    // Lazy-load after window 'load' + 1.5s delay
-    // This ensures Core Web Vitals (LCP, FID, CLS) are not impacted
-    function loadWidget() {
-        // CSS
-        var link = document.createElement('link');
-        link.rel  = 'stylesheet';
-        link.type = 'text/css';
-        link.href = '/ai-widget/dist/ai-widget.css';
-        document.head.appendChild(link);
-        // JS
-        var script = document.createElement('script');
-        script.src  = '/ai-widget/dist/ai-widget.js';
-        script.defer = true;
-        document.body.appendChild(script);
-    }
-    if (document.readyState === 'complete') {
-        setTimeout(loadWidget, 1500);
-    } else {
-        window.addEventListener('load', function() {
-            setTimeout(loadWidget, 1500);
-        });
-    }
-})();
-</script>
-<?php endif; ?>
+<?php require_once __DIR__ . '/ai-widget-loader.php'; ?>
