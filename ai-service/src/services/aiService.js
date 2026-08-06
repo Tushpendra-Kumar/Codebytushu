@@ -1,5 +1,5 @@
 const { GoogleGenAI } = require('@google/genai');
-const config = require('./config/env');
+const config = require('../config/env');
 
 // ============================================================
 // CodeByTushu AI Service — Complete Rewrite
