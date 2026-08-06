@@ -84,12 +84,20 @@ Strict Rules:
       });
 
       for await (const chunk of responseStream) {
-        if (chunk.text) {
-          onChunk(chunk.text);
+        // In @google/genai SDK, chunk.text is a function, not a property
+        const text = typeof chunk.text === 'function' ? chunk.text() : chunk.text;
+        if (text) {
+          onChunk(text);
         }
       }
     } catch (error) {
-      console.error('Error generating AI response:', error);
+      // Log the full error for debugging on Render
+      console.error('❌ [aiService] Error generating AI response:');
+      console.error('   Message:', error.message);
+      console.error('   Stack:', error.stack);
+      if (error.response) {
+        console.error('   API Response:', JSON.stringify(error.response, null, 2));
+      }
       throw new Error('Failed to generate AI response.');
     }
   }
