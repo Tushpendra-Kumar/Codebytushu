@@ -5,9 +5,10 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { io } from 'socket.io-client';
 
-// The backend AI microservice URL
-// In production, this should be an environment variable or the production URL
-const SOCKET_URL = 'http://127.0.0.1:3001';
+// Dynamically determine the backend AI microservice URL
+const SOCKET_URL = window.location.hostname.includes('codebytushu.com')
+  ? 'https://codebytushu.com:3001' // Production Node.js Server URL
+  : 'http://127.0.0.1:3001';       // Local Development URL
 
 export function useSocket() {
   const [socket, setSocket] = useState(null);
