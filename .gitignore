@@ -71,3 +71,6 @@ ai-service/node_modules/
 # ai-service/.env is secret — never commit
 ai-service/.env
 ai-service/.env.*
+
+# AI Backend Secrets
+ai-service/.env

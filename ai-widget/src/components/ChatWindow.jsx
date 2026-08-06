@@ -3,15 +3,64 @@
 // In Phase 2, this component will connect to Socket.IO for real-time messages.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useChat } from '../context/ChatContext'
+import { useSocket } from '../hooks/useSocket'
 import MessageBubble from './MessageBubble'
 import TypingIndicator from './TypingIndicator'
 import ChatInput from './ChatInput'
 
 export default function ChatWindow() {
-  const { isOpen, messages, isTyping, closeChat, addMessage, setIsTyping, clearMessages } = useChat()
+  const { 
+    isOpen, messages, isTyping, 
+    closeChat, addMessage, updateLastMessage, 
+    setIsTyping, clearMessages 
+  } = useChat()
   const messagesEndRef = useRef(null)
+  
+  // Initialize socket connection
+  const { socket, connected, sendMessage } = useSocket()
+  
+  // Track if we are currently receiving a stream to know when to append
+  const [isStreaming, setIsStreaming] = useState(false)
+
+  // Register Socket.IO listeners
+  useEffect(() => {
+    if (!socket) return
+
+    const handleTyping = ({ status }) => setIsTyping(status)
+    
+    const handleChunk = ({ text }) => {
+      if (!isStreaming) {
+        setIsStreaming(true)
+        addMessage('ai', '') // Create empty bubble to start appending
+      }
+      updateLastMessage(text)
+    }
+
+    const handleEnd = () => {
+      setIsStreaming(false)
+      setIsTyping(false)
+    }
+
+    const handleError = ({ message }) => {
+      setIsStreaming(false)
+      setIsTyping(false)
+      addMessage('ai', `❌ **Error:** ${message}`)
+    }
+
+    socket.on('chat:typing', handleTyping)
+    socket.on('chat:chunk', handleChunk)
+    socket.on('chat:end', handleEnd)
+    socket.on('chat:error', handleError)
+
+    return () => {
+      socket.off('chat:typing', handleTyping)
+      socket.off('chat:chunk', handleChunk)
+      socket.off('chat:end', handleEnd)
+      socket.off('chat:error', handleError)
+    }
+  }, [socket, isStreaming, addMessage, updateLastMessage, setIsTyping])
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -20,25 +69,22 @@ export default function ChatWindow() {
     }
   }, [messages, isTyping, isOpen])
 
-  // Handle sending a message (Phase 1: simulate AI response)
-  const handleSend = async (text) => {
+  // Handle sending a message to Node.js backend
+  const handleSend = (text) => {
     addMessage('user', text)
-    setIsTyping(true)
+    
+    if (!connected) {
+      addMessage('ai', "❌ **Offline:** Cannot connect to the AI Engine. Please try again later.")
+      return
+    }
 
-    // ─── Phase 1: Simulated AI Response ──────────────────────────────────────
-    // In Phase 2, this block will be replaced by a Socket.IO emit to the
-    // Node.js backend, which will call the Gemini API and stream the response.
-    // ─────────────────────────────────────────────────────────────────────────
-    await new Promise((resolve) => setTimeout(resolve, 1200 + Math.random() * 800))
-
-    const simulatedResponses = [
-      "I'm **CodeByTushu AI** 🤖 — I'll be fully connected to the AI backend in Phase 2! For now, check out our **[JavaScript Course](/courses/)** or browse **[LeetCode solutions](/Leetcode/)**.",
-      "Great question! I'm currently in **UI-only mode** (Phase 1). Once the Node.js backend is set up in Phase 2, I'll give you accurate AI-powered answers. Meanwhile, explore our **[Blog articles](/blogs/)**!",
-      "I can see you're curious! My full AI capabilities will be live soon. In the meantime, visit our **[Store](/store/)** or our **[Courses](/courses/)** section for resources!",
-    ]
-    const response = simulatedResponses[Math.floor(Math.random() * simulatedResponses.length)]
-    setIsTyping(false)
-    addMessage('ai', response)
+    // Emit event to Socket.IO backend
+    setIsStreaming(false) // reset flag for new request
+    sendMessage('chat:send', {
+      text,
+      url: window.location.pathname, // Contextual routing (Phase 3 prep)
+      history: messages.slice(-5) // Send last 5 messages as context
+    })
   }
 
   return (

@@ -46,6 +46,21 @@ export function ChatProvider({ children }) {
     }])
   }, [])
 
+  // Update the last message (used for streaming chunks)
+  const updateLastMessage = useCallback((chunkText) => {
+    setMessages((prev) => {
+      const newMessages = [...prev]
+      const lastIndex = newMessages.length - 1
+      if (lastIndex >= 0 && newMessages[lastIndex].role === 'ai') {
+        newMessages[lastIndex] = {
+          ...newMessages[lastIndex],
+          text: newMessages[lastIndex].text + chunkText,
+        }
+      }
+      return newMessages
+    })
+  }, [])
+
   return (
     <ChatContext.Provider
       value={{
@@ -59,6 +74,7 @@ export function ChatProvider({ children }) {
         closeChat,
         toggleChat,
         addMessage,
+        updateLastMessage,
         clearMessages,
       }}
     >
