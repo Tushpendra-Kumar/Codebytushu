@@ -1,4 +1,5 @@
 const { ai } = require('../config/gemini');
+const dbService = require('./dbService');
 
 /**
  * AI Service class to handle Gemini prompting and streaming.
@@ -10,9 +11,9 @@ class AIService {
   }
 
   /**
-   * Generates dynamic system instructions based on the current URL context.
+   * Generates dynamic system instructions based on the current URL context and DB.
    */
-  getSystemInstruction(urlContext) {
+  async getSystemInstruction(urlContext) {
     let basePrompt = `You are "CodeByTushu AI", an expert coding assistant created by Tushpendra Kumar for the CodeByTushu platform. 
 Your goal is to help users with programming, DSA, Web Development, and navigating the CodeByTushu website.
 
@@ -31,7 +32,7 @@ Strict Rules:
 4. Do NOT mention you are a Google model unless explicitly asked. You are the CodeByTushu AI.
 `;
 
-    // Dynamic Context Injection
+    // 1. URL-based Dynamic Context Injection
     if (urlContext) {
       basePrompt += `\n[System Context: The user is currently browsing the path: "${urlContext}"]\n`;
       if (urlContext.includes('/Leetcode')) {
@@ -44,6 +45,10 @@ Strict Rules:
         basePrompt += `Rule: The user is reading Blogs. Suggest related articles from the [Blogs](/blogs/) section and provide deep theoretical explanations.\n`;
       }
     }
+
+    // 2. Database RAG Context Injection
+    const dbContext = await dbService.buildDynamicContext(urlContext);
+    basePrompt += dbContext;
 
     return basePrompt;
   }
@@ -66,11 +71,14 @@ Strict Rules:
       // We push the latest prompt as the current message
       history.push({ role: 'user', parts: [{ text: prompt }] });
 
+      // Build the dynamic instruction asynchronously
+      const systemInstruction = await this.getSystemInstruction(context.url);
+
       const responseStream = await ai.models.generateContentStream({
         model: this.modelName,
         contents: history,
         config: {
-          systemInstruction: this.getSystemInstruction(context.url),
+          systemInstruction: systemInstruction,
           temperature: 0.7,
         }
       });

@@ -9,6 +9,10 @@ const config = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   FRONTEND_ORIGIN: process.env.FRONTEND_ORIGIN || '*',
   JWT_SECRET: process.env.JWT_SECRET || 'codebytushu_secret_key_change_this_in_production',
+  DB_HOST: process.env.DB_HOST || '127.0.0.1',
+  DB_USER: process.env.DB_USER || 'root',
+  DB_PASS: process.env.DB_PASS || '',
+  DB_NAME: process.env.DB_NAME || 'codebytushu',
 };
 
 // Validate critical variables
