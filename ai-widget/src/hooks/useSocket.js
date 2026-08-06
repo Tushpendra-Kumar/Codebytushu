@@ -7,7 +7,7 @@ import { io } from 'socket.io-client';
 
 // The backend AI microservice URL
 // In production, this should be an environment variable or the production URL
-const SOCKET_URL = 'http://localhost:3001';
+const SOCKET_URL = 'http://127.0.0.1:3001';
 
 export function useSocket() {
   const [socket, setSocket] = useState(null);

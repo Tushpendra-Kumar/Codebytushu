@@ -80,7 +80,7 @@ io.on('connection', (socket) => {
 });
 
 // Start Server
-server.listen(config.PORT, () => {
+server.listen(config.PORT, '0.0.0.0', () => {
   console.log(`🚀 CodeByTushu AI Engine running on port ${config.PORT}`);
 });
 
