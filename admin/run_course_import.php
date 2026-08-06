@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * run_course_import.php
  * ONE-TIME RUNNER — inserts 3 new courses into the database.

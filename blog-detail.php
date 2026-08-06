@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * CodeByTushu â€” Premium Single Blog Detail Page
  * URL: /blog/{slug}  (via .htaccess â†’ blog-detail.php?slug=)

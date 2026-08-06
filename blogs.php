@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * CodeByTushu â€” Premium Blog Listing Page
  * URL: /blogs.php  (or /blog via .htaccess)

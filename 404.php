@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * CodeByTushu — 404 / Error Page
  */

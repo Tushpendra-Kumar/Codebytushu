@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 Auth::requireLogin();
