@@ -15,7 +15,7 @@ const app = express();
 // Security Middleware
 app.use(helmet());
 app.use(cors({
-  origin: config.FRONTEND_ORIGIN,
+  origin: '*', // Allow all origins for the public widget
   methods: ['GET', 'POST']
 }));
 app.use(express.json());
@@ -46,7 +46,7 @@ const server = http.createServer(app);
 // Initialize Socket.IO Server
 const io = new Server(server, {
   cors: {
-    origin: config.FRONTEND_ORIGIN,
+    origin: '*',
     methods: ["GET", "POST"]
   }
 });

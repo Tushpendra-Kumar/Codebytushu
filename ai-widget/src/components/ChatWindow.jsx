@@ -75,7 +75,7 @@ export default function ChatWindow() {
     
     if (!connected) {
       const errorMsg = connectionError ? ` (${connectionError})` : ''
-      addMessage('ai', `❌ **Offline:** Cannot connect to the AI Engine.${errorMsg} Please make sure the Node.js server is running on port 3001.`)
+      addMessage('ai', `❌ **Offline:** Cannot connect to the AI Engine.${errorMsg}`)
       return
     }
 
