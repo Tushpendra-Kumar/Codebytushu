@@ -8,10 +8,10 @@ if (config.GEMINI_API_KEY) {
     ai = new GoogleGenAI({ apiKey: config.GEMINI_API_KEY });
     console.log('✅ Google Gemini API client initialized.');
   } catch (error) {
-    console.error('❌ Failed to initialize Google Gemini API client:', error);
+    console.error('❌ Failed to initialize Google Gemini API client:', error.message);
   }
 } else {
-  console.warn('⚠️  Google Gemini API client NOT initialized (Missing API Key).');
+  console.warn('⚠️  GEMINI_API_KEY is missing. AI will not work!');
 }
 
 module.exports = { ai };
