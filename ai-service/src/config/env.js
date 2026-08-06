@@ -8,6 +8,7 @@ const config = {
   GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
   NODE_ENV: process.env.NODE_ENV || 'development',
   FRONTEND_ORIGIN: process.env.FRONTEND_ORIGIN || '*',
+  JWT_SECRET: process.env.JWT_SECRET || 'codebytushu_secret_key_change_this_in_production',
 };
 
 // Validate critical variables

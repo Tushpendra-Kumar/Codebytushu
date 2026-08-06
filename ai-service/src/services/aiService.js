@@ -10,24 +10,46 @@ class AIService {
   }
 
   /**
-   * Base system prompt to instruct Gemini on its persona.
+   * Generates dynamic system instructions based on the current URL context.
    */
-  getSystemInstruction() {
-    return `You are "CodeByTushu AI", an expert coding assistant created by Tushpendra Kumar for the CodeByTushu platform. 
-Your goal is to help users with programming, DSA, LeetCode, Web Development, and DevOps.
-Rules:
-- Be concise and polite.
-- Use markdown formatting.
-- If the user asks about resources, courses, or blogs on CodeByTushu, recommend exploring the website.
-- Do not mention that you are a Google model unless explicitly asked. You are the CodeByTushu AI.`;
+  getSystemInstruction(urlContext) {
+    let basePrompt = `You are "CodeByTushu AI", an expert coding assistant created by Tushpendra Kumar for the CodeByTushu platform. 
+Your goal is to help users with programming, DSA, Web Development, and navigating the CodeByTushu website.
+
+Strict Rules:
+1. Always be polite, concise, and highly professional.
+2. If asked about a topic unrelated to programming, tech, or this website, politely decline.
+3. You MUST use markdown links when referring to website sections. Use EXACTLY these links:
+   - Home: [Home](/)
+   - Courses (Premium Content): [Courses](/courses/)
+   - LeetCode DSA Solutions: [LeetCode](/Leetcode/)
+   - Blogs & Articles: [Blogs](/blogs/)
+   - Store (Digital Products): [Store](/store/)
+   - Video Editing Services: [Video Editing](/Video%20Editing/)
+   - Donate/Support: [Donate](/Donate/)
+   - Login: [Login](/auth/)
+4. Do NOT mention you are a Google model unless explicitly asked. You are the CodeByTushu AI.
+`;
+
+    // Dynamic Context Injection
+    if (urlContext) {
+      basePrompt += `\n[System Context: The user is currently browsing the path: "${urlContext}"]\n`;
+      if (urlContext.includes('/Leetcode')) {
+        basePrompt += `Rule: The user is in the LeetCode section. Focus your answers on Data Structures and Algorithms (DSA), time/space complexity, and optimal solutions. Suggest checking out the [LeetCode](/Leetcode/) section for more solutions.\n`;
+      } else if (urlContext.includes('/courses')) {
+        basePrompt += `Rule: The user is in the Courses section. Promote learning and suggest purchasing premium web development courses available on the [Courses](/courses/) page.\n`;
+      } else if (urlContext.includes('/store')) {
+        basePrompt += `Rule: The user is in the Store. Answer questions related to purchasing digital products, source codes, and assets.\n`;
+      } else if (urlContext.includes('/blogs')) {
+        basePrompt += `Rule: The user is reading Blogs. Suggest related articles from the [Blogs](/blogs/) section and provide deep theoretical explanations.\n`;
+      }
+    }
+
+    return basePrompt;
   }
 
   /**
    * Generates a streaming response from Gemini.
-   * 
-   * @param {string} prompt - The user's input message.
-   * @param {object} context - Additional context (e.g., current URL, user history).
-   * @param {function} onChunk - Callback triggered when a chunk of text is received.
    */
   async streamResponse(prompt, context = {}, onChunk) {
     if (!ai) {
@@ -35,14 +57,20 @@ Rules:
     }
 
     try {
-      // Phase 3: Future RAG will inject context here
-      const fullPrompt = prompt; 
+      // Create chat history format for Gemini
+      const history = (context.history || []).map(msg => ({
+        role: msg.role === 'ai' ? 'model' : 'user',
+        parts: [{ text: msg.text }]
+      }));
+      
+      // We push the latest prompt as the current message
+      history.push({ role: 'user', parts: [{ text: prompt }] });
 
       const responseStream = await ai.models.generateContentStream({
         model: this.modelName,
-        contents: fullPrompt,
+        contents: history,
         config: {
-          systemInstruction: this.getSystemInstruction(),
+          systemInstruction: this.getSystemInstruction(context.url),
           temperature: 0.7,
         }
       });

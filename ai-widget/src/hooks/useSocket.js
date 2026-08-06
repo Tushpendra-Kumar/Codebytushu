@@ -2,7 +2,7 @@
 // Establishes a Socket.IO connection to the Node.js backend.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { io } from 'socket.io-client';
 
 // The backend AI microservice URL
@@ -12,39 +12,63 @@ const SOCKET_URL = 'http://localhost:3001';
 export function useSocket() {
   const [socket, setSocket] = useState(null);
   const [connected, setConnected] = useState(false);
+  const socketRef = useRef(null);
 
   useEffect(() => {
-    // Initialize socket connection
-    const newSocket = io(SOCKET_URL, {
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
-    });
+    let activeSocket = null;
 
-    newSocket.on('connect', () => {
-      console.log('✅ Connected to CodeByTushu AI Engine');
-      setConnected(true);
-    });
+    const connectSocket = async () => {
+      try {
+        // Step 1: Fetch JWT Token for authentication
+        const response = await fetch(`${SOCKET_URL}/api/token`);
+        if (!response.ok) throw new Error('Failed to fetch token');
+        const data = await response.json();
+        
+        // Step 2: Initialize Socket with token
+        activeSocket = io(SOCKET_URL, {
+          auth: { token: data.token },
+          reconnectionAttempts: 5,
+          timeout: 10000,
+        });
 
-    newSocket.on('disconnect', () => {
-      console.log('🔴 Disconnected from AI Engine');
-      setConnected(false);
-    });
+        activeSocket.on('connect', () => {
+          console.log('✅ Connected to CodeByTushu AI Engine');
+          setConnected(true);
+        });
 
-    setSocket(newSocket);
+        activeSocket.on('disconnect', () => {
+          console.log('🔴 Disconnected from AI Engine');
+          setConnected(false);
+        });
 
-    // Cleanup on unmount
+        activeSocket.on('connect_error', (err) => {
+          console.error('Socket connection error:', err.message);
+          setConnected(false);
+        });
+
+        setSocket(activeSocket);
+        socketRef.current = activeSocket;
+      } catch (err) {
+        console.error('Failed to initialize socket:', err.message);
+      }
+    };
+
+    connectSocket();
+
     return () => {
-      newSocket.disconnect();
+      if (activeSocket) {
+        activeSocket.disconnect();
+      }
     };
   }, []);
 
-  const sendMessage = useCallback((event, data) => {
-    if (socket && connected) {
-      socket.emit(event, data);
+  const sendMessage = useCallback((event, payload) => {
+    if (socketRef.current && socketRef.current.connected) {
+      socketRef.current.emit(event, payload);
     } else {
-      console.warn('[useSocket] Cannot emit event. Socket not connected.', event, data);
+      console.error('Socket not connected, message not sent');
     }
-  }, [socket, connected]);
+  }, []);
 
   return { socket, connected, sendMessage };
 }
