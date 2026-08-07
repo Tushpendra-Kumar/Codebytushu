@@ -48,11 +48,14 @@ if ($token) {
         'gateway'           => 'Prepaid',
         'total_order_value' => '500',
         'line_items'        => [[
-            'sku'           => 'RN-WHT-S',   // Round Neck White Small (common Qikink SKU)
-            'quantity'      => '1',
-            'price'         => '500',
-            'design_front'  => 'https://codebytushu.com/android-chrome-512x512.png',
-            'mockup_front'  => 'https://codebytushu.com/android-chrome-512x512.png',
+            'sku'      => 'RN-WHT-S',
+            'quantity' => '1',
+            'price'    => '500',
+            'designs'  => [[                           // ← correct: nested designs array
+                'placement'  => 'Front',
+                'design_url' => 'https://codebytushu.com/android-chrome-512x512.png',
+                'mockup_url' => 'https://codebytushu.com/android-chrome-512x512.png',
+            ]],
         ]],
         'shipping_address'  => [
             'first_name'   => 'Tushpendra',

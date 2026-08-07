@@ -137,19 +137,27 @@ class QikinkAPI
         $lineItems = [];
         
         foreach ($items as $item) {
-            $lineItem = [
-                'sku'          => $item['qikink_base_sku'],
-                'quantity'     => (string)$item['quantity'],
-                'price'        => (string)$item['price'],
-                'design_front' => $item['design_url'],   // Qikink correct field name
-                'mockup_front' => $item['mockup_url'],   // Qikink correct field name
-            ];
-            // Only add back design if present
+            // Build designs array (Qikink official format)
+            $designs = [[
+                'placement'  => 'Front',
+                'design_url' => $item['design_url'],
+                'mockup_url' => $item['mockup_url'] ?? null,
+            ]];
+            // Add back design if provided
             if (!empty($item['design_back_url'])) {
-                $lineItem['design_back']  = $item['design_back_url'];
-                $lineItem['mockup_back']  = $item['design_back_url'];
+                $designs[] = [
+                    'placement'  => 'Back',
+                    'design_url' => $item['design_back_url'],
+                    'mockup_url' => $item['mockup_back_url'] ?? null,
+                ];
             }
-            $lineItems[] = $lineItem;
+
+            $lineItems[] = [
+                'sku'      => $item['qikink_base_sku'],
+                'quantity' => (string)$item['quantity'],
+                'price'    => (string)$item['price'],
+                'designs'  => $designs,   // ← correct nested structure per Qikink docs
+            ];
         }
 
         $payload = [
