@@ -161,7 +161,7 @@ class QikinkAPI
         }
 
         $payload = [
-            'order_number'      => (string)$order['order_number'],
+            'order_number'      => substr(str_replace('-', '', (string)$order['order_number']), 0, 15),
             'qikink_shipping'   => '1',      // Qikink will ship it
             'gateway'           => 'Prepaid', // Admin verifies payment first, so to Qikink it's prepaid
             'total_order_value' => (string)$order['total_order_value'],

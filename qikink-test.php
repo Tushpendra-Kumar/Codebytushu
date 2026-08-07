@@ -43,7 +43,7 @@ if ($token) {
     // Test 2: Create Sandbox Order
     echo "--- Test 2: Create Sandbox Test Order ---\n";
     $orderPayload = json_encode([
-        'order_number'      => 'CBT-SANDBOX-TEST-002',
+        'order_number'      => 'CBT20260807001',   // Max 15 chars
         'qikink_shipping'   => '1',
         'gateway'           => 'Prepaid',
         'total_order_value' => '500',
