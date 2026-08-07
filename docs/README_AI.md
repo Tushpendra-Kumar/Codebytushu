@@ -12,6 +12,7 @@ CodeByTushu is a premium educational platform built for developers, offering pre
 - ✅ **All key modules require login** — Blogs, Courses, LeetCode, Video Editing are auth-gated
 - ✅ **Migrations 002–013 applied** — 15 migration files total in `database/migrations/`
 - ✅ **Store Phase 1 LIVE** — DB-powered product listing, Admin CMS, checkout with shipping, order tracking, invoice generator, Qikink webhook integration
+- ✅ **AI Assistant LIVE** — Node.js microservice (Render) + Gemini v2 streaming API with context-aware Hinglish custom welcome flow
 - ⏳ **Store Phase 2 pending** — PHP product-details page, DB-backed cart, Razorpay payment gateway for store
 - ⏳ **Qikink integration** — Webhook listener live; full automatic Qikink order dispatch not yet implemented
 - ⏳ **Payment webhooks (Courses)** — Order creation done, automated webhook verification pending
@@ -49,6 +50,8 @@ Before suggesting architectural changes or modifying core files, please review t
 | `/auth/` | Login, Signup, Forgot/Reset Password pages |
 | `/user/` | User Dashboard, Profile, Purchases |
 | `/store/` | Store module: `index.php` (DB-driven), `checkout/`, `order-tracking/` |
+| `/ai-service/` | Node.js microservice running on Render for Gemini AI |
+| `/ai-widget/` | Frontend HTML/JS/CSS widget for the AI chat |
 | `/database/schema.sql` | Complete MySQL schema |
 | `/database/migrations/` | Incremental migration scripts (002–013, 15 files total) |
 
@@ -57,8 +60,6 @@ The following files exist but are **from the old static frontend-first approach*
 
 | File/Folder | Why It's Legacy |
 |---|---|
-| `blogs/js/data.js` | Old hardcoded mock blog data (552KB). Active blogs come from MySQL. |
-| `blogs/blog-details/index.html` | Old static blog detail page. Active: `/blog-detail.php` |
 | `courses/js/data.js` | Old hardcoded mock course data. Active courses come from MySQL. |
 | `store/js/data.js` | Hardcoded store product data (71KB). Store listing is now DB-powered via `store/index.php`. Still used by legacy `store/product-details/index.html` and `store/cart/index.html`. |
 | `store/product-details/index.html` | Legacy static product detail page. Will be replaced by a PHP page in Store Phase 2. |

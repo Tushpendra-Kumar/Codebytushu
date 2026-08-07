@@ -113,3 +113,10 @@ When admin imports a course from a PDF:
 3. PDF metadata (page count, topics JSON) is extracted and stored in the `courses` table.
 4. Course download file is stored securely in `/private/courses/` (never publicly accessible).
 5. Users can only download the PDF via `/api/courses/download.php` after purchase verification.
+
+## 10. AI Chat Assistant Flow
+1. **Loading**: The AI widget is injected via `includes/ai-widget-loader.php` (for PHP pages) or inline scripts (for static HTML pages like `index.html`).
+2. **Connection**: The frontend widget connects via Socket.IO to the Node.js microservice hosted on Render (`ai-service`).
+3. **Context Gathering**: The frontend sends the user's current URL and interaction history to the backend.
+4. **Prompt Building**: The Node.js server constructs a context-aware system prompt, instructing the AI (Gemini v2 API) to respond in a friendly Hinglish tone and prioritize CodeByTushu specific content (Courses, Blogs, LeetCode, Store).
+5. **Streaming**: The Gemini API streams the response back to the Node.js server, which pipes it via Socket.IO back to the user's chat window in real-time.

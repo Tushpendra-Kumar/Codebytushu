@@ -1,13 +1,14 @@
 # 📊 PROJECT STATUS — CodeByTushu
 
-> Last Updated: August 5, 2026 (Phase 4 Cleanup)
+> Last Updated: August 7, 2026 (Phase 5: AI Integration)
 > Approach: Full-Stack PHP + MySQL (Migration Complete from Static Frontend-First)
 > Backend & Auth: ✅ LIVE & Implemented
 > Admin Panel: ✅ LIVE & Fully Functional
+> AI Assistant: ✅ LIVE & Implemented (Render Node.js Microservice + Gemini v2)
 > Project Cleanup: ✅ Phase 2 & 3 Complete — One-time scripts, empty dirs, temp files, and misplaced assets removed
 > UI Polish: ✅ Phase 3 Complete — Global Footer standardization, Global Scroll-to-Top, UTF-8 BOM fixes, Blog Homepage cleanup.
 > Store Module: ✅ Phase 1 LIVE — DB-powered product listing, Admin CMS, full checkout flow with shipping, Qikink integration (print-on-demand).
-> Cleanup: ✅ Phase 4 Complete — One-time data generation scripts and utility files removed from project root.
+> Cleanup: ✅ Phase 4 & 5 Complete — One-time data generation and corruption fix scripts removed from project root.
 
 ---
 
@@ -268,7 +269,25 @@
 
 ---
 
-### 10. 🏗️ Backend Infrastructure
+### 10. 🤖 AI Chat Assistant (`/ai-service/` & `/ai-widget/`)
+
+> **Status: FULLY IMPLEMENTED & LIVE — Context-Aware Gemini v2 Integration**
+
+| Feature | Status |
+|---|---|
+| Node.js Microservice (Deployed on Render) | ✅ Done |
+| Gemini v2 SDK Streaming API | ✅ Done |
+| Socket.IO Real-time Communication | ✅ Done |
+| Frontend Widget (`/ai-widget/`) | ✅ Done |
+| Context-Aware System Prompt (Routing/Hinglish) | ✅ Done |
+| Global Loader (`includes/ai-widget-loader.php`) | ✅ Done |
+| Injection into 21 PHP Pages & Static Pages | ✅ Done |
+| Custom Welcome Greeting Flow | ✅ Done |
+| Security: Rate Limiting & CORS Configuration | ✅ Done |
+
+---
+
+### 11. 🏗️ Backend Infrastructure
 
 > **Status: FULLY IMPLEMENTED**
 
@@ -357,14 +376,24 @@
 
 | Item | Notes |
 |---|---|
-| `blogs/js/data.js` (552KB) | Legacy static mock data. Active blogs come from MySQL. Still required by `blogs/blog-details/index.html`. |
-| `blogs/blog-details/index.html` | Legacy static blog detail page. Active: `/blog-detail.php`. Keep until no longer referenced. |
-| `blogs/js/blogs.js` | Handles UI search/filtering for the legacy blog-details page. Keep for now. |
 | `courses/js/data.js` | Old hardcoded mock data, may still be loaded by static pages. Keep until store cart & product-detail pages migrated. |
 | `store/js/data.js` (71KB) | Hardcoded store product data — still used by `store/product-details/index.html` and `store/cart/index.html`. Will become obsolete when those pages are migrated to PHP. |
 | `store/product-details/index.html` | Legacy static product detail page — still active until PHP version is built. |
 | `store/cart/index.html` | Legacy static store cart — still active until DB-backed cart is implemented. |
 | `image1/` and `image2/` | Non-standard folder names — actively used by navbar, styles.css, and many pages. Keep. |
+
+### ✅ Items Removed / Added in Phase 5 Cleanup (August 7, 2026)
+
+| Item | Reason |
+|---|---|
+| `check_tables.php` | One-time diagnostic script for DB table verification. Deleted. |
+| `remove_bom.js` | One-time script to fix UTF-8 BOM fatal errors. Deleted. |
+| `fix_corruption.js` / `.py` | One-time scripts to fix duplicated PHP file contents. Deleted. |
+| UTF-8 BOMs | Removed across 22 PHP files to prevent `strict_types` fatal 500 errors. |
+| `blogs/blog-details/index.html` | Legacy static blog detail page deleted. Completely replaced by `/blog-detail.php`. |
+| `blogs/js/` | Entire legacy blog JS folder deleted (`data.js`, `blogs.js`, `article-nav.js`) as no longer required. |
+| `Leetcode/JS/cbt-auth.js` | Legacy client-side auth logic deleted (Auth is now server-side PHP). |
+| `auth-ui.js` | Legacy unused auth UI script deleted. |
 
 ### ✅ Items Removed in Phase 4 Cleanup (August 5, 2026)
 
@@ -420,10 +449,11 @@
 | **Payment Webhooks (Courses)** | ~30% Complete ⏳ |
 | **Advanced Course Features** | Not Started ❌ |
 | **User Dashboard (Stub Pages)** | ~70% Complete ⏳ |
+| **AI Assistant (Chatbot & Backend)** | 100% Complete ✅ |
 
 ---
 
 > **Note:** Project has migrated from the original static HTML/JavaScript + Firebase approach to a full PHP + MySQL server-side architecture.
-> The Auth system, Admin Panel, Blog CMS, Course CMS, LeetCode CMS are all live and functional.
+> The Auth system, Admin Panel, Blog CMS, Course CMS, LeetCode CMS, and AI Chat Assistant are all live and functional.
 > The Store module has completed Phase 1 (DB-powered listing, Admin CMS, checkout flow, Qikink integration).
 > Remaining work is primarily: Store Phase 2 (PHP product-details page, DB cart, Razorpay), payment webhook automation (courses), advanced course features (video player, progress tracking, certificates).
