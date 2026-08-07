@@ -137,16 +137,19 @@ class QikinkAPI
         $lineItems = [];
         
         foreach ($items as $item) {
-            $lineItems[] = [
-                'search_from_my_products' => 0,          // Force dynamic creation
-                'sku'                     => $item['qikink_base_sku'],
-                'quantity'                => (string)$item['quantity'],
-                'price'                   => (string)$item['price'],
-                'design_url'              => $item['design_url'],
-                'mockup_url'              => $item['mockup_url'],
-                // Add default properties if needed by Qikink when dynamic
-                // 'print_type_id' => ... (depends on the base SKU defaults)
+            $lineItem = [
+                'sku'          => $item['qikink_base_sku'],
+                'quantity'     => (string)$item['quantity'],
+                'price'        => (string)$item['price'],
+                'design_front' => $item['design_url'],   // Qikink correct field name
+                'mockup_front' => $item['mockup_url'],   // Qikink correct field name
             ];
+            // Only add back design if present
+            if (!empty($item['design_back_url'])) {
+                $lineItem['design_back']  = $item['design_back_url'];
+                $lineItem['mockup_back']  = $item['design_back_url'];
+            }
+            $lineItems[] = $lineItem;
         }
 
         $payload = [
