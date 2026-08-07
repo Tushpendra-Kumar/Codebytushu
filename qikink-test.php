@@ -48,10 +48,10 @@ if ($token) {
         'gateway'           => 'Prepaid',
         'total_order_value' => '500',
         'line_items'        => [[
-            'sku'      => 'RN-WHT-S',
-            'quantity' => '1',
-            'price'    => '500',
-            // No designs array — testing minimal payload
+            'search_from_my_products' => '1',  // 1 = use Qikink product catalog
+            'sku'                     => 'RN-WHT-S',
+            'quantity'                => '1',
+            'price'                   => '500',
         ]],
         'shipping_address'  => [
             'first_name'   => 'Tushpendra',
