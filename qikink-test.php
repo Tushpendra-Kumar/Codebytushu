@@ -48,10 +48,15 @@ if ($token) {
         'gateway'           => 'Prepaid',
         'total_order_value' => '500',
         'line_items'        => [[
-            'search_from_my_products' => '1',       // 1 = use Qikink catalog SKU
-            'sku'                     => 'MVnHs-Bk-S', // Male V Neck T-Shirt | Black | Small
+            'search_from_my_products' => '0',           // 0 = dynamic creation with base SKU
+            'sku'                     => 'MVnHs-Bk-S',  // Qikink base catalog SKU
             'quantity'                => '1',
             'price'                   => '500',
+            'designs'                 => [[
+                'placement'  => 'Front',
+                'design_url' => 'https://codebytushu.com/android-chrome-512x512.png',
+                'mockup_url' => 'https://codebytushu.com/android-chrome-512x512.png',
+            ]],
         ]],
         'shipping_address'  => [
             'first_name'   => 'Tushpendra',
