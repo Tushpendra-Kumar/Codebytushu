@@ -39,13 +39,14 @@ class QikinkAPI
     {
         $ch = curl_init($this->apiUrl . '/token');
         $payload = http_build_query([
-            'client_id'     => $this->clientId,
-            'client_secret' => $this->clientSecret
+            'ClientId'      => $this->clientId,      // Qikink uses 'ClientId' (capital C, I)
+            'client_secret' => $this->clientSecret   // Qikink uses 'client_secret'
         ]);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Hostinger compatibility
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/x-www-form-urlencoded'
         ]);
@@ -60,8 +61,8 @@ class QikinkAPI
 
         $data = json_decode($response, true);
         
-        // Sometimes the token is in 'access_token', sometimes 'Accesstoken'
-        return $data['access_token'] ?? $data['Accesstoken'] ?? $data['token'] ?? null;
+        // Qikink returns 'Accesstoken' (capital A, T)
+        return $data['Accesstoken'] ?? $data['access_token'] ?? $data['token'] ?? null;
     }
 
     /**
