@@ -43,7 +43,7 @@ if ($token) {
     // Test 2: Create Sandbox Order
     echo "--- Test 2: Create Sandbox Test Order ---\n";
     $orderPayload = json_encode([
-        'order_number'      => 'CBT-SANDBOX-TEST-001',
+        'order_number'      => 'CBT-SANDBOX-TEST-002',
         'qikink_shipping'   => '1',
         'gateway'           => 'Prepaid',
         'total_order_value' => '500',
@@ -51,16 +51,12 @@ if ($token) {
             'sku'      => 'RN-WHT-S',
             'quantity' => '1',
             'price'    => '500',
-            'designs'  => [[                           // ← correct: nested designs array
-                'placement'  => 'Front',
-                'design_url' => 'https://codebytushu.com/android-chrome-512x512.png',
-                'mockup_url' => 'https://codebytushu.com/android-chrome-512x512.png',
-            ]],
+            // No designs array — testing minimal payload
         ]],
         'shipping_address'  => [
             'first_name'   => 'Tushpendra',
             'last_name'    => 'Kumar',
-            'address1'     => '123 Test Street, Sector 5',
+            'address1'     => '123 Test Street Sector 5',
             'address2'     => '',
             'phone'        => '9999999999',
             'email'        => 'tushpendrakumar@gmail.com',
