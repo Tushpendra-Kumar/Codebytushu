@@ -48,8 +48,8 @@ if ($token) {
         'gateway'           => 'Prepaid',
         'total_order_value' => '500',
         'line_items'        => [[
-            'search_from_my_products' => '1',  // 1 = use Qikink product catalog
-            'sku'                     => 'RN-WHT-S',
+            'search_from_my_products' => '1',       // 1 = use Qikink catalog SKU
+            'sku'                     => 'MVnHs-Bk-S', // Male V Neck T-Shirt | Black | Small
             'quantity'                => '1',
             'price'                   => '500',
         ]],
