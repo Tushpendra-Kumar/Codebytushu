@@ -7,7 +7,12 @@ Auth::boot();
 Auth::requireLogin();
 
 $order_number = isset($_GET['order']) ? $_GET['order'] : '';
-$user_id = $_SESSION['user_id'];
+$user = Auth::user();
+if (!$user) {
+    header('Location: /auth/login.php');
+    exit;
+}
+$user_id = $user['id'];
 $pdo = db();
 
 // Fetch order details and items

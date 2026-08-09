@@ -7,17 +7,45 @@ Auth::boot();
 Auth::requireLogin();
 
 $pdo = db();
-$user_id = $_SESSION['user_id'];
+$user = Auth::user();
+if (!$user) {
+    header('Location: /auth/login.php');
+    exit;
+}
+$user_id = $user['id'];
 
-// Fetch purchased courses
+// Fetch purchased courses with payment status
 $stmt = $pdo->prepare("
-    SELECT c.* 
-    FROM course_enrollments e 
-    JOIN courses c ON e.course_id = c.id 
-    WHERE e.user_id = ? AND (e.payment_status = 'paid' OR e.payment_status = 'free')
+    SELECT c.*, o.payment_status as status, o.created_at as order_date
+    FROM order_items oi
+    JOIN orders o ON oi.order_id = o.id
+    JOIN courses c ON oi.course_id = c.id
+    WHERE o.user_id = ?
+    ORDER BY o.created_at DESC
 ");
 $stmt->execute([$user_id]);
 $courses = $stmt->fetchAll();
+
+// Optional: also fetch legacy course_enrollments just in case
+$legacyStmt = $pdo->prepare("
+    SELECT c.*, 'verified' as status, e.enrolled_at as order_date
+    FROM course_enrollments e
+    JOIN courses c ON e.course_id = c.id
+    WHERE e.user_id = ? AND (e.payment_status = 'paid' OR e.payment_status = 'free')
+");
+$legacyStmt->execute([$user_id]);
+$legacyCourses = $legacyStmt->fetchAll();
+
+// Merge and remove duplicates (prefer orders table data)
+$allCourses = [];
+$seen = [];
+foreach (array_merge($courses, $legacyCourses) as $c) {
+    if (!isset($seen[$c['id']])) {
+        $seen[$c['id']] = true;
+        $allCourses[] = $c;
+    }
+}
+$courses = $allCourses;
 
 ?>
 <!DOCTYPE html>
@@ -47,6 +75,14 @@ $courses = $stmt->fetchAll();
         .popup-icon { font-size: 4rem; color: #ffc400; margin-bottom: 20px; }
         .btn-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: #aaa; font-size: 1.5rem; cursor: pointer; }
         .btn-close:hover { color: #fff; }
+        
+        /* Status Badges */
+        .status-badge { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-bottom: 15px; }
+        .status-pending { background: rgba(255, 193, 7, 0.2); color: #ffc107; border: 1px solid #ffc107; }
+        .status-active { background: rgba(40, 167, 69, 0.2); color: #28a745; border: 1px solid #28a745; }
+        .status-rejected { background: rgba(220, 53, 69, 0.2); color: #dc3545; border: 1px solid #dc3545; }
+        
+        .pending-msg { color: #aaa; font-size: 0.9rem; margin-top: 10px; text-align: center; padding: 10px; border: 1px dashed #555; border-radius: 6px; }
     </style>
 </head>
 <body style="background: #0a0a0a; color: #fff; font-family: 'Poppins', sans-serif; margin: 0;">
@@ -64,13 +100,37 @@ $courses = $stmt->fetchAll();
             </div>
         <?php else: ?>
             <div class="courses-grid">
-                <?php foreach ($courses as $course): ?>
+                <?php foreach ($courses as $course): 
+                    $status = $course['status'] ?? 'pending';
+                    if ($status === 'verified') {
+                        $badgeClass = 'status-active';
+                        $badgeText = 'Active';
+                    } elseif ($status === 'rejected') {
+                        $badgeClass = 'status-rejected';
+                        $badgeText = 'Rejected';
+                    } else {
+                        $badgeClass = 'status-pending';
+                        $badgeText = 'Pending Approval';
+                    }
+                ?>
                     <div class="course-card">
                         <img src="<?= htmlspecialchars($course['thumbnail_path'] ?: '/assets/images/default-course.jpg') ?>" class="course-thumb" alt="Thumb">
+                        <span class="status-badge <?= $badgeClass ?>"><i class="fas fa-circle" style="font-size:0.6rem; margin-right:5px; vertical-align:middle;"></i><?= $badgeText ?></span>
                         <h2 class="course-title"><?= htmlspecialchars($course['title']) ?></h2>
-                        <a href="/api/courses/download.php?course_id=<?= $course['id'] ?>" class="btn-download" onclick="showPremiumPopup(event, this.href)">
-                            <i class="fas fa-download"></i> Download PDF
-                        </a>
+                        
+                        <?php if ($status === 'verified'): ?>
+                            <a href="/api/courses/download.php?course_id=<?= $course['id'] ?>" class="btn-download" onclick="showPremiumPopup(event, this.href)">
+                                <i class="fas fa-download"></i> Access & Download
+                            </a>
+                        <?php elseif ($status === 'rejected'): ?>
+                            <div class="pending-msg" style="color:#ff6b6b; border-color:#ff6b6b;">
+                                <i class="fas fa-times-circle"></i> Payment Rejected. Please contact support.
+                            </div>
+                        <?php else: ?>
+                            <div class="pending-msg">
+                                <i class="fas fa-hourglass-half"></i> Payment is processing. You will get access shortly.
+                            </div>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </div>

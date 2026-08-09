@@ -7,7 +7,12 @@ Auth::boot();
 Auth::requireLogin();
 
 $pdo = db();
-$user_id = $_SESSION['user_id'];
+$user = Auth::user();
+if (!$user) {
+    header('Location: /auth/login.php');
+    exit;
+}
+$user_id = $user['id'];
 
 // Get cart total
 $stmt = $pdo->prepare("

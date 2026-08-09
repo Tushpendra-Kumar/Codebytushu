@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../config/database.php';
 header('Content-Type: application/json');
 
 Auth::boot();
-if (!isset($_SESSION['user_id'])) {
+if (!Auth::check()) {
     echo json_encode(['success' => false, 'error' => 'You must be logged in.']);
     exit;
 }
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$user_id   = $_SESSION['user_id'];
+$user_id   = Auth::id();
 $course_id = intval($_POST['course_id'] ?? 0);
 
 if (!$course_id) {

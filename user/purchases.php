@@ -7,8 +7,12 @@ Auth::boot();
 Auth::requireLogin();
 
 $pdo = db();
-$user_id = $_SESSION['user_id'];
-
+$user = Auth::user();
+if (!$user) {
+    header('Location: /auth/login.php');
+    exit;
+}
+$user_id = $user['id'];
 // Fetch purchased courses (only from verified orders)
 $stmt = $pdo->prepare("
     SELECT c.id, c.title, c.thumbnail_path, c.download_file_path 
