@@ -386,7 +386,11 @@ async function apiPost(url, data = {}) {
     const form = new FormData();
     form.append('csrf_token', getCsrfToken());
     Object.entries(data).forEach(([k, v]) => form.append(k, v ?? ''));
-    const res = await fetch(url, { method: 'POST', body: form });
+    const res = await fetch(url, { 
+      method: 'POST', 
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      body: form 
+    });
     return await res.json();
   } catch (err) {
     return { success: false, error: 'Network error. Please check your connection.' };
@@ -531,7 +535,11 @@ function ajaxForm(formId, {
     const fd = new FormData(form);
     fd.append('csrf_token', getCsrfToken());
     try {
-      const res  = await fetch(form.action || window.location.href, { method: 'POST', body: fd });
+      const res  = await fetch(form.action || window.location.href, { 
+        method: 'POST', 
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        body: fd 
+      });
       
       let data;
       try {
@@ -540,7 +548,8 @@ function ajaxForm(formId, {
           data = JSON.parse(text);
         } catch (parseErr) {
           console.error('API Response Parse Error. Raw response:', text);
-          Toast.error('Server Error', 'Invalid response from server.');
+          const preview = text.substring(0, 100).replace(/<[^>]+>/g, '').trim() || 'No text';
+          Toast.error('Server Error', 'Invalid response: ' + preview);
           if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origText; }
           return;
         }
