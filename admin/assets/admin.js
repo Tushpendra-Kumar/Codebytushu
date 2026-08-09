@@ -535,7 +535,8 @@ function ajaxForm(formId, {
     const fd = new FormData(form);
     fd.append('csrf_token', getCsrfToken());
     try {
-      const res  = await fetch(form.action || window.location.href, { 
+      const url = form.getAttribute('action') || window.location.href;
+      const res  = await fetch(url, { 
         method: 'POST', 
         headers: { 'X-Requested-With': 'XMLHttpRequest' },
         body: fd 
