@@ -29,39 +29,69 @@ switch ($action) {
     $valid = ['blog','course','leetcode','portfolio'];
     if (!in_array($type, $valid)) jsonError('Invalid type.');
 
-    if ($catId) {
-        $pdo->prepare('UPDATE categories SET name=?,type=?,slug=?,icon_name=?,sort_order=?,description=?,updated_at=NOW() WHERE id=?')
-            ->execute([$name,$type,$slug,$icon,$sort,$desc,$catId]);
-        jsonSuccess(null,'Category updated.');
-    } else {
-        $pdo->prepare('INSERT INTO categories (name,type,slug,icon_name,sort_order,description) VALUES (?,?,?,?,?,?)')
-            ->execute([$name,$type,$slug,$icon,$sort,$desc]);
-        jsonSuccess(null,'Category added.');
+    try {
+        if ($catId) {
+            $pdo->prepare('UPDATE categories SET name=?,type=?,slug=?,icon_name=?,sort_order=?,description=?,updated_at=NOW() WHERE id=?')
+                ->execute([$name,$type,$slug,$icon,$sort,$desc,$catId]);
+            jsonSuccess(null,'Category updated.');
+        } else {
+            $pdo->prepare('INSERT INTO categories (name,type,slug,icon_name,sort_order,description) VALUES (?,?,?,?,?,?)')
+                ->execute([$name,$type,$slug,$icon,$sort,$desc]);
+            jsonSuccess(null,'Category added.');
+        }
+    } catch (\PDOException $e) {
+        error_log("DB Error in save_category: " . $e->getMessage());
+        jsonError("Database error occurred while saving category.");
     }
+    break;
 
   case 'delete_category':
     $id=(int)post('id'); if(!$id) jsonError('ID required.');
-    $pdo->prepare('DELETE FROM categories WHERE id=?')->execute([$id]);
-    jsonSuccess(null,'Category deleted.');
+    try {
+        $pdo->prepare('DELETE FROM categories WHERE id=?')->execute([$id]);
+        jsonSuccess(null,'Category deleted.');
+    } catch (\PDOException $e) {
+        error_log("DB Error in delete_category: " . $e->getMessage());
+        jsonError("Database error occurred while deleting category.");
+    }
+    break;
 
   case 'toggle':
     $id=(int)post('id'); $val=post('value')?1:0;
-    $pdo->prepare('UPDATE categories SET is_active=? WHERE id=?')->execute([$val,$id]);
-    jsonSuccess();
+    try {
+        $pdo->prepare('UPDATE categories SET is_active=? WHERE id=?')->execute([$val,$id]);
+        jsonSuccess();
+    } catch (\PDOException $e) {
+        error_log("DB Error in toggle category: " . $e->getMessage());
+        jsonError("Database error occurred while toggling category.");
+    }
+    break;
 
   case 'save_tag':
     $name  = sanitize(post('tag_name'));
     $color = post('color_hex') ?: '#ffc400';
     $slug  = preg_replace('/[^a-z0-9-]/', '', strtolower($name));
     if (!$name) jsonError('Tag name is required.');
-    $pdo->prepare('INSERT IGNORE INTO solution_tags (name,slug,color_hex) VALUES (?,?,?)')
-        ->execute([$name,$slug,$color]);
-    jsonSuccess(null,'Tag added.');
+    try {
+        $pdo->prepare('INSERT IGNORE INTO solution_tags (name,slug,color_hex) VALUES (?,?,?)')
+            ->execute([$name,$slug,$color]);
+        jsonSuccess(null,'Tag added.');
+    } catch (\PDOException $e) {
+        error_log("DB Error in save_tag: " . $e->getMessage());
+        jsonError("Database error occurred while saving tag.");
+    }
+    break;
 
   case 'delete_tag':
     $id=(int)post('id'); if(!$id) jsonError('ID required.');
-    $pdo->prepare('DELETE FROM solution_tags WHERE id=?')->execute([$id]);
-    jsonSuccess(null,'Tag deleted.');
+    try {
+        $pdo->prepare('DELETE FROM solution_tags WHERE id=?')->execute([$id]);
+        jsonSuccess(null,'Tag deleted.');
+    } catch (\PDOException $e) {
+        error_log("DB Error in delete_tag: " . $e->getMessage());
+        jsonError("Database error occurred while deleting tag.");
+    }
+    break;
 
   default: jsonError('Unknown action.',400);
 }

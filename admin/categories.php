@@ -121,7 +121,7 @@ $tags = $pdo->query('SELECT *, usage_count FROM solution_tags ORDER BY usage_cou
       <h2 class="modal-title" id="catModalTitle">Add Category</h2>
       <button class="modal-close" onclick="Modal.close('addCategoryModal')">✕</button>
     </div>
-    <form id="categoryForm">
+    <form id="categoryForm" action="<?= SITE_URL ?>/api/admin/categories.php">
       <div class="modal-body">
         <input type="hidden" name="action" value="save_category">
         <input type="hidden" name="cat_id" id="catId" value="0">
@@ -171,7 +171,7 @@ $tags = $pdo->query('SELECT *, usage_count FROM solution_tags ORDER BY usage_cou
       <h2 class="modal-title">Add LeetCode Tag</h2>
       <button class="modal-close" onclick="Modal.close('addTagModal')">✕</button>
     </div>
-    <form id="tagForm">
+    <form id="tagForm" action="<?= SITE_URL ?>/api/admin/categories.php">
       <div class="modal-body">
         <input type="hidden" name="action" value="save_tag">
         <?= csrfField() ?>

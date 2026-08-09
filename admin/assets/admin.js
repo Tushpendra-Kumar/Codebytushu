@@ -532,7 +532,22 @@ function ajaxForm(formId, {
     fd.append('csrf_token', getCsrfToken());
     try {
       const res  = await fetch(form.action || window.location.href, { method: 'POST', body: fd });
-      const data = await res.json();
+      
+      let data;
+      try {
+        const text = await res.text();
+        try {
+          data = JSON.parse(text);
+        } catch (parseErr) {
+          console.error('API Response Parse Error. Raw response:', text);
+          Toast.error('Server Error', 'Invalid response from server.');
+          if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origText; }
+          return;
+        }
+      } catch (networkErr) {
+        throw networkErr; // let the outer catch handle network issues
+      }
+
       if (data.success) {
         Toast.success('Success', data.message || 'Saved.');
         if (typeof onSuccess === 'function') onSuccess(data);
@@ -540,7 +555,8 @@ function ajaxForm(formId, {
         Toast.error('Error', data.error || 'Something went wrong.');
         if (typeof onError === 'function') onError(data);
       }
-    } catch {
+    } catch (err) {
+      console.error('AJAX Form Error:', err);
       Toast.error('Network Error', 'Could not connect to the server.');
     }
     if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origText; }
