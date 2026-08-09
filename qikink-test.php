@@ -49,14 +49,12 @@ $orderPayload = json_encode([
     'gateway'           => 'Prepaid',
     'total_order_value' => '500',
     'line_items'        => [[
-        'search_from_my_products' => '0',        // 0 = dynamic design injection
-        'sku'                     => 'MVnHs-Bk-S', // Male V Neck T-Shirt Black S
+        'search_from_my_products' => '0',
+        'sku'                     => 'MVnHs-Bk-S',
         'quantity'                => '1',
         'price'                   => '500',
-        'placement'               => 'Front',          // moved to line_item level
-        'design_url'              => 'https://codebytushu.com/android-chrome-512x512.png', // moved to line_item level
         'designs'                 => [[
-            'design_code'   => 'CBT001',          // unique design identifier
+            'design_code'   => 'CBT001',
             'height_inches' => '7.61',
             'width_inches'  => '7.61',
         ]],
