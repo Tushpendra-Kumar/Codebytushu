@@ -17,7 +17,7 @@ $pdo = db();
 // â”€â”€ Fetch the blog post â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $stmt = $pdo->prepare("
     SELECT b.*, c.name as category_name, c.slug as category_slug,
-           u.name as author_name
+           u.full_name as author_name
     FROM blog_articles b
     LEFT JOIN categories c ON b.category_id = c.id
     LEFT JOIN users u ON b.author_id = u.id
