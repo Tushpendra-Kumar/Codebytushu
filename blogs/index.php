@@ -1,4 +1,7 @@
 <?php
+header('Location: ../blogs.php');
+exit;
+
 require_once __DIR__ . '/../classes/Auth.php';
 Auth::boot();
 $isLoggedIn = Auth::check() ? 'true' : 'false';
@@ -6,7 +9,10 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>window.isLoggedIn = <?php echo $isLoggedIn; ?>;</script>
+    <script>window.isLoggedIn = <?php
+header('Location: ../blogs.php');
+exit;
+ echo $isLoggedIn; ?>;</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogs | CodeByTushu</title>
@@ -341,6 +347,9 @@ $isLoggedIn = Auth::check() ? 'true' : 'false';
     </script>
     <!-- Global Scroll to Top (shared across all pages) -->
     <script src="/scroll-to-top.js"></script>
-<?php require_once __DIR__ . '/../includes/ai-widget-loader.php'; ?>
+<?php
+header('Location: ../blogs.php');
+exit;
+ require_once __DIR__ . '/../includes/ai-widget-loader.php'; ?>
 </body>
 </html>
