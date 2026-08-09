@@ -137,29 +137,35 @@ class QikinkAPI
         $lineItems = [];
         
         foreach ($items as $item) {
-            // Build designs array (Qikink official format)
+            // Build designs array — exact structure per Qikink support:
+            // design_code, placement, height_inches, width_inches, design_url
             $designs = [[
-                'placement'  => 'Front',
-                'design_url' => $item['design_url'],
-                'mockup_url' => $item['mockup_url'] ?? null,
+                'design_code'   => 'CBT' . strtoupper(substr(md5($item['design_url']), 0, 6)),
+                'placement'     => 'Front',
+                'height_inches' => $item['design_height'] ?? '7.61',
+                'width_inches'  => $item['design_width']  ?? '7.61',
+                'design_url'    => $item['design_url'],
             ]];
             // Add back design if provided
             if (!empty($item['design_back_url'])) {
                 $designs[] = [
-                    'placement'  => 'Back',
-                    'design_url' => $item['design_back_url'],
-                    'mockup_url' => $item['mockup_back_url'] ?? null,
+                    'design_code'   => 'CBT' . strtoupper(substr(md5($item['design_back_url']), 0, 6)) . 'B',
+                    'placement'     => 'Back',
+                    'height_inches' => $item['design_height'] ?? '7.61',
+                    'width_inches'  => $item['design_width']  ?? '7.61',
+                    'design_url'    => $item['design_back_url'],
                 ];
             }
 
             $lineItems[] = [
-                'search_from_my_products' => '0',   // 0 = dynamic design injection
-                'sku'      => $item['qikink_base_sku'],
-                'quantity' => (string)$item['quantity'],
-                'price'    => (string)$item['price'],
-                'designs'  => $designs,
+                'search_from_my_products' => '0',
+                'sku'                     => $item['qikink_base_sku'],
+                'quantity'                => (string)$item['quantity'],
+                'price'                   => (string)$item['price'],
+                'designs'                 => $designs,
             ];
         }
+
 
         $payload = [
             'order_number'      => substr(str_replace('-', '', (string)$order['order_number']), 0, 15),
