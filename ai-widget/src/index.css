@@ -748,7 +748,8 @@
 
   .cbt-chat-window {
     --cbt-chat-width: calc(100vw - 32px);
-    --cbt-chat-height: calc(100vh - 100px);
+    --cbt-chat-height: calc(100dvh - 100px);
+    max-height: 85dvh;
     border-radius: var(--cbt-radius-lg);
     max-width: calc(100vw - 32px);
   }
