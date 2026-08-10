@@ -238,6 +238,40 @@
                 link.addEventListener('click', closeDrawer);
             });
         }
+
+        // ── Dynamic Auth UI Update ────────────────────────────────────
+        fetch('/api/auth/status.php')
+            .then(res => res.json())
+            .then(data => {
+                if (data.logged_in && data.user) {
+                    const avatar = data.user.profile_image;
+                    const initials = data.user.full_name ? data.user.full_name.charAt(0).toUpperCase() : 'U';
+                    
+                    const userHtml = `
+                        <a href="/user/dashboard.php" class="cbt-user-avatar" aria-label="Go to Dashboard" style="width: 35px; height: 35px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #ffc400; color: #000; font-weight: bold; font-size: 16px; text-decoration: none; border: 2px solid #ffc400; flex-shrink: 0;">
+                            ${avatar ? `<img src="${avatar.startsWith('http') ? avatar : '/' + avatar.replace(/^\/+/, '')}" alt="User" style="width: 100%; height: 100%; object-fit: cover;">` : initials}
+                        </a>
+                    `;
+
+                    // Update Desktop
+                    const deskAuth = document.getElementById('cbt-auth-area');
+                    if (deskAuth) deskAuth.innerHTML = userHtml;
+
+                    // Update Mobile Top Navbar
+                    const mobAuth = document.getElementById('cbt-auth-area-mob');
+                    if (mobAuth) mobAuth.innerHTML = userHtml;
+
+                    // Update Mobile Drawer
+                    const drawerLi = document.getElementById('drawer-auth-li');
+                    if (drawerLi) {
+                        drawerLi.innerHTML = `<a href="/user/dashboard.php" class="cbt-drawer-link" id="drawer-login" role="menuitem">Dashboard</a>`;
+                        // Re-bind close event
+                        const newLink = drawerLi.querySelector('.cbt-drawer-link');
+                        if (newLink) newLink.addEventListener('click', closeDrawer);
+                    }
+                }
+            })
+            .catch(err => console.error('Auth check failed:', err));
     });
 </script>
 
