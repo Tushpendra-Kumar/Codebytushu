@@ -44,8 +44,10 @@ export default function MessageBubble({ message }) {
         {message.id === 'welcome' ? (
           <div className="cbt-message__bubble--welcome">
             <div className="cbt-welcome-grid-bg"></div>
-            <div className="cbt-welcome-text-area" dangerouslySetInnerHTML={{ __html: formattedText }} />
-            <img src={`${window.cbtBasePath || ''}/ai-widget/dist/welcome_robot.jpg`} alt="Welcome AI Robot" className="cbt-welcome-img" />
+            <div className="cbt-welcome-content-row">
+              <div className="cbt-welcome-text-area" dangerouslySetInnerHTML={{ __html: formattedText }} />
+              <img src={`${window.cbtBasePath || ''}/ai-widget/dist/welcome_robot.jpg`} alt="Welcome AI Robot" className="cbt-welcome-img" />
+            </div>
           </div>
         ) : (
           <div

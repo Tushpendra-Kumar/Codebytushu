@@ -161,7 +161,7 @@ export default function ChatWindow() {
                 subtitle: 'Explore our JavaScript courses',
                 color: '#ffc400',
                 icon: (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
                 )
               },
               {
@@ -169,7 +169,7 @@ export default function ChatWindow() {
                 subtitle: 'Browse DSA solutions by topics',
                 color: '#a855f7',
                 icon: (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1m-1.636 6.364l-.707-.707M3 12h1m1.636-6.364l.707.707M12 21a9 9 0 100-18 9 9 0 000 18z"/></svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>
                 )
               },
               {
@@ -201,14 +201,13 @@ export default function ChatWindow() {
           </div>
         </div>
       )}
-
-      {/* ── Input ──────────────────────────────────────────────────────────── */}
-      <ChatInput onSend={handleSend} />
-
+      {/* ── Input Area ─────────────────────────────────────────────────────── */}
+      <ChatInput onSend={handleSend} isTyping={isTyping} />
+      
       {/* ── Footer Branding ────────────────────────────────────────────────── */}
       <div className="cbt-chat-footer-brand">
         <span>Powered by</span>
-        <span className="cbt-brand-name"> CodeByTushu AI</span>
+        <span className="cbt-brand-name"> CodeByTushu AI 💛</span>
       </div>
     </div>
   )
