@@ -49,10 +49,10 @@ async function streamAIResponse(prompt, contextHistory = [], onChunk) {
 
   // Array of models to fallback through in case of rate limits or unavailability
   const FALLBACK_MODELS = [
-    'gemini-2.5-flash',
-    'gemini-2.0-flash',
-    'gemini-1.5-flash',
-    'gemini-1.5-pro'
+    'gemini-3.5-flash',
+    'gemini-3.5-flash-lite',
+    'gemini-3.6-flash',
+    'gemini-flash-latest'
   ];
 
   for (let i = 0; i < FALLBACK_MODELS.length; i++) {
