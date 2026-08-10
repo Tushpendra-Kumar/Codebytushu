@@ -122,7 +122,7 @@
 
     </nav><!-- /.cbt-navbar -->
 
-<script src="/auth-ui.js"></script>
+
 
 <!-- ══ CBT NAVBAR JS ═══════════════════════════════════ -->
 <script>

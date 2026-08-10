@@ -298,7 +298,7 @@ if ($is_logged_in) {
     </div>
     
     <?php include __DIR__ . '/payment_modal.php'; ?>
-    <script src="/auth-ui.js"></script>
+
     <!-- Global Scroll to Top (shared across all pages) -->
     <script src="/scroll-to-top.js"></script>
 <?php require_once __DIR__ . '/../includes/ai-widget-loader.php'; ?>

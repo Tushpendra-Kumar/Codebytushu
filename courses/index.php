@@ -612,8 +612,7 @@ if (Auth::check()) {
         });
     </script>
 
-    <script src="/auth-ui.js"></script>
-    <script src="/auth-ui.js"></script>
+
     <?php include __DIR__ . '/payment_modal.php'; ?>
     <script>
         // Navigation active state and smooth scrolling
