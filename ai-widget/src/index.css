@@ -154,9 +154,11 @@
   max-width: calc(100vw - 48px);
   height: var(--cbt-chat-height);
   max-height: calc(100vh - 120px);
-  background: var(--cbt-bg-0);
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: var(--cbt-radius-xl);
-  border: 1px solid var(--cbt-border);
+  border: 1px solid rgba(255, 196, 0, 0.15);
   box-shadow: var(--cbt-shadow-widget);
   display: flex;
   flex-direction: column;
