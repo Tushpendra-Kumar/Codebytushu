@@ -72,7 +72,13 @@ $tokenResponse = googleApiPost('https://oauth2.googleapis.com/token', [
 ]);
 
 if (!$tokenResponse || empty($tokenResponse['access_token'])) {
-    redirectWithMessage('/auth/login.php', 'error', 'Failed to exchange Google auth code. Please try again.');
+    $errorMsg = 'Failed to exchange Google auth code.';
+    if ($tokenResponse && isset($tokenResponse['error'])) {
+        $errorMsg .= ' API Error: ' . $tokenResponse['error'] . ' - ' . ($tokenResponse['error_description'] ?? '');
+    } else if (!$tokenResponse) {
+        $errorMsg .= ' cURL/Network failure or empty response.';
+    }
+    redirectWithMessage('/auth/login.php', 'error', $errorMsg . ' Please try again.');
 }
 
 // ── 4. Fetch Google user profile ──────────────────────────────────────────

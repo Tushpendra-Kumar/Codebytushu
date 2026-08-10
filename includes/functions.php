@@ -345,9 +345,12 @@ function googleApiPost(string $url, array $data): ?array
         'Content-Type: application/x-www-form-urlencoded'
     ]);
     $response = curl_exec($ch);
+    $error = curl_error($ch);
     curl_close($ch);
 
-    if (!$response) return null;
+    if (!$response) {
+        return ['error' => 'curl_error', 'error_description' => $error];
+    }
     return json_decode($response, true);
 }
 
