@@ -86,7 +86,6 @@
             <div class="cbt-drawer-header">
                 <div class="cbt-logo">
                     <a href="/#home" aria-label="CodeByTushu Home" tabindex="-1">
-                        <span class="cbt-logo-bracket">&lt;/&gt;</span>
                         <span class="cbt-logo-text">CodeBy<span class="cbt-logo-accent">Tushu</span></span>
                     </a>
                 </div>
