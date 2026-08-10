@@ -58,7 +58,7 @@ export default function ChatInput({ onSend }) {
           value={inputValue}
           onChange={handleInput}
           onKeyDown={handleKeyDown}
-          placeholder="Ask me anything..."
+          placeholder="Ask anything about Tech, DSA, or Courses..."
           rows={1}
           disabled={isTyping}
           aria-label="Chat message input"
