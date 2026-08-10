@@ -145,62 +145,7 @@ export default function ChatWindow() {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* ── Suggested Questions ────────────────────────────────────────────── */}
-      {messages.length === 1 && (
-        <div className="cbt-suggestions-container">
-          <div className="cbt-suggestions-title">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-            </svg>
-            Quick Actions
-          </div>
-          <div className="cbt-suggestions">
-            {[
-              {
-                title: 'What JavaScript courses do you have?',
-                subtitle: 'Explore our JavaScript courses',
-                color: '#ffc400',
-                icon: (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                )
-              },
-              {
-                title: 'Show me DSA LeetCode solutions',
-                subtitle: 'Browse DSA solutions by topics',
-                color: '#a855f7',
-                icon: (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>
-                )
-              },
-              {
-                title: 'How do I reset my password?',
-                subtitle: 'Get help with your account',
-                color: '#10b981',
-                icon: (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-                )
-              }
-            ].map((q, idx) => (
-              <button
-                key={idx}
-                className="cbt-suggestion-card"
-                onClick={() => handleSend(q.title)}
-              >
-                <div className="cbt-suggestion-icon-wrapper" style={{ borderColor: q.color, color: q.color }}>
-                  {q.icon}
-                </div>
-                <div className="cbt-suggestion-text">
-                  <span className="cbt-suggestion-title">{q.title}</span>
-                  <span className="cbt-suggestion-subtitle">{q.subtitle}</span>
-                </div>
-                <div className="cbt-suggestion-arrow">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16l4-4-4-4M8 12h8"/></svg>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+
       {/* ── Input Area ─────────────────────────────────────────────────────── */}
       <ChatInput onSend={handleSend} isTyping={isTyping} />
       
