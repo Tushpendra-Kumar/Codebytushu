@@ -1,14 +1,13 @@
 # 📊 PROJECT STATUS — CodeByTushu
 
-> Last Updated: August 7, 2026 (Phase 5: AI Integration)
+> Last Updated: August 11, 2026 (Phase 6: AI Fallback & Cleanup)
 > Approach: Full-Stack PHP + MySQL (Migration Complete from Static Frontend-First)
 > Backend & Auth: ✅ LIVE & Implemented
 > Admin Panel: ✅ LIVE & Fully Functional
-> AI Assistant: ✅ LIVE & Implemented (Render Node.js Microservice + Gemini v2)
-> Project Cleanup: ✅ Phase 2 & 3 Complete — One-time scripts, empty dirs, temp files, and misplaced assets removed
-> UI Polish: ✅ Phase 3 Complete — Global Footer standardization, Global Scroll-to-Top, UTF-8 BOM fixes, Blog Homepage cleanup.
+> AI Assistant: ✅ LIVE & Implemented (Render Node.js Microservice + Multi-Model Fallback)
+> Project Cleanup: ✅ Phase 6 Complete — One-time test scripts and outdated assets removed
+> UI Polish: ✅ Phase 6 Complete — Mobile navbar overlap fixed, blue bracket icon removed, and AI widget layout fixed.
 > Store Module: ✅ Phase 1 LIVE — DB-powered product listing, Admin CMS, full checkout flow with shipping, Qikink integration (print-on-demand).
-> Cleanup: ✅ Phase 4 & 5 Complete — One-time data generation and corruption fix scripts removed from project root.
 
 ---
 
@@ -277,6 +276,7 @@
 |---|---|
 | Node.js Microservice (Deployed on Render) | ✅ Done |
 | Gemini v2 SDK Streaming API | ✅ Done |
+| Multi-Model Fallback System (`gemini-3.5-flash` series) | ✅ Done |
 | Socket.IO Real-time Communication | ✅ Done |
 | Frontend Widget (`/ai-widget/`) | ✅ Done |
 | Context-Aware System Prompt (Routing/Hinglish) | ✅ Done |
@@ -381,6 +381,13 @@
 | `store/product-details/index.html` | Legacy static product detail page — still active until PHP version is built. |
 | `store/cart/index.html` | Legacy static store cart — still active until DB-backed cart is implemented. |
 | `image1/` and `image2/` | Non-standard folder names — actively used by navbar, styles.css, and many pages. Keep. |
+
+### ✅ Items Removed in Phase 6 Cleanup (August 11, 2026)
+
+| Item | Reason |
+|---|---|
+| `qikink-test.php` | One-time API connection sandbox test script for Qikink v4. Testing complete. Deleted. |
+| `test_slugs.php` | One-time diagnostic script to query blog slugs. Unnecessary and poses minor security risk. Deleted. |
 
 ### ✅ Items Removed / Added in Phase 5 Cleanup (August 7, 2026)
 

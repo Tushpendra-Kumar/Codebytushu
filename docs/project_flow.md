@@ -119,4 +119,4 @@ When admin imports a course from a PDF:
 2. **Connection**: The frontend widget connects via Socket.IO to the Node.js microservice hosted on Render (`ai-service`).
 3. **Context Gathering**: The frontend sends the user's current URL and interaction history to the backend.
 4. **Prompt Building**: The Node.js server constructs a context-aware system prompt, instructing the AI (Gemini v2 API) to respond in a friendly Hinglish tone and prioritize CodeByTushu specific content (Courses, Blogs, LeetCode, Store).
-5. **Streaming**: The Gemini API streams the response back to the Node.js server, which pipes it via Socket.IO back to the user's chat window in real-time.
+5. **Streaming & Fallback**: The Gemini API streams the response back to the Node.js server, which pipes it via Socket.IO back to the user's chat window in real-time. If the primary model hits a rate limit or quota error, a built-in multi-model fallback system seamlessly switches to alternative models (e.g. `gemini-3.5-flash-lite`, `gemini-3.6-flash`) to ensure consistent availability.
