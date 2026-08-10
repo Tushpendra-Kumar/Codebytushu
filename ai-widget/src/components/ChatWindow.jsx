@@ -99,17 +99,16 @@ export default function ChatWindow() {
       <div className="cbt-chat-header">
         <div className="cbt-chat-header__left">
           <div className="cbt-chat-avatar">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              <circle cx="12" cy="17" r="1" fill="currentColor"/>
-            </svg>
+            <img src={`${window.cbtBasePath || ''}/ai-widget/dist/bot_avatar.jpg`} alt="AI Avatar" />
             <span className="cbt-chat-avatar__status" aria-label="Online" />
           </div>
           <div className="cbt-chat-header__info">
-            <span className="cbt-chat-header__name">CodeByTushu AI</span>
+            <div className="cbt-chat-header__title-row">
+              <span className="cbt-chat-header__name">CodeByTushu AI</span>
+              <span className="cbt-chat-header__badge">AI</span>
+            </div>
             <span className="cbt-chat-header__status">
-              {isTyping ? 'Typing...' : 'Always here to help'}
+              {isTyping ? 'Typing...' : 'Always here to help ✨'}
             </span>
           </div>
         </div>
@@ -148,20 +147,58 @@ export default function ChatWindow() {
 
       {/* ── Suggested Questions ────────────────────────────────────────────── */}
       {messages.length === 1 && (
-        <div className="cbt-suggestions">
-          {[
-            'What JavaScript courses do you have?',
-            'Show me DSA LeetCode solutions',
-            'How do I reset my password?',
-          ].map((q) => (
-            <button
-              key={q}
-              className="cbt-suggestion-chip"
-              onClick={() => handleSend(q)}
-            >
-              {q}
-            </button>
-          ))}
+        <div className="cbt-suggestions-container">
+          <div className="cbt-suggestions-title">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+            Quick Actions
+          </div>
+          <div className="cbt-suggestions">
+            {[
+              {
+                title: 'What JavaScript courses do you have?',
+                subtitle: 'Explore our JavaScript courses',
+                color: '#ffc400',
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+                )
+              },
+              {
+                title: 'Show me DSA LeetCode solutions',
+                subtitle: 'Browse DSA solutions by topics',
+                color: '#a855f7',
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1m-1.636 6.364l-.707-.707M3 12h1m1.636-6.364l.707.707M12 21a9 9 0 100-18 9 9 0 000 18z"/></svg>
+                )
+              },
+              {
+                title: 'How do I reset my password?',
+                subtitle: 'Get help with your account',
+                color: '#10b981',
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                )
+              }
+            ].map((q, idx) => (
+              <button
+                key={idx}
+                className="cbt-suggestion-card"
+                onClick={() => handleSend(q.title)}
+              >
+                <div className="cbt-suggestion-icon-wrapper" style={{ borderColor: q.color, color: q.color }}>
+                  {q.icon}
+                </div>
+                <div className="cbt-suggestion-text">
+                  <span className="cbt-suggestion-title">{q.title}</span>
+                  <span className="cbt-suggestion-subtitle">{q.subtitle}</span>
+                </div>
+                <div className="cbt-suggestion-arrow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16l4-4-4-4M8 12h8"/></svg>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       )}
 

@@ -35,20 +35,24 @@ export default function MessageBubble({ message }) {
       {/* AI Avatar */}
       {!isUser && (
         <div className="cbt-message__avatar">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            <circle cx="12" cy="17" r="1" fill="currentColor"/>
-          </svg>
+          <img src={`${window.cbtBasePath || ''}/ai-widget/dist/bot_avatar.jpg`} alt="AI Avatar" />
         </div>
       )}
 
       {/* Message bubble */}
       <div className="cbt-message__content">
-        <div
-          className={`cbt-message__bubble ${isUser ? 'cbt-message__bubble--user' : 'cbt-message__bubble--ai'}`}
-          dangerouslySetInnerHTML={{ __html: formattedText }}
-        />
+        {message.id === 'welcome' ? (
+          <div className="cbt-message__bubble--welcome">
+            <div className="cbt-welcome-grid-bg"></div>
+            <div className="cbt-welcome-text-area" dangerouslySetInnerHTML={{ __html: formattedText }} />
+            <img src={`${window.cbtBasePath || ''}/ai-widget/dist/welcome_robot.jpg`} alt="Welcome AI Robot" className="cbt-welcome-img" />
+          </div>
+        ) : (
+          <div
+            className={`cbt-message__bubble ${isUser ? 'cbt-message__bubble--user' : 'cbt-message__bubble--ai'}`}
+            dangerouslySetInnerHTML={{ __html: formattedText }}
+          />
+        )}
         <span className={`cbt-message__time ${isUser ? 'cbt-message__time--user' : ''}`}>
           {timeStr}
         </span>

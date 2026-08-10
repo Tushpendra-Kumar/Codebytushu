@@ -29,6 +29,7 @@ if (!$isAdminPage):
     function loadCbtWidget() {
         // Handle local XAMPP path (localhost/Codebytushu) vs Production (codebytushu.com)
         var basePath = window.location.pathname.startsWith('/Codebytushu') ? '/Codebytushu' : '';
+        window.cbtBasePath = basePath;
 
         // Inject CSS (non-blocking)
         var link = document.createElement('link');
