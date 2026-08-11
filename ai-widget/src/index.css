@@ -446,6 +446,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--cbt-text-muted);
 }
 
 .cbt-feedback-btn:hover {
