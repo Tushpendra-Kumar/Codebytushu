@@ -3,7 +3,7 @@
 // Handles Enter key (Shift+Enter for newline) and character limit.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useChat } from '../context/ChatContext'
 import { SOCKET_URL } from '../hooks/useSocket'
 
@@ -13,10 +13,70 @@ export default function ChatInput({ onSend }) {
   const { inputValue, setInputValue, isTyping } = useChat()
   const textareaRef = useRef(null)
   const fileInputRef = useRef(null)
+  const recognitionRef = useRef(null)
 
   const [attachmentFile, setAttachmentFile] = useState(null)
   const [isUploading, setIsUploading] = useState(false)
   const [uploadError, setUploadError] = useState('')
+  const [isListening, setIsListening] = useState(false)
+
+  // Initialize Speech Recognition
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+
+      recognition.onstart = () => setIsListening(true);
+      
+      recognition.onresult = (event) => {
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          }
+        }
+        if (finalTranscript) {
+          setInputValue((prev) => {
+            const separator = prev && !prev.endsWith(' ') ? ' ' : '';
+            return prev + separator + finalTranscript;
+          });
+        }
+      };
+      
+      recognition.onerror = (event) => {
+        console.error("Speech recognition error", event.error);
+        if (event.error === 'not-allowed') {
+          alert('Microphone permission is required to use voice input. Please allow microphone access in your browser settings.');
+        }
+        setIsListening(false);
+      };
+      
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+      
+      recognitionRef.current = recognition;
+    }
+  }, [setInputValue]);
+
+  const toggleListen = () => {
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+    } else {
+      if (!recognitionRef.current) {
+        alert("Voice input is not supported in this browser. Please use a supported browser or type your message instead.");
+        return;
+      }
+      try {
+        recognitionRef.current.start();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -172,13 +232,33 @@ export default function ChatInput({ onSend }) {
           value={inputValue}
           onChange={handleInput}
           onKeyDown={handleKeyDown}
-          placeholder="Type your question here..."
+          placeholder={isListening ? "Listening..." : "Type your question here..."}
           rows={1}
           disabled={isTyping || isUploading}
           aria-label="Chat message input"
           maxLength={MAX_CHARS}
         />
         
+        <button
+          className={`cbt-chat-mic-btn ${isListening ? 'listening' : ''}`}
+          onClick={toggleListen}
+          title={isListening ? "Stop listening" : "Voice Input"}
+          disabled={isTyping || isUploading}
+        >
+          {isListening ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff4757" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+          )}
+        </button>
+
         <button
           className={`cbt-chat-send-btn ${isDisabled ? 'cbt-chat-send-btn--disabled' : ''}`}
           onClick={handleSend}

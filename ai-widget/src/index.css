@@ -1017,6 +1017,43 @@
   transform: none;
 }
 
+.cbt-chat-mic-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--cbt-text-secondary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all var(--cbt-transition);
+}
+
+.cbt-chat-mic-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+  transform: scale(1.05);
+}
+
+.cbt-chat-mic-btn:disabled {
+  color: var(--cbt-text-muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cbt-chat-mic-btn.listening {
+  color: #ff4757;
+  animation: cbt-pulse-mic 1.5s infinite;
+}
+
+@keyframes cbt-pulse-mic {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
 .cbt-chat-input-footer {
   display: flex;
   justify-content: space-between;
