@@ -112,6 +112,13 @@ function generateOrderNumber(): string {
 $pdo = db();
 
 try {
+    // Ensure course_id allows NULL (Fix for store products)
+    try {
+        $pdo->exec("ALTER TABLE `order_items` MODIFY COLUMN `course_id` INT UNSIGNED NULL");
+    } catch (\Exception $ex) {
+        // Ignore if already null or insufficient permissions
+    }
+
     $pdo->beginTransaction();
 
     // Determine payment status
@@ -159,14 +166,16 @@ try {
     $orderId = $pdo->lastInsertId();
 
     // Insert order items
+    // Since this is a store order, course_id is NULL, product_id is the product ID
     $itemStmt = $pdo->prepare("
-        INSERT INTO order_items (order_id, product_name, price, quantity)
-        VALUES (:order_id, :product_name, :price, :quantity)
+        INSERT INTO order_items (order_id, course_id, product_id, product_name, price, quantity)
+        VALUES (:order_id, NULL, :product_id, :product_name, :price, :quantity)
     ");
 
     foreach ($items as $item) {
         $itemStmt->execute([
             ':order_id'     => $orderId,
+            ':product_id'   => $item['id'] ?? null,
             ':product_name' => substr(trim($item['title'] ?? 'Unknown Product'), 0, 255),
             ':price'        => floatval($item['price'] ?? 0),
             ':quantity'     => intval($item['quantity'] ?? 1),
@@ -215,5 +224,5 @@ try {
     $pdo->rollBack();
     error_log('Store checkout error: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Server error. Please try again.']);
+    echo json_encode(['success' => false, 'message' => 'Server error: ' . $e->getMessage()]);
 }
