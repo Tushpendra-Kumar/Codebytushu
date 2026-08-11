@@ -45,6 +45,27 @@ class DBService {
   }
 
   /**
+   * Fetch context for latest Blogs
+   */
+  async getBlogsContext() {
+    try {
+      const [rows] = await pool.query(
+        'SELECT title, slug FROM blog_articles WHERE is_published = 1 ORDER BY published_at DESC LIMIT 5'
+      );
+      if (rows.length === 0) return 'No recent blogs available.';
+      
+      let context = 'Recent Blogs:\n';
+      rows.forEach(blog => {
+        context += `- ${blog.title} -> Link: [/blog/${blog.slug}](/blog/${blog.slug})\n`;
+      });
+      return context;
+    } catch (error) {
+      console.error('Error fetching blogs context:', error.message);
+      return '';
+    }
+  }
+
+  /**
    * Fetch a combined dynamic context string to inject into the AI prompt
    */
   async buildDynamicContext(urlContext = '') {
@@ -53,6 +74,10 @@ class DBService {
     // Always attach basic course info
     const courses = await this.getCoursesContext();
     if (courses) contextStr += courses + '\n';
+
+    // Always attach basic blogs info
+    const blogs = await this.getBlogsContext();
+    if (blogs) contextStr += blogs + '\n';
 
     // If user is on LeetCode page, fetch extra LeetCode context
     if (urlContext.toLowerCase().includes('/leetcode')) {
