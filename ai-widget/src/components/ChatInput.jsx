@@ -65,13 +65,16 @@ export default function ChatInput({ onSend }) {
     const reader = new FileReader()
     reader.onload = async (ev) => {
       const base64Data = ev.target.result.split(',')[1]
+      const mimeType = file.type || 'text/plain'
+      const isImage = mimeType.startsWith('image/')
+      
       try {
         const response = await fetch(`${SOCKET_URL}/api/chat/upload`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             fileName: file.name,
-            mimeType: file.type || 'text/plain',
+            mimeType: mimeType,
             data: base64Data
           })
         })
@@ -94,7 +97,8 @@ export default function ChatInput({ onSend }) {
           fileUri: data.fileUri,
           mimeType: data.mimeType,
           name: data.name,
-          size: file.size
+          size: file.size,
+          previewUrl: isImage ? ev.target.result : null
         })
       } catch (err) {
         setUploadError(err.message || 'Upload failed')
@@ -129,8 +133,12 @@ export default function ChatInput({ onSend }) {
               <button onClick={() => setUploadError('')}>✕</button>
             </div>
           ) : attachmentFile ? (
-            <div className="cbt-attachment-item">
-              <span className="cbt-attachment-icon">📎</span>
+            <div className={`cbt-attachment-item ${attachmentFile.previewUrl ? 'has-image-preview' : ''}`}>
+              {attachmentFile.previewUrl ? (
+                <img src={attachmentFile.previewUrl} alt="preview" className="cbt-attachment-img-thumb" />
+              ) : (
+                <span className="cbt-attachment-icon">📎</span>
+              )}
               <span className="cbt-attachment-name">{attachmentFile.name}</span>
               <button className="cbt-attachment-remove" onClick={clearAttachment} title="Remove file">✕</button>
             </div>

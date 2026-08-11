@@ -851,6 +851,17 @@
   gap: 8px;
 }
 
+.cbt-attachment-item.has-image-preview {
+  padding: 4px 10px 4px 4px;
+}
+
+.cbt-attachment-img-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
 .cbt-attachment-item {
   display: flex;
   align-items: center;
