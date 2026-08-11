@@ -165,6 +165,14 @@ export function ChatProvider({ children }) {
             ...newMessages[lastIndex],
             text: newMessages[lastIndex].text + chunkText,
           }
+        } else {
+          // If the last message is not from AI, create the AI message bubble
+          newMessages.push({
+            id: `ai-${Date.now()}`,
+            role: 'ai',
+            text: chunkText,
+            timestamp: new Date().toISOString()
+          })
         }
         return { ...s, messages: newMessages, updatedAt: Date.now() }
       }

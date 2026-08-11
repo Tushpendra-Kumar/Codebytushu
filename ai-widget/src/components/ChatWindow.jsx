@@ -35,10 +35,7 @@ export default function ChatWindow() {
     const handleTyping = ({ status }) => setIsTyping(status)
     
     const handleChunk = ({ text }) => {
-      if (!isStreaming) {
-        setIsStreaming(true)
-        addMessage('ai', '') // Create empty bubble to start appending
-      }
+      if (!isStreaming) setIsStreaming(true)
       updateLastMessage(text)
     }
 
