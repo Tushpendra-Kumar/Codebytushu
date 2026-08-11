@@ -87,7 +87,7 @@ function renderMarkdown(text) {
   return elements
 }
 
-export default function MessageBubble({ message }) {
+export default function MessageBubble({ message, onFeedback }) {
   const isUser = message.role === 'user'
   
   const timeStr = message.timestamp
@@ -124,7 +124,25 @@ export default function MessageBubble({ message }) {
             {timeStr}
           </span>
           {!isUser && message.id !== 'welcome' && (
-            <CopyButton textToCopy={message.text} label="📋 Copy Answer" successLabel="✓ Copied" className="cbt-copy-answer-btn" />
+            <div className="cbt-message__actions">
+              <CopyButton textToCopy={message.text} label="📋 Copy" successLabel="✓ Copied" className="cbt-copy-answer-btn" />
+              <div className="cbt-feedback-group">
+                <button 
+                  className={`cbt-feedback-btn ${message.feedback === 'like' ? 'active' : ''}`}
+                  onClick={() => onFeedback && onFeedback(message.id, 'like')}
+                  title="Helpful response"
+                >
+                  👍
+                </button>
+                <button 
+                  className={`cbt-feedback-btn ${message.feedback === 'dislike' ? 'active' : ''}`}
+                  onClick={() => onFeedback && onFeedback(message.id, 'dislike')}
+                  title="Unhelpful response"
+                >
+                  👎
+                </button>
+              </div>
+            </div>
           )}
         </div>
       </div>

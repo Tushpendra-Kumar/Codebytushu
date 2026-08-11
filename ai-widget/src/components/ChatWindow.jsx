@@ -12,8 +12,8 @@ import ChatInput from './ChatInput'
 
 export default function ChatWindow() {
   const { 
-    isOpen, messages, isTyping, sessions, activeSessionId,
-    closeChat, addMessage, updateLastMessage, 
+    isOpen, messages, isTyping, sessions, activeSessionId, userId,
+    closeChat, addMessage, updateLastMessage, setFeedback,
     setIsTyping, clearActiveSession, createNewSession, loadSession, deleteSession
   } = useChat()
   const messagesEndRef = useRef(null)
@@ -95,6 +95,18 @@ export default function ChatWindow() {
   const confirmClearChat = () => {
     clearActiveSession()
     setIsClearModalOpen(false)
+  }
+
+  const handleFeedback = (messageId, type) => {
+    setFeedback(messageId, type)
+    if (connected) {
+      sendMessage('chat:feedback', {
+        userId,
+        sessionId: activeSessionId,
+        messageId,
+        feedbackType: type
+      })
+    }
   }
 
   return (
@@ -205,7 +217,7 @@ export default function ChatWindow() {
           {/* ── Messages List ──────────────────────────────────────────────────── */}
           <div className="cbt-chat-messages" role="log" aria-live="polite">
             {messages.map((msg) => (
-              <MessageBubble key={msg.id} message={msg} />
+              <MessageBubble key={msg.id} message={msg} onFeedback={handleFeedback} />
             ))}
             {isTyping && <TypingIndicator />}
             <div ref={messagesEndRef} />

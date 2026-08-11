@@ -1,5 +1,6 @@
 const { streamAIResponse } = require('../services/aiService');
 const xss = require('xss');
+const db = require('../config/db'); // Import DB pool for feedback storage
 
 /**
  * Registers Socket.IO event listeners for basic chat functionality.
@@ -44,6 +45,38 @@ function registerChatHandlers(io, socket) {
       });
     } finally {
       socket.emit('chat:typing', { status: false });
+    }
+  });
+
+  // Handle AI Feedback (Like/Dislike)
+  socket.on('chat:feedback', async (data) => {
+    let { userId, sessionId, messageId, feedbackType } = data;
+    
+    // Basic validation
+    if (!sessionId || !messageId || !['like', 'dislike'].includes(feedbackType)) {
+      return; // Silently ignore invalid feedback
+    }
+
+    // Sanitize strings just to be safe
+    const sUserId = typeof userId === 'string' ? xss(userId).substring(0, 255) : null;
+    const sSessionId = xss(sessionId).substring(0, 255);
+    const sMessageId = xss(messageId).substring(0, 255);
+
+    try {
+      // Use INSERT ... ON DUPLICATE KEY UPDATE to elegantly handle switching from like to dislike
+      const query = `
+        INSERT INTO ai_feedback (user_id, session_id, message_id, feedback_type) 
+        VALUES (?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE 
+        feedback_type = VALUES(feedback_type), 
+        updated_at = CURRENT_TIMESTAMP
+      `;
+      
+      await db.execute(query, [sUserId, sSessionId, sMessageId, feedbackType]);
+      console.log(`👍👎 [Socket ${socket.id}] Feedback saved: ${feedbackType} for msg ${sMessageId}`);
+    } catch (error) {
+      // We log but don't emit error to user to avoid disrupting chat
+      console.error(`❌ [Socket ${socket.id}] Failed to save feedback:`, error.message);
     }
   });
 }

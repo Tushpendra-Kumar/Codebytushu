@@ -172,9 +172,28 @@ export function ChatProvider({ children }) {
     }))
   }, [activeSessionId])
 
+  // Update feedback (like/dislike) for a specific message
+  const setFeedback = useCallback((messageId, feedbackType) => {
+    setSessions(prev => prev.map(s => {
+      if (s.id === activeSessionId) {
+        return {
+          ...s,
+          messages: s.messages.map(msg => 
+            msg.id === messageId ? { ...msg, feedback: feedbackType } : msg
+          ),
+          updatedAt: Date.now()
+        }
+      }
+      return s
+    }))
+  }, [activeSessionId])
+
   // Derive current messages
   const activeSession = sessions.find(s => s.id === activeSessionId)
   const messages = activeSession ? activeSession.messages : []
+  
+  // Get user info from storageKey if authenticated (e.g. "cbt_ai_chats_user_123" -> "123")
+  const userId = storageKey.startsWith('cbt_ai_chats_user_') ? storageKey.replace('cbt_ai_chats_user_', '') : null
 
   return (
     <ChatContext.Provider
@@ -186,6 +205,7 @@ export function ChatProvider({ children }) {
         sessions,
         activeSessionId,
         isInitialized,
+        userId,
         setIsTyping,
         setInputValue,
         openChat,
@@ -197,6 +217,7 @@ export function ChatProvider({ children }) {
         createNewSession,
         loadSession,
         deleteSession,
+        setFeedback,
       }}
     >
       {children}
