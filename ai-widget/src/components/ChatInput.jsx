@@ -48,7 +48,9 @@ export default function ChatInput({ onSend }) {
       recognition.onerror = (event) => {
         console.error("Speech recognition error", event.error);
         if (event.error === 'not-allowed') {
-          alert('Microphone permission is required to use voice input. Please allow microphone access in your browser settings.');
+          setUploadError('Microphone access is blocked. Please allow microphone access in your browser settings and try again.');
+        } else if (event.error === 'network') {
+          setUploadError('Network error occurred during voice recognition.');
         }
         setIsListening(false);
       };
@@ -61,19 +63,30 @@ export default function ChatInput({ onSend }) {
     }
   }, [setInputValue]);
 
-  const toggleListen = () => {
+  const toggleListen = async () => {
     if (isListening) {
       recognitionRef.current?.stop();
       setIsListening(false);
     } else {
       if (!recognitionRef.current) {
-        alert("Voice input is not supported in this browser. Please use a supported browser or type your message instead.");
+        setUploadError("Voice input is not supported in this browser. Please use a supported browser or type your message instead.");
         return;
       }
+      
       try {
+        // Explicitly request browser microphone permission
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          // Stop the stream immediately, we just needed the permission grant
+          stream.getTracks().forEach(track => track.stop());
+        }
+        
+        // Start speech recognition now that permission is guaranteed
         recognitionRef.current.start();
+        setUploadError(''); // Clear any previous errors
       } catch (err) {
-        console.error(err);
+        console.error("Microphone access error:", err);
+        setUploadError("Microphone access is blocked. Please allow microphone permission in your browser settings and try again.");
       }
     }
   }
