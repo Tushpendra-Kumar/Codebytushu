@@ -29,6 +29,19 @@ function CopyButton({ textToCopy, label = "Copy", successLabel = "Copied ✓", c
   )
 }
 
+const CopyIcon = (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+  </svg>
+)
+
+const CheckIcon = (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="20 6 9 17 4 12"></polyline>
+  </svg>
+)
+
 function formatText(text) {
   // Escape HTML to prevent XSS
   const escaped = text
@@ -74,7 +87,7 @@ function renderMarkdown(text) {
         <div key={`code-${i}`} className="cbt-code-block-container">
           <div className="cbt-code-block-header">
             <span className="cbt-code-lang">{lang || 'code'}</span>
-            <CopyButton textToCopy={code.trim()} label="📋 Copy Code" successLabel="✓ Copied" className="cbt-copy-code-btn" />
+            <CopyButton textToCopy={code.trim()} label={CopyIcon} successLabel={CheckIcon} className="cbt-copy-code-btn" />
           </div>
           <pre className="cbt-code-block">
             <code>{code}</code>
@@ -125,7 +138,7 @@ export default function MessageBubble({ message, onFeedback }) {
           </span>
           {!isUser && message.id !== 'welcome' && (
             <div className="cbt-message__actions">
-              <CopyButton textToCopy={message.text} label="📋 Copy" successLabel="✓ Copied" className="cbt-copy-answer-btn" />
+              <CopyButton textToCopy={message.text} label={CopyIcon} successLabel={CheckIcon} className="cbt-feedback-btn" />
               <div className="cbt-feedback-group">
                 <button 
                   className={`cbt-feedback-btn ${message.feedback === 'like' ? 'active' : ''}`}
