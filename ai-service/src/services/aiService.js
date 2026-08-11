@@ -50,6 +50,31 @@ Never provide a link that results in a 404. If you don't know the exact URL, pro
 }
 
 /**
+ * Helper to determine if the user's current prompt explicitly references or requires 
+ * context from a previously uploaded file/resume.
+ */
+async function isHistoricalFileRelevant(prompt, genAI) {
+  try {
+    const checkPrompt = `You are an intent analyzer. The user previously uploaded a file. 
+The user's new message is: "${prompt}". 
+Does this message explicitly refer to the file, use pronouns like 'it/this/that' implying the file, or logically require context from the uploaded file? 
+Reply ONLY with YES or NO.`;
+    
+    const result = await genAI.models.generateContent({
+      model: 'gemini-1.5-flash',
+      contents: checkPrompt,
+      config: { maxOutputTokens: 5, temperature: 0.1 }
+    });
+    
+    const text = result.text || result?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    return text.toUpperCase().includes('YES');
+  } catch (error) {
+    console.error('[AI Service] Pre-flight intent check failed, defaulting to false:', error.message);
+    return false;
+  }
+}
+
+/**
  * Core AI response generator.
  * Uses @google/genai v2.x streaming API.
  */
@@ -60,6 +85,15 @@ async function streamAIResponse(prompt, contextHistory = [], onChunk, attachment
 
   const genAI = new GoogleGenAI({ apiKey: config.GEMINI_API_KEY });
 
+  // 1. Pre-flight Check: Does history contain files, and is the prompt referring to them?
+  const hasHistoricalFiles = contextHistory.some(msg => msg.role === 'user' && msg.attachment && msg.attachment.fileUri);
+  let includeHistoricalFiles = false;
+  
+  if (hasHistoricalFiles) {
+    includeHistoricalFiles = await isHistoricalFileRelevant(prompt, genAI);
+    console.log(`[AI Service] Pre-flight check: Historical files relevant? ${includeHistoricalFiles}`);
+  }
+
   const contents = [];
   
   // Add previous history
@@ -67,8 +101,8 @@ async function streamAIResponse(prompt, contextHistory = [], onChunk, attachment
     if (msg.role === 'user' || msg.role === 'ai') {
       const partObj = { text: msg.text || '' };
       
-      // If a historical message has an attachment, include it to preserve context
-      if (msg.role === 'user' && msg.attachment && msg.attachment.fileUri) {
+      // Conditionally include historical attachments based on pre-flight check
+      if (msg.role === 'user' && msg.attachment && msg.attachment.fileUri && includeHistoricalFiles) {
         contents.push({
           role: 'user',
           parts: [
