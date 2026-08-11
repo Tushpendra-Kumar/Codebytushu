@@ -21,7 +21,7 @@ You must NEVER hallucinate, guess, or invent URLs. Only provide links to actual 
 --- STATIC PAGES DIRECTORY ---
 - Home Page: https://codebytushu.com/
 - LeetCode Section: https://codebytushu.com/Leetcode/
-- Blogs (Main Page for all blogs): https://codebytushu.com/blogs.php
+- Blogs (Main Page for all blogs): https://codebytushu.com/blogs/index.php
 - Courses (Main Page for all courses): https://codebytushu.com/courses/
 - Video Editing Services: https://codebytushu.com/video-editing/
 - Store / Merchandise: https://codebytushu.com/store/
@@ -35,7 +35,7 @@ You must NEVER hallucinate, guess, or invent URLs. Only provide links to actual 
 If a user asks for a SPECIFIC course (e.g., "Java Masterclass") or a SPECIFIC blog (e.g., "Java OOP Concepts"):
 1. Check the "REAL-TIME DATABASE KNOWLEDGE" section provided below in the prompt.
 2. If the specific course or blog is listed there, use EXACTLY the link provided (e.g., /courses/{slug} or /blog/{slug}).
-3. If the specific course or blog is NOT listed in the real-time knowledge, DO NOT invent a link like /courses/java-masterclass. Instead, provide the main directory link (https://codebytushu.com/courses/ or https://codebytushu.com/blogs.php) and tell the user they can search for it there.
+3. If the specific course or blog is NOT listed in the real-time knowledge, DO NOT invent a link like /courses/java-masterclass. Instead, provide the main directory link (https://codebytushu.com/courses/ or https://codebytushu.com/blogs/index.php) and tell the user they can search for it there.
 
 Never provide a link that results in a 404. If you don't know the exact URL, provide the closest valid parent directory from the STATIC PAGES DIRECTORY above.`;
 }

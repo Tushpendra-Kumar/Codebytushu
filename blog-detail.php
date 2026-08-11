@@ -697,7 +697,7 @@ img { max-width: 100%; display: block; }
         <div class="nav-links">
             <a href="/" class="nav-link">Home</a>
             <a href="/Leetcode/problems.php" class="nav-link">LeetCode</a>
-            <a href="/blogs.php" class="nav-link">Blog</a>
+            <a href="/blogs/index.php" class="nav-link">Blog</a>
             <a href="/admin/" class="nav-link">Admin</a>
         </div>
     </div>
@@ -721,12 +721,12 @@ img { max-width: 100%; display: block; }
         <!-- Badges -->
         <div class="header-badges">
             <?php if (!empty($blog['category_name'])): ?>
-            <a href="/blogs.php?cat=<?= e($blog['category_slug'] ?? '') ?>" class="cat-badge">
+            <a href="/blogs/index.php?cat=<?= e($blog['category_slug'] ?? '') ?>" class="cat-badge">
                 <?= e($blog['category_name']) ?>
             </a>
             <?php endif; ?>
             <?php foreach ($postTags as $tag): ?>
-            <a href="/blogs.php?tag=<?= e($tag['slug'] ?? '') ?>" class="tag-badge">
+            <a href="/blogs/index.php?tag=<?= e($tag['slug'] ?? '') ?>" class="tag-badge">
                 <?= e($tag['name']) ?>
             </a>
             <?php endforeach; ?>
@@ -932,7 +932,7 @@ img { max-width: 100%; display: block; }
         </div>
 
         <!-- Back to Blog -->
-        <a href="/blogs.php" class="share-btn" style="justify-content:center;padding:12px;border-radius:var(--radius);text-align:center;">
+        <a href="/blogs/index.php" class="share-btn" style="justify-content:center;padding:12px;border-radius:var(--radius);text-align:center;">
             â† Back to All Blogs
         </a>
 
@@ -948,7 +948,7 @@ img { max-width: 100%; display: block; }
         </div>
         <div class="footer-links">
             <a href="/">Home</a>
-            <a href="/blogs.php">Blog</a>
+            <a href="/blogs/index.php">Blog</a>
             <a href="/Leetcode/problems.php">LeetCode</a>
             <a href="/admin/">Admin</a>
         </div>
