@@ -112,12 +112,7 @@ function generateOrderNumber(): string {
 $pdo = db();
 
 try {
-    // Ensure course_id allows NULL (Fix for store products)
-    try {
-        $pdo->exec("ALTER TABLE `order_items` MODIFY COLUMN `course_id` INT UNSIGNED NULL");
-    } catch (\Exception $ex) {
-        // Ignore if already null or insufficient permissions
-    }
+    // Database schema is already fixed via migration/script
 
     $pdo->beginTransaction();
 
@@ -220,8 +215,10 @@ try {
         'payment_method' => $paymentMethod
     ]);
 
-} catch (Exception $e) {
-    $pdo->rollBack();
+} catch (\Throwable $e) {
+    if ($pdo->inTransaction()) {
+        $pdo->rollBack();
+    }
     error_log('Store checkout error: ' . $e->getMessage());
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Server error: ' . $e->getMessage()]);
