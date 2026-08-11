@@ -158,7 +158,6 @@ class QikinkAPI
             }
 
             $lineItems[] = [
-                'search_from_my_products' => '0',
                 'sku'                     => $item['qikink_base_sku'],
                 'quantity'                => (string)$item['quantity'],
                 'price'                   => (string)$item['price'],
