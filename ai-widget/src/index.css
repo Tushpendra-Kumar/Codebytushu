@@ -749,19 +749,12 @@
 
 /* ── Chat History Panel ─────────────────────────────────────────────────── */
 .cbt-chat-history-panel {
-  position: absolute;
-  top: 60px; /* Below the header */
-  left: 0;
-  width: 100%;
-  height: calc(100% - 60px);
+  flex: 1;
   background: var(--cbt-bg);
-  z-index: 10;
   display: flex;
   flex-direction: column;
-  padding: 16px 20px;
+  padding: 16px 20px 0;
   overflow-y: auto;
-  border-bottom-left-radius: var(--cbt-radius-lg);
-  border-bottom-right-radius: var(--cbt-radius-lg);
 }
 
 /* Ensure smooth scrolling */
