@@ -652,9 +652,10 @@
 
 .cbt-chat-textarea {
   flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   color: var(--cbt-text-primary);
   font-size: 14px;
   font-weight: 500;
@@ -665,6 +666,15 @@
   padding: 0;
   margin: 0;
   overflow: hidden;
+}
+
+.cbt-chat-textarea:focus,
+.cbt-chat-textarea:focus-visible,
+.cbt-chat-textarea:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
 
 .cbt-chat-textarea::placeholder {
@@ -682,8 +692,8 @@
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: var(--cbt-gold);
-  color: #000000;
+  background: transparent;
+  color: var(--cbt-gold);
   border: none;
   cursor: pointer;
   display: flex;
@@ -694,12 +704,12 @@
 }
 
 .cbt-chat-send-btn:hover {
-  background: #ffdb4d;
+  background: rgba(255, 196, 0, 0.1);
   transform: scale(1.05);
 }
 
 .cbt-chat-send-btn--disabled {
-  background: var(--cbt-bg-3);
+  background: transparent;
   color: var(--cbt-text-muted);
   cursor: not-allowed;
   transform: none;
