@@ -909,18 +909,74 @@
   to { transform: rotate(360deg); }
 }
 
-.cbt-message-attachment {
-  display: inline-flex;
+.cbt-message-attachment-card {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 4px 10px;
-  border-radius: 8px;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.cbt-attachment-icon-box {
+  width: 44px;
+  height: 44px;
+  background: #111;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.cbt-attachment-icon-box svg {
+  width: 20px;
+  height: 20px;
+  margin-bottom: -2px;
+}
+
+.cbt-icon-text {
+  font-size: 9px;
+  color: #ff4757;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.cbt-attachment-details {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cbt-attachment-details .cbt-attachment-name {
+  color: #111;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.cbt-attachment-meta {
+  color: rgba(0, 0, 0, 0.5);
   font-size: 12px;
-  color: var(--cbt-text-secondary);
-  margin-bottom: 8px;
-  word-break: break-all;
+  line-height: 1;
+}
+
+.cbt-attachment-action {
+  color: rgba(0, 0, 0, 0.4);
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
 }
 
 .cbt-chat-send-btn {

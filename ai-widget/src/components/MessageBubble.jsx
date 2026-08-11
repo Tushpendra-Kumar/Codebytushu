@@ -129,9 +129,29 @@ export default function MessageBubble({ message, onFeedback }) {
         ) : (
           <div className={`cbt-message__bubble ${isUser ? 'cbt-message__bubble--user' : 'cbt-message__bubble--ai'}`}>
             {message.attachment && (
-              <div className="cbt-message-attachment">
-                <span className="cbt-attachment-icon">📎</span>
-                <span className="cbt-attachment-name">{message.attachment.name}</span>
+              <div className="cbt-message-attachment-card">
+                <div className="cbt-attachment-icon-box">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4757" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                  <span className="cbt-icon-text">
+                    {message.attachment.mimeType?.includes('pdf') ? 'PDF' : 'DOC'}
+                  </span>
+                </div>
+                <div className="cbt-attachment-details">
+                  <span className="cbt-attachment-name">{message.attachment.name}</span>
+                  <span className="cbt-attachment-meta">
+                    {message.attachment.mimeType?.includes('pdf') ? 'PDF' : 'FILE'} 
+                    {message.attachment.size ? ` • ${Math.round(message.attachment.size / 1024)} KB` : ''}
+                  </span>
+                </div>
+                <div className="cbt-attachment-action">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </div>
               </div>
             )}
             {message.text && renderMarkdown(message.text)}

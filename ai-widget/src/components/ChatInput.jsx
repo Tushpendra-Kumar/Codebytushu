@@ -93,7 +93,8 @@ export default function ChatInput({ onSend }) {
         setAttachmentFile({
           fileUri: data.fileUri,
           mimeType: data.mimeType,
-          name: data.name
+          name: data.name,
+          size: file.size
         })
       } catch (err) {
         setUploadError(err.message || 'Upload failed')
