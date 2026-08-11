@@ -50,7 +50,7 @@ export default function ChatInput({ onSend }) {
         if (event.error === 'not-allowed') {
           setUploadError('Microphone access is blocked. Please allow microphone access in your browser settings and try again.');
         } else if (event.error === 'network') {
-          setUploadError('Network error occurred during voice recognition.');
+          setUploadError('Network error: Voice recognition is blocked by your browser (e.g. Brave Shields) or you are offline.');
         }
         setIsListening(false);
       };
