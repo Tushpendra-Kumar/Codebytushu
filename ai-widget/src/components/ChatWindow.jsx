@@ -1,6 +1,6 @@
 // ─── ChatWindow ──────────────────────────────────────────────────────────────
 // Main chat window — header, messages list, typing indicator, input.
-// In Phase 2, this component will connect to Socket.IO for real-time messages.
+// Includes Phase 3 features: Chat History Panel and Clear Chat Modal.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useEffect, useRef, useState } from 'react'
@@ -12,12 +12,16 @@ import ChatInput from './ChatInput'
 
 export default function ChatWindow() {
   const { 
-    isOpen, messages, isTyping, 
+    isOpen, messages, isTyping, sessions, activeSessionId,
     closeChat, addMessage, updateLastMessage, 
-    setIsTyping, clearMessages 
+    setIsTyping, clearActiveSession, createNewSession, loadSession, deleteSession
   } = useChat()
   const messagesEndRef = useRef(null)
   
+  // Local UI State
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false)
+  const [isClearModalOpen, setIsClearModalOpen] = useState(false)
+
   // Initialize socket connection
   const { socket, connected, connectionError, sendMessage } = useSocket()
   
@@ -64,10 +68,10 @@ export default function ChatWindow() {
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
-    if (isOpen && messagesEndRef.current) {
+    if (isOpen && messagesEndRef.current && !isHistoryOpen) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [messages, isTyping, isOpen])
+  }, [messages, isTyping, isOpen, isHistoryOpen])
 
   // Handle sending a message to Node.js backend
   const handleSend = (text) => {
@@ -86,6 +90,11 @@ export default function ChatWindow() {
       url: window.location.pathname, // Contextual routing (Phase 3 prep)
       history: messages.slice(-5) // Send last 5 messages as context
     })
+  }
+
+  const confirmClearChat = () => {
+    clearActiveSession()
+    setIsClearModalOpen(false)
   }
 
   return (
@@ -114,8 +123,18 @@ export default function ChatWindow() {
         </div>
         <div className="cbt-chat-header__actions">
           <button
+            className={`cbt-header-btn ${isHistoryOpen ? 'active' : ''}`}
+            onClick={() => setIsHistoryOpen(!isHistoryOpen)}
+            title="Chat History"
+            aria-label="Chat History"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          <button
             className="cbt-header-btn"
-            onClick={clearMessages}
+            onClick={() => setIsClearModalOpen(true)}
             title="Clear conversation"
             aria-label="Clear conversation"
           >
@@ -136,18 +155,66 @@ export default function ChatWindow() {
         </div>
       </div>
 
-      {/* ── Messages List ──────────────────────────────────────────────────── */}
-      <div className="cbt-chat-messages" role="log" aria-live="polite">
-        {messages.map((msg) => (
-          <MessageBubble key={msg.id} message={msg} />
-        ))}
-        {isTyping && <TypingIndicator />}
-        <div ref={messagesEndRef} />
-      </div>
+      {/* ── Clear Chat Modal ───────────────────────────────────────────────── */}
+      {isClearModalOpen && (
+        <div className="cbt-modal-overlay">
+          <div className="cbt-modal-content">
+            <h4>Clear Chat?</h4>
+            <p>Are you sure you want to clear this conversation? This action will remove the current chat messages.</p>
+            <div className="cbt-modal-actions">
+              <button className="cbt-btn-cancel" onClick={() => setIsClearModalOpen(false)}>Cancel</button>
+              <button className="cbt-btn-confirm" onClick={confirmClearChat}>Clear Chat</button>
+            </div>
+          </div>
+        </div>
+      )}
 
+      {/* ── Chat History Panel ─────────────────────────────────────────────── */}
+      {isHistoryOpen ? (
+        <div className="cbt-chat-history-panel">
+          <div className="cbt-history-header">
+            <h4>Chat History</h4>
+            <button className="cbt-new-chat-btn" onClick={() => { createNewSession(); setIsHistoryOpen(false); }}>
+              + New Chat
+            </button>
+          </div>
+          <div className="cbt-history-list">
+            {sessions.map(session => (
+              <div 
+                key={session.id} 
+                className={`cbt-history-item ${session.id === activeSessionId ? 'active' : ''}`}
+                onClick={() => { loadSession(session.id); setIsHistoryOpen(false); }}
+              >
+                <div className="cbt-history-item-title">{session.title}</div>
+                <button 
+                  className="cbt-history-delete-btn"
+                  onClick={(e) => { e.stopPropagation(); deleteSession(session.id); }}
+                  title="Delete chat"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            ))}
+            {sessions.length === 0 && <div className="cbt-history-empty">No previous chats.</div>}
+          </div>
+        </div>
+      ) : (
+        <>
+          {/* ── Messages List ──────────────────────────────────────────────────── */}
+          <div className="cbt-chat-messages" role="log" aria-live="polite">
+            {messages.map((msg) => (
+              <MessageBubble key={msg.id} message={msg} />
+            ))}
+            {isTyping && <TypingIndicator />}
+            <div ref={messagesEndRef} />
+          </div>
 
-      {/* ── Input Area ─────────────────────────────────────────────────────── */}
-      <ChatInput onSend={handleSend} isTyping={isTyping} />
+          {/* ── Input Area ─────────────────────────────────────────────────────── */}
+          <ChatInput onSend={handleSend} isTyping={isTyping} />
+        </>
+      )}
       
       {/* ── Footer Branding ────────────────────────────────────────────────── */}
       <div className="cbt-chat-footer-brand">
