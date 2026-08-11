@@ -12,13 +12,17 @@ const registerChatHandlers = require('./sockets/chatHandler');
 // Initialize Express App
 const app = express();
 
+const uploadRoute = require('./routes/upload');
+
 // Security Middleware
 app.use(helmet());
 app.use(cors({
   origin: '*', // Allow all origins for the public widget
   methods: ['GET', 'POST']
 }));
-app.use(express.json());
+app.use(express.json({ limit: '15mb' }));
+
+app.use('/api/chat', uploadRoute);
 
 // API Rate Limiter (to prevent token spam)
 const tokenLimiter = rateLimit({

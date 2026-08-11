@@ -74,8 +74,8 @@ export default function ChatWindow() {
   }, [messages, isTyping, isOpen, isHistoryOpen])
 
   // Handle sending a message to Node.js backend
-  const handleSend = (text) => {
-    addMessage('user', text)
+  const handleSend = (text, attachment) => {
+    addMessage('user', text, attachment)
     
     if (!connected) {
       const errorMsg = connectionError ? ` (${connectionError})` : ''
@@ -87,8 +87,9 @@ export default function ChatWindow() {
     setIsStreaming(false) // reset flag for new request
     sendMessage('chat:send', {
       text,
+      attachment,
       url: window.location.pathname, // Contextual routing (Phase 3 prep)
-      history: messages.slice(-5) // Send last 5 messages as context
+      history: messages.slice(0, -1) // Excluding the message just added locally
     })
   }
 

@@ -126,7 +126,7 @@ export function ChatProvider({ children }) {
   const toggleChat = useCallback(() => setIsOpen((prev) => !prev), [])
 
   // Add a new message to the active session
-  const addMessage = useCallback((role, text) => {
+  const addMessage = useCallback((role, text, attachment = null) => {
     const msgId = `${role}-${Date.now()}`
     setSessions(prev => {
       const activeIndex = prev.findIndex(s => s.id === activeSessionId)
@@ -137,14 +137,14 @@ export function ChatProvider({ children }) {
 
       // Auto-generate title from first user message
       if (role === 'user' && activeSession.title === 'New Chat') {
-        newTitle = text.slice(0, 30) + (text.length > 30 ? '...' : '')
+        newTitle = (attachment ? `[File] ` : '') + (text ? text.slice(0, 30) + (text.length > 30 ? '...' : '') : attachment ? attachment.name : 'New Chat')
       }
 
       const updatedSession = {
         ...activeSession,
         title: newTitle,
         updatedAt: Date.now(),
-        messages: [...activeSession.messages, { id: msgId, role, text, timestamp: new Date().toISOString() }]
+        messages: [...activeSession.messages, { id: msgId, role, text, attachment, timestamp: new Date().toISOString() }]
       }
 
       // Move updated session to top

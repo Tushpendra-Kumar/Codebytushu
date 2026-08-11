@@ -128,7 +128,13 @@ export default function MessageBubble({ message, onFeedback }) {
           </div>
         ) : (
           <div className={`cbt-message__bubble ${isUser ? 'cbt-message__bubble--user' : 'cbt-message__bubble--ai'}`}>
-            {renderMarkdown(message.text)}
+            {message.attachment && (
+              <div className="cbt-message-attachment">
+                <span className="cbt-attachment-icon">📎</span>
+                <span className="cbt-attachment-name">{message.attachment.name}</span>
+              </div>
+            )}
+            {message.text && renderMarkdown(message.text)}
           </div>
         )}
         

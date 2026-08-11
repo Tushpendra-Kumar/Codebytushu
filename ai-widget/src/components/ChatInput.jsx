@@ -3,7 +3,7 @@
 // Handles Enter key (Shift+Enter for newline) and character limit.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useChat } from '../context/ChatContext'
 
 const MAX_CHARS = 500
@@ -11,9 +11,13 @@ const MAX_CHARS = 500
 export default function ChatInput({ onSend }) {
   const { inputValue, setInputValue, isTyping } = useChat()
   const textareaRef = useRef(null)
+  const fileInputRef = useRef(null)
+
+  const [attachmentFile, setAttachmentFile] = useState(null)
+  const [isUploading, setIsUploading] = useState(false)
+  const [uploadError, setUploadError] = useState('')
 
   const handleKeyDown = (e) => {
-    // Send on Enter (not Shift+Enter)
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       handleSend()
@@ -22,10 +26,12 @@ export default function ChatInput({ onSend }) {
 
   const handleSend = () => {
     const trimmed = inputValue.trim()
-    if (!trimmed || isTyping) return
-    onSend(trimmed)
+    if ((!trimmed && !attachmentFile) || isTyping || isUploading) return
+    
+    onSend(trimmed, attachmentFile)
     setInputValue('')
-    // Reset textarea height
+    setAttachmentFile(null)
+    setUploadError('')
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto'
     }
@@ -35,7 +41,6 @@ export default function ChatInput({ onSend }) {
     const val = e.target.value
     if (val.length > MAX_CHARS) return
     setInputValue(val)
-    // Auto-grow textarea
     const el = textareaRef.current
     if (el) {
       el.style.height = 'auto'
@@ -43,12 +48,103 @@ export default function ChatInput({ onSend }) {
     }
   }
 
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    e.target.value = '' // reset
+
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('File exceeds 5MB limit.')
+      return
+    }
+
+    setUploadError('')
+    setIsUploading(true)
+
+    const reader = new FileReader()
+    reader.onload = async (ev) => {
+      const base64Data = ev.target.result.split(',')[1]
+      try {
+        // Find backend URL if different
+        const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:5000' : ''
+        const response = await fetch(`${baseUrl}/api/chat/upload`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fileName: file.name,
+            mimeType: file.type || 'text/plain',
+            data: base64Data
+          })
+        })
+        const data = await response.json()
+        if (data.error) throw new Error(data.error)
+        
+        setAttachmentFile({
+          fileUri: data.fileUri,
+          mimeType: data.mimeType,
+          name: data.name
+        })
+      } catch (err) {
+        setUploadError(err.message || 'Upload failed')
+      } finally {
+        setIsUploading(false)
+      }
+    }
+    reader.readAsDataURL(file)
+  }
+
+  const clearAttachment = () => {
+    setAttachmentFile(null)
+    setUploadError('')
+  }
+
   const remaining = MAX_CHARS - inputValue.length
-  const isEmpty = !inputValue.trim()
+  const isEmpty = !inputValue.trim() && !attachmentFile
+  const isDisabled = isEmpty || isTyping || isUploading
 
   return (
     <div className="cbt-chat-input-area">
+      {/* File Preview Area */}
+      {(attachmentFile || isUploading || uploadError) && (
+        <div className="cbt-attachment-preview">
+          {isUploading ? (
+            <div className="cbt-attachment-item uploading">
+              <span className="cbt-spinner"></span> Uploading...
+            </div>
+          ) : uploadError ? (
+            <div className="cbt-attachment-item error">
+              <span>⚠️ {uploadError}</span>
+              <button onClick={() => setUploadError('')}>✕</button>
+            </div>
+          ) : attachmentFile ? (
+            <div className="cbt-attachment-item">
+              <span className="cbt-attachment-icon">📎</span>
+              <span className="cbt-attachment-name">{attachmentFile.name}</span>
+              <button className="cbt-attachment-remove" onClick={clearAttachment} title="Remove file">✕</button>
+            </div>
+          ) : null}
+        </div>
+      )}
+
       <div className="cbt-chat-input-wrapper">
+        <button 
+          className="cbt-chat-attach-btn" 
+          onClick={() => fileInputRef.current?.click()}
+          disabled={isTyping || isUploading || attachmentFile}
+          title="Attach file (PDF, Image, Code)"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+          </svg>
+        </button>
+        <input 
+          type="file" 
+          ref={fileInputRef} 
+          style={{ display: 'none' }}
+          onChange={handleFileSelect}
+          accept="image/*,.pdf,.doc,.docx,.txt,.java,.js,.jsx,.ts,.tsx,.py,.cpp,.c,.cs,.php,.html,.css,.sql,.json,.xml,.md"
+        />
+
         <textarea
           ref={textareaRef}
           className="cbt-chat-textarea"
@@ -57,14 +153,15 @@ export default function ChatInput({ onSend }) {
           onKeyDown={handleKeyDown}
           placeholder="Type your question here..."
           rows={1}
-          disabled={isTyping}
+          disabled={isTyping || isUploading}
           aria-label="Chat message input"
           maxLength={MAX_CHARS}
         />
+        
         <button
-          className={`cbt-chat-send-btn ${isEmpty || isTyping ? 'cbt-chat-send-btn--disabled' : ''}`}
+          className={`cbt-chat-send-btn ${isDisabled ? 'cbt-chat-send-btn--disabled' : ''}`}
           onClick={handleSend}
-          disabled={isEmpty || isTyping}
+          disabled={isDisabled}
           aria-label="Send message"
           title="Send (Enter)"
         >

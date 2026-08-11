@@ -45,7 +45,7 @@ Never provide a link that results in a 404. If you don't know the exact URL, pro
  * Core AI response generator.
  * Uses @google/genai v2.x streaming API.
  */
-async function streamAIResponse(prompt, contextHistory = [], onChunk) {
+async function streamAIResponse(prompt, contextHistory = [], onChunk, attachment = null) {
   if (!config.GEMINI_API_KEY) {
     throw new Error('GEMINI_API_KEY is not configured in environment variables.');
   }
@@ -57,17 +57,36 @@ async function streamAIResponse(prompt, contextHistory = [], onChunk) {
   // Add previous history
   for (const msg of contextHistory) {
     if (msg.role === 'user' || msg.role === 'ai') {
-      contents.push({
-        role: msg.role === 'ai' ? 'model' : 'user',
-        parts: [{ text: msg.text || '' }]
-      });
+      const partObj = { text: msg.text || '' };
+      
+      // If a historical message has an attachment, include it to preserve context
+      if (msg.role === 'user' && msg.attachment && msg.attachment.fileUri) {
+        contents.push({
+          role: 'user',
+          parts: [
+            { fileData: { fileUri: msg.attachment.fileUri, mimeType: msg.attachment.mimeType } },
+            partObj
+          ]
+        });
+      } else {
+        contents.push({
+          role: msg.role === 'ai' ? 'model' : 'user',
+          parts: [partObj]
+        });
+      }
     }
   }
   
   // Add current user message
+  const currentParts = [];
+  if (attachment && attachment.fileUri) {
+    currentParts.push({ fileData: { fileUri: attachment.fileUri, mimeType: attachment.mimeType } });
+  }
+  currentParts.push({ text: prompt });
+
   contents.push({
     role: 'user',
-    parts: [{ text: prompt }]
+    parts: currentParts
   });
 
   const systemInstruction = buildSystemInstruction();

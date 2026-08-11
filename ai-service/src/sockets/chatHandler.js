@@ -9,21 +9,33 @@ function registerChatHandlers(io, socket) {
   
   socket.on('chat:send', async (data) => {
     // 1. Input Validation
-    let { text, history } = data;
+    let { text, history, attachment } = data;
     if (typeof text !== 'string' || text.trim() === '') return;
     text = xss(text.trim()).substring(0, 800); // sanitize and cap at 800 chars
 
     // Sanitize history (keep it simple, last 5 messages)
     const safeHistory = Array.isArray(history) ? history.slice(-5).map(msg => ({
       role: msg.role,
-      text: typeof msg.text === 'string' ? xss(msg.text).substring(0, 500) : ''
+      text: typeof msg.text === 'string' ? xss(msg.text).substring(0, 500) : '',
+      attachment: msg.attachment && typeof msg.attachment === 'object' ? {
+        fileUri: typeof msg.attachment.fileUri === 'string' ? msg.attachment.fileUri : null,
+        mimeType: typeof msg.attachment.mimeType === 'string' ? msg.attachment.mimeType : null,
+        name: typeof msg.attachment.name === 'string' ? xss(msg.attachment.name).substring(0, 100) : null
+      } : null
     })) : [];
+
+    // Sanitize current attachment
+    const safeAttachment = attachment && typeof attachment === 'object' ? {
+      fileUri: typeof attachment.fileUri === 'string' ? attachment.fileUri : null,
+      mimeType: typeof attachment.mimeType === 'string' ? attachment.mimeType : null,
+      name: typeof attachment.name === 'string' ? xss(attachment.name).substring(0, 100) : null
+    } : null;
 
     // 2. Signal typing started
     socket.emit('chat:typing', { status: true });
 
     try {
-      console.log(`📨 [Socket ${socket.id}] Basic Message: "${text.substring(0, 60)}"`);
+      console.log(`📨 [Socket ${socket.id}] Basic Message: "${text.substring(0, 60)}" ${safeAttachment ? '+ Attachment' : ''}`);
       
       // Stream response back using the simplified AI service
       await streamAIResponse(
@@ -31,7 +43,8 @@ function registerChatHandlers(io, socket) {
         safeHistory,
         (chunk) => {
           socket.emit('chat:chunk', { text: chunk });
-        }
+        },
+        safeAttachment
       );
 
       // Signal stream end
