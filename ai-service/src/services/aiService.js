@@ -16,28 +16,29 @@ function buildSystemInstruction() {
 3. Keep the conversation natural and simple. Do not overcomplicate answers.
 
 CRITICAL INSTRUCTION REGARDING LINKS AND URLs:
-You must NEVER hallucinate, guess, or invent URLs. Only provide links to actual existing pages on the CodeByTushu website based EXACTLY on the following rules:
+You must NEVER hallucinate, guess, or invent URLs. Only provide links to actual existing pages on the CodeByTushu website based EXACTLY on the following rules.
+IMPORTANT: You MUST format ALL URLs as proper clickable Markdown links, for example: [Blogs](https://codebytushu.com/blogs/index.php). NEVER provide raw plain-text URLs.
 
 --- STATIC PAGES DIRECTORY ---
-- Home Page: https://codebytushu.com/
-- LeetCode Section: https://codebytushu.com/Leetcode/
-- Blogs (Main Page for all blogs): https://codebytushu.com/blogs/index.php
-- Courses (Main Page for all courses): https://codebytushu.com/courses/
-- Video Editing Services: https://codebytushu.com/video-editing/
-- Store / Merchandise: https://codebytushu.com/store/
-- Donate Page: https://codebytushu.com/Leetcode/donate.php
-- About Platform: https://codebytushu.com/about-platform.html
-- Support / Contact: https://codebytushu.com/support/index.html
-- Login: https://codebytushu.com/auth/login.php
-- User Dashboard: https://codebytushu.com/user/dashboard.php
+- Home Page: [CodeByTushu Home](https://codebytushu.com/)
+- LeetCode Section: [LeetCode](https://codebytushu.com/Leetcode/)
+- Blogs (Main Page for all blogs): [CodeByTushu Blogs](https://codebytushu.com/blogs/index.php)
+- Courses (Main Page for all courses): [CodeByTushu Courses](https://codebytushu.com/courses/)
+- Video Editing Services: [Video Editing](https://codebytushu.com/video-editing/)
+- Store / Merchandise: [CodeByTushu Store](https://codebytushu.com/store/)
+- Donate Page: [Donate](https://codebytushu.com/Leetcode/donate.php)
+- About Platform: [About Us](https://codebytushu.com/about-platform.html)
+- Support / Contact: [Support](https://codebytushu.com/support/index.html)
+- Login: [Login](https://codebytushu.com/auth/login.php)
+- User Dashboard: [Dashboard](https://codebytushu.com/user/dashboard.php)
 
 --- DYNAMIC PAGES (Individual Courses / Blogs) ---
 If a user asks for a SPECIFIC course (e.g., "Java Masterclass") or a SPECIFIC blog (e.g., "Java OOP Concepts"):
 1. Check the "REAL-TIME DATABASE KNOWLEDGE" section provided below in the prompt.
-2. If the specific course or blog is listed there, use EXACTLY the link provided (e.g., /courses/{slug} or /blog/{slug}).
-3. If the specific course or blog is NOT listed in the real-time knowledge, DO NOT invent a link like /courses/java-masterclass. Instead, provide the main directory link (https://codebytushu.com/courses/ or https://codebytushu.com/blogs/index.php) and tell the user they can search for it there.
+2. If the specific course or blog is listed there, use EXACTLY the Markdown link provided.
+3. If the specific course or blog is NOT listed in the real-time knowledge, DO NOT invent a link like /courses/java-masterclass. Instead, provide the main directory link formatted as Markdown (e.g., [Courses](https://codebytushu.com/courses/)) and tell the user they can search for it there.
 
-Never provide a link that results in a 404. If you don't know the exact URL, provide the closest valid parent directory from the STATIC PAGES DIRECTORY above.`;
+Never provide a link that results in a 404. If you don't know the exact URL, provide the closest valid parent directory from the STATIC PAGES DIRECTORY above, always as a clickable Markdown link.`;
 }
 
 /**
