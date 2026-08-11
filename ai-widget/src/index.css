@@ -630,8 +630,8 @@
   gap: 10px;
   background: var(--cbt-bg-1);
   border: 1.5px solid var(--cbt-border-gold);
-  border-radius: 99px;
-  padding: 8px 10px 8px 16px;
+  border-radius: 12px;
+  padding: 6px 6px 6px 16px;
   transition: box-shadow var(--cbt-transition);
 }
 
@@ -668,7 +668,6 @@
 
 .cbt-chat-textarea::placeholder {
   color: rgba(255, 196, 0, 0.5);
-  font-style: italic;
   font-weight: 400;
   letter-spacing: 0.5px;
 }
@@ -679,9 +678,9 @@
 }
 
 .cbt-chat-send-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   background: var(--cbt-gold);
   color: #000000;
   border: none;
