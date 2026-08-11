@@ -5,6 +5,7 @@
 
 import { useRef, useState } from 'react'
 import { useChat } from '../context/ChatContext'
+import { SOCKET_URL } from '../hooks/useSocket'
 
 const MAX_CHARS = 500
 
@@ -65,9 +66,7 @@ export default function ChatInput({ onSend }) {
     reader.onload = async (ev) => {
       const base64Data = ev.target.result.split(',')[1]
       try {
-        // Find backend URL if different
-        const baseUrl = window.location.hostname === 'localhost' ? 'http://localhost:5000' : ''
-        const response = await fetch(`${baseUrl}/api/chat/upload`, {
+        const response = await fetch(`${SOCKET_URL}/api/chat/upload`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -76,7 +75,19 @@ export default function ChatInput({ onSend }) {
             data: base64Data
           })
         })
-        const data = await response.json()
+        
+        const textResponse = await response.text()
+        let data
+        try {
+          data = JSON.parse(textResponse)
+        } catch (e) {
+          throw new Error('Server returned an invalid response.')
+        }
+
+        if (!response.ok) {
+          throw new Error(data.error || `Upload failed (${response.status})`)
+        }
+        
         if (data.error) throw new Error(data.error)
         
         setAttachmentFile({

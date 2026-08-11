@@ -6,7 +6,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { io } from 'socket.io-client';
 
 // Dynamically determine the backend AI microservice URL
-const SOCKET_URL = window.location.hostname.includes('codebytushu.com')
+export const SOCKET_URL = window.location.hostname.includes('codebytushu.com')
   ? 'https://codebytushu.onrender.com' // Production Node.js Server URL (Render)
   : 'http://127.0.0.1:3001';           // Local Development URL
 
