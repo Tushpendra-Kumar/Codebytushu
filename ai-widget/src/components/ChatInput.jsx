@@ -63,7 +63,7 @@ export default function ChatInput({ onSend }) {
     }
   }, [setInputValue]);
 
-  const toggleListen = async () => {
+  const toggleListen = () => {
     if (isListening) {
       recognitionRef.current?.stop();
       setIsListening(false);
@@ -74,16 +74,8 @@ export default function ChatInput({ onSend }) {
       }
       
       try {
-        // Explicitly request browser microphone permission
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          // Stop the stream immediately, we just needed the permission grant
-          stream.getTracks().forEach(track => track.stop());
-        }
-        
-        // Start speech recognition now that permission is guaranteed
-        recognitionRef.current.start();
         setUploadError(''); // Clear any previous errors
+        recognitionRef.current.start();
       } catch (err) {
         console.error("Microphone access error:", err);
         setUploadError("Microphone access is blocked. Please allow microphone permission in your browser settings and try again.");
@@ -259,8 +251,8 @@ export default function ChatInput({ onSend }) {
           disabled={isTyping || isUploading}
         >
           {isListening ? (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff4757" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+              <rect x="7" y="7" width="10" height="10" rx="2" ry="2"></rect>
             </svg>
           ) : (
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
