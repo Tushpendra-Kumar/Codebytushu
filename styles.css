@@ -200,8 +200,13 @@ section .title::after {
     background: transparent;
     border-bottom: none;
     font-family: 'Ubuntu', sans-serif;
-    transition: padding 0.3s ease;
+    transition: padding 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
     padding-top: 20px;
+    /* GPU compositing layer — prevents CPU layout thrashing on sticky transition */
+    transform: translateZ(0);
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .cbt-navbar.sticky {
@@ -765,7 +770,6 @@ nav.navbar { overflow: visible; }
 }
 
 .scroll-up-btn {
-
     position: fixed;
     height: 45px;
     width: 42px;
@@ -782,7 +786,12 @@ nav.navbar { overflow: visible; }
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, bottom 0.3s ease, filter 0.2s ease;
+    /* GPU compositing layer */
+    transform: translateZ(0);
+    will-change: opacity, transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .scroll-up-btn.show {
@@ -3815,6 +3824,10 @@ section.home {
     filter: blur(80px);
     pointer-events: none;
     animation: cbt-pulse 15s infinite alternate ease-in-out;
+    /* GPU compositing — prevents repaint on every animation frame */
+    will-change: transform, opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 @keyframes cbt-pulse {
@@ -3832,6 +3845,10 @@ section.home {
     opacity: 0;
     pointer-events: none;
     box-shadow: 0 0 12px rgba(255, 196, 0, 0.6);
+    /* GPU compositing for smooth animation */
+    will-change: transform, opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 .cbt-streak-1 {
     top: 15%;

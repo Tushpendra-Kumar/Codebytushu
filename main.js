@@ -1,17 +1,33 @@
 $(document).ready(function(){
-    $(window).scroll(function(){
-        // sticky navbar on scroll script
-        if(this.scrollY > 20){
-            $('.navbar').addClass("sticky");
-        }else{
-            $('.navbar').removeClass("sticky");
-        }
-        
-        // scroll-up button show/hide script
-        if(this.scrollY > 300){
-            $('.scroll-up-btn, .cbt-back-to-top').addClass("show");
-        }else{
-            $('.scroll-up-btn, .cbt-back-to-top').removeClass("show");
+
+    // ─── Cache DOM selectors once (not on every scroll event) ──────────────
+    var $navbar   = $('.navbar');
+    var $scrollBtn = $('.scroll-up-btn, .cbt-back-to-top');
+    var ticking   = false;
+
+    // ─── Throttled scroll via requestAnimationFrame ─────────────────────────
+    $(window).on('scroll.cbt', function(){
+        if (!ticking) {
+            window.requestAnimationFrame(function(){
+                var scrollY = window.pageYOffset;
+
+                // sticky navbar
+                if (scrollY > 20) {
+                    $navbar.addClass('sticky');
+                } else {
+                    $navbar.removeClass('sticky');
+                }
+
+                // scroll-up button
+                if (scrollY > 300) {
+                    $scrollBtn.addClass('show');
+                } else {
+                    $scrollBtn.removeClass('show');
+                }
+
+                ticking = false;
+            });
+            ticking = true;
         }
     });
 
